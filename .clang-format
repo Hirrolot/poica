@@ -7,3 +7,4 @@ AlwaysBreakBeforeMultilineStrings: true
 AlignConsecutiveDeclarations: false
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortFunctionsOnASingleLine: Empty
