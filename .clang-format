@@ -1,0 +1,9 @@
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 80
+AlignConsecutiveMacros: true
+AlwaysBreakBeforeMultilineStrings: true
+AlignConsecutiveDeclarations: false
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
