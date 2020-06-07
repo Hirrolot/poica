@@ -72,11 +72,11 @@
     ((variant_name OF variant_type))
 
 #define MATCH(sum_ptr)                                                         \
-    for (poly poica_p_inner_sum_ptr = (poly)sum_ptr;                           \
-         poica_p_inner_sum_ptr != (poly)0; poica_p_inner_sum_ptr = (poly)0)    \
+    for (poly poica_p_sum_ptr = (poly)(sum_ptr); poica_p_sum_ptr != (poly)0;   \
+         poica_p_sum_ptr = (poly)0)                                            \
         for (bool poica_p_break_is_needed = false; !poica_p_break_is_needed;   \
              poica_p_break_is_needed = true)                                   \
-            switch (sum_ptr->tag)
+            switch ((sum_ptr)->tag)
 
 #define CASE(variant_name, var_name)                                           \
     case POICA_P_SUM_TYPE_VARIANT_NAME_AS_TAG(variant_name):                   \
@@ -85,7 +85,7 @@
         REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) *var_name =               \
             (REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)                      \
                  *)(&((REDIRECT_VARIANT_TO_OUTER_SUM_TYPE(                     \
-                          variant_name) *)poica_p_inner_sum_ptr)               \
+                          variant_name) *)poica_p_sum_ptr)                     \
                          ->data.variant_name);
 
 #define DEFAULT                                                                \
