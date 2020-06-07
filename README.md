@@ -1,6 +1,6 @@
 # poica
 
-## Algebraic data types
+## Sum types & pattern matching
 
 [[`examples/ast_evaluator.c`](https://github.com/Hirrolot/poica/blob/master/examples/ast_evaluator.c)]
 ```c
