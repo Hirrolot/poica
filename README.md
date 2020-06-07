@@ -84,6 +84,8 @@ Action: riding
 
 ### Use cases
 
+#### Error handling
+
 #### AST evaluation
 Let us have a simple arithmetical language, consisting of:
 
@@ -153,3 +155,7 @@ Output:
 ```
 -29.000000
 ```
+
+## Algebraic effects
+
+### Use cases
