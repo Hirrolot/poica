@@ -93,6 +93,17 @@ Action: riding
 ### Use cases
 
 #### Error handling
+Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error:
+
+```c
+
+```
+
+As you see, error handling, based on sum types, became far more readable, compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
+
+```c
+
+```
 
 #### AST evaluation
 Let us have a simple arithmetical language, consisting of:
