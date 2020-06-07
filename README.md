@@ -82,7 +82,9 @@ Ears size = 0.500000 meters
 Action: riding
 ```
 
-### AST evaluation
+### Use cases
+
+#### AST evaluation
 Let us have a simple arithmetical language, consisting of:
 
  - Constants of `double`;
