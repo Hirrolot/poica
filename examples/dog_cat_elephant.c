@@ -50,6 +50,19 @@ int main(void) {
     Animal cat = MkCat((Cat){.eye_colour = "green"});
     Animal elephant = MkElephant((Elephant){.ears_size = .5});
 
+    /*
+     * Kind = dog
+     * Speed = 12 km/hour
+     * Action: walking
+     *
+     * Kind = cat
+     * Eye colour = green
+     * Action: feeding
+     *
+     * Kind = elephant
+     * Ears size = 0.500000 meters
+     * Action: riding
+     */
     process_animal(dog);
     process_animal(cat);
     process_animal(elephant);
