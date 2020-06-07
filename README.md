@@ -24,11 +24,21 @@ SUM(
 
 double eval(const struct Expr *expr) {
     MATCH(expr) {
-        CASE(MkConst, number) { return *number; }
-        CASE(MkAdd, add) { return eval(add->left) + eval(add->right); }
-        CASE(MkSub, sub) { return eval(sub->left) - eval(sub->right); }
-        CASE(MkMul, mul) { return eval(mul->left) * eval(mul->right); }
-        CASE(MkDiv, div) { return eval(div->left) / eval(div->right); }
+        CASE(MkConst, number) {
+            return *number;
+        }
+        CASE(MkAdd, add) {
+            return eval(add->left) + eval(add->right);
+        }
+        CASE(MkSub, sub) {
+            return eval(sub->left) - eval(sub->right);
+        }
+        CASE(MkMul, mul) {
+            return eval(mul->left) * eval(mul->right);
+        }
+        CASE(MkDiv, div) {
+            return eval(div->left) / eval(div->right);
+        }
     }
 }
 
@@ -45,4 +55,6 @@ int main(void) {
      */
     printf("%f\n", eval(&expr));
 }
+
+#undef OP
 ```
