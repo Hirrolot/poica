@@ -83,9 +83,15 @@ Action: riding
 ```
 
 ### AST evaluation
-One practical use case of sum types is [AST] evaluation:
+Let us have a simple arithmetical language, consisting of:
 
-[AST]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+ - Constants of `double`;
+ - Expressions: `expr1 (+ | - | * | /) expr2`.
+
+The good news are that sum types can be used to represent the hierarchical structure (an ordered [tree]) of [ASTs], and pattern matching is a technique to evaluate them:
+
+[tree]: https://en.wikipedia.org/wiki/Tree_%28data_structure%29
+[ASTs]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
 
 [[`examples/ast_evaluator.c`](https://github.com/Hirrolot/poica/blob/master/examples/ast_evaluator.c)]
 ```c
