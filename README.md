@@ -86,7 +86,7 @@ Action: riding
 Let us have a simple arithmetical language, consisting of:
 
  - Constants of `double`;
- - Expressions: `expr1 (+ | - | * | /) expr2`.
+ - Expressions: either `expr1 (+ | - | * | /) expr2` or a constant.
 
 The good news are that sum types can be used to represent the hierarchical structure (an ordered [tree]) of [ASTs], and pattern matching is a technique to evaluate them:
 
