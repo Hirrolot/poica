@@ -66,6 +66,22 @@ int main(void) {
 }
 ```
 
+Output:
+
+```
+Kind = dog
+Speed = 12 km/hour
+Action: walking
+
+Kind = cat
+Eye colour = green
+Action: feeding
+
+Kind = elephant
+Ears size = 0.500000 meters
+Action: riding
+```
+
 ### AST evaluation
 One practical use case of sum types is [AST] evaluation:
 
@@ -118,12 +134,14 @@ int main(void) {
     Expr expr = OP(Add, MkConst(53),
                    OP(Sub, OP(Div, MkConst(155), MkConst(5)), MkConst(113)));
 
-    /*
-     * Output:
-     * -29.000000
-     */
     printf("%f\n", eval(&expr));
 }
 
 #undef OP
+```
+
+Output:
+
+```
+-29.000000
 ```
