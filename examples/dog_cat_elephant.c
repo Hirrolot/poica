@@ -16,24 +16,15 @@ typedef struct {
 
 // clang-format off
 SUM(
-    AnimalKind,
+    Animal,
     VARIANT(MkDog OF Dog)
     VARIANT(MkCat OF Cat)
     VARIANT(MkElephant OF Elephant)
 );
 // clang-format on
 
-typedef struct {
-    const char *name;
-    unsigned age;
-    AnimalKind kind;
-} Animal;
-
 void process_animal(Animal animal) {
-    printf("Age = %u\n", animal.age);
-    printf("Name = %s\n", animal.name);
-
-    MATCH(&animal.kind) {
+    MATCH(&animal) {
         CASE(MkDog, dog) {
             printf("Kind = dog\n");
             printf("Speed = %u km/hour\n", dog->speed);
@@ -55,23 +46,9 @@ void process_animal(Animal animal) {
 }
 
 int main(void) {
-    // clang-format off
-    Animal dog = {
-        .name = "Pitty",
-        .age = 2,
-        .kind = MkDog((Dog){.speed = 12})
-    };
-    Animal cat = {
-        .name = "Dazy",
-        .age = 5,
-        .kind = MkCat((Cat){.eye_colour = "green"})
-    };
-    Animal elephant = {
-        .name = "Hurry",
-        .age = 2,
-        .kind = MkElephant((Elephant){.ears_size = .5})
-    };
-    // clang-format on
+    Animal dog = MkDog((Dog){.speed = 12});
+    Animal cat = MkCat((Cat){.eye_colour = "green"});
+    Animal elephant = MkElephant((Elephant){.ears_size = .5});
 
     process_animal(dog);
     process_animal(cat);
