@@ -1,5 +1,13 @@
 # poica
 
+## Table of contents
+  - [Sum types & pattern matching](#sum-types--pattern-matching)
+    - [Use cases](#use-cases)
+      - [Error handling](#error-handling)
+      - [AST evaluation](#ast-evaluation)
+  - [Algebraic effects](#algebraic-effects)
+    - [Use cases](#use-cases-1)
+
 ## Sum types & pattern matching
 
 Using [sum types] (aka tagged unions) together with [pattern matching], we can _naturally_ map the problem domain to the actual code. Simply put:
