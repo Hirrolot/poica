@@ -9,6 +9,9 @@
 
 #include <boost/preprocessor.hpp>
 
+#define MATCHES(sum_ptr, variant_name)                                         \
+    ((sum_ptr)->tag == POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name))
+
 #define MATCH(sum_ptr)                                                         \
     for (poly poica_p_sum_ptr = (poly)(sum_ptr); poica_p_sum_ptr != (poly)0;   \
          poica_p_sum_ptr = (poly)0)                                            \
