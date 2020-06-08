@@ -95,7 +95,7 @@ Action: riding
 #### Error handling
 Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error.
 
-Let's first define a wrapper around the [`socket`] syscall. Here are sum types:
+Let's first define a wrapper around the [`socket`] syscall. Here are the sum types:
 
 [`socket`]: https://man7.org/linux/man-pages/man2/socket.2.html
 
@@ -120,7 +120,7 @@ SUM(
 
 ```
 
-`UnitType` is a [type that contains the only one value](https://en.wikipedia.org/wiki/Unit_type) (holds no useful information). Alright, in future we need to report a user that an error has occurred. This is done by `print_socket_err`:
+`UnitType` is a [type that contains the only one value](https://en.wikipedia.org/wiki/Unit_type) (holds no useful information). Alright, here are the procedures acting with the above types:
 
 ```c
 #define CHECK(error_name, var_name)                                            \
@@ -144,11 +144,7 @@ void print_socket_err(const SocketErr *err) {
 }
 
 #undef CHECK
-```
 
-And the wrapper itself:
-
-```c
 #define CHECK(error_name)                                                      \
     case error_name:                                                           \
         return MkErr(Mk##error_name(unit_type()));
