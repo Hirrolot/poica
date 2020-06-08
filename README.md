@@ -95,7 +95,7 @@ Action: riding
 #### Error handling
 Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error.
 
-Let's first define a wrapper around the [`socket`] syscall. Here are the sum types:
+Let's define a wrapper around the [`socket`] syscall to understand the differences:
 
 [`socket`]: https://man7.org/linux/man-pages/man2/socket.2.html
 
@@ -117,11 +117,7 @@ SUM(
     VARIANT(MkOk OF int)
     VARIANT(MkErr OF SocketErr)
 );
-```
 
-Alright, so here are the procedures acting with the above types:
-
-```c
 #define CHECK(error_name)                                                      \
     CASE(Mk##error_name) {                                                     \
         puts(#error_name);                                                     \
@@ -169,11 +165,7 @@ SocketRes socket_wrapper(int domain, int type, int protocol) {
 }
 
 #undef CHECK
-```
 
-Let's test our `socket_wrapper`:
-
-```c
 int main(void) {
     SocketRes res = socket_wrapper(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -189,17 +181,23 @@ int main(void) {
 }
 ```
 
-As you see, error handling, based on sum types, became far more readable (and thus less error-prone), compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
+Compare the code in `main` to the usual approach with a procedure returning an integral number, some range of which designates a succeses and another range - a failure:
 
 ```c
 int fd;
+
 if ((fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
-    // Handle errno...
+    // -1 is failure! 
 } else {
-    // Process fd...
-    close(fd);
+    // [0; ...] is success.
 }
 ```
+
+Sum types have two significant advantages over "magic" numbers:
+
+ - **Readability.** Such identifiers as `MkOk` and `MkErr` are more for humans, not for machines.
+
+ - **Exhaustiveness checking.** A compiler ensures that all the cases of `SocketRes` are handled. However, it's impossible with magic numbers, since they have no actual meaning for a compiler.
 
 #### AST evaluation
 Let us have a simple arithmetical language, consisting of:
