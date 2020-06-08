@@ -132,16 +132,9 @@ SocketRes socket_wrapper(int domain, int type, int protocol) {
             return MkErr(MkEACCES());
         case EAFNOSUPPORT:
             return MkErr(MkEAFNOSUPPORT());
-        case EINVAL:
-            return MkErr(MkEINVAL());
-        case EMFILE:
-            return MkErr(MkEMFILE());
-        case ENOBUFS:
-            return MkErr(MkENOBUFS());
-        case ENOMEM:
-            return MkErr(MkENOMEM());
-        case EPROTONOSUPPORT:
-            return MkErr(MkEPROTONOSUPPORT());
+
+        // Repeating stuff omitted...
+
         default:
             return MkErr(MkOtherErr(errno));
         }
