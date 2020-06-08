@@ -93,16 +93,115 @@ Action: riding
 ### Use cases
 
 #### Error handling
-Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error:
+Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error. Let's first define a wrapper around the [`socket`] syscall. Here are sum types:
+
+[`socket`]: https://man7.org/linux/man-pages/man2/socket.2.html
 
 ```c
+SUM(
+    SocketErr,
+    VARIANT(MkEACCES OF UnitType)
+    VARIANT(MkEAFNOSUPPORT OF UnitType)
+    VARIANT(MkEINVAL OF UnitType)
+    VARIANT(MkEMFILE OF UnitType)
+    VARIANT(MkENOBUFS OF UnitType)
+    VARIANT(MkENOMEM OF UnitType)
+    VARIANT(MkEPROTONOSUPPORT OF UnitType)
+    VARIANT(MkOtherErr OF int)
+);
 
+SUM(
+    SocketRes,
+    VARIANT(MkOk OF int)
+    VARIANT(MkErr OF SocketErr)
+);
+
+```
+
+In future we need to report a user that an error occurred. This is done by `print_socket_err`:
+
+```c
+#define CHECK(error_name, var_name)                                            \
+    CASE(Mk##error_name, var_name) {                                           \
+        puts(#error_name);                                                     \
+    }
+
+void print_socket_err(const SocketErr *err) {
+    MATCH(err) {
+        CHECK(EACCES, _e1)
+        CHECK(EAFNOSUPPORT, _e2)
+        CHECK(EINVAL, _e3)
+        CHECK(EMFILE, _e4)
+        CHECK(ENOBUFS, _e5)
+        CHECK(ENOMEM, _e6)
+        CHECK(EPROTONOSUPPORT, _e7)
+        CASE(MkOtherErr, err_number) {
+            printf("Other: %d\n", *err_number);
+        }
+    }
+}
+
+#undef CHECK
+```
+
+And the [`socket`] wrapper itself:
+
+```c
+#define CHECK(error_name)                                                      \
+    case error_name:                                                           \
+        return MkErr(Mk##error_name(unit_type()));
+
+SocketRes socket_wrapper(int domain, int type, int protocol) {
+    int fd;
+
+    if ((fd = socket(domain, type, protocol)) == -1) {
+        switch (errno) {
+            CHECK(EACCES)
+            CHECK(EAFNOSUPPORT)
+            CHECK(EINVAL)
+            CHECK(EMFILE)
+            CHECK(ENOBUFS)
+            CHECK(ENOMEM)
+            CHECK(EPROTONOSUPPORT)
+        default:
+            return MkErr(MkOtherErr(errno));
+        }
+    } else {
+        return MkOk(fd);
+    }
+}
+
+#undef CHECK
+```
+
+Now we are ready to use `socket_wrapper` as many times as we want instead of the usual [`socket`]:
+
+```c
+int main(void) {
+    SocketRes res = socket_wrapper(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+    MATCH(&res) {
+        CASE(MkOk, fd) {
+            printf("fd = %d\n", *fd);
+            close(*fd);
+        }
+        CASE(MkErr, error) {
+            print_socket_err((const SocketErr *)error);
+        }
+    }
+}
 ```
 
 As you see, error handling, based on sum types, became far more readable, compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
 
 ```c
-
+int fd;
+if ((fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
+    // Handle errno...
+} else {
+    // Process fd...
+    close(fd);
+}
 ```
 
 #### AST evaluation
