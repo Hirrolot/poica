@@ -120,44 +120,25 @@ SUM(
     VARIANT(MkErr OF SocketErr)
 );
 
-#define CHECK(error_name)                                                      \
-    CASE(Mk##error_name) {                                                     \
-        puts(#error_name);                                                     \
-    }
-
-void print_socket_err(const SocketErr *err) {
-    MATCH(err) {
-        CHECK(EACCES)
-        CHECK(EAFNOSUPPORT)
-        CHECK(EINVAL)
-        CHECK(EMFILE)
-        CHECK(ENOBUFS)
-        CHECK(ENOMEM)
-        CHECK(EPROTONOSUPPORT)
-        CASE(MkOtherErr, err_number) {
-            printf("Other: %d\n", *err_number);
-        }
-    }
-}
-
-#undef CHECK
-
-#define CHECK(error_name)                                                      \
-    case error_name:                                                           \
-        return MkErr(Mk##error_name());
-
 SocketRes socket_wrapper(int domain, int type, int protocol) {
-    int fd;
+    int fd = socket(domain, type, protocol);
 
-    if ((fd = socket(domain, type, protocol)) == -1) {
+    if (fd == -1) {
         switch (errno) {
-            CHECK(EACCES)
-            CHECK(EAFNOSUPPORT)
-            CHECK(EINVAL)
-            CHECK(EMFILE)
-            CHECK(ENOBUFS)
-            CHECK(ENOMEM)
-            CHECK(EPROTONOSUPPORT)
+        case EACCES:
+            return MkErr(MkEACCES());
+        case EAFNOSUPPORT:
+            return MkErr(MkEAFNOSUPPORT());
+        case EINVAL:
+            return MkErr(MkEINVAL());
+        case EMFILE:
+            return MkErr(MkEMFILE());
+        case ENOBUFS:
+            return MkErr(MkENOBUFS());
+        case ENOMEM:
+            return MkErr(MkENOMEM());
+        case EPROTONOSUPPORT:
+            return MkErr(MkEPROTONOSUPPORT());
         default:
             return MkErr(MkOtherErr(errno));
         }
@@ -165,8 +146,6 @@ SocketRes socket_wrapper(int domain, int type, int protocol) {
         return MkOk(fd);
     }
 }
-
-#undef CHECK
 
 int main(void) {
     SocketRes res = socket_wrapper(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -177,7 +156,8 @@ int main(void) {
             close(*fd);
         }
         CASE(MkErr, error) {
-            print_socket_err((const SocketErr *)error);
+            puts("An error has occurred!");
+            // Handle `error` here...
         }
     }
 }
