@@ -119,7 +119,7 @@ SUM(
 );
 ```
 
-`UnitType` is a [type that contains the only one value](https://en.wikipedia.org/wiki/Unit_type) (i.e. holds no useful information). Alright, so here are the procedures acting with the above types:
+Alright, so here are the procedures acting with the above types:
 
 ```c
 #define CHECK(error_name)                                                      \
