@@ -124,23 +124,7 @@ SUM(
 );
 
 SocketRes socket_wrapper(int domain, int type, int protocol) {
-    int fd = socket(domain, type, protocol);
-
-    if (fd == -1) {
-        switch (errno) {
-        case EACCES:
-            return MkErr(MkEACCES());
-        case EAFNOSUPPORT:
-            return MkErr(MkEAFNOSUPPORT());
-
-        // Repeating stuff omitted...
-
-        default:
-            return MkErr(MkOtherErr(errno));
-        }
-    } else {
-        return MkOk(fd);
-    }
+    // The body is omitted...
 }
 
 int main(void) {
