@@ -176,7 +176,7 @@ SocketRes socket_wrapper(int domain, int type, int protocol) {
 #undef CHECK
 ```
 
-Now we are ready to use `socket_wrapper` as many times as we want instead of the usual [`socket`]:
+Let's test our `socket_wrapper`:
 
 ```c
 int main(void) {
@@ -194,7 +194,7 @@ int main(void) {
 }
 ```
 
-As you see, error handling, based on sum types, became far more readable, compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
+As you see, error handling, based on sum types, became far more readable (and thus less error-prone), compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
 
 ```c
 int fd;
