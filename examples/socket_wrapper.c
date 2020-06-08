@@ -21,38 +21,7 @@ SUM(
     VARIANT(MkEPROTONOSUPPORT OF UnitType)
     VARIANT(MkOtherErr OF int)
 );
-// clang-format on
 
-void print_socket_err(const SocketErr *err) {
-    MATCH(err) {
-        CASE(MkEACCES, _e1) {
-            puts("MkEACCESS");
-        }
-        CASE(MkEAFNOSUPPORT, _e2) {
-            puts("MkEAFNOSUPPORT");
-        }
-        CASE(MkEINVAL, _e3) {
-            puts("MkEINVAL");
-        }
-        CASE(MkEMFILE, _e4) {
-            puts("MkEMFILE");
-        }
-        CASE(MkENOBUFS, _e5) {
-            puts("MkENOBUFS");
-        }
-        CASE(MkENOMEM, _e6) {
-            puts("MkENOMEM");
-        }
-        CASE(MkEPROTONOSUPPORT, _e7) {
-            puts("MkEPROTONOSUPPORT");
-        }
-        CASE(MkOtherErr, err_number) {
-            printf("Other: %d\n", *err_number);
-        }
-    }
-}
-
-// clang-format off
 SUM(
     SocketRes,
     VARIANT(MkOk OF int)
@@ -60,22 +29,44 @@ SUM(
 );
 // clang-format on
 
+#define CHECK(error_name, var_name)                                            \
+    CASE(Mk##error_name, var_name) {                                           \
+        puts(#error_name);                                                     \
+    }
+
+void print_socket_err(const SocketErr *err) {
+    MATCH(err) {
+        CHECK(EACCES, _e1)
+        CHECK(EAFNOSUPPORT, _e2)
+        CHECK(EINVAL, _e3)
+        CHECK(EMFILE, _e4)
+        CHECK(ENOBUFS, _e5)
+        CHECK(ENOMEM, _e6)
+        CHECK(EPROTONOSUPPORT, _e7)
+        CASE(MkOtherErr, err_number) {
+            printf("Other: %d\n", *err_number);
+        }
+    }
+}
+
+#undef CHECK
+
 #define CHECK(error_name)                                                      \
     case error_name:                                                           \
-        return MkErr(Mk##error_name(unit_type()))
+        return MkErr(Mk##error_name(unit_type()));
 
 SocketRes socket_wrapper(int domain, int type, int protocol) {
     int fd;
 
     if ((fd = socket(domain, type, protocol)) == -1) {
         switch (errno) {
-            CHECK(EACCES);
-            CHECK(EAFNOSUPPORT);
-            CHECK(EINVAL);
-            CHECK(EMFILE);
-            CHECK(ENOBUFS);
-            CHECK(ENOMEM);
-            CHECK(EPROTONOSUPPORT);
+            CHECK(EACCES)
+            CHECK(EAFNOSUPPORT)
+            CHECK(EINVAL)
+            CHECK(EMFILE)
+            CHECK(ENOBUFS)
+            CHECK(ENOMEM)
+            CHECK(EPROTONOSUPPORT)
         default:
             return MkErr(MkOtherErr(errno));
         }
