@@ -1,5 +1,5 @@
-#include "../src/obj.h"
-#include "../src/sum_type.h"
+#include "../include/obj.h"
+#include "../include/sum_type.h"
 
 #include <stdio.h>
 

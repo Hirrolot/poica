@@ -194,8 +194,8 @@ The good news are that sum types can be used to represent the hierarchical struc
 
 [[`examples/ast_evaluator.c`](https://github.com/Hirrolot/poica/blob/master/examples/ast_evaluator.c)]
 ```c
-#include "../src/obj.h"
-#include "../src/sum_type.h"
+#include "../include/obj.h"
+#include "../include/sum_type.h"
 
 #include <stdio.h>
 

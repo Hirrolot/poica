@@ -1,4 +1,4 @@
-#include "../src/sum_type.h"
+#include "../include/sum_type.h"
 
 #include <errno.h>
 #include <stdio.h>

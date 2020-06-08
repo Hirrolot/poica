@@ -1,4 +1,4 @@
-#include "../src/obj.h"
+#include "../include/obj.h"
 
 typedef struct {
     int x, y;
