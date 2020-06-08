@@ -1,5 +1,4 @@
 #include "../src/sum_type.h"
-#include "../src/unit_type.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -12,13 +11,13 @@
 // clang-format off
 SUM(
     SocketErr,
-    VARIANT(MkEACCES OF UnitType)
-    VARIANT(MkEAFNOSUPPORT OF UnitType)
-    VARIANT(MkEINVAL OF UnitType)
-    VARIANT(MkEMFILE OF UnitType)
-    VARIANT(MkENOBUFS OF UnitType)
-    VARIANT(MkENOMEM OF UnitType)
-    VARIANT(MkEPROTONOSUPPORT OF UnitType)
+    VARIANT(MkEACCES)
+    VARIANT(MkEAFNOSUPPORT)
+    VARIANT(MkEINVAL)
+    VARIANT(MkEMFILE)
+    VARIANT(MkENOBUFS)
+    VARIANT(MkENOMEM)
+    VARIANT(MkEPROTONOSUPPORT)
     VARIANT(MkOtherErr OF int)
 );
 
@@ -29,20 +28,20 @@ SUM(
 );
 // clang-format on
 
-#define CHECK(error_name, var_name)                                            \
-    CASE(Mk##error_name, var_name) {                                           \
+#define CHECK(error_name)                                                      \
+    CASE(Mk##error_name) {                                                     \
         puts(#error_name);                                                     \
     }
 
 void print_socket_err(const SocketErr *err) {
     MATCH(err) {
-        CHECK(EACCES, _e1)
-        CHECK(EAFNOSUPPORT, _e2)
-        CHECK(EINVAL, _e3)
-        CHECK(EMFILE, _e4)
-        CHECK(ENOBUFS, _e5)
-        CHECK(ENOMEM, _e6)
-        CHECK(EPROTONOSUPPORT, _e7)
+        CHECK(EACCES)
+        CHECK(EAFNOSUPPORT)
+        CHECK(EINVAL)
+        CHECK(EMFILE)
+        CHECK(ENOBUFS)
+        CHECK(ENOMEM)
+        CHECK(EPROTONOSUPPORT)
         CASE(MkOtherErr, err_number) {
             printf("Other: %d\n", *err_number);
         }
@@ -53,7 +52,7 @@ void print_socket_err(const SocketErr *err) {
 
 #define CHECK(error_name)                                                      \
     case error_name:                                                           \
-        return MkErr(Mk##error_name(unit_type()));
+        return MkErr(Mk##error_name());
 
 SocketRes socket_wrapper(int domain, int type, int protocol) {
     int fd;

@@ -5,6 +5,5 @@
 #include "obj.h"
 #include "poly.h"
 #include "sum_type.h"
-#include "unit_type.h"
 
 #endif // POICA_POICA_H
