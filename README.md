@@ -99,6 +99,8 @@ Let's define a wrapper around the [`socket`] syscall to understand the differenc
 
 [`socket`]: https://man7.org/linux/man-pages/man2/socket.2.html
 
+
+[[`examples/socket_wrapper.c`](https://github.com/Hirrolot/poica/blob/master/examples/socket_wrapper.c)]
 ```c
 SUM(
     SocketErr,
