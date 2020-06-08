@@ -146,7 +146,7 @@ void print_socket_err(const SocketErr *err) {
 #undef CHECK
 ```
 
-And the [`socket`] wrapper itself:
+And the wrapper itself:
 
 ```c
 #define CHECK(error_name)                                                      \
