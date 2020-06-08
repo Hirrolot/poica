@@ -74,7 +74,8 @@ int main(void) {
 }
 ```
 
-Output:
+<details>
+  <summary>Output</summary>
 
 ```
 Kind = dog
@@ -89,6 +90,8 @@ Kind = elephant
 Ears size = 0.500000 meters
 Action: riding
 ```
+
+</details>
 
 ### Use cases
 
@@ -245,11 +248,14 @@ int main(void) {
 #undef OP
 ```
 
-Output:
+<details>
+  <summary>Output</summary>
 
 ```
 -29.000000
 ```
+
+</details>
 
 ## Algebraic effects
 
