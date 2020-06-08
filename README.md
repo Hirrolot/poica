@@ -44,19 +44,19 @@ SUM(
 void process_animal(Animal animal) {
     MATCH(&animal) {
         CASE(MkDog, dog) {
-            printf("Kind = dog\n");
+            printf("Dog\n");
             printf("Speed = %u km/hour\n", dog->speed);
-            printf("Action: walking\n");
+            printf("Walking...\n");
         }
         CASE(MkCat, cat) {
-            printf("Kind = cat\n");
+            printf("Cat\n");
             printf("Eye colour = %s\n", cat->eye_colour);
-            printf("Action: feeding\n");
+            printf("Feeding...\n");
         }
         CASE(MkElephant, elephant) {
-            printf("Kind = elephant\n");
+            printf("Elephant\n");
             printf("Ears size = %f meters\n", elephant->ears_size);
-            printf("Action: riding\n");
+            printf("Riding...\n");
         }
     }
 
@@ -78,17 +78,17 @@ int main(void) {
   <summary>Output</summary>
 
 ```
-Kind = dog
+Dog
 Speed = 12 km/hour
-Action: walking
+Walking...
 
-Kind = cat
+Cat
 Eye colour = green
-Action: feeding
+Feeding...
 
-Kind = elephant
+Elephant
 Ears size = 0.500000 meters
-Action: riding
+Riding...
 ```
 
 </details>
