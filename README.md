@@ -93,7 +93,9 @@ Action: riding
 ### Use cases
 
 #### Error handling
-Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error. Let's first define a wrapper around the [`socket`] syscall. Here are sum types:
+Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error.
+
+Let's first define a wrapper around the [`socket`] syscall. Here are sum types:
 
 [`socket`]: https://man7.org/linux/man-pages/man2/socket.2.html
 
