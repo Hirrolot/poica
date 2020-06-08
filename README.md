@@ -1,5 +1,13 @@
 # poica
 
+## Table of contents
+  - [Sum types & pattern matching](#sum-types--pattern-matching)
+    - [Use cases](#use-cases)
+      - [Error handling](#error-handling)
+      - [AST evaluation](#ast-evaluation)
+  - [Algebraic effects](#algebraic-effects)
+    - [Use cases](#use-cases-1)
+
 ## Sum types & pattern matching
 
 Using [sum types] (aka tagged unions) together with [pattern matching], we can _naturally_ map the problem domain to the actual code. Simply put:
@@ -82,7 +90,22 @@ Ears size = 0.500000 meters
 Action: riding
 ```
 
-### AST evaluation
+### Use cases
+
+#### Error handling
+Error handling in C is usually inconsistent, error-prone, and even somewhat cryptic. However, a sum type can represent either a successful or a failure value, and pattern matching can be used to handle an error:
+
+```c
+
+```
+
+As you see, error handling, based on sum types, became far more readable, compared to the ordinary approach with "magic" numbers, designating either a success or a failure:
+
+```c
+
+```
+
+#### AST evaluation
 Let us have a simple arithmetical language, consisting of:
 
  - Constants of `double`;
@@ -151,3 +174,7 @@ Output:
 ```
 -29.000000
 ```
+
+## Algebraic effects
+
+### Use cases
