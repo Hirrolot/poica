@@ -120,7 +120,7 @@ SUM(
 
 ```
 
-You can think of `UnitType` as of a [type that contains the only one value](https://en.wikipedia.org/wiki/Unit_type). Alright, in future we need to report a user that an error has occurred. This is done by `print_socket_err`:
+`UnitType` is a [type that contains the only one value](https://en.wikipedia.org/wiki/Unit_type) (holds no useful information). Alright, in future we need to report a user that an error has occurred. This is done by `print_socket_err`:
 
 ```c
 #define CHECK(error_name, var_name)                                            \
