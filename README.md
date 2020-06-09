@@ -10,6 +10,8 @@
       - [AST evaluation](#ast-evaluation)
   - [Algebraic effects](#algebraic-effects)
     - [Use cases](#use-cases-2)
+      - [Exceptions](#exceptions)
+      - [Asynchronous programming](#asynchronous-programming)
 
 ## Tuples
 
@@ -271,3 +273,7 @@ int main(void) {
 ## Algebraic effects
 
 ### Use cases
+
+#### Exceptions
+
+#### Asynchronous programming
