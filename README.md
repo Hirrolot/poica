@@ -1,46 +1,17 @@
 # poica
 
 ## Table of contents
-  - [Tuples](#tuples)
-    - [Use cases](#use-cases)
-      - [Iteration on fields](#iteration-on-fields)
   - [Sum types & pattern matching](#sum-types--pattern-matching)
-    - [Use cases](#use-cases-1)
+    - [Use cases](#use-cases)
       - [Error handling](#error-handling)
       - [AST evaluation](#ast-evaluation)
+  - [Tuples](#tuples)
+    - [Use cases](#use-cases-1)
+      - [Iteration on fields](#iteration-on-fields)
   - [Algebraic effects](#algebraic-effects)
     - [Use cases](#use-cases-2)
       - [Exceptions](#exceptions)
       - [Asynchronous programming](#asynchronous-programming)
-
-## Tuples
-
-A tuple is just a structure with fields named `_0`, `_1`, ..., `_N`. You can define it both outside and inside procedures (aka _in-place_), like this:
-
-```c
-#include "../include/tuple.h"
-
-#include <stdio.h>
-
-int main(void) {
-    TUPLE(const char *, int, double) tuple = {"Hello, tuples!", 123, 1885.1191};
-
-    printf("('%s', %d, %f)\n", tuple._0, tuple._1, tuple._2);
-}
-```
-
-<details>
-  <summary>Output</summary>
-
-```
-('Hello, tuples!', 123, 1885.119100)
-```
-
-</details>
-
-### Use cases
-
-#### Iteration on fields
 
 ## Sum types & pattern matching
 
@@ -264,6 +235,90 @@ int main(void) {
 
 ```
 -29.000000
+```
+
+</details>
+
+## Tuples
+
+A tuple is just a structure with fields named `_0`, `_1`, ..., `_N`. You can define it both outside and inside procedures (aka _in-place_), like this:
+
+```c
+#include "../include/tuple.h"
+
+#include <stdio.h>
+
+int main(void) {
+    TUPLE(const char *, int, double) tuple = {"Hello, tuples!", 123, 1885.1191};
+
+    printf("('%s', %d, %f)\n", tuple._0, tuple._1, tuple._2);
+}
+```
+
+<details>
+  <summary>Output</summary>
+
+```
+('Hello, tuples!', 123, 1885.119100)
+```
+
+</details>
+
+### Use cases
+
+#### Iteration on fields
+
+Tuples can be used for advanced [metaprogramming], typically using [Boost/Preprocessor]. As an example, here's how you can iterate over tuple's fields to display them:
+
+[metaprogramming]: https://en.wikipedia.org/wiki/Metaprogramming
+[Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/index.html
+
+```c
+#include "../include/tuple.h"
+
+#include <stdbool.h>
+#include <stdio.h>
+
+#include <boost/preprocessor.hpp>
+
+#define ITER_FIELDS(macro, val, start_idx, end_idx)                            \
+    BOOST_PP_REPEAT_FROM_TO(start_idx, end_idx, INVOKE, (macro)(val))          \
+    do {                                                                       \
+    } while (false)
+
+#define INVOKE(_z, i, data) MACRO(data)(i, VAL(data))
+
+#define MACRO(data) BOOST_PP_SEQ_ELEM(0, data)
+#define VAL(data)   BOOST_PP_SEQ_ELEM(1, data)
+
+#define CONSUME(i, val)                                                        \
+    printf("tuple._%d = ", (i));                                               \
+    printf(SPECIFIER(BOOST_PP_CAT(val._, i)), BOOST_PP_CAT(val._, i));         \
+    puts("");
+
+#define SPECIFIER(val)                                                         \
+    _Generic((val), int : "%d", double : "%f", const char * : "'%s'", float * : "%p")
+
+int main(void) {
+    TUPLE(int, double, const char *, double, int, float *)
+    tuple = {
+        151, .2525, "Black magic", 14.1411, 64, (float *)0x1383755,
+    };
+
+    ITER_FIELDS(CONSUME, tuple, 0, 6);
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+tuple._0 = 151
+tuple._1 = 0.252500
+tuple._2 = 'Black magic'
+tuple._3 = 14.141100
+tuple._4 = 64
+tuple._5 = 0x1383755
 ```
 
 </details>
