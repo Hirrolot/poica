@@ -8,11 +8,11 @@ A programming language on top of C macros, supporting many modern concepts: [ADT
 [tuples]: https://en.wikipedia.org/wiki/Tuple#Type_theory
 
 ## Table of contents
-  - [Sum types & pattern matching](#sum-types--pattern-matching)
+  - [ADTs](#adts)
   - [Tuples](#tuples)
   - [Algebraic effects](#algebraic-effects)
 
-## Sum types & pattern matching
+## ADTs
 
 Using [sum types] (aka tagged unions) together with [pattern matching], we can _naturally_ map the problem domain to the actual code. Simply put:
 
