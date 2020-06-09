@@ -6,8 +6,8 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_SUM_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)              \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_SUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE,      \
-                          _data, variants)
+    BOOST_PP_SEQ_FOR_EACH(                                                     \
+        POICA_P_SUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE, _data, variants)
 
 #define POICA_P_SUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE(_r, _data, variant)     \
     POICA_P_SUM_OVERLOAD_ON_VARIANT(                                           \

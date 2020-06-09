@@ -42,7 +42,8 @@ double eval(const struct Expr *expr) {
     Mk##op((ExprPair){OBJ(left OF struct Expr), OBJ(right OF struct Expr)})
 
 int main(void) {
-    Expr expr = OP(Add, MkConst(53),
+    Expr expr = OP(Add,
+                   MkConst(53),
                    OP(Sub, OP(Div, MkConst(155), MkConst(5)), MkConst(113)));
 
     /*

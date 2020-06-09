@@ -297,7 +297,12 @@ Tuples can be used for advanced [metaprogramming], typically using [Boost/Prepro
 int main(void) {
     TUPLE(int, double, const char *, double, int, float *)
     tuple = {
-        151, .2525, "Black magic", 14.1411, 64, (float *)0x1383755,
+        151,
+        .2525,
+        "Black magic",
+        14.1411,
+        64,
+        (float *)0x1383755,
     };
 
     ITER_FIELDS(CONSUME, tuple, 6);

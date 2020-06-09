@@ -8,3 +8,4 @@ AlignConsecutiveDeclarations: false
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortFunctionsOnASingleLine: Empty
+BinPackArguments: false
