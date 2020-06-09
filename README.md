@@ -15,9 +15,7 @@
 
 ## Tuples
 
-A tuple is just an [anonymous structure] with field names `_0`, `_1`, ..., `_N`. The idea is that you can define it _in-place_, right in a body of a procedure, like this:
-
-[anonymous structure]: https://en.cppreference.com/w/c/language/struct
+A tuple is just a structure with fields named `_0`, `_1`, ..., `_N`. You can define it both outside and inside procedures (aka _in-place_), like this:
 
 ```c
 #include "../include/tuple.h"
