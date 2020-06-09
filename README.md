@@ -281,18 +281,18 @@ Tuples can be used for advanced [metaprogramming], typically using [Boost/Prepro
 
 #include <boost/preprocessor.hpp>
 
-#define ITER_FIELDS(macro, val, count)                                         \
-    BOOST_PP_REPEAT(count, DISPLAY_FIELD, val)                                 \
+#define ITER_FIELDS(macro, tuple, count)                                       \
+    BOOST_PP_REPEAT(count, DISPLAY_FIELD, tuple)                               \
     do {                                                                       \
     } while (false)
 
-#define DISPLAY_FIELD(_z, i, val)                                              \
-    printf("tuple._%d = ", (i));                                               \
-    printf(SPECIFIER(TUPLE_FIELD(val, i)), TUPLE_FIELD(val, i));               \
+#define DISPLAY_FIELD(_z, i, tuple)                                            \
+    printf(#tuple "._%d = ", (i));                                             \
+    printf(SPECIFIER(TUPLE_FIELD(tuple, i)), TUPLE_FIELD(tuple, i));           \
     puts("");
 
-#define SPECIFIER(val)                                                         \
-    _Generic((val), int : "%d", double : "%f", const char * : "'%s'", float * : "%p")
+#define SPECIFIER(field)                                                       \
+    _Generic((field), int : "%d", double : "%f", const char * : "'%s'", float * : "%p")
 
 int main(void) {
     TUPLE(int, double, const char *, double, int, float *)
