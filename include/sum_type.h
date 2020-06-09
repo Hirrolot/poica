@@ -3,11 +3,11 @@
 
 #include "poica_p_aux.h"
 
-#include "poica_p_sum_type/fields.h"
-#include "poica_p_sum_type/pattern_matching.h"
-#include "poica_p_sum_type/redirects.h"
-#include "poica_p_sum_type/tags.h"
-#include "poica_p_sum_type/vconstrs.h"
+#include "sum_type/fields.h"
+#include "sum_type/pattern_matching.h"
+#include "sum_type/redirects.h"
+#include "sum_type/tags.h"
+#include "sum_type/vconstrs.h"
 
 #include <boost/preprocessor.hpp>
 
