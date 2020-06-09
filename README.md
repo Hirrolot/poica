@@ -1,12 +1,46 @@
 # poica
 
 ## Table of contents
-  - [Sum types & pattern matching](#sum-types--pattern-matching)
+  - [Tuples](#tuples)
     - [Use cases](#use-cases)
+      - [Collections](#collections)
+  - [Sum types & pattern matching](#sum-types--pattern-matching)
+    - [Use cases](#use-cases-1)
       - [Error handling](#error-handling)
       - [AST evaluation](#ast-evaluation)
   - [Algebraic effects](#algebraic-effects)
-    - [Use cases](#use-cases-1)
+    - [Use cases](#use-cases-2)
+
+## Tuples
+
+A tuple is just an [anonymous structure] with field names `_0`, `_1`, ..., `_N`. The idea is that you can define it _in-place_, right in a body of a procedure, like this:
+
+[anonymous structure]: https://en.cppreference.com/w/c/language/struct
+
+```c
+#include "../include/tuple.h"
+
+#include <stdio.h>
+
+int main(void) {
+    TUPLE(const char *, int, double) tuple = {"Hello, tuples!", 123, 1885.1191};
+
+    printf("('%s', %d, %f)\n", tuple._0, tuple._1, tuple._2);
+}
+```
+
+<details>
+  <summary>Output</summary>
+
+```
+('Hello, tuples!', 123, 1885.119100)
+```
+
+</details>
+
+### Use cases
+
+#### Collections
 
 ## Sum types & pattern matching
 
