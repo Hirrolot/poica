@@ -3,7 +3,7 @@
 ## Table of contents
   - [Tuples](#tuples)
     - [Use cases](#use-cases)
-      - [Collections](#collections)
+      - [Iteration on fields](#iteration-on-fields)
   - [Sum types & pattern matching](#sum-types--pattern-matching)
     - [Use cases](#use-cases-1)
       - [Error handling](#error-handling)
@@ -42,7 +42,7 @@ int main(void) {
 
 ### Use cases
 
-#### Collections
+#### Iteration on fields
 
 ## Sum types & pattern matching
 
