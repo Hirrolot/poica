@@ -1,7 +1,7 @@
 #ifndef POICA_POICA_P_SUM_TYPE_REDIRECTS_TO_OUTER_SUM_TYPE_H
 #define POICA_POICA_P_SUM_TYPE_REDIRECTS_TO_OUTER_SUM_TYPE_H
 
-#include "../../poica_p_aux.h"
+#include "../../aux.h"
 
 #include <boost/preprocessor.hpp>
 

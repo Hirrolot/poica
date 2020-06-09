@@ -1,7 +1,7 @@
 #ifndef POICA_SUM_TYPE_H
 #define POICA_SUM_TYPE_H
 
-#include "poica_p_aux.h"
+#include "aux.h"
 
 #include "sum_type/fields.h"
 #include "sum_type/pattern_matching.h"
