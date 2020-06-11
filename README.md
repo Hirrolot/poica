@@ -10,7 +10,6 @@ A programming language on top of C macros, supporting many modern concepts: [ADT
 ## Table of contents
   - [ADTs](#adts)
   - [Tuples](#tuples)
-  - [Algebraic effects](#algebraic-effects)
 
 ## ADTs
 
@@ -126,5 +125,3 @@ int main(void) {
 ```
 
 </details>
-
-## Algebraic effects
