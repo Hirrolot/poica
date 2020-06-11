@@ -1,5 +1,5 @@
-#ifndef POICA_POICA_P_SUM_TYPE_VCONSTRS_H
-#define POICA_POICA_P_SUM_TYPE_VCONSTRS_H
+#ifndef POICA_SUM_VCONSTRS_H
+#define POICA_SUM_VCONSTRS_H
 
 #include "aux.h"
 
@@ -27,4 +27,4 @@
         };                                                                     \
     }
 
-#endif // POICA_POICA_P_SUM_TYPE_VCONSTRS_H
+#endif // POICA_SUM_VCONSTRS_H

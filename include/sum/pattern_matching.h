@@ -1,5 +1,5 @@
-#ifndef POICA_POICA_P_SUM_TYPE_PATTERN_MATCHING_H
-#define POICA_POICA_P_SUM_TYPE_PATTERN_MATCHING_H
+#ifndef POICA_SUM_PATTERN_MATCHING_H
+#define POICA_SUM_PATTERN_MATCHING_H
 
 #include "../misc.h"
 #include "../poly.h"
@@ -46,4 +46,4 @@
         poica_p_break_is_needed = true;                                        \
     }
 
-#endif // POICA_POICA_P_SUM_TYPE_PATTERN_MATCHING_H
+#endif // POICA_SUM_PATTERN_MATCHING_H

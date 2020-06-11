@@ -1,5 +1,5 @@
-#ifndef POICA_POICA_P_SUM_TYPE_FIELDS_H
-#define POICA_POICA_P_SUM_TYPE_FIELDS_H
+#ifndef POICA_SUM_FIELDS_H
+#define POICA_SUM_FIELDS_H
 
 #include "aux.h"
 
@@ -17,4 +17,4 @@
 #define POICA_P_SUM_GEN_FIELD_NONEMPTY(_data, variant_name, variant_type)      \
     variant_type variant_name;
 
-#endif // POICA_POICA_P_SUM_TYPE_FIELDS_H
+#endif // POICA_SUM_FIELDS_H

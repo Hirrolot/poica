@@ -1,5 +1,4 @@
-#include "../include/obj.h"
-#include "../include/sum_type.h"
+#include "../include/poica.h"
 
 #include <stdio.h>
 

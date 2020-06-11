@@ -1,13 +1,13 @@
-#ifndef POICA_SUM_TYPE_H
-#define POICA_SUM_TYPE_H
+#ifndef POICA_SUM_H
+#define POICA_SUM_H
 
 #include "aux.h"
 
-#include "sum_type/fields.h"
-#include "sum_type/pattern_matching.h"
-#include "sum_type/redirects.h"
-#include "sum_type/tags.h"
-#include "sum_type/vconstrs.h"
+#include "sum/fields.h"
+#include "sum/pattern_matching.h"
+#include "sum/redirects.h"
+#include "sum/tags.h"
+#include "sum/vconstrs.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -32,4 +32,4 @@
 #define POICA_P_SUM_VARIANT_2(variant_name, variant_type)                      \
     ((NONEMPTY)(variant_name)(variant_type))
 
-#endif // POICA_SUM_TYPE_H
+#endif // POICA_SUM_H

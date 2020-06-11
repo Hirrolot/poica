@@ -1,5 +1,5 @@
-#ifndef POICA_POICA_P_SUM_TYPE_H
-#define POICA_POICA_P_SUM_TYPE_H
+#ifndef POICA_SUM_H
+#define POICA_SUM_H
 
 #include "../aux.h"
 
@@ -45,4 +45,4 @@ typedef char PoicaPUnusedField;
 
 #define POICA_P_SUM_OVERLOAD_ON_VARIANT_AUX(macro, ...) macro(__VA_ARGS__)
 
-#endif // POICA_POICA_P_SUM_TYPE_H
+#endif // POICA_SUM_H
