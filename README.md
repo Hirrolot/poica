@@ -1,15 +1,13 @@
 # poica
-A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection], [tuples].
+A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection].
 
 [ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 [type introspection]: https://en.wikipedia.org/wiki/Type_introspection
 [algebraic effects]: https://www.eff-lang.org/handlers-tutorial.pdf
-[tuples]: https://en.wikipedia.org/wiki/Tuple#Type_theory
 
 ## Table of contents
   - [ADTs & pattern matching](#adts--pattern-matching)
-  - [Tuples](#tuples)
 
 ## ADTs & pattern matching
 
@@ -100,28 +98,3 @@ Practical examples of sum types include [AST evaluation] and [error handling].
 
 [AST evaluation]: https://github.com/Hirrolot/poica/wiki/AST-evaluation
 [error handling]: https://github.com/Hirrolot/poica/wiki/Error-handling
-
-## Tuples
-
-A tuple is just a structure with fields named `_0`, `_1`, ..., `_N`. You can define it both outside and inside procedures (aka _in-place_), like this:
-
-```c
-#include "../include/tuple.h"
-
-#include <stdio.h>
-
-int main(void) {
-    TUPLE(const char *, int, double) tuple = {"Hello, tuples!", 123, 1885.1191};
-
-    printf("('%s', %d, %f)\n", tuple._0, tuple._1, tuple._2);
-}
-```
-
-<details>
-  <summary>Output</summary>
-
-```
-('Hello, tuples!', 123, 1885.119100)
-```
-
-</details>
