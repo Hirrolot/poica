@@ -8,7 +8,7 @@ A programming language on top of C macros, supporting many modern concepts: [ADT
 [tuples]: https://en.wikipedia.org/wiki/Tuple#Type_theory
 
 ## Table of contents
-  - [ADTs & pattern matching](#adts)
+  - [ADTs & pattern matching](#adts--pattern-matching)
   - [Tuples](#tuples)
 
 ## ADTs & pattern matching
