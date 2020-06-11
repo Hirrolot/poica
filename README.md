@@ -1,10 +1,11 @@
 # poica
-A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection].
+A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection], [modular programming].
 
 [ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 [type introspection]: https://en.wikipedia.org/wiki/Type_introspection
 [algebraic effects]: https://www.eff-lang.org/handlers-tutorial.pdf
+[modular programming]: https://en.wikipedia.org/wiki/Modular_programming
 
 ## Table of contents
   - [ADTs & pattern matching](#adts--pattern-matching)
