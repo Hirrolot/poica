@@ -1,5 +1,5 @@
 # poica
-A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection], [algebraic effects], [tuples].
+A programming language on top of C macros, supporting many modern concepts: [ADTs], [pattern matching], [type introspection], [tuples].
 
 [ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
