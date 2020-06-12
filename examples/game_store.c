@@ -13,7 +13,7 @@ SUM(
     UserCommand,
     VARIANT(MkLogOut)
     VARIANT(MkOrderGame OF Game)
-    VARIANT(MkBugReport OF MANY
+    VARIANT(MkReportBug OF MANY
         FIELD(title OF const char *) FIELD(body OF const char *)
     )
 );
@@ -27,7 +27,7 @@ void process_command(UserCommand command) {
         CASE(MkOrderGame, game) {
             printf("$%u '%s' has been ordered!\n", game->cost, game->name);
         }
-        CASE(MkBugReport, MANY(title, body)) {
+        CASE(MkReportBug, MANY(title, body)) {
             printf("Reporting a bug '%s', '%s'...\n", *title, *body);
         }
     }
