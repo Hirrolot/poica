@@ -10,7 +10,7 @@ Here is a simple example of user commands in a game store:
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 
 
-[[`examples/game_store.c`](https://github.com/Hirrolot/poica/blob/master/examples/game_store.c)]
+[[`examples/game_store.c`](examples/game_store.c)]
 ```c
 #include <poica.h>
 
@@ -69,7 +69,7 @@ Here are what product and sum types return when they are introspected:
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
-[[`examples/introspection/product.c`](https://github.com/Hirrolot/poica/blob/master/examples/introspection/product.c)]
+[[`examples/introspection/product.c`](examples/introspection/product.c)]
 ```c
 #include <poica.h>
 
@@ -100,7 +100,7 @@ int main(void) {
 
 </details>
 
-[[`examples/introspection/sum.c`](https://github.com/Hirrolot/poica/blob/master/examples/introspection/sum.c)]
+[[`examples/introspection/sum.c`](examples/introspection/sum.c)]
 ```c
 #include <poica.h>
 
