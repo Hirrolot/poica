@@ -1,4 +1,4 @@
-#include "../include/poica.h"
+#include <poica.h>
 
 #include <stdio.h>
 
