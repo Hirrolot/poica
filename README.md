@@ -55,6 +55,11 @@ int main(void) {
 }
 ```
 
+ADTs can be used practically everywhere, but just to get started take a look at [AST evaluation] and [error handling].
+
+[AST evaluation]: https://github.com/Hirrolot/poica/wiki/AST-evaluation
+[error handling]: https://github.com/Hirrolot/poica/wiki/Error-handling
+
 ## Type introspection
 
 [Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
