@@ -1,0 +1,8 @@
+#ifndef POICA_PRIVATE_DEFER_H
+#define POICA_PRIVATE_DEFER_H
+
+#define POICA_P_EMPTY()
+#define POICA_P_DEFER(op)   op POICA_P_EMPTY()
+#define POICA_P_EXPAND(...) __VA_ARGS__
+
+#endif // POICA_PRIVATE_DEFER_H

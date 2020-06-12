@@ -1,9 +1,10 @@
 #ifndef POICA_SUM_PATTERN_MATCHING_H
 #define POICA_SUM_PATTERN_MATCHING_H
 
-#include "../misc.h"
-#include "../poly.h"
-#include "aux.h"
+#include "../../keywords.h"
+#include "../../poly.h"
+
+#include "tags.h"
 
 #include <stdbool.h>
 
@@ -38,6 +39,21 @@
                  *)(&((POICA_P_SUM_REDIRECT_VARIANT_TO_OUTER_SUM_TYPE(         \
                           variant_name) *)poica_p_sum_ptr)                     \
                          ->data.variant_name);
+
+#define POICA_P_SUM_CASE_3(variant_name, _many, var_names)                     \
+    case POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name):                        \
+        POICA_P_SUM_BREAK_IF_NEEDED                                            \
+                                                                               \
+        POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(                            \
+            variant_name) *poica_p_var_name =                                  \
+            (POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)          \
+                 *)(&((POICA_P_SUM_REDIRECT_VARIANT_TO_OUTER_SUM_TYPE(         \
+                          variant_name) *)poica_p_sum_ptr)                     \
+                         ->data.variant_name);                                 \
+                                                                               \
+        EXTRACT(var_names FROM(                                                \
+            poica_p_var_name OF POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(    \
+                variant_name)));
 
 #define POICA_P_SUM_BREAK_IF_NEEDED                                            \
     if (poica_p_break_is_needed) {                                             \

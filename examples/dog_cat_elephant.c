@@ -1,69 +1,46 @@
-#include "../include/sum_type.h"
+// Create a CircuitBreaker with default configuration
+CircuitBreaker circuitBreaker = CircuitBreaker.ofDefaults("backendService");
 
-#include <stdio.h>
+// Create a Retry with default configuration
+// 3 retry attempts and a fixed time interval between retries of 500ms
+Retry retry = Retry.ofDefaults("backendService");
 
-typedef struct {
-    unsigned speed;
-} Dog;
+// Create a Bulkhead with default configuration
+Bulkhead bulkhead = Bulkhead.ofDefaults("backendService");
 
-typedef struct {
-    const char *eye_colour;
-} Cat;
+Supplier<String> supplier = () -> backendService
+  .doSomething(param1, param2);
 
-typedef struct {
-    float ears_size;
-} Elephant;
+// Decorate your call to backendService.doSomething()
+// with a Bulkhead, CircuitBreaker and Retry
+// **note: you will need the resilience4j-all dependency for this
+Supplier<String> decoratedSupplier = Decorators.ofSupplier(supplier)
+  .withCircuitBreaker(circuitBreaker)
+  .withBulkhead(bulkhead)
+  .withRetry(retry)
+  .decorate();
 
-// clang-format off
-SUM(
-    Animal,
-    VARIANT(MkDog OF Dog)
-    VARIANT(MkCat OF Cat)
-    VARIANT(MkElephant OF Elephant)
-);
-// clang-format on
+// Execute the decorated supplier and recover from any exception
+String result = Try.ofSupplier(decoratedSupplier)
+  .recover(throwable -> "Hello from Recovery").get();
 
-void process_animal(Animal animal) {
-    MATCH(&animal) {
-        CASE(MkDog, dog) {
-            printf("Dog\n");
-            printf("Speed = %u km/hour\n", dog->speed);
-            printf("Walking...\n");
-        }
-        CASE(MkCat, cat) {
-            printf("Cat\n");
-            printf("Eye colour = %s\n", cat->eye_colour);
-            printf("Feeding...\n");
-        }
-        CASE(MkElephant, elephant) {
-            printf("Elephant\n");
-            printf("Ears size = %f meters\n", elephant->ears_size);
-            printf("Riding...\n");
-        }
-    }
+// When you don't want to decorate your lambda expression,
+// but just execute it and protect the call by a CircuitBreaker.
+String result = circuitBreaker
+  .executeSupplier(backendService::doSomething);
 
-    puts("");
-}
+// You can also run the supplier asynchronously in a ThreadPoolBulkhead
+ ThreadPoolBulkhead threadPoolBulkhead = ThreadPoolBulkhead
+  .ofDefaults("backendService");
 
-int main(void) {
-    Animal dog = MkDog((Dog){.speed = 12});
-    Animal cat = MkCat((Cat){.eye_colour = "green"});
-    Animal elephant = MkElephant((Elephant){.ears_size = .5});
+// The Scheduler is needed to schedule a timeout on a non-blocking CompletableFuture
+ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
+TimeLimiter timeLimiter = TimeLimiter.of(Duration.ofSeconds(1));
 
-    /*
-     * Dog
-     * Speed = 12 km/hour
-     * Walking...
-     *
-     * Cat
-     * Eye colour = green
-     * Feeding...
-     *
-     * Elephant
-     * Ears size = 0.500000 meters
-     * Riding...
-     */
-    process_animal(dog);
-    process_animal(cat);
-    process_animal(elephant);
-}
+CompletableFuture<String> future = Decorators.ofSupplier(supplier)
+    .withThreadPoolBulkhead(threadPoolBulkhead)
+    .withTimeLimiter(timeLimiter, scheduledExecutorService)
+    .withCircuitBreaker(circuitBreaker)
+    .withFallback(asList(TimeoutException.class, CallNotPermittedException.class, BulkheadFullException.class),
+      throwable -> "Hello from Recovery")
+    .get().toCompletableFuture();
