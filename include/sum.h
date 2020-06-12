@@ -29,4 +29,6 @@
                                                                                \
     POICA_P_USELESS_TYPEDEF(name)
 
+#define SUM_INTROSPECT(name, variants) variants
+
 #endif // POICA_SUM_H

@@ -23,4 +23,6 @@
 #define FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
 #define FIELD_TYPE(field) BOOST_PP_SEQ_ELEM(1, field)
 
+#define PRODUCT_INTROSPECT(name, fields) fields
+
 #endif // POICA_PRODUCT_H
