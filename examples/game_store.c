@@ -6,7 +6,7 @@
 PRODUCT(
     Game,
     FIELD(name OF const char *)
-    FIELD(cost OF unsigned)
+    FIELD(cost OF double)
 );
 
 SUM(
@@ -25,7 +25,7 @@ void process_command(UserCommand command) {
             printf("Logging out...\n");
         }
         CASE(MkOrderGame, game) {
-            printf("$%u '%s' has been ordered!\n", game->cost, game->name);
+            printf("$%f '%s' has been ordered!\n", game->cost, game->name);
         }
         CASE(MkReportBug, MANY(title, body)) {
             printf("Reporting a bug '%s', '%s'...\n", *title, *body);
