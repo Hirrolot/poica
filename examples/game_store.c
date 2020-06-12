@@ -13,8 +13,8 @@ SUM(
     UserCommand,
     VARIANT(MkLogOut)
     VARIANT(MkOrderGame OF Game)
-    VARIANT(MkSendMessage OF MANY
-        FIELD(message OF const char *) FIELD(to OF const char *)
+    VARIANT(MkBugReport OF MANY
+        FIELD(title OF const char *) FIELD(body OF const char *)
     )
 );
 // clang-format on
@@ -27,8 +27,8 @@ void process_command(UserCommand command) {
         CASE(MkOrderGame, game) {
             printf("$%u '%s' has been ordered!\n", game->cost, game->name);
         }
-        CASE(MkSendMessage, MANY(message, to)) {
-            printf("Sending '%s' to '%s'...\n", *message, *to);
+        CASE(MkBugReport, MANY(title, body)) {
+            printf("Reporting a bug '%s', '%s'...\n", *title, *body);
         }
     }
 }
