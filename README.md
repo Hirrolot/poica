@@ -10,7 +10,7 @@ Here is a simple example of game store commands:
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 
 ```c
-#include "../include/poica.h"
+#include <poica.h>
 
 #include <stdio.h>
 
