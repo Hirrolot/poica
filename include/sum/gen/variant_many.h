@@ -1,10 +1,11 @@
-#ifndef POICA_PRIVATE_SUM_GEN_VARIANT_MANY
-#define POICA_PRIVATE_SUM_GEN_VARIANT_MANY
+#ifndef POICA_SUM_GEN_VARIANT_MANY
+#define POICA_SUM_GEN_VARIANT_MANY
+
+#include "../../private/aux.h"
+#include "../../private/defer.h"
 
 #include "../../product.h"
-#include "../aux.h"
-#include "../defer.h"
-#include "overload_on_variant.h"
+#include "../introspection.h"
 #include "redirects/to_inner_type.h"
 
 #include <boost/preprocessor.hpp>
@@ -24,4 +25,4 @@
     POICA_P_DEFER(PRODUCT)                                                     \
     (POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
 
-#endif // POICA_PRIVATE_SUM_GEN_VARIANT_MANY
+#endif // POICA_SUM_GEN_VARIANT_MANY

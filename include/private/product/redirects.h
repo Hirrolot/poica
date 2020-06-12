@@ -1,6 +1,0 @@
-#ifndef POICA_PRIVATE_PRODUCT_REDIRECTS_H
-#define POICA_PRIVATE_PRODUCT_REDIRECTS_H
-
-#include "redirects/to_field_type.h"
-
-#endif // POICA_PRIVATE_PRODUCT_REDIRECTS_H

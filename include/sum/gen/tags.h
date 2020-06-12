@@ -1,7 +1,9 @@
-#ifndef POICA_SUM_TAGS_H
-#define POICA_SUM_TAGS_H
+#ifndef POICA_SUM_GEN_TAGS_H
+#define POICA_SUM_GEN_TAGS_H
 
-#include "variant.h"
+#include "../../private/aux.h"
+
+#include "../introspection.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -14,4 +16,4 @@
 #define POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name)                          \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _Tag))
 
-#endif // POICA_SUM_TAGS_H
+#endif // POICA_SUM_GEN_TAGS_H

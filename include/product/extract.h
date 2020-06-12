@@ -1,8 +1,8 @@
-#ifndef POICA_PRIVATE_PRODUCT_EXTRACT_H
-#define POICA_PRIVATE_PRODUCT_EXTRACT_H
+#ifndef POICA_PRODUCT_EXTRACT_H
+#define POICA_PRODUCT_EXTRACT_H
 
-#include "../../keywords.h"
-#include "redirects/to_field_type.h"
+#include "../keywords.h"
+#include "gen/redirects/to_field_type.h"
 
 #include <stdbool.h>
 
@@ -21,4 +21,4 @@
                                            field_name) *field_name =           \
         &BOOST_PP_TUPLE_ELEM(2, 0, val)->field_name;
 
-#endif // POICA_PRIVATE_PRODUCT_EXTRACT_H
+#endif // POICA_PRODUCT_EXTRACT_H

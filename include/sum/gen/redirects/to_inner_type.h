@@ -1,10 +1,11 @@
-#ifndef POICA_SUM_REDIRECTS_TO_INNER_TYPE_H
-#define POICA_SUM_REDIRECTS_TO_INNER_TYPE_H
+#ifndef POICA_SUM_GEN_REDIRECTS_TO_INNER_TYPE_H
+#define POICA_SUM_GEN_REDIRECTS_TO_INNER_TYPE_H
 
-#include "../../aux.h"
-#include "../gen_variant_many.h"
-#include "../overload_on_variant.h"
-#include "../unused_field_type.h"
+#include "../../../private/aux.h"
+
+#include "../../introspection.h"
+#include "../../unused_field_type.h"
+#include "../variant_many.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -32,4 +33,4 @@
 #define POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)               \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToInnerType))
 
-#endif // POICA_SUM_REDIRECTS_TO_INNER_TYPE_H
+#endif // POICA_SUM_GEN_REDIRECTS_TO_INNER_TYPE_H

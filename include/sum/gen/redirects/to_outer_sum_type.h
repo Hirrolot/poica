@@ -1,8 +1,9 @@
-#ifndef POICA_SUM_REDIRECTS_TO_OUTER_SUM_TYPE_H
-#define POICA_SUM_REDIRECTS_TO_OUTER_SUM_TYPE_H
+#ifndef POICA_SUM_GEN_REDIRECTS_TO_OUTER_SUM_TYPE_H
+#define POICA_SUM_GEN_REDIRECTS_TO_OUTER_SUM_TYPE_H
 
-#include "../../aux.h"
-#include "../variant.h"
+#include "../../../private/aux.h"
+
+#include "../../variant.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -20,4 +21,4 @@
 #define POICA_P_SUM_REDIRECT_VARIANT_TO_OUTER_SUM_TYPE(variant_name)           \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToOuterSumType))
 
-#endif // POICA_SUM_REDIRECTS_TO_OUTER_SUM_TYPE_H
+#endif // POICA_SUM_GEN_REDIRECTS_TO_OUTER_SUM_TYPE_H

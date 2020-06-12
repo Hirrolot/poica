@@ -1,9 +1,20 @@
-#ifndef POICA_PRIVATE_SUM_OVERLOAD_ON_VARIANT
-#define POICA_PRIVATE_SUM_OVERLOAD_ON_VARIANT
-
-#include "variant.h"
+#ifndef POICA_SUM_INTROSPECTION_H
+#define POICA_SUM_INTROSPECTION_H
 
 #include <boost/preprocessor.hpp>
+
+#define SUM_INTROSPECT(...)                        POICA_P_SUM_INTROSPECT_AUX(__VA_ARGS__)
+#define POICA_P_SUM_INTROSPECT_AUX(name, variants) variants
+
+/*
+ * Either of:
+ * 1) VARIANT_EMPTY
+ * 2) VARIANT_SINGLE
+ * 3) VARIANT_MANY
+ */
+#define VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
+
+#define VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
 
 /*
  *  1) VARIANT(N) -> macroEMPTY_VARIANT(data, variant_name)
@@ -19,4 +30,4 @@
 
 #define POICA_P_SUM_OVERLOAD_ON_VARIANT_AUX(macro, ...) macro(__VA_ARGS__)
 
-#endif // POICA_PRIVATE_SUM_OVERLOAD_ON_VARIANT
+#endif // POICA_SUM_INTROSPECTION_H

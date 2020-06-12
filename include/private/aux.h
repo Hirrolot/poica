@@ -1,5 +1,5 @@
-#ifndef POICA_POICA_P_AUX
-#define POICA_POICA_P_AUX
+#ifndef POICA_PRIVATE_AUX_H
+#define POICA_PRIVATE_AUX_H
 
 #include <boost/preprocessor.hpp>
 
@@ -8,4 +8,4 @@
 #define POICA_P_USELESS_TYPEDEF(name)                                          \
     typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
 
-#endif // POICA_POICA_P_AUX
+#endif // POICA_PRIVATE_AUX_H

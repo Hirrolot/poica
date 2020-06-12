@@ -1,7 +1,9 @@
-#ifndef POICA_PRIVATE_PRODUCT_REDIRECTS_TO_FIELD_TYPE_H
-#define POICA_PRIVATE_PRODUCT_REDIRECTS_TO_FIELD_TYPE_H
+#ifndef POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H
+#define POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H
 
-#include "../../aux.h"
+#include "../../../private/aux.h"
+
+#include "../../introspection.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -17,4 +19,4 @@
     POICA_P_PREFIX(BOOST_PP_CAT(                                               \
         product_name, BOOST_PP_CAT(field_name, _RedirectToFieldType)))
 
-#endif // POICA_PRIVATE_PRODUCT_REDIRECTS_TO_FIELD_TYPE_H
+#endif // POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H

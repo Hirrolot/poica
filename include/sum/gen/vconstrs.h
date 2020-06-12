@@ -1,12 +1,11 @@
-#ifndef POICA_PRIVATE_SUM_VCONSTRS_H
-#define POICA_PRIVATE_SUM_VCONSTRS_H
+#ifndef POICA_SUM_GEN_VCONSTRS_H
+#define POICA_SUM_GEN_VCONSTRS_H
 
+#include "../../private/defer.h"
 #include "../../product.h"
-#include "../defer.h"
-
-#include "overload_on_variant.h"
+#include "../introspection.h"
+#include "../unused_field_type.h"
 #include "tags.h"
-#include "unused_field_type.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -64,4 +63,4 @@
 #define POICA_P_SUM_VCONSTR_EXTRACT_ARG_NAME_FOR_MANY(_r, _data, field)        \
     FIELD_NAME(field),
 
-#endif // POICA_PRIVATE_SUM_VCONSTRS_H
+#endif // POICA_SUM_GEN_VCONSTRS_H

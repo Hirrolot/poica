@@ -1,10 +1,9 @@
 #ifndef POICA_SUM_PATTERN_MATCHING_H
 #define POICA_SUM_PATTERN_MATCHING_H
 
-#include "../../keywords.h"
-#include "../../poly.h"
-
-#include "tags.h"
+#include "../keywords.h"
+#include "../poly.h"
+#include "gen/tags.h"
 
 #include <stdbool.h>
 

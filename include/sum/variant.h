@@ -1,7 +1,8 @@
-#ifndef POICA_VARIANT_H
-#define POICA_VARIANT_H
+#ifndef POICA_SUM_VARIANT_H
+#define POICA_SUM_VARIANT_H
 
-#include "../../keywords.h"
+#include "../keywords.h"
+#include "../product/field.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -24,14 +25,4 @@
 #define POICA_P_VARIANT_3(variant_name, _many, fields)                         \
     ((VARIANT_MANY)(variant_name)(fields))
 
-/*
- * Either of:
- * 1) VARIANT_EMPTY
- * 2) VARIANT_SINGLE
- * 3) VARIANT_MANY
- */
-#define VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
-
-#define VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
-
-#endif // POICA_VARIANT_H
+#endif // POICA_SUM_VARIANT_H

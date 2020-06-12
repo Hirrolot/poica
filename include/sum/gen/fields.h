@@ -1,9 +1,9 @@
-#ifndef POICA_SUM_FIELDS_H
-#define POICA_SUM_FIELDS_H
+#ifndef POICA_SUM_GEN_FIELDS_H
+#define POICA_SUM_GEN_FIELDS_H
 
+#include "../unused_field_type.h"
+#include "../variant.h"
 #include "redirects/to_inner_type.h"
-#include "unused_field_type.h"
-#include "variant.h"
 
 #include <boost/preprocessor.hpp>
 
@@ -23,4 +23,4 @@
 #define POICA_P_SUM_GEN_FIELD_VARIANT_MANY(_data, variant_name, _fields)       \
     POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) variant_name;
 
-#endif // POICA_SUM_FIELDS_H
+#endif // POICA_SUM_GEN_FIELDS_H
