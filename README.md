@@ -9,6 +9,7 @@ Here is a simple example of user commands in a game store:
 [**ADTs** (**A**lgebraic **D**ata **T**ype**s**)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 
+
 ```c
 #include <poica.h>
 
@@ -53,3 +54,81 @@ int main(void) {
     process_command(command);
 }
 ```
+
+## Type introspection
+
+[Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
+
+Here are what product and sum types return when they are introspected:
+
+[Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
+
+[[`examples/introspection/product.c`](https://github.com/Hirrolot/poica/blob/master/examples/introspection/product.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+#include <boost/preprocessor.hpp>
+
+#define MY_PRODUCT                                                             \
+    Something,                                                                 \
+    FIELD(a OF int)                                                            \
+    FIELD(b OF const char *)                                                   \
+    FIELD(c OF double)                                                         \
+
+PRODUCT(MY_PRODUCT);
+#define SomethingINTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
+
+int main(void) {
+    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+((a)(int)) ((b)(const char *)) ((c)(double))
+```
+
+</details>
+
+[[`examples/introspection/sum.c`](https://github.com/Hirrolot/poica/blob/master/examples/introspection/sum.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+#include <boost/preprocessor.hpp>
+
+#define MY_SUM                                                             \
+    Something,                                                             \
+    VARIANT(A)                                                             \
+    VARIANT(B OF int)                                                      \
+    VARIANT(C OF MANY FIELD(C1 OF double) FIELD(C2 OF char))               \
+
+SUM(MY_SUM);
+#define SomethingINTROSPECT SUM_INTROSPECT(MY_SUM)
+
+int main(void) {
+    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+((POICA_VARIANT_EMPTY)(A))
+((POICA_VARIANT_SINGLE)(B)(int))
+((POICA_VARIANT_MANY)(C)( ((C1)(double)) ((C2)(char)) ))
+```
+
+</details>
+
+That is, the metainformation about types is actually a [sequence] in the terms of [Boost/Preprocessor]. So the [`BOOST_PP_SEQ_*` macros] can be used to manipulate these sequences further.
+
+[sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
+[Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
+[`BOOST_PP_SEQ_*` macros]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/headers/seq.html
