@@ -10,6 +10,7 @@ Here is a simple example of user commands in a game store:
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 
 
+[[`examples/game_store.c`](https://github.com/Hirrolot/poica/blob/master/examples/game_store.c)]
 ```c
 #include <poica.h>
 
