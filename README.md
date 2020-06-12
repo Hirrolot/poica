@@ -4,7 +4,7 @@
 
 Simply put, a sum type is _either_ of `T1`, ..., `Tn`, and a product type is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
-Here is a simple example of game store commands:
+Here is a simple example of user commands in a game store:
 
 [**ADTs** (**A**lgebraic **D**ata **T**ype**s**)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
