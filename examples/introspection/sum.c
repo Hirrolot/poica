@@ -18,9 +18,9 @@ SUM(MY_SUM);
 int main(void) {
     /*
      * Output:
-     * ((VARIANT_EMPTY)(A))
-     * ((VARIANT_SINGLE)(B)(int))
-     * ((VARIANT_MANY)(C)( ((C1)(double)) ((C2)(char)) ))
+     * ((POICA_VARIANT_EMPTY)(A))
+     * ((POICA_VARIANT_SINGLE)(B)(int))
+     * ((POICA_VARIANT_MANY)(C)( ((C1)(double)) ((C2)(char)) ))
      */
     puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
 }
