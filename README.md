@@ -93,10 +93,10 @@ Here are what product and sum types return when they are introspected:
     FIELD(c OF double)                                                         \
 
 PRODUCT(MY_PRODUCT);
-#define SomethingINTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
+#define Something_INTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
 
 int main(void) {
-    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }
 ```
 
@@ -124,10 +124,10 @@ int main(void) {
     VARIANT(C OF MANY FIELD(C1 OF double) FIELD(C2 OF char))               \
 
 SUM(MY_SUM);
-#define SomethingINTROSPECT SUM_INTROSPECT(MY_SUM)
+#define Something_INTROSPECT SUM_INTROSPECT(MY_SUM)
 
 int main(void) {
-    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }
 ```
 

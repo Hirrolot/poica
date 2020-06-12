@@ -13,7 +13,7 @@
 // clang-format on
 
 SUM(MY_SUM);
-#define SomethingINTROSPECT SUM_INTROSPECT(MY_SUM)
+#define Something_INTROSPECT SUM_INTROSPECT(MY_SUM)
 
 int main(void) {
     /*
@@ -22,5 +22,5 @@ int main(void) {
      * ((POICA_VARIANT_SINGLE)(B)(int))
      * ((POICA_VARIANT_MANY)(C)( ((C1)(double)) ((C2)(char)) ))
      */
-    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }

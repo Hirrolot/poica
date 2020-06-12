@@ -13,12 +13,12 @@
 // clang-format on
 
 PRODUCT(MY_PRODUCT);
-#define SomethingINTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
+#define Something_INTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
 
 int main(void) {
     /*
      * Output:
      * ((a)(int)) ((b)(const char *)) ((c)(double))
      */
-    puts(BOOST_PP_STRINGIZE(SomethingINTROSPECT));
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }
