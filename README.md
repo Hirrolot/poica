@@ -56,6 +56,15 @@ int main(void) {
 }
 ```
 
+<details>
+    <summary>Output</summary>
+
+```
+$10.990000 'Amnesia: The Dark Descent' has been ordered!
+```
+
+</details>
+
 ADTs can be used practically everywhere, but just to get started take a look at [AST evaluation] and [error handling].
 
 [AST evaluation]: https://github.com/Hirrolot/poica/wiki/AST-evaluation

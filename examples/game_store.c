@@ -40,5 +40,9 @@ int main(void) {
     };
     UserCommand command = MkOrderGame(game);
 
+    /*
+     * Output:
+     * $10.990000 'Amnesia: The Dark Descent' has been ordered!
+     */
     process_command(command);
 }
