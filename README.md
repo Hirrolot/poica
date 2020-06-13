@@ -4,7 +4,7 @@
 
 Simply put, a sum type is _either_ of `T1`, ..., `Tn`, and a product type is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
-For example, a [binary tree] can be conveniently manipulated using ADTs:
+For example, a [binary tree] can be conveniently manipulated using sum types:
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
