@@ -4,11 +4,11 @@
 
 Simply put, a sum type is _either_ of `T1`, ..., `Tn`, and a product type is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
-Here is a simple example of user commands in a game store:
+For example, a [binary tree] can be conveniently manipulated using ADTs:
 
 [**ADTs** (**A**lgebraic **D**ata **T**ype**s**)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
-
+[binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 [[`examples/game_store.c`](examples/game_store.c)]
 ```c
@@ -16,44 +16,47 @@ Here is a simple example of user commands in a game store:
 
 #include <stdio.h>
 
-PRODUCT(
-    Game,
-    FIELD(name OF const char *)
-    FIELD(cost OF double)
-);
-
 SUM(
-    UserCommand,
-    VARIANT(MkLogOut)
-    VARIANT(MkOrderGame OF Game)
-    VARIANT(MkReportBug OF MANY
-        FIELD(title OF const char *) FIELD(body OF const char *)
+    Tree,
+    VARIANT(MkEmpty)
+    VARIANT(MkLeaf OF int)
+    VARIANT(MkNode OF MANY
+        FIELD(left OF struct Tree *)
+        FIELD(number OF int)
+        FIELD(right OF struct Tree *)
     )
 );
 
-void process_command(UserCommand command) {
-    MATCH(&command) {
-        CASE(MkLogOut) {
-            printf("Logging out...\n");
+void print_tree(const Tree *tree) {
+    MATCH(tree) {
+        CASE(MkEmpty) {
+            return;
         }
-        CASE(MkOrderGame, game) {
-            printf("$%f '%s' has been ordered!\n", game->cost, game->name);
+        CASE(MkLeaf, number) {
+            printf("%d\n", *number);
         }
-        CASE(MkReportBug, MANY(title, body)) {
-            printf("Reporting a bug '%s', '%s'...\n", *title, *body);
+        CASE(MkNode, MANY(left, number, right)) {
+            inc_tree(*left);
+            printf("%d\n", *number);
+            inc_tree(*right);
         }
     }
 }
 
-int main(void) {
-    Game game = {
-        .name = "Amnesia: The Dark Descent",
-        .cost = 10.99,
-    };
-    UserCommand command = MkOrderGame(game);
+#define TREE(tree)                OBJ(tree OF Tree)
+#define NODE(left, number, right) MkNode(TREE(left), number, TREE(right))
+#define LEAF(number)              TREE(MkLeaf(number))
 
-    process_command(command);
+int main(void) {
+    Tree tree =
+        NODE(NODE(LEAF(81), 456, NODE(LEAF(90), 7, LEAF(111))), 57, LEAF(123));
+
+    print_tree(&tree);
 }
+
+#undef TREE
+#undef NODE
+#undef LEAF
 ```
 
 <details>
@@ -65,7 +68,7 @@ $10.990000 'Amnesia: The Dark Descent' has been ordered!
 
 </details>
 
-ADTs can be used practically everywhere, but just to get started take a look at [AST evaluation] and [error handling].
+Also take a look at [AST evaluation] and [error handling].
 
 [AST evaluation]: https://github.com/Hirrolot/poica/wiki/AST-evaluation
 [error handling]: https://github.com/Hirrolot/poica/wiki/Error-handling
