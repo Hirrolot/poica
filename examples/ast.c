@@ -2,11 +2,13 @@
 
 #include <stdio.h>
 
-typedef struct {
-    const struct Expr *left, *right;
-} ExprPair;
-
 // clang-format off
+PRODUCT(
+    ExprPair,
+    FIELD(left OF const struct Expr *)
+    FIELD(right OF const struct Expr *)
+);
+
 SUM(
     Expr,
     VARIANT(MkConst OF double)
@@ -17,7 +19,7 @@ SUM(
 );
 // clang-format on
 
-double eval(const struct Expr *expr) {
+double eval(const Expr *expr) {
     MATCH(expr) {
         CASE(MkConst, number) {
             return *number;
@@ -37,8 +39,8 @@ double eval(const struct Expr *expr) {
     }
 }
 
-#define OP(op, left, right)                                                    \
-    Mk##op((ExprPair){OBJ(left OF struct Expr), OBJ(right OF struct Expr)})
+#define EXPR(expr)          OBJ(expr OF Expr)
+#define OP(op, left, right) Mk##op((ExprPair){EXPR(left), EXPR(right)})
 
 int main(void) {
     Expr expr = OP(Add,
