@@ -1,4 +1,4 @@
-#include "../include/obj.h"
+#include <poica.h>
 
 typedef struct {
     int x, y;
