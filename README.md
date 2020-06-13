@@ -10,7 +10,7 @@ For example, a [binary tree] can be conveniently manipulated using ADTs:
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
-[[`examples/game_store.c`](examples/game_store.c)]
+[[`examples/binary_tree.c`](examples/binary_tree.c)]
 ```c
 #include <poica.h>
 
