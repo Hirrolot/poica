@@ -4,10 +4,13 @@
 
 Simply put, a sum type is _either_ of `T1`, ..., `Tn`, and a product type is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
+[Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
+
 For example, a [binary tree] can be conveniently manipulated using sum types:
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
+[Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 [[`examples/binary_tree.c`](examples/binary_tree.c)]
