@@ -1,12 +1,12 @@
 # poica
 
-[**ADTs** (**A**lgebraic **D**ata **T**ype**s**)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: sum types and product types.
+[**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: sum types and product types.
 
 Simply put, a sum type is _either_ of `T1`, ..., `Tn`, and a product type is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
 For example, a [binary tree] can be conveniently manipulated using ADTs:
 
-[**ADTs** (**A**lgebraic **D**ata **T**ype**s**)]: https://en.wikipedia.org/wiki/Algebraic_data_type
+[**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
