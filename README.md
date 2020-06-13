@@ -36,22 +36,22 @@ void print_tree(const Tree *tree) {
             printf("%d\n", *number);
         }
         CASE(MkNode, MANY(left, number, right)) {
-            inc_tree(*left);
+            print_tree(*left);
             printf("%d\n", *number);
-            inc_tree(*right);
+            print_tree(*right);
         }
     }
 }
 
 #define TREE(tree)                OBJ(tree OF Tree)
-#define NODE(left, number, right) MkNode(TREE(left), number, TREE(right))
+#define NODE(left, number, right) TREE(MkNode(left, number, right))
 #define LEAF(number)              TREE(MkLeaf(number))
 
 int main(void) {
-    Tree tree =
+    const Tree *tree =
         NODE(NODE(LEAF(81), 456, NODE(LEAF(90), 7, LEAF(111))), 57, LEAF(123));
 
-    print_tree(&tree);
+    print_tree(tree);
 }
 
 #undef TREE
@@ -63,7 +63,13 @@ int main(void) {
     <summary>Output</summary>
 
 ```
-$10.990000 'Amnesia: The Dark Descent' has been ordered!
+81
+456
+90
+7
+111
+57
+123
 ```
 
 </details>
