@@ -122,9 +122,9 @@ int main(void) {
 
 #define MY_SUM                                                             \
     Something,                                                             \
-    VARIANT(MkA)                                                             \
-    VARIANT(MkB OF int)                                                      \
-    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))               \
+    VARIANT(MkA)                                                           \
+    VARIANT(MkB OF int)                                                    \
+    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))             \
 
 SUM(MY_SUM);
 #define Something_INTROSPECT SUM_INTROSPECT(MY_SUM)

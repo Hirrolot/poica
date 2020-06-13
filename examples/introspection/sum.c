@@ -7,9 +7,9 @@
 // clang-format off
 #define MY_SUM                                                             \
     Something,                                                             \
-    VARIANT(MkA)                                                             \
-    VARIANT(MkB OF int)                                                      \
-    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))               \
+    VARIANT(MkA)                                                           \
+    VARIANT(MkB OF int)                                                    \
+    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))             \
 // clang-format on
 
 SUM(MY_SUM);
