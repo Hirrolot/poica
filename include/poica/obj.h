@@ -1,7 +1,7 @@
 #ifndef POICA_OBJ_H
 #define POICA_OBJ_H
 
-#include "keywords.h"
+#include <poica/keywords.h>
 
 /**
  * Expands to a pointer to an unnamed object of the specified type created

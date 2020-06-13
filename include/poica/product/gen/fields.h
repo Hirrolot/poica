@@ -1,7 +1,7 @@
 #ifndef POICA_PRODUCT_GEN_FIELDS_H
 #define POICA_PRODUCT_GEN_FIELDS_H
 
-#include "../introspection.h"
+#include <poica/product/introspection.h>
 
 #include <boost/preprocessor.hpp>
 

@@ -1,12 +1,12 @@
 #ifndef POICA_SUM_GEN_VARIANT_MANY
 #define POICA_SUM_GEN_VARIANT_MANY
 
-#include "../../private/aux.h"
-#include "../../private/defer.h"
+#include <poica/private/aux.h>
+#include <poica/private/defer.h>
 
-#include "../../product.h"
-#include "../introspection.h"
-#include "redirects/to_inner_type.h"
+#include <poica/product.h>
+#include <poica/sum/gen/redirects/to_inner_type.h>
+#include <poica/sum/introspection.h>
 
 #include <boost/preprocessor.hpp>
 

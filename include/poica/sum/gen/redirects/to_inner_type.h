@@ -1,11 +1,11 @@
 #ifndef POICA_SUM_GEN_REDIRECTS_TO_INNER_TYPE_H
 #define POICA_SUM_GEN_REDIRECTS_TO_INNER_TYPE_H
 
-#include "../../../private/aux.h"
+#include <poica/private/aux.h>
 
-#include "../../introspection.h"
-#include "../../unused_field_type.h"
-#include "../variant_many.h"
+#include <poica/sum/gen/variant_many.h>
+#include <poica/sum/introspection.h>
+#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 

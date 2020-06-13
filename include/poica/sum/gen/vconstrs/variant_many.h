@@ -1,10 +1,12 @@
 #ifndef POICA_SUM_GEN_VCONSTRS_VARIANT_MANY_H
 #define POICA_SUM_GEN_VCONSTRS_VARIANT_MANY_H
 
-#include "../../../private/defer.h"
-#include "../../../product/introspection.h"
-#include "../../unused_field_type.h"
-#include "../tags.h"
+#include <poica/private/defer.h>
+
+#include <poica/product/introspection.h>
+
+#include <poica/sum/gen/tags.h>
+#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 

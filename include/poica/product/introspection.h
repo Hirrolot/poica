@@ -1,7 +1,7 @@
 #ifndef POICA_PRODUCT_INTROSPECTION_H
 #define POICA_PRODUCT_INTROSPECTION_H
 
-#include "introspection/fields_as_params.h"
+#include <poica/product/introspection/fields_as_params.h>
 
 #include <boost/preprocessor.hpp>
 

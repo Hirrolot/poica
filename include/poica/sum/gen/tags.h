@@ -1,9 +1,9 @@
 #ifndef POICA_SUM_GEN_TAGS_H
 #define POICA_SUM_GEN_TAGS_H
 
-#include "../../private/aux.h"
+#include <poica/private/aux.h>
 
-#include "../introspection.h"
+#include <poica/sum/introspection.h>
 
 #include <boost/preprocessor.hpp>
 

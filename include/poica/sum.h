@@ -1,18 +1,18 @@
 #ifndef POICA_SUM_H
 #define POICA_SUM_H
 
-#include "keywords.h"
-#include "product/field.h"
+#include <poica/private/aux.h>
 
-#include "private/aux.h"
+#include <poica/keywords.h>
+#include <poica/product/field.h>
 
-#include "sum/gen/fields.h"
-#include "sum/gen/redirects.h"
-#include "sum/gen/tags.h"
-#include "sum/gen/variant_many.h"
-#include "sum/gen/vconstrs.h"
-#include "sum/pattern_matching.h"
-#include "sum/variant.h"
+#include <poica/sum/gen/fields.h>
+#include <poica/sum/gen/redirects.h>
+#include <poica/sum/gen/tags.h>
+#include <poica/sum/gen/variant_many.h>
+#include <poica/sum/gen/vconstrs.h>
+#include <poica/sum/pattern_matching.h>
+#include <poica/sum/variant.h>
 
 #include <boost/preprocessor.hpp>
 

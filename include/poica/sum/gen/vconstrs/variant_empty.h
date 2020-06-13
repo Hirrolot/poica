@@ -1,8 +1,8 @@
 #ifndef POICA_SUM_GEN_VCONSTRS_VARIANT_EMPTY_H
 #define POICA_SUM_GEN_VCONSTRS_VARIANT_EMPTY_H
 
-#include "../../unused_field_type.h"
-#include "../tags.h"
+#include <poica/sum/gen/tags.h>
+#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 

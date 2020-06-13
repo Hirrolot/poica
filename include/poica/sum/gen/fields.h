@@ -1,9 +1,9 @@
 #ifndef POICA_SUM_GEN_FIELDS_H
 #define POICA_SUM_GEN_FIELDS_H
 
-#include "../unused_field_type.h"
-#include "../variant.h"
-#include "redirects/to_inner_type.h"
+#include <poica/sum/gen/redirects/to_inner_type.h>
+#include <poica/sum/unused_field_type.h>
+#include <poica/sum/variant.h>
 
 #include <boost/preprocessor.hpp>
 

@@ -1,9 +1,9 @@
 #ifndef POICA_SUM_GEN_REDIRECTS_TO_OUTER_SUM_TYPE_H
 #define POICA_SUM_GEN_REDIRECTS_TO_OUTER_SUM_TYPE_H
 
-#include "../../../private/aux.h"
+#include <poica/private/aux.h>
 
-#include "../../variant.h"
+#include <poica/sum/variant.h>
 
 #include <boost/preprocessor.hpp>
 

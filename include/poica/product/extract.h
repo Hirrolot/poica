@@ -1,8 +1,8 @@
 #ifndef POICA_PRODUCT_EXTRACT_H
 #define POICA_PRODUCT_EXTRACT_H
 
-#include "../keywords.h"
-#include "gen/redirects/to_field_type.h"
+#include <poica/keywords.h>
+#include <poica/product/gen/redirects/to_field_type.h>
 
 #include <stdbool.h>
 

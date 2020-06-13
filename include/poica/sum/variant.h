@@ -1,8 +1,8 @@
 #ifndef POICA_SUM_VARIANT_H
 #define POICA_SUM_VARIANT_H
 
-#include "../keywords.h"
-#include "../product/field.h"
+#include <poica/keywords.h>
+#include <poica/product/field.h>
 
 #include <boost/preprocessor.hpp>
 

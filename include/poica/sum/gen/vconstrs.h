@@ -1,12 +1,13 @@
 #ifndef POICA_SUM_GEN_VCONSTRS_H
 #define POICA_SUM_GEN_VCONSTRS_H
 
-#include "../../private/defer.h"
-#include "../introspection.h"
+#include <poica/private/defer.h>
 
-#include "vconstrs/variant_empty.h"
-#include "vconstrs/variant_many.h"
-#include "vconstrs/variant_single.h"
+#include <poica/sum/introspection.h>
+
+#include <poica/sum/gen/vconstrs/variant_empty.h>
+#include <poica/sum/gen/vconstrs/variant_many.h>
+#include <poica/sum/gen/vconstrs/variant_single.h>
 
 #include <boost/preprocessor.hpp>
 

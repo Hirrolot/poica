@@ -1,10 +1,10 @@
 #ifndef POICA_SUM_PATTERN_MATCHING_H
 #define POICA_SUM_PATTERN_MATCHING_H
 
-#include "../keywords.h"
-#include "../poly.h"
-#include "gen/tags.h"
-#include "product/gen/redirects/to_field_type.h"
+#include <poica/keywords.h>
+#include <poica/poly.h>
+#include <poica/product/gen/redirects/to_field_type.h>
+#include <poica/sum/gen/tags.h>
 
 #include <stdbool.h>
 

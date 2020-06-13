@@ -1,9 +1,9 @@
 #ifndef POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H
 #define POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H
 
-#include "../../../private/aux.h"
+#include <poica/private/aux.h>
 
-#include "../../introspection.h"
+#include <poica/product/introspection.h>
 
 #include <boost/preprocessor.hpp>
 

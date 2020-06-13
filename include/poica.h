@@ -1,10 +1,10 @@
-#ifndef POICA_POICA_H
-#define POICA_POICA_H
+#ifndef POICA_H
+#define POICA_H
 
-#include "keywords.h"
-#include "obj.h"
-#include "poly.h"
-#include "product.h"
-#include "sum.h"
+#include <poica/keywords.h>
+#include <poica/obj.h>
+#include <poica/poly.h>
+#include <poica/product.h>
+#include <poica/sum.h>
 
-#endif // POICA_POICA_H
+#endif // POICA_H

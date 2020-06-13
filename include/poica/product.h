@@ -1,16 +1,16 @@
 #ifndef POICA_PRODUCT_H
 #define POICA_PRODUCT_H
 
-#include "keywords.h"
-#include "product/field.h"
+#include <poica/private/aux.h>
 
-#include "private/aux.h"
+#include <poica/keywords.h>
+#include <poica/product/field.h>
 
-#include "product/extract.h"
-#include "product/field.h"
-#include "product/gen/fields.h"
-#include "product/gen/redirects.h"
-#include "product/introspection.h"
+#include <poica/product/extract.h>
+#include <poica/product/field.h>
+#include <poica/product/gen/fields.h>
+#include <poica/product/gen/redirects.h>
+#include <poica/product/introspection.h>
 
 #include <boost/preprocessor.hpp>
 
