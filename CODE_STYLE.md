@@ -1,7 +1,7 @@
 # Code style
 
 ## Headers
-Refer to [this document](http://www.umich.edu/~eecs381/handouts/CHeaderFileGuidelines.pdf) when dealing with headers.
+Refer to [this document](http://www.umich.edu/~eecs381/handouts/CHeaderFileGuidelines.pdf) describing conventions for header files.
 
 ### Inclusion order
 
