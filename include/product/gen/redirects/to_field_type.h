@@ -17,6 +17,7 @@
 
 #define POICA_P_PRODUCT_REDIRECT_TO_FIELD_TYPE(product_name, field_name)       \
     POICA_P_PREFIX(BOOST_PP_CAT(                                               \
-        product_name, BOOST_PP_CAT(field_name, _RedirectToFieldType)))
+        product_name,                                                          \
+        BOOST_PP_CAT(_, BOOST_PP_CAT(field_name, _RedirectToFieldType))))
 
 #endif // POICA_PRODUCT_GEN_REDIRECTS_TO_FIELD_TYPE_H
