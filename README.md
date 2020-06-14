@@ -18,13 +18,11 @@
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
- - Comes with the [specification]
+ - Comes with the [specification](https://github.com/Hirrolot/poica/wiki/Specification)
  - Product and sum types
- - [Pattern matching] with exhaustiveness checking
- - [Type introspection]
+ - [Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) with exhaustiveness checking
+ - [Type introspection](https://en.wikipedia.org/wiki/Introspection_(computer_science))
  - No third-party code generators, just `#include <poica.h>` and go!
-
-[specification]: https://github.com/Hirrolot/poica/wiki/Specification
 
 ## Motivation
 
