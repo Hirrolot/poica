@@ -4,6 +4,7 @@
   <a href="https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22">
   <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg">
   </a>
+  <br>
 
   <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
 </div>
