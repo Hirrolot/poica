@@ -1,7 +1,7 @@
 <div align="center">
   <h1>poica</h1>
   
-  This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
+  This library provides <a href="https://en.wikipedia.org/wiki/Algebraic_data_type">algebraic data types</a>, <a href="https://en.wikipedia.org/wiki/Introspection_(computer_science)">type introspection</a>, and <a href="https://en.wikipedia.org/wiki/Pattern_matching">pattern matching</a> for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
   
   <a href="https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22">
   <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg">
@@ -18,10 +18,10 @@
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
- - Comes with the [specification](https://github.com/Hirrolot/poica/wiki/Specification)
+ - Comes with the [specification]
  - Product and sum types
- - [Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) with exhaustiveness checking
- - [Type introspection](https://en.wikipedia.org/wiki/Introspection_(computer_science))
+ - [Pattern matching] with exhaustiveness checking
+ - [Type introspection]
  - No third-party code generators, just `#include <poica.h>` and go!
 
 ## Motivation
@@ -86,12 +86,8 @@ For example, a [binary tree] like this:
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
-
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
-
 [Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
-[pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
-
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
@@ -176,7 +172,6 @@ Also take a look at [AST evaluation] and [error handling] using ADTs.
 Here are what product and sum types return when they are introspected:
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
-[type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
 [[`examples/introspection/product.c`](examples/introspection/product.c)]
 ```c
