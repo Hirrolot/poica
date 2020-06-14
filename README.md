@@ -1,5 +1,9 @@
 # poica
 
+<div align="center">
+    <img src="https://i.imgur.com/XYPKp14.png" width="500px">
+</div>
+
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
 Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
