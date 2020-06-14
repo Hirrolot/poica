@@ -84,6 +84,10 @@ Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type*
 
 For example, a [binary tree] can be conveniently manipulated using sum types:
 
+<div align="center">
+  <img src="https://i.imgur.com/ng8FdNI.png">
+</div>
+
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
 
