@@ -26,7 +26,53 @@
 
 ## Motivation
 
+Usually in C we use unions to tell a compiler that we're going to interpret a single memory region in different ways. To decide how to interpret a union, we endow it with a tag and get a [tagged union].
 
+However, there'll be quite lot of duplication in code:
+
+```c
+typedef struct {
+    enum {
+        OUR_TAGGED_UNION_STATE_1,
+        OUR_TAGGED_UNION_STATE_2,
+        OUR_TAGGED_UNION_STATE_3,
+    } state;
+
+    union {
+        int state_1;
+        const char *state_2;
+        double state_3;
+    } data;
+} OurTaggedUnion;
+```
+
+What's even worse is that this approach is unsafe, meaning that we can construct invalid `OurTaggedUnion` (i), or, for example, (ii) access `data.state_1` when the actual state is `OUR_TAGGED_UNION_STATE_3`:
+
+```c
+// (i)
+OurTaggedUnion res1 = { .state = OUR_TAGGED_UNION_STATE_2, .data.state_1 = 123 };
+
+// (ii)
+OurTaggedUnion res2 = { .state = OUR_TAGGED_UNION_STATE_3, .data.state_3 = .99 };
+some_procedure(res2.data.state_1);
+```
+
+poica solves these two problems by introducing [algebraic data types] (discussed in the next section). That's how it's accomplished with poica:
+
+```c
+SUM(
+    OurTaggedUnion,
+    VARIANT(MkState1 OF int)
+    VARIANT(MkState2 OF const char *)
+    VARIANT(MkState3 OF double)
+);
+
+// (i) Compilation failed!
+OurTaggedUnion res1 = MkState2(123);
+
+OurTaggedUnion res2 = MkState3(.99);
+some_procedure(/* Impossible to pass state_1! */);
+```
 
 ## Quick start
 
