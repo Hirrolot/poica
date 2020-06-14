@@ -1,6 +1,6 @@
-# poica
-
 <div align="center">
+    <h1>poica</h1>
+
     <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
 </div>
 
