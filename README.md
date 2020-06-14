@@ -250,3 +250,7 @@ That is, the metainformation about types is actually a [sequence] in the terms o
 [sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
 [`BOOST_PP_SEQ_*` macros]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/headers/seq.html
+
+## Where to go next?
+
+Take a look at our [examples](/examples) and the [specification].
