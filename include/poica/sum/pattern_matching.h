@@ -2,7 +2,6 @@
 #define POICA_SUM_PATTERN_MATCHING_H
 
 #include <poica/keywords.h>
-#include <poica/poly.h>
 #include <poica/product/gen/redirects/to_field_type.h>
 #include <poica/sum/gen/tags.h>
 
@@ -14,8 +13,9 @@
     ((sum_ptr)->tag == POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name))
 
 #define MATCH(sum_ptr)                                                         \
-    for (poly poica_p_sum_ptr = (poly)(sum_ptr); poica_p_sum_ptr != (poly)0;   \
-         poica_p_sum_ptr = (poly)0)                                            \
+    for (void *poica_p_sum_ptr = (void *)(sum_ptr);                            \
+         poica_p_sum_ptr != (void *)0;                                         \
+         poica_p_sum_ptr = (void *)0)                                          \
         for (bool poica_p_break_is_needed = false; !poica_p_break_is_needed;   \
              poica_p_break_is_needed = true)                                   \
             switch ((sum_ptr)->tag)

@@ -3,7 +3,6 @@
 
 #include <poica/keywords.h>
 #include <poica/obj.h>
-#include <poica/poly.h>
 #include <poica/product.h>
 #include <poica/sum.h>
 
