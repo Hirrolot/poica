@@ -82,11 +82,7 @@ Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type*
 
 [Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
 
-For example, a [binary tree] can be conveniently manipulated using sum types:
-
-<div align="center">
-  <img src="https://i.imgur.com/ng8FdNI.png">
-</div>
+For example, a [binary tree] like this:
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
@@ -97,6 +93,12 @@ For example, a [binary tree] can be conveniently manipulated using sum types:
 [pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
+
+<div align="center">
+  <img src="https://i.imgur.com/ng8FdNI.png">
+</div>
+
+Can be conveniently manipulated using a sum type. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
 
 [[`examples/binary_tree.c`](examples/binary_tree.c)]
 ```c
