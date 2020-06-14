@@ -8,7 +8,7 @@
 
   <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
   
-  This library provides [algebraic data types] for pure C11, [type introspection], and [pattern matching] with exhaustiveness checking. They are used to represent data from the real world conveniently, without too much boilerplate.
+  This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world conveniently, without too much boilerplate.
 </div>
 
 <hr>
