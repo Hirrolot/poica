@@ -11,6 +11,19 @@
 
 <hr>
 
+## Features
+ - C11-compliant
+ - Can work on bare-metal environments
+ - Comes with the [specification]
+ - Product and sum types
+ - [Pattern matching] with exhaustiveness checking
+ - [Type introspection]
+ - No third-party code generators, just `#include <poica.h>` and go!
+
+[specification]: https://github.com/Hirrolot/poica/wiki/Specification
+
+## Quick start
+
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
 Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
