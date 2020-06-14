@@ -98,7 +98,7 @@ For example, a [binary tree] like this:
   <img src="https://i.imgur.com/ng8FdNI.png">
 </div>
 
-Can be conveniently manipulated using a sum type. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
+Can be conveniently represented and further manipulated using a sum type. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
 
 [[`examples/binary_tree.c`](examples/binary_tree.c)]
 ```c
