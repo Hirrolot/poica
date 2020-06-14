@@ -1,7 +1,7 @@
 # poica
 
 <div align="center">
-    <img src="https://i.imgur.com/0FHg6DF.png" width="500px">
+    <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
 </div>
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
