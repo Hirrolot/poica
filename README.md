@@ -7,6 +7,8 @@
   <br>
 
   <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
+  
+  This header-only library provides [algebraic data types] for pure C11, [type introspection], and [pattern matching] with exhaustiveness checking. They are used to represent data from the real world conveniently, without too much boilerplate.
 </div>
 
 <hr>
@@ -33,8 +35,13 @@ Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type*
 For example, a [binary tree] can be conveniently manipulated using sum types:
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
+[algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
+
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
+
 [Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
+[pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
+
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 [[`examples/binary_tree.c`](examples/binary_tree.c)]
@@ -113,6 +120,7 @@ Also take a look at [AST evaluation] and [error handling].
 Here are what product and sum types return when they are introspected:
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
+[type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
 [[`examples/introspection/product.c`](examples/introspection/product.c)]
 ```c
