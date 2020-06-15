@@ -5,6 +5,8 @@
 
 #define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
 
+// Used to force a user to put a semicolon after a macro invocation (such as
+// SUM, PRODUCT).
 #define POICA_P_USELESS_TYPEDEF(name)                                          \
     typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
 
