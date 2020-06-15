@@ -261,4 +261,14 @@ Read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
 ### What "poica" means?
 "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
+
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
+
+### Are these macros zero-cost?
+
+poica has no runtime, the macros expand to plain C code. Here are the disassembled versions of the examples:
+
+| Example | Link |
+|--------|-------|
+| `ast.c` | https://godbolt.org/z/QuxMab |
+| `binary_tree.c` | https://godbolt.org/z/kdqYpU |
