@@ -2,7 +2,6 @@
 #define POICA_SUM_GEN_FIELDS_H
 
 #include <poica/sum/gen/redirects/to_inner_type.h>
-#include <poica/sum/unused_field_type.h>
 #include <poica/sum/variant.h>
 
 #include <boost/preprocessor.hpp>
@@ -13,8 +12,7 @@
 #define POICA_P_SUM_GEN_FIELD(_r, _data, variant)                              \
     OVERLOAD_ON_VARIANT(POICA_P_SUM_GEN_FIELD_, _data, variant)
 
-#define POICA_P_SUM_GEN_FIELD_VARIANT_EMPTY(_data, variant_name)               \
-    POICA_P_SUM_UnusedFieldType variant_name;
+#define POICA_P_SUM_GEN_FIELD_VARIANT_EMPTY(_data, variant_name)
 
 #define POICA_P_SUM_GEN_FIELD_VARIANT_SINGLE(                                  \
     _data, variant_name, variant_type)                                         \

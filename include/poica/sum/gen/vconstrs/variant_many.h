@@ -6,7 +6,6 @@
 #include <poica/product/introspection.h>
 
 #include <poica/sum/gen/tags.h>
-#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 

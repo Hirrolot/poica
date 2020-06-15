@@ -9,7 +9,6 @@
 
 #include <poica/sum/gen/variant_many.h>
 #include <poica/sum/introspection.h>
-#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 

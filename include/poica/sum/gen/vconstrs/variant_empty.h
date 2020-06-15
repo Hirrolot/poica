@@ -2,7 +2,6 @@
 #define POICA_SUM_GEN_VCONSTRS_VARIANT_EMPTY_H
 
 #include <poica/sum/gen/tags.h>
-#include <poica/sum/unused_field_type.h>
 
 #include <boost/preprocessor.hpp>
 
@@ -10,7 +9,6 @@
     inline static sum_name variant_name(void) {                                \
         return (sum_name){                                                     \
             .tag = POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name),              \
-            .data.variant_name = POICA_P_SUM_UNUSED_VALUE,                     \
         };                                                                     \
     }
 
