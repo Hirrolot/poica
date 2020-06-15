@@ -255,3 +255,10 @@ That is, the metainformation about types is actually a [sequence] in the terms o
 ## Where to go next?
 
 Take a look at our [examples](/examples) and the [specification]. If you want to contribute, read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
+
+## FAQ
+
+### What "poica" means?
+"poica" is a [Quenya] word, which means clean, pure. It reflects its API.
+
+[Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
