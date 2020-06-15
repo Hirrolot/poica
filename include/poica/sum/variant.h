@@ -6,12 +6,6 @@
 
 #include <boost/preprocessor.hpp>
 
-/*
- *  1) VARIANT(N) -> ((POICA_VARIANT_EMPTY)(N))
- *  2) VARIANT(N OF (T)) -> ((POICA_VARIANT_SINGLE)(N)(T))
- *  3) VARIANT(N OF (FIELD(N1 OF T1) ... FIELD(Nm OF Tm))) ->
- * ((POICA_VARIANT_MANY)(N)( ((N1)(T1)) ... ((Nm)(Tm)) ))
- */
 #define VARIANT(...)                                                           \
     BOOST_PP_OVERLOAD(POICA_P_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
 
