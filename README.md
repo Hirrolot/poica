@@ -266,7 +266,7 @@ Read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
 
 ### Are these macros zero-cost?
 
-poica has no runtime, the macros expand to plain C code. Here are the disassembled versions of the examples:
+poica has no runtime and performs no system calls, the macros expand to plain C code. Here are the disassembled versions of the examples:
 
 | Example | Link |
 |--------|-------|
