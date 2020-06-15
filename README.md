@@ -270,5 +270,5 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 
 | Example | Link |
 |--------|-------|
-| `ast.c` | https://godbolt.org/z/QuxMab |
-| `binary_tree.c` | https://godbolt.org/z/kdqYpU |
+| `ast.c` | https://godbolt.org/z/BHQEog |
+| `binary_tree.c` | https://godbolt.org/z/5XKjVu |
