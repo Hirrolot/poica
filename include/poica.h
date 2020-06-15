@@ -2,6 +2,7 @@
 #define POICA_H
 
 #include <poica/keywords.h>
+#include <poica/linux_syscalls.h>
 #include <poica/obj.h>
 #include <poica/product.h>
 #include <poica/sum.h>

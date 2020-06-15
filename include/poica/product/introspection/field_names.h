@@ -1,6 +1,8 @@
 #ifndef POICA_PRODUCT_INTROSPECTION_FIELD_NAMES_H
 #define POICA_PRODUCT_INTROSPECTION_FIELD_NAMES_H
 
+#include <poica/product/introspection/aux.h>
+
 #include <boost/preprocessor.hpp>
 
 #define FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
@@ -10,9 +12,9 @@
 #define POICA_P_PRODUCT_GEN_FIELD_NAME_SEQ(_r, _data, field) (FIELD_NAME(field))
 
 #define PRODUCT_FIELD_NAMES_TUPLE(fields)                                      \
-    POICA_P_PRODUCT_X_TUPLE(POICA_P_PRODUCT_GEN_FIELD_NAME_TUPLE,              \
-                            POICA_P_PRODUCT_GEN_FIELD_NAME_TUPLE_LAST,         \
-                            fields)
+    POICA_P_PRODUCT_FIELD_X_TUPLE(POICA_P_PRODUCT_GEN_FIELD_NAME_TUPLE,        \
+                                  POICA_P_PRODUCT_GEN_FIELD_NAME_TUPLE_LAST,   \
+                                  fields)
 
 #define POICA_P_PRODUCT_GEN_FIELD_NAME_TUPLE(_r, _data, field)                 \
     FIELD_NAME(field),

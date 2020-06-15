@@ -26,3 +26,4 @@
     (POICA_P_SUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
 
 #endif // POICA_SUM_GEN_VARIANT_MANY
+ 
