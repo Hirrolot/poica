@@ -16,7 +16,7 @@ PRODUCT(
 double compute_area(Triangle triangle) {
     EXTRACT((a, b, c) FROM (&triangle OF Triangle));
 
-    double p = (a + b + c) / 2;
+    const double p = (a + b + c) / 2;
     return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 // clang-format on
