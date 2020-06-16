@@ -181,7 +181,7 @@ For example, consider [Heron's formula]:
   <img src="https://i.imgur.com/OuXtE5c.png" width="500px" />
 </div>
 
-Which computes area of a triangle from its sides. This can be done in C as follows:
+Which computes area of a triangle, if all three sides are known. This can be done in C as follows:
 
 [[`examples/heron_formula.c`](examples/heron_formula.c)]
 ```c
