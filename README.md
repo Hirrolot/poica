@@ -85,8 +85,6 @@ Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type*
 
 [Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
 
-For example, a [binary tree] like this:
-
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
 
@@ -94,6 +92,10 @@ For example, a [binary tree] like this:
 
 [Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 [pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
+
+### Sum types
+
+For example, a [binary tree] like this:
 
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
@@ -167,10 +169,7 @@ int main(void) {
 
 </details>
 
-Also take a look at [AST evaluation] and [error handling] using ADTs.
-
-[AST evaluation]: https://github.com/Hirrolot/poica/wiki/AST-evaluation
-[error handling]: https://github.com/Hirrolot/poica/wiki/Error-handling
+### Product types
 
 ## Type introspection
 
@@ -270,5 +269,5 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 
 | Example | Link |
 |--------|-------|
-| `ast.c` | https://godbolt.org/z/QuxMab |
-| `binary_tree.c` | https://godbolt.org/z/kdqYpU |
+| `ast.c` | https://godbolt.org/z/BHQEog |
+| `binary_tree.c` | https://godbolt.org/z/5XKjVu |
