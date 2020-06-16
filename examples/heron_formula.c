@@ -22,12 +22,11 @@ double compute_area(Triangle triangle) {
 // clang-format on
 
 int main(void) {
-    Triangle triangle = {13.5146, 14, 9.2214};
-    double area = compute_area(triangle);
+    Triangle triangle = {4, 13, 15};
 
     /*
      * Output:
-     * 59.679495
+     * 24.000000
      */
-    printf("%f\n", area);
+    printf("%f\n", compute_area(triangle));
 }
