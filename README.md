@@ -171,6 +171,60 @@ int main(void) {
 
 ### Product types
 
+If we have structures in C, why we need product types? Well, because product types provide some extra features, such as type introspection (discussed in the next section) and fields extraction.
+
+Using fields extraction, we can make our code a bit cleaner. Here's how:
+
+[[`examples/heron_formula.c`](examples/heron_formula.c)]
+```c
+#include <math.h>
+#include <stdio.h>
+
+#include <poica.h>
+
+PRODUCT(
+    Triangle,
+    FIELD(a OF double)
+    FIELD(b OF double)
+    FIELD(c OF double)
+);
+
+double compute_area(Triangle triangle) {
+    EXTRACT((a, b, c) FROM (&triangle OF Triangle));
+
+    const double p = (a + b + c) / 2;
+    const double area = sqrt(p * (p - a) * (p - b) * (p - c));
+
+    return area;
+}
+
+int main(void) {
+    Triangle triangle = {4, 13, 15};
+    printf("%f\n", compute_area(triangle));
+}
+
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+24.000000
+```
+
+</details>
+
+Compare the above code to this version of `compute_area`:
+
+```c
+double compute_area(Triangle triangle) {
+    const double p = (triangle.a + triangle.b + triangle.c) / 2;
+    const double area = sqrt(p * (p - triangle.a) * (p - triangle.b) * (p - triangle.c));
+
+    return area;
+}
+```
+
 ## Type introspection
 
 [Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
