@@ -11,6 +11,7 @@
   </a>
   <a href="https://github.com/Hirrolot/poica/wiki/Specification">
   <img src="https://img.shields.io/badge/docs-wiki/Specification-blue.svg" />
+  </a>
   <br>
 
   <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
