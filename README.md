@@ -4,11 +4,13 @@
   This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
   
   <a href="https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22">
-  <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg">
+  <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg" />
   </a>
   <a href="https://github.com/teloxide/teloxide/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg">
+  <img src="https://img.shields.io/badge/version-0.1.0-orange.svg" />
   </a>
+  <a href="https://github.com/Hirrolot/poica/wiki/Specification">
+  <img src="https://img.shields.io/badge/docs-wiki/Specification-blue.svg" />
   <br>
 
   <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
