@@ -100,7 +100,7 @@ For example, a [binary tree] like this:
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
-  <img src="https://i.imgur.com/ng8FdNI.png">
+  <img src="https://i.imgur.com/ng8FdNI.png" />
 </div>
 
 Can be conveniently represented and further manipulated using a sum type. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
@@ -173,7 +173,15 @@ int main(void) {
 
 If we have structures in C, why we need product types? Well, because product types provide some extra features, such as type introspection (discussed in the next section) and fields extraction.
 
-Using fields extraction, we can make our code a bit cleaner. Here's how:
+As example, consider [Heron's formula]:
+
+[Heron's formula]: https://en.wikipedia.org/wiki/Heron's_formula
+
+<div align="center">
+  <img src="https://i.imgur.com/OuXtE5c.png" width="500px" />
+</div>
+
+This can be mapped to the actual code as follows:
 
 [[`examples/heron_formula.c`](examples/heron_formula.c)]
 ```c
@@ -214,7 +222,7 @@ int main(void) {
 
 </details>
 
-Compare the above code to this version of `compute_area`:
+`EXTRACT` just creates new variables of the appropriate types and assigns them values from `triangle`. Compare the above code to this version of `compute_area`:
 
 ```c
 double compute_area(Triangle triangle) {
@@ -224,6 +232,8 @@ double compute_area(Triangle triangle) {
     return area;
 }
 ```
+
+This is how fields extraction can make our code a bit cleaner. In general, fields extraction is preffered when there's a lot of repeating access to fields of a single variable, and it's obvious to what variable the fields correspond.
 
 ## Type introspection
 
