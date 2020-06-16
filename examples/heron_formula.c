@@ -17,7 +17,9 @@ double compute_area(Triangle triangle) {
     EXTRACT((a, b, c) FROM (&triangle OF Triangle));
 
     const double p = (a + b + c) / 2;
-    return sqrt(p * (p - a) * (p - b) * (p - c));
+    const double area = sqrt(p * (p - a) * (p - b) * (p - c));
+
+    return area;
 }
 // clang-format on
 
