@@ -173,7 +173,7 @@ int main(void) {
 
 If we have structures in C, why we need product types? Well, because product types provide some extra features, such as type introspection (discussed in the next section) and fields extraction.
 
-As example, consider [Heron's formula]:
+For example, consider [Heron's formula]:
 
 [Heron's formula]: https://en.wikipedia.org/wiki/Heron's_formula
 
@@ -181,7 +181,7 @@ As example, consider [Heron's formula]:
   <img src="https://i.imgur.com/OuXtE5c.png" width="500px" />
 </div>
 
-This can be mapped to the actual code as follows:
+Which computes area of a triangle from its sides. This can be done in C as follows:
 
 [[`examples/heron_formula.c`](examples/heron_formula.c)]
 ```c
