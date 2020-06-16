@@ -1,23 +1,9 @@
-<div align="center">
-  <h1>poica</h1>
-  
-  This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
-  
-  <a href="https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22">
-  <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg" />
-  </a>
-  <a href="https://github.com/Hirrolot/poica/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/version-0.1.0-orange.svg" />
-  </a>
-  <a href="https://github.com/Hirrolot/poica/wiki/Specification">
-  <img src="https://img.shields.io/badge/docs-wiki/Specification-blue.svg" />
-  </a>
-  <br>
+# poica
+[![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
+[![version](https://img.shields.io/badge/version-0.1.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.1.0)
+[![docs](https://img.shields.io/badge/docs-wiki/Specification-blue.svg)](https://github.com/Hirrolot/poica/wiki/Specification)
 
-  <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
-</div>
-
-<hr>
+This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
 
 ## Features
  - C11-compliant
