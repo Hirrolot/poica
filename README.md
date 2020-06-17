@@ -376,3 +376,7 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 |--------|-------|
 | `ast.c` | https://godbolt.org/z/BHQEog |
 | `binary_tree.c` | https://godbolt.org/z/5XKjVu |
+
+### Any pitfalls?
+
+The only pitfall I discovered so far is scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
