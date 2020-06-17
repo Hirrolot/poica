@@ -12,7 +12,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - [ADTs](#adts)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
- - [Consistent error handling](#consistent-error-handling)
+ - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Type introspection](#type-introspection)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
@@ -238,7 +238,7 @@ double compute_area(Triangle triangle) {
 
 This is how fields extraction can make our code a bit cleaner. In general, fields extraction is preffered when there's a lot of repeating access to fields of a single variable, and it's obvious to what variable the fields correspond.
 
-## Consistent error handling
+## Safe, consistent error handling
 
 ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
 
