@@ -1,3 +1,14 @@
+/*
+ * Let us have a simple arithmetical language, consisting of:
+ *
+ *  1) Constants of double;
+ *  2) Expressions: either expr1 (+ | - | * | /) expr2 or a constant.
+ *
+ *
+ * A sum type can be used to represent the hierarchical structure of ASTs, and
+ * pattern matching is a technique to evaluate them.
+ */
+
 #include <poica.h>
 
 #include <stdio.h>
