@@ -12,6 +12,7 @@
 #include <poica/sum/gen/variant_many.h>
 #include <poica/sum/gen/vconstrs.h>
 #include <poica/sum/pattern_matching.h>
+#include <poica/sum/try.h>
 #include <poica/sum/variant.h>
 
 #include <boost/preprocessor.hpp>

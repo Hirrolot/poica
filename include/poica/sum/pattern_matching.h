@@ -80,12 +80,4 @@
         poica_p_break_is_needed = true;                                        \
     }
 
-#define TRY(sum_ptr, case_expr, failure_expr)                                  \
-    MATCH(sum_ptr) {                                                           \
-        case_expr {                                                            \
-            return failure_expr;                                               \
-        }                                                                      \
-        DEFAULT {}                                                             \
-    }
-
 #endif // POICA_SUM_PATTERN_MATCHING_H
