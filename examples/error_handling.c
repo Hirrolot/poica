@@ -42,7 +42,7 @@ SUM(
 );
 // clang-format on
 
-ParseFullNameRes parse_full_name(Person *person, char **src) {
+ParseFullNameRes parse_full_name(Person *person, const char **src) {
     if ((person->full_name = strchr(*src, '\'')) == NULL) {
         return MkParseFullNameErr(MkNoFirstApostrophe());
     }
@@ -83,7 +83,8 @@ ParseAgeRes parse_age(Person *person, char **src) {
 ParseRes parse(char *src) {
     Person person;
 
-    ParseFullNameRes full_name_res = parse_full_name(&person, &src);
+    ParseFullNameRes full_name_res =
+        parse_full_name(&person, (const char **)&src);
     MATCH(&full_name_res) {
         CASE(MkParseFullNameErr, err) {
             return MkParseErr(*err);
