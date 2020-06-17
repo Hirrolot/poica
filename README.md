@@ -283,41 +283,10 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 [Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
 
-Here are what product and sum types return when they are introspected:
-
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 [type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
-[[`examples/introspection/product.c`](examples/introspection/product.c)]
-```c
-#include <poica.h>
-
-#include <stdio.h>
-
-#include <boost/preprocessor.hpp>
-
-#define MY_PRODUCT                                                             \
-    Something,                                                                 \
-    FIELD(a OF int)                                                            \
-    FIELD(b OF const char *)                                                   \
-    FIELD(c OF double)                                                         \
-
-PRODUCT(MY_PRODUCT);
-#define Something_INTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
-
-int main(void) {
-    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
-}
-```
-
-<details>
-    <summary>Output</summary>
-
-```
-((a)(int)) ((b)(const char *)) ((c)(double))
-```
-
-</details>
+### Sum types
 
 [[`examples/introspection/sum.c`](examples/introspection/sum.c)]
 ```c
@@ -349,6 +318,39 @@ int main(void) {
 ((POICA_VARIANT_EMPTY)(MkA))
 ((POICA_VARIANT_SINGLE)(MkB)(int))
 ((POICA_VARIANT_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+```
+
+</details>
+
+### Product types
+
+[[`examples/introspection/product.c`](examples/introspection/product.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+#include <boost/preprocessor.hpp>
+
+#define MY_PRODUCT                                                             \
+    Something,                                                                 \
+    FIELD(a OF int)                                                            \
+    FIELD(b OF const char *)                                                   \
+    FIELD(c OF double)                                                         \
+
+PRODUCT(MY_PRODUCT);
+#define Something_INTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
+
+int main(void) {
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+((a)(int)) ((b)(const char *)) ((c)(double))
 ```
 
 </details>
