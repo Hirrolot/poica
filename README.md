@@ -14,6 +14,8 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Product types](#product-types)
  - [Error handling](#error-handling)
  - [Type introspection](#type-introspection)
+   - [Sum types](#sum-types-1)
+   - [Product types](#product-types-1)
  - [Contributing](#contributing)
  - [FAQ](#faq)
    - [What "poica" means?](#what-poica-means)
