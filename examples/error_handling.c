@@ -83,21 +83,14 @@ ParseAgeRes parse_age(Person *person, char **src) {
 ParseRes parse(char *src) {
     Person person;
 
-    ParseFullNameRes full_name_res =
-        parse_full_name(&person, (const char **)&src);
-    MATCH(&full_name_res) {
-        CASE(MkParseFullNameErr, err) {
-            return MkParseErr(*err);
-        }
-        DEFAULT {}
+    {
+        ParseFullNameRes res = parse_full_name(&person, (const char **)&src);
+        TRY(&res, CASE(MkParseFullNameErr, err), MkParseErr(*err));
     }
 
-    ParseAgeRes age_res = parse_age(&person, &src);
-    MATCH(&age_res) {
-        CASE(MkParseAgeErr, err) {
-            return MkParseErr(*err);
-        }
-        DEFAULT {}
+    {
+        ParseAgeRes res = parse_age(&person, &src);
+        TRY(&res, CASE(MkParseAgeErr, err), MkParseErr(*err));
     }
 
     return MkParseOk(person);
