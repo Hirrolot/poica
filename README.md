@@ -16,6 +16,9 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - [Type introspection](#type-introspection)
  - [Contributing](#contributing)
  - [FAQ](#faq)
+   - [What "poica" means?](#what-poica-means)
+   - [Are these macros zero-cost?](#are-these-macros-zero-cost)
+   - [Any pitfalls?](#any-pitfalls)
 
 ## Features
  - C11-compliant
