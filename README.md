@@ -9,9 +9,6 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - C11-compliant
  - Can work on bare-metal environments
  - Comes with the [specification]
- - Product and sum types
- - [Pattern matching] with exhaustiveness checking
- - [Type introspection]
  - No third-party code generators, just `#include <poica.h>` and go!
 
 [specification]: https://github.com/Hirrolot/poica/wiki/Specification
