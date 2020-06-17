@@ -12,10 +12,11 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - [ADTs](#adts)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
- - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Type introspection](#type-introspection)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
+ - [Real-world usage](#real-world-usage)
+   - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Contributing](#contributing)
  - [FAQ](#faq)
    - [What "poica" means?](#what-poica-means)
@@ -238,49 +239,6 @@ double compute_area(Triangle triangle) {
 
 This is how fields extraction can make our code a bit cleaner. In general, fields extraction is preffered when there's a lot of repeating access to fields of a single variable, and it's obvious to what variable the fields correspond.
 
-## Safe, consistent error handling
-
-ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
-
-```c
-SUM(
-    RecvMsgErrKind,
-    VARIANT(MkBadConnection)
-    VARIANT(MkNoSuchUser)
-    ...
-);
-
-SUM(
-    RecvMsgRes,
-    VARIANT(MkRecvMsgOk OF char *)
-    VARIANT(MkSendMsgErr OF RecvMsgErrKind))
-);
-
-RecvMsgRes recv_msg(...) { ... }
-```
-
-And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecvMsgOk` and `MkSendMsgErr`:
-
-```c
-RecvMsgRes res = recv_msg(...);
-MATCH(&res) {
-    CASE(MkRecvMsgOk, msg) { ... }
-    CASE(MkSendMsgErr, err_kind) { ... }
-}
-```
-
-But why this is better than `int` error codes? Because of:
-
- - **Readability.** Such identifiers as `MkRecvMsgOk` and `MkSendMsgErr` are more for humans, and therefore, it's much harder to confuse them with each other. In contrast to this, the usual approach in C to determine an error is by using magic ranges (for example, <0 or -1).
-
- - **Consistency.** No need to invent different strategies to handle different kinds of errors (i.e. using exceptions for less likely errors, `int` codes for a normal control flow, ...); ADTs address the problem of error handling generally.
-
- - **Exhaustiveness checking (case analysis).** A smart compiler and static analysis tools ensure that all the variants of `RecvMsgRes` are handled in `MATCH`, so we can't forget to handle an error and make a possibly serious bug by leaving an application work as there's no error, when there is.
-
-ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
-
-See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
-
 ## Type introspection
 
 [Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
@@ -362,6 +320,52 @@ That is, the metainformation about types is actually a [sequence] in the terms o
 [sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
 [`BOOST_PP_SEQ_*` macros]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/headers/seq.html
+
+### Real-world usage
+
+### Safe, consistent error handling
+
+ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
+
+```c
+SUM(
+    RecvMsgErrKind,
+    VARIANT(MkBadConnection)
+    VARIANT(MkNoSuchUser)
+    ...
+);
+
+SUM(
+    RecvMsgRes,
+    VARIANT(MkRecvMsgOk OF char *)
+    VARIANT(MkSendMsgErr OF RecvMsgErrKind))
+);
+
+RecvMsgRes recv_msg(...) { ... }
+```
+
+And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecvMsgOk` and `MkSendMsgErr`:
+
+```c
+RecvMsgRes res = recv_msg(...);
+MATCH(&res) {
+    CASE(MkRecvMsgOk, msg) { ... }
+    CASE(MkSendMsgErr, err_kind) { ... }
+}
+```
+
+But why this is better than `int` error codes? Because of:
+
+ - **Readability.** Such identifiers as `MkRecvMsgOk` and `MkSendMsgErr` are more for humans, and therefore, it's much harder to confuse them with each other. In contrast to this, the usual approach in C to determine an error is by using magic ranges (for example, <0 or -1).
+
+ - **Consistency.** No need to invent different strategies to handle different kinds of errors (i.e. using exceptions for less likely errors, `int` codes for a normal control flow, ...); ADTs address the problem of error handling generally.
+
+ - **Exhaustiveness checking (case analysis).** A smart compiler and static analysis tools ensure that all the variants of `RecvMsgRes` are handled in `MATCH`, so we can't forget to handle an error and make a possibly serious bug by leaving an application work as there's no error, when there is.
+
+ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
+
+See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
+
 
 ## Contributing
 
