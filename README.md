@@ -1,28 +1,14 @@
-<div align="center">
-  <h1>poica</h1>
-  
-  This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
-  
-  <a href="https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22">
-  <img src="https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg">
-  </a>
-  <a href="https://github.com/teloxide/teloxide/releases/tag/v0.1.0">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue.svg">
-  </a>
-  <br>
+# poica
+[![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
+[![version](https://img.shields.io/badge/version-0.1.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.1.0)
+[![docs](https://img.shields.io/badge/docs-wiki/Specification-blue.svg)](https://github.com/Hirrolot/poica/wiki/Specification)
 
-  <img src="https://i.imgur.com/SiyRYvC.png" width="500px">
-</div>
-
-<hr>
+This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
 
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
  - Comes with the [specification]
- - Product and sum types
- - [Pattern matching] with exhaustiveness checking
- - [Type introspection]
  - No third-party code generators, just `#include <poica.h>` and go!
 
 [specification]: https://github.com/Hirrolot/poica/wiki/Specification
@@ -77,7 +63,7 @@ OurTaggedUnion res2 = MkState3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
 
-## Quick start
+## ADTs
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
@@ -100,10 +86,10 @@ For example, a [binary tree] like this:
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
-  <img src="https://i.imgur.com/ng8FdNI.png">
+  <img src="https://i.imgur.com/MkefQNV.png" width="400px" />
 </div>
 
-Can be conveniently represented and further manipulated using a sum type. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
+Can be conveniently represented as a sum type and further manipulated using pattern matching. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
 
 [[`examples/binary_tree.c`](examples/binary_tree.c)]
 ```c
@@ -170,6 +156,70 @@ int main(void) {
 </details>
 
 ### Product types
+
+If we have structures in C, why we need product types? Well, because product types provide some extra features, such as type introspection (discussed in the next section) and fields extraction.
+
+For example, consider [Heron's formula]:
+
+[Heron's formula]: https://en.wikipedia.org/wiki/Heron's_formula
+
+<div align="center">
+  <img src="https://i.imgur.com/OuXtE5c.png" width="500px" />
+</div>
+
+Which computes area of a triangle, if all three sides are known. This can be accomplished with product types as follows:
+
+[[`examples/heron_formula.c`](examples/heron_formula.c)]
+```c
+#include <math.h>
+#include <stdio.h>
+
+#include <poica.h>
+
+PRODUCT(
+    Triangle,
+    FIELD(a OF double)
+    FIELD(b OF double)
+    FIELD(c OF double)
+);
+
+double compute_area(Triangle triangle) {
+    EXTRACT((a, b, c) FROM (&triangle OF Triangle));
+
+    const double p = (a + b + c) / 2;
+    const double area = sqrt(p * (p - a) * (p - b) * (p - c));
+
+    return area;
+}
+
+int main(void) {
+    Triangle triangle = {4, 13, 15};
+    printf("%f\n", compute_area(triangle));
+}
+
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+24.000000
+```
+
+</details>
+
+`EXTRACT` just creates new variables of the appropriate types and assigns them values from `triangle`. Compare the above code to this version of `compute_area`:
+
+```c
+double compute_area(Triangle triangle) {
+    const double p = (triangle.a + triangle.b + triangle.c) / 2;
+    const double area = sqrt(p * (p - triangle.a) * (p - triangle.b) * (p - triangle.c));
+
+    return area;
+}
+```
+
+This is how fields extraction can make our code a bit cleaner. In general, fields extraction is preffered when there's a lot of repeating access to fields of a single variable, and it's obvious to what variable the fields correspond.
 
 ## Type introspection
 
