@@ -66,7 +66,7 @@ OurTaggedUnion res2 = MkState3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
 
-## Quick start
+## ADTs
 
 [**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
