@@ -5,6 +5,18 @@
 
 This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
 
+## Table of contents
+
+ - [Features](#features)
+ - [Motivation](#motivation)
+ - [ADTs](#adts)
+   - [Sum types](#sum-types)
+   - [Product types](#product-types)
+ - [Error handling](#error-handling)
+ - [Type introspection](#type-introspection)
+ - [Contributing](#contributing)
+ - [FAQ](#faq)
+
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
