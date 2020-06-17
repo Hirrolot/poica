@@ -21,7 +21,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Finite-state machines](#finite-state-machinines)
    - [Compiler construction](#compiler-construction)
      - [Tokens](#tokens)
-     - [AST evaluation](#ast-evaluation)
+     - [Abstract syntax trees](#abstract-syntax-trees)
  - [Contributing](#contributing)
  - [FAQ](#faq)
    - [What "poica" means?](#what-poica-means)
