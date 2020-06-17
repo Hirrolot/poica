@@ -1,3 +1,6 @@
+// Error handling with ADTs. This is demonstrated on parsing the "'<full name>'
+// <age>" string.
+
 #include <poica.h>
 
 #include <assert.h>
