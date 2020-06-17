@@ -17,7 +17,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Product types](#product-types-1)
  - [Real-world usage](#real-world-usage)
    - [Safe, consistent error handling](#safe-consistent-error-handling)
-   - [Message passing, FSM, tokens, AST, ...](#other-stuff)
+   - [Message passing, FSM, tokens, AST, ...](#message-passing-fsm-tokens-ast-)
  - [Contributing](#contributing)
  - [FAQ](#faq)
    - [What "poica" means?](#what-poica-means)
