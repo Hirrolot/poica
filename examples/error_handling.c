@@ -102,13 +102,13 @@ ParseRes parse(char *src) {
 const char *stringify_parse_err(const ParseErr *err) {
     MATCH(err) {
         CASE(MkInvalidAge) {
-            return "an invalid age";
+            return "a range must be a nonnegative integral number";
         }
         CASE(MkNoFirstApostrophe) {
-            return "no first apostrophe";
+            return "no apostrophe before a full name";
         }
         CASE(MkNoSecondApostrophe) {
-            return "no second apostrophe";
+            return "no apostrophe after a full name";
         }
     }
 }
@@ -128,7 +128,7 @@ int main(void) {
             puts("Success!");
         }
         CASE(MkParseErr, err) {
-            printf("Parsing has been failed! Reason: %s\n",
+            printf("Parsing has been failed! Reason: %s.\n",
                    stringify_parse_err(err));
         }
     }
