@@ -17,7 +17,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Product types](#product-types-1)
  - [Real-world usage](#real-world-usage)
    - [Safe, consistent error handling](#safe-consistent-error-handling)
-   - [Message passing, FSM, tokens, AST, ...](#message-passing-fsm-tokens-ast-)
+   - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
  - [Contributing](#contributing)
  - [FAQ](#faq)
    - [What "poica" means?](#what-poica-means)
@@ -368,7 +368,9 @@ ADTs even have advantages over exceptions: they do not perform transformations w
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
 
 
-### Message passing, FSM, tokens, AST, ...
+### Message passing, tokens, AST, ...
+
+ADTs have tremendous amount of applications to real-world programming. For example, it's very naturally to [encode tokens](examples/tokens.c) as a sum type, [pass messages](examples/message_passing.c) from one process to another, [evaluate an AST](examples/ast.c).
 
 ## Contributing
 
