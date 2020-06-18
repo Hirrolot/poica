@@ -19,4 +19,5 @@ jobs:
       run: wget http://libdill.org/libdill-2.14.tar.gz && tar -xzf libdill-2.14.tar.gz && cd libdill-2.14 && ./configure && make -j 4 && sudo make install
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
-
+    - name: Run examples
+      run: cd examples/build && ./ast && ./binary_tree && error_handling && ./heron_formula && ./message_passing && ./obj && ./tokens
