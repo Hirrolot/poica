@@ -5,7 +5,8 @@
 
 This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11.
 
-## Table of contents
+<details>
+ <summary>Table of contents</summary>
 
  - [Features](#features)
  - [Installation](#installation)
@@ -21,6 +22,8 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
  - [Contributing](#contributing)
  - [FAQ](#faq)
+
+</details>
 
 ## Features
  - C11-compliant
