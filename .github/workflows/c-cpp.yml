@@ -13,11 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: Install Boost/Preprocessor
+      run: wget https://github.com/boostorg/preprocessor/archive/boost-1.73.0.tar.gz && tar -xvzf boost-1.73.0.tar.gz && cd preprocessor-boost-1.73.0 && sudo cp include/boost /usr/include -rf
+    - name: Install libdill
+      run: wget http://libdill.org/libdill-2.14.tar.gz && tar -xzf libdill-2.14.tar.gz && cd libdill-2.14 && ./configure && make -j 4 && sudo make install
+    - name: Build examples
+      run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
+    - name: Run examples
+      run: cd examples/build && ./ast && ./binary_tree && ./error_handling && ./heron_formula && ./message_passing && ./obj && ./tokens
