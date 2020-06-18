@@ -20,4 +20,4 @@ jobs:
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
     - name: Run examples
-      run: cd examples/build && ./ast && ./binary_tree && ./error_handling && ./heron_formula && ./message_passing && ./obj && ./tokens && ./product_introspection && ./sum_introspection
+      run: ./scripts/run_examples.sh
