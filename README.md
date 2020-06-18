@@ -21,6 +21,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Safe, consistent error handling](#safe-consistent-error-handling)
    - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
  - [Contributing](#contributing)
+ - [Changelog](#changelog)
  - [FAQ](#faq)
 
 </details>
@@ -399,6 +400,10 @@ ADTs have tremendous amount of applications to real-world programming. For examp
 ## Contributing
 
 Read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
+
+## Changelog
+
+Read [wiki/Changelog](https://github.com/Hirrolot/poica/wiki/Changelog).
 
 ## FAQ
 
