@@ -437,3 +437,7 @@ A: Read ["The algebra (and calculus!) of algebraic data types"](https://codeword
 Q: Is it allowed to use Boost/Preprocessor in C?
 
 A: Yes.
+
+Q: Why did you created this project?
+
+A: Initially poica was born as my experiment of what's possible in plain C.
