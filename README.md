@@ -8,6 +8,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
 ## Table of contents
 
  - [Features](#features)
+ - [Installation](#installation)
  - [Motivation](#motivation)
  - [ADTs](#adts)
    - [Sum types](#sum-types)
@@ -32,6 +33,23 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - No third-party code generators, just `#include <poica.h>` and go!
 
 [specification]: https://github.com/Hirrolot/poica/wiki/Specification
+
+## Installation
+
+```sh
+git clone https://github.com/Hirrolot/poica.git
+cd poica
+```
+
+The only dependency is [Boost/Preprocessor]. If you are on a UNIX-like system, just run the following script:
+
+```
+sudo bash scripts/install_boost_pp.sh
+```
+
+Alternatively, [Boost/Preprocessor] can be downloaded and then installed from its [official releases](https://github.com/boostorg/preprocessor/releases).
+
+Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to exports its API (using the `-I` compiler option). That's all.
 
 ## Motivation
 
