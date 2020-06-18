@@ -424,7 +424,8 @@ A: The only pitfall I discovered so far is scary macro errors, describing conseq
 
 Q: Why they are called algebraic?
 
-A: A [good explanation](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) is given by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
+A: Read ["The algebra (and calculus!) of algebraic data types"](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
 
 Q: Is it allowed to use Boost/Preprocessor in C?
+
 A: Yes.
