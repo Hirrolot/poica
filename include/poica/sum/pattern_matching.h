@@ -51,11 +51,16 @@
     default:                                                                   \
         POICA_P_SUM_BREAK_IF_NEEDED
 
+// These FALLTHRU comments are used to shut down the -Wimplicit-fallthrough gcc
+// warning, because it's false positive.
+
 #define POICA_P_SUM_CASE_1(variant_name)                                       \
+    /* FALLTHRU */                                                             \
     case POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name):                        \
         POICA_P_SUM_BREAK_IF_NEEDED
 
 #define POICA_P_SUM_CASE_2(variant_name, var_name)                             \
+    /* FALLTHRU */                                                             \
     case POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name):                        \
         POICA_P_SUM_BREAK_IF_NEEDED                                            \
                                                                                \
@@ -64,6 +69,7 @@
              var_name = (void *)0)
 
 #define POICA_P_SUM_CASE_3(variant_name, _many, var_names)                     \
+    /* FALLTHRU */                                                             \
     case POICA_P_SUM_VARIANT_NAME_AS_TAG(variant_name):                        \
         POICA_P_SUM_BREAK_IF_NEEDED                                            \
                                                                                \
