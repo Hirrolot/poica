@@ -434,7 +434,7 @@ Q: Why they are called algebraic?
 
 A: Read ["The algebra (and calculus!) of algebraic data types"](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
 
-Q: Is it allowed to use Boost/Preprocessor in C?
+Q: Is it allowed to use [Boost/Preprocessor] in C?
 
 A: Yes.
 
