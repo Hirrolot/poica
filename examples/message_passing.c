@@ -23,9 +23,11 @@
  * SOFTWARE.
  */
 
-// Demonstrates message passing using ADTs. One coroutine waits for a command
-// (represented as a sum type) and responses to the sender, and then the answer
-// is printed to stdout.
+/* Demonstrates message passing using ADTs.
+ *
+ * One coroutine waits for a command (represented as a sum type) and responses
+ * to the sender, and then the answer is printed to stdout.
+ */
 
 #include <poica.h>
 
