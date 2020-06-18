@@ -27,6 +27,9 @@
  *
  * One coroutine waits for a command (represented as a sum type) and responses
  * to the sender, and then the answer is printed to stdout.
+ *
+ * Note: this example uses libdill and currently works only under UNIX-like
+ * systems. More information: http://libdill.org.
  */
 
 #include <poica.h>
