@@ -3,7 +3,7 @@
 [![version](https://img.shields.io/badge/version-0.1.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.1.0)
 [![docs](https://img.shields.io/badge/docs-wiki/Specification-blue.svg)](https://github.com/Hirrolot/poica/wiki/Specification)
 
-This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They are used to represent data from the real world naturally, without too much boilerplate.
+This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11.
 
 ## Table of contents
 
