@@ -53,3 +53,6 @@ dkms.conf
 
 # IDE files
 .vscode/
+
+# Examples build files
+examples/build/
