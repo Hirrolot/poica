@@ -393,6 +393,9 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 |--------|-------|
 | `ast.c` | https://godbolt.org/z/BHQEog |
 | `binary_tree.c` | https://godbolt.org/z/5XKjVu |
+| `heron_formula.c` | https://godbolt.org/z/xaqL_r |
+| `tokens.c` | https://godbolt.org/z/pNx4jX |
+| `error_handling.c` | https://godbolt.org/z/6Kotvn |
 
 ### Any pitfalls?
 
