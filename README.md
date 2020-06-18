@@ -21,10 +21,6 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
  - [Contributing](#contributing)
  - [FAQ](#faq)
-   - [What "poica" means?](#what-poica-means)
-   - [Are these macros zero-cost?](#are-these-macros-zero-cost)
-   - [Any pitfalls?](#any-pitfalls)
-   - [Why they are called algebraic?](#why-they-are-called-algebraic)
 
 ## Features
  - C11-compliant
@@ -403,15 +399,16 @@ Read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
 
 ## FAQ
 
-### What "poica" means?
-"poica" is a [Quenya] word, which means clean, pure. It reflects its API.
+Q: What "poica" means?
+
+A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
 
-### Are these macros zero-cost?
+Q: Are these macros zero-cost?
 
-poica has no runtime and performs no system calls, the macros expand to plain C code. Here are the disassembled versions of the examples:
+A: poica has no runtime and performs no system calls, the macros expand to plain C code. Here are the disassembled versions of the examples:
 
 | Example | Link |
 |--------|-------|
@@ -421,10 +418,13 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 | `tokens.c` | https://godbolt.org/z/pNx4jX |
 | `error_handling.c` | https://godbolt.org/z/6Kotvn |
 
-### Any pitfalls?
+Q: Any pitfalls?
 
-The only pitfall I discovered so far is scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
+A: The only pitfall I discovered so far is scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
 
-### Why they are called algebraic?
+Q: Why they are called algebraic?
 
-A [good explanation](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) is given by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
+A: A [good explanation](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) is given by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
+
+Q: Is it allowed to use Boost/Preprocessor in C?
+A: Yes.
