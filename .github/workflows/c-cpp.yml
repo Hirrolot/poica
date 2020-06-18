@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Boost/Preprocessor
-      run: wget https://github.com/boostorg/preprocessor/archive/boost-1.73.0.tar.gz && tar -xvzf boost-1.73.0.tar.gz && cd preprocessor-boost-1.73.0 && sudo cp include/boost /usr/include -rf
+      run: ./scripts/install_boost_pp.sh
     - name: Install libdill
-      run: wget http://libdill.org/libdill-2.14.tar.gz && tar -xzf libdill-2.14.tar.gz && cd libdill-2.14 && ./configure && make -j 4 && sudo make install
+      run: ./scripts/install_libdill.sh
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
     - name: Run examples
