@@ -20,6 +20,12 @@ if(UNIX)
   target_link_libraries(message_passing libdill.a pthread)
 endif(UNIX)
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  add_compile_options(-Wall)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  add_compile_options(-Wall -Wextra)
+endif()
+
 set_target_properties(
   ast
   binary_tree
