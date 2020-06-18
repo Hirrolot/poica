@@ -399,11 +399,11 @@ ADTs have tremendous amount of applications to real-world programming. For examp
 
 ## Contributing
 
-Read [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing).
+[wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing)
 
 ## Changelog
 
-Read [wiki/Changelog](https://github.com/Hirrolot/poica/wiki/Changelog).
+[wiki/Changelog](https://github.com/Hirrolot/poica/wiki/Changelog)
 
 ## FAQ
 
