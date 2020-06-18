@@ -23,6 +23,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [What "poica" means?](#what-poica-means)
    - [Are these macros zero-cost?](#are-these-macros-zero-cost)
    - [Any pitfalls?](#any-pitfalls)
+   - [Why they are called algebraic?](#why-they-are-called-algebraic)
 
 ## Features
  - C11-compliant
@@ -396,3 +397,7 @@ poica has no runtime and performs no system calls, the macros expand to plain C 
 ### Any pitfalls?
 
 The only pitfall I discovered so far is scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
+
+### Why they are called algebraic?
+
+A [good explanation](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) is given by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
