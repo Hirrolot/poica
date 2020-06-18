@@ -341,6 +341,8 @@ That is, the metainformation about types is actually a [sequence] in the terms o
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
 [`BOOST_PP_SEQ_*` macros]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/headers/seq.html
 
+With type introspection it is possible to achieve type-driven (de)serialization, command-line argument parsing, and more such things.
+
 ### Real-world usage
 
 ### Safe, consistent error handling
