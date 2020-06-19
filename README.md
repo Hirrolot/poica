@@ -195,7 +195,7 @@ int main(void) {
 
 ### Product types
 
-If we have structures in C, why we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
+If we have structures in C, why do we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
 
 ```c
 RECORD(
