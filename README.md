@@ -49,7 +49,7 @@ sudo bash scripts/install_boost_pp.sh
 
 Alternatively, [Boost/Preprocessor] can be downloaded and then installed from its [official releases](https://github.com/boostorg/preprocessor/releases).
 
-Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to exports its API (using the `-I` compiler option). That's all.
+Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
 
 ## Motivation
 
