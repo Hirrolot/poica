@@ -39,13 +39,13 @@
 #include <stdio.h>
 
 // clang-format off
-PRODUCT(
+RECORD(
     ExprPair,
     FIELD(left OF const struct Expr *)
     FIELD(right OF const struct Expr *)
 );
 
-SUM(
+ENUM(
     Expr,
     VARIANT(MkConst OF double)
     VARIANT(MkAdd OF ExprPair)

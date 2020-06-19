@@ -42,7 +42,7 @@
 #define CHECK_RC(rc) assert(rc != -1)
 
 // clang-format off
-SUM(
+ENUM(
     Command,
     VARIANT(MkAdd OF MANY FIELD(left OF int) FIELD(right OF int))
     VARIANT(MkDouble OF int)

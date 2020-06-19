@@ -23,16 +23,26 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE_H
+#define POICA_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE_H
+
+#include <poica/private/aux.h>
+
+#include <poica/record/introspection.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE(record_name, fields)        \
+    BOOST_PP_SEQ_FOR_EACH(                                                     \
+        POICA_P_RECORD_GEN_REDIRECT_TO_FIELD_TYPE, record_name, fields)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define POICA_P_RECORD_GEN_REDIRECT_TO_FIELD_TYPE(_r, record_name, field)      \
+    typedef FIELD_TYPE(field)                                                  \
+        POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(record_name, FIELD_NAME(field));
 
-#endif // POICA_PRIVATE_AUX_H
+#define POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(record_name, field_name)         \
+    POICA_P_PREFIX(BOOST_PP_CAT(                                               \
+        record_name,                                                           \
+        BOOST_PP_CAT(_, BOOST_PP_CAT(field_name, _RedirectToFieldType))))
+
+#endif // POICA_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE_H

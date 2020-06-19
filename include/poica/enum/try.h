@@ -23,16 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_ENUM_TRY_H
+#define POICA_ENUM_TRY_H
+
+#include <poica/enum/pattern_matching.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define TRY(enum_ptr, case_expr, failure_expr)                                 \
+    MATCH(enum_ptr) {                                                          \
+        case_expr {                                                            \
+            return failure_expr;                                               \
+        }                                                                      \
+        DEFAULT {}                                                             \
+    }
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
-
-#endif // POICA_PRIVATE_AUX_H
+#endif // POICA_ENUM_TRY_H

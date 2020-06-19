@@ -10,8 +10,8 @@ add_executable(heron_formula heron_formula.c)
 add_executable(obj obj.c)
 add_executable(tokens tokens.c)
 
-add_executable(product_introspection introspection/product.c)
-add_executable(sum_introspection introspection/sum.c)
+add_executable(record_introspection introspection/record.c)
+add_executable(enum_introspection introspection/enum.c)
 
 target_link_libraries(heron_formula m)
 

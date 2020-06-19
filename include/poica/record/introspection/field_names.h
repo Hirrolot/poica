@@ -23,16 +23,25 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_RECORD_INTROSPECTION_FIELD_NAMES_H
+#define POICA_RECORD_INTROSPECTION_FIELD_NAMES_H
+
+#include <poica/record/introspection/aux.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define RECORD_FIELD_NAMES_SEQ(fields)                                         \
+    POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_NAME_SEQ, fields)
+#define POICA_P_RECORD_GEN_FIELD_NAME_SEQ(_r, _data, field) (FIELD_NAME(field))
 
-#endif // POICA_PRIVATE_AUX_H
+#define RECORD_FIELD_NAMES_TUPLE(fields)                                       \
+    POICA_P_RECORD_FIELD_X_TUPLE(POICA_P_RECORD_GEN_FIELD_NAME_TUPLE,          \
+                                 POICA_P_RECORD_GEN_FIELD_NAME_TUPLE_LAST,     \
+                                 fields)
+
+#define POICA_P_RECORD_GEN_FIELD_NAME_TUPLE(_r, _data, field) FIELD_NAME(field),
+#define POICA_P_RECORD_GEN_FIELD_NAME_TUPLE_LAST(field)       FIELD_NAME(field)
+
+#endif // POICA_RECORD_INTROSPECTION_FIELD_NAMES_H

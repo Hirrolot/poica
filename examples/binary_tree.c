@@ -28,7 +28,7 @@
 #include <stdio.h>
 
 // clang-format off
-SUM(
+ENUM(
     Tree,
     VARIANT(MkEmpty)
     VARIANT(MkLeaf OF int)

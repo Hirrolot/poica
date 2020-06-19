@@ -23,16 +23,27 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_ENUM_GEN_FIELDS_H
+#define POICA_ENUM_GEN_FIELDS_H
+
+#include <poica/enum/gen/redirects/to_inner_type.h>
+#include <poica/enum/variant.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_ENUM_GEN_FIELDS(variants)                                      \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_FIELD, _data, variants)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define POICA_P_ENUM_GEN_FIELD(_r, _data, variant)                             \
+    OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_FIELD_, _data, variant)
 
-#endif // POICA_PRIVATE_AUX_H
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_EMPTY(_data, variant_name)
+
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_SINGLE(                                 \
+    _data, variant_name, variant_type)                                         \
+    variant_type variant_name;
+
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_MANY(_data, variant_name, _fields)      \
+    POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) variant_name;
+
+#endif // POICA_ENUM_GEN_FIELDS_H

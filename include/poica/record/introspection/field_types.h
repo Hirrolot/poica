@@ -23,16 +23,25 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_RECORD_INTROSPECTION_FIELD_TYPES_H
+#define POICA_RECORD_INTROSPECTION_FIELD_TYPES_H
+
+#include <poica/record/introspection/aux.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define FIELD_TYPE(field) BOOST_PP_SEQ_ELEM(1, field)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define RECORD_FIELD_TYPES_SEQ(fields)                                         \
+    POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_TYPE_SEQ, fields)
+#define POICA_P_RECORD_GEN_FIELD_TYPE_SEQ(_r, _data, field) (FIELD_TYPE(field))
 
-#endif // POICA_PRIVATE_AUX_H
+#define RECORD_FIELD_TYPES_TUPLE(fields)                                       \
+    POICA_P_RECORD_X_TUPLE(POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE,                \
+                           POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST,           \
+                           fields)
+
+#define POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE(_r, _data, field) FIELD_TYPE(field),
+#define POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST(field)       FIELD_TYPE(field)
+
+#endif // POICA_RECORD_INTROSPECTION_FIELD_TYPES_H

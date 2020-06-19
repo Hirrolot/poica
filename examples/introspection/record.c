@@ -23,16 +23,27 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#include <poica.h>
+
+#include <stdio.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+// clang-format off
+#define MY_RECORD                                                             \
+    Something,                                                                 \
+    FIELD(a OF int)                                                            \
+    FIELD(b OF const char *)                                                   \
+    FIELD(c OF double)                                                         \
+// clang-format on
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+RECORD(MY_RECORD);
+#define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
 
-#endif // POICA_PRIVATE_AUX_H
+int main(void) {
+    /*
+     * Output:
+     * ((a)(int)) ((b)(const char *)) ((c)(double))
+     */
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
+}

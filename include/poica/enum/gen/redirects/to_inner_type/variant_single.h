@@ -23,16 +23,14 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H
+#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_SINGLE(        \
+    _data, variant_name, variant_type)                                         \
+    typedef variant_type POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(          \
+        variant_name);
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
-
-#endif // POICA_PRIVATE_AUX_H
+#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H

@@ -23,16 +23,18 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_RECORD_INTROSPECTION_AUX_H
+#define POICA_RECORD_INTROSPECTION_AUX_H
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_RECORD_FIELD_X_SEQ(macro, fields)                              \
+    BOOST_PP_SEQ_FOR_EACH(macro, _data, fields)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define POICA_P_RECORD_FIELD_X_TUPLE(macro, macro_last, fields)                \
+    (BOOST_PP_SEQ_FOR_EACH(macro, _data, BOOST_PP_SEQ_POP_BACK(fields))        \
+                                                                               \
+         macro_last(BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), \
+                                      fields)))
 
-#endif // POICA_PRIVATE_AUX_H
+#endif // POICA_RECORD_INTROSPECTION_AUX_H

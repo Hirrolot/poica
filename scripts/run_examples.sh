@@ -10,5 +10,5 @@ cd examples/build
 ./obj
 ./tokens
 
-./product_introspection
-./sum_introspection
+./record_introspection
+./enum_introspection

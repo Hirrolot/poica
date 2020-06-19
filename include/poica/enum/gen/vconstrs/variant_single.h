@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -23,16 +24,20 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_ENUM_GEN_VCONSTRS_VARIANT_SINGLE_H
+#define POICA_ENUM_GEN_VCONSTRS_VARIANT_SINGLE_H
+
+#include <poica/enum/gen/tags.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_ENUM_GEN_VCONSTR_VARIANT_SINGLE(                               \
+    enum_name, variant_name, variant_type)                                     \
+    inline static enum_name variant_name(variant_type arg) {                   \
+        return (enum_name){                                                    \
+            .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
+            .data.variant_name = arg,                                          \
+        };                                                                     \
+    }
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
-
-#endif // POICA_PRIVATE_AUX_H
+#endif // POICA_ENUM_GEN_VCONSTRS_VARIANT_SINGLE_H

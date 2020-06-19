@@ -23,16 +23,24 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_AUX_H
-#define POICA_PRIVATE_AUX_H
+#ifndef POICA_ENUM_GEN_VCONSTRS_H
+#define POICA_ENUM_GEN_VCONSTRS_H
+
+#include <poica/private/defer.h>
+
+#include <poica/enum/introspection.h>
+
+#include <poica/enum/gen/vconstrs/variant_empty.h>
+#include <poica/enum/gen/vconstrs/variant_many.h>
+#include <poica/enum/gen/vconstrs/variant_single.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+#define POICA_P_ENUM_GEN_VCONSTRS(enum_name, variants)                         \
+    POICA_P_EXPAND(POICA_P_EXPAND(                                             \
+        BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_VCONSTR, enum_name, variants)))
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+#define POICA_P_ENUM_GEN_VCONSTR(_r, enum_name, variant)                       \
+    OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_VCONSTR_, enum_name, variant)
 
-#endif // POICA_PRIVATE_AUX_H
+#endif // POICA_ENUM_GEN_VCONSTRS_H

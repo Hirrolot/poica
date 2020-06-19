@@ -28,7 +28,7 @@
 #include <stdio.h>
 
 // clang-format off
-SUM(
+ENUM(
     Token,
     VARIANT(MkIdent OF const char *)
     VARIANT(MkInteger OF int)

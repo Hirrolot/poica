@@ -34,7 +34,7 @@
 #include <string.h>
 
 // clang-format off
-PRODUCT(
+RECORD(
     Person,
     FIELD(full_name OF const char *)
     FIELD(age OF unsigned char)
@@ -42,14 +42,14 @@ PRODUCT(
 
 // Can be represented as an ordinary enumeration, but we define it as a sum type
 // for consistency.
-SUM(
+ENUM(
     ParseErr,
     VARIANT(MkInvalidAge)
     VARIANT(MkNoFirstApostrophe)
     VARIANT(MkNoSecondApostrophe)
 );
 
-SUM(
+ENUM(
     ParseRes,
     VARIANT(MkParseOk OF Person)
     VARIANT(MkParseErr OF ParseErr)
@@ -63,7 +63,7 @@ void skip_emptiness(const char **src) {
 }
 
 // clang-format off
-SUM(
+ENUM(
     ParseFullNameRes,
     VARIANT(MkParseFullNameOk)
     VARIANT(MkParseFullNameErr OF ParseErr)
@@ -82,7 +82,7 @@ ParseFullNameRes parse_full_name(Person *person, const char **src) {
 }
 
 // clang-format off
-SUM(
+ENUM(
     ParseAgeRes,
     VARIANT(MkParseAgeOk)
     VARIANT(MkParseAgeErr OF ParseErr)

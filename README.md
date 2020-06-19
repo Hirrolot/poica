@@ -6,17 +6,17 @@
 This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11.
 
 <details>
- <summary>Table of contents</summary>
+ <enummary>Table of contents</enummary>
 
  - [Features](#features)
  - [Installation](#installation)
  - [Motivation](#motivation)
  - [ADTs](#adts)
-   - [Sum types](#sum-types)
-   - [Product types](#product-types)
+   - [Sum types](#enum-types)
+   - [Product types](#record-types)
  - [Type introspection](#type-introspection)
-   - [Sum types](#sum-types-1)
-   - [Product types](#product-types-1)
+   - [Sum types](#enum-types-1)
+   - [Product types](#record-types-1)
  - [Real-world usage](#real-world-usage)
    - [Safe, consistent error handling](#safe-consistent-error-handling)
    - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
@@ -87,7 +87,7 @@ some_procedure(res2.data.state_1);
 poica solves these two problems by introducing [algebraic data types] (discussed in the next section). That's how it's accomplished with poica:
 
 ```c
-SUM(
+ENUM(
     OurTaggedUnion,
     VARIANT(MkState1 OF int)
     VARIANT(MkState2 OF const char *)
@@ -135,7 +135,7 @@ Can be conveniently represented as a sum type and further manipulated using patt
 
 #include <stdio.h>
 
-SUM(
+ENUM(
     Tree,
     VARIANT(MkEmpty)
     VARIANT(MkLeaf OF int)
@@ -214,7 +214,7 @@ Which computes area of a triangle, if all three sides are known. This can be acc
 
 #include <poica.h>
 
-PRODUCT(
+RECORD(
     Triangle,
     FIELD(a OF double)
     FIELD(b OF double)
@@ -268,7 +268,7 @@ This is how fields extraction can make our code a bit cleaner. In general, field
 
 ### Sum types
 
-[[`examples/introspection/sum.c`](examples/introspection/sum.c)]
+[[`examples/introspection/enum.c`](examples/introspection/enum.c)]
 ```c
 #include <poica.h>
 
@@ -276,14 +276,14 @@ This is how fields extraction can make our code a bit cleaner. In general, field
 
 #include <boost/preprocessor.hpp>
 
-#define MY_SUM                                                             \
+#define MY_ENUM                                                             \
     Something,                                                             \
     VARIANT(MkA)                                                           \
     VARIANT(MkB OF int)                                                    \
     VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))             \
 
-SUM(MY_SUM);
-#define Something_INTROSPECT SUM_INTROSPECT(MY_SUM)
+ENUM(MY_ENUM);
+#define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
 
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
@@ -304,7 +304,7 @@ int main(void) {
 
 ### Product types
 
-[[`examples/introspection/product.c`](examples/introspection/product.c)]
+[[`examples/introspection/record.c`](examples/introspection/record.c)]
 ```c
 #include <poica.h>
 
@@ -312,14 +312,14 @@ int main(void) {
 
 #include <boost/preprocessor.hpp>
 
-#define MY_PRODUCT                                                             \
+#define MY_RECORD                                                             \
     Something,                                                                 \
     FIELD(a OF int)                                                            \
     FIELD(b OF const char *)                                                   \
     FIELD(c OF double)                                                         \
 
-PRODUCT(MY_PRODUCT);
-#define Something_INTROSPECT PRODUCT_INTROSPECT(MY_PRODUCT)
+RECORD(MY_RECORD);
+#define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
 
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
@@ -351,17 +351,17 @@ With type introspection it is possible to achieve [type-driven (de)serialization
 
 ### Safe, consistent error handling
 
-ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
+ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a enum type, designating either a successful or a failure value, like this:
 
 ```c
-SUM(
+ENUM(
     RecvMsgErrKind,
     VARIANT(MkBadConnection)
     VARIANT(MkNoSuchUser)
     ...
 );
 
-SUM(
+ENUM(
     RecvMsgRes,
     VARIANT(MkRecvMsgOk OF char *)
     VARIANT(MkSendMsgErr OF RecvMsgErrKind))

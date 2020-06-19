@@ -29,7 +29,7 @@
 #include <poica.h>
 
 // clang-format off
-PRODUCT(
+RECORD(
     Triangle,
     FIELD(a OF double)
     FIELD(b OF double)
