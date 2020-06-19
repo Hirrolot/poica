@@ -217,7 +217,7 @@ user.balance *= 2;
 
 ## Type introspection
 
-[Type introspection] is supported in the sence that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
+[Type introspection] is supported in the sense that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 [type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
