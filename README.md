@@ -195,69 +195,25 @@ int main(void) {
 
 ### Product types
 
-If we have structures in C, why we need product types? Well, because product types provide some extra features, such as type introspection (discussed in the next section) and fields extraction.
+If we have structures in C, why we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
 
-For example, consider [Heron's formula]:
-
-[Heron's formula]: https://en.wikipedia.org/wiki/Heron's_formula
-
-<div align="center">
-  <img src="https://i.imgur.com/OuXtE5c.png" width="500px" />
-</div>
-
-Which computes area of a triangle, if all three sides are known. This can be accomplished with product types as follows:
-
-[[`examples/heron_formula.c`](examples/heron_formula.c)]
 ```c
-#include <math.h>
-#include <stdio.h>
-
-#include <poica.h>
-
-RECORD(
-    Triangle,
-    FIELD(a OF double)
-    FIELD(b OF double)
-    FIELD(c OF double)
+PRODUCT(
+    UserAccount,
+    FIELD(name OF const char *)
+    FIELD(balance OF double)
+    FIELD(age OF unsigned char)
 );
-
-double compute_area(Triangle triangle) {
-    EXTRACT((a, b, c) FROM (&triangle OF Triangle));
-
-    const double p = (a + b + c) / 2;
-    const double area = sqrt(p * (p - a) * (p - b) * (p - c));
-
-    return area;
-}
-
-int main(void) {
-    Triangle triangle = {4, 13, 15};
-    printf("%f\n", compute_area(triangle));
-}
-
 ```
 
-<details>
-    <summary>Output</summary>
-
-```
-24.000000
-```
-
-</details>
-
-`EXTRACT` just creates new variables of the appropriate types and assigns them values from `triangle`. Compare the above code to this version of `compute_area`:
+And it can be further manipulated like an ordinary structure:
 
 ```c
-double compute_area(Triangle triangle) {
-    const double p = (triangle.a + triangle.b + triangle.c) / 2;
-    const double area = sqrt(p * (p - triangle.a) * (p - triangle.b) * (p - triangle.c));
-
-    return area;
-}
+UserAccount user = {"Gandalf", 14565.322, 715};
+user.name = "Mithrandir";
+user.age++;
+user.balance *= 2;
 ```
-
-This is how fields extraction can make our code a bit cleaner. In general, fields extraction is preffered when there's a lot of repeating access to fields of a single variable, and it's obvious to what variable the fields correspond.
 
 ## Type introspection
 
@@ -422,7 +378,6 @@ A: poica has no runtime and performs no system calls, the macros expand to plain
 |--------|-------|
 | `ast.c` | https://godbolt.org/z/BHQEog |
 | `binary_tree.c` | https://godbolt.org/z/5XKjVu |
-| `heron_formula.c` | https://godbolt.org/z/xaqL_r |
 | `tokens.c` | https://godbolt.org/z/pNx4jX |
 | `error_handling.c` | https://godbolt.org/z/6Kotvn |
 

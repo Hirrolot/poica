@@ -31,7 +31,6 @@
 #include <poica/keywords.h>
 #include <poica/record/field.h>
 
-#include <poica/record/extract.h>
 #include <poica/record/field.h>
 #include <poica/record/gen/fields.h>
 #include <poica/record/gen/redirects.h>
