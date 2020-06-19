@@ -198,7 +198,7 @@ int main(void) {
 If we have structures in C, why we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
 
 ```c
-PRODUCT(
+RECORD(
     UserAccount,
     FIELD(name OF const char *)
     FIELD(balance OF double)
