@@ -6,7 +6,7 @@
 This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11.
 
 <details>
- <enummary>Table of contents</enummary>
+ <summary>Table of contents</summary>
 
  - [Features](#features)
  - [Installation](#installation)
