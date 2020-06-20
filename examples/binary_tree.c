@@ -31,11 +31,11 @@
 ENUM(
     Tree,
     VARIANT(MkEmpty)
-    VARIANT(MkLeaf OF int)
-    VARIANT(MkNode OF MANY
-        FIELD(left OF struct Tree *)
-        FIELD(number OF int)
-        FIELD(right OF struct Tree *)
+    VARIANT(MkLeaf, int)
+    VARIANT_MANY(MkNode,
+        FIELD(left, struct Tree *)
+        FIELD(number, int)
+        FIELD(right, struct Tree *)
     )
 );
 // clang-format on
@@ -48,7 +48,7 @@ void print_tree(const Tree *tree) {
         CASE(MkLeaf, number) {
             printf("%d\n", *number);
         }
-        CASE(MkNode, MANY(left, number, right)) {
+        CASE_MANY(MkNode, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -56,7 +56,7 @@ void print_tree(const Tree *tree) {
     }
 }
 
-#define TREE(tree)                OBJ(tree OF Tree)
+#define TREE(tree)                OBJ(tree, Tree)
 #define NODE(left, number, right) TREE(MkNode(left, number, right))
 #define LEAF(number)              TREE(MkLeaf(number))
 

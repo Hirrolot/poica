@@ -36,8 +36,8 @@
 // clang-format off
 RECORD(
     Person,
-    FIELD(full_name OF const char *)
-    FIELD(age OF unsigned char)
+    FIELD(full_name, const char *)
+    FIELD(age, unsigned char)
 );
 
 // Can be represented as an ordinary enumeration, but we define it as a sum type
@@ -51,8 +51,8 @@ ENUM(
 
 ENUM(
     ParseRes,
-    VARIANT(MkParseOk OF Person)
-    VARIANT(MkParseErr OF ParseErr)
+    VARIANT(MkParseOk, Person)
+    VARIANT(MkParseErr, ParseErr)
 );
 // clang-format on
 
@@ -66,7 +66,7 @@ void skip_emptiness(const char **src) {
 ENUM(
     ParseFullNameRes,
     VARIANT(MkParseFullNameOk)
-    VARIANT(MkParseFullNameErr OF ParseErr)
+    VARIANT(MkParseFullNameErr, ParseErr)
 );
 // clang-format on
 
@@ -85,7 +85,7 @@ ParseFullNameRes parse_full_name(Person *person, const char **src) {
 ENUM(
     ParseAgeRes,
     VARIANT(MkParseAgeOk)
-    VARIANT(MkParseAgeErr OF ParseErr)
+    VARIANT(MkParseAgeErr, ParseErr)
 );
 // clang-format on
 

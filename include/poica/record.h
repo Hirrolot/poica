@@ -28,7 +28,6 @@
 
 #include <poica/private/aux.h>
 
-#include <poica/keywords.h>
 #include <poica/record/field.h>
 
 #include <poica/record/field.h>
@@ -38,6 +37,9 @@
 
 #include <boost/preprocessor.hpp>
 
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual record data is transferred through a macro:
+// RECORD(MY_RECORD);
 #define RECORD(...) POICA_P_RECORD_AUX(__VA_ARGS__)
 
 #define POICA_P_RECORD_AUX(name, fields)                                       \

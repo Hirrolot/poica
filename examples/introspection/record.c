@@ -30,11 +30,11 @@
 #include <boost/preprocessor.hpp>
 
 // clang-format off
-#define MY_RECORD                                                             \
-    Something,                                                                 \
-    FIELD(a OF int)                                                            \
-    FIELD(b OF const char *)                                                   \
-    FIELD(c OF double)                                                         \
+#define MY_RECORD                                                           \
+    Something,                                                              \
+    FIELD(a, int)                                                           \
+    FIELD(b, const char *)                                                  \
+    FIELD(c, double)
 // clang-format on
 
 RECORD(MY_RECORD);

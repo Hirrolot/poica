@@ -30,8 +30,8 @@
 // clang-format off
 ENUM(
     Token,
-    VARIANT(MkIdent OF const char *)
-    VARIANT(MkInteger OF int)
+    VARIANT(MkIdent, const char *)
+    VARIANT(MkInteger, int)
     VARIANT(MkComma)
     VARIANT(MkPlus)
     VARIANT(MkOpenParen)

@@ -31,10 +31,10 @@
 
 // clang-format off
 #define MY_ENUM                                                             \
-    Something,                                                             \
-    VARIANT(MkA)                                                           \
-    VARIANT(MkB OF int)                                                    \
-    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))             \
+    Something,                                                              \
+    VARIANT(MkA)                                                            \
+    VARIANT(MkB, int)                                                       \
+    VARIANT_MANY(MkC, FIELD(c1, double) FIELD(c2, char))
 // clang-format on
 
 ENUM(MY_ENUM);

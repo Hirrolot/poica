@@ -89,9 +89,9 @@ poica solves these two problems by introducing [algebraic data types] (discussed
 ```c
 ENUM(
     OurTaggedUnion,
-    VARIANT(MkState1 OF int)
-    VARIANT(MkState2 OF const char *)
-    VARIANT(MkState3 OF double)
+    VARIANT(MkState1, int)
+    VARIANT(MkState2, const char *)
+    VARIANT(MkState3, double)
 );
 
 // (i) Compilation failed!
@@ -138,11 +138,11 @@ Can be conveniently represented as a sum type and further manipulated using patt
 ENUM(
     Tree,
     VARIANT(MkEmpty)
-    VARIANT(MkLeaf OF int)
-    VARIANT(MkNode OF MANY
-        FIELD(left OF struct Tree *)
-        FIELD(number OF int)
-        FIELD(right OF struct Tree *)
+    VARIANT(MkLeaf, int)
+    VARIANT_MANY(MkNode,
+        FIELD(left, struct Tree *)
+        FIELD(number, int)
+        FIELD(right, struct Tree *)
     )
 );
 
@@ -154,7 +154,7 @@ void print_tree(const Tree *tree) {
         CASE(MkLeaf, number) {
             printf("%d\n", *number);
         }
-        CASE(MkNode, MANY(left, number, right)) {
+        CASE_MANY(MkNode, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -162,7 +162,7 @@ void print_tree(const Tree *tree) {
     }
 }
 
-#define TREE(tree)                OBJ(tree OF Tree)
+#define TREE(tree)                OBJ(tree, Tree)
 #define NODE(left, number, right) TREE(MkNode(left, number, right))
 #define LEAF(number)              TREE(MkLeaf(number))
 
@@ -200,9 +200,9 @@ If we have structures in C, why do we need product types? Well, because product 
 ```c
 RECORD(
     UserAccount,
-    FIELD(name OF const char *)
-    FIELD(balance OF double)
-    FIELD(age OF unsigned char)
+    FIELD(name, const char *)
+    FIELD(balance, double)
+    FIELD(age, unsigned char)
 );
 ```
 
@@ -233,10 +233,10 @@ user.balance *= 2;
 #include <boost/preprocessor.hpp>
 
 #define MY_ENUM                                                             \
-    Something,                                                             \
-    VARIANT(MkA)                                                           \
-    VARIANT(MkB OF int)                                                    \
-    VARIANT(MkC OF MANY FIELD(c1 OF double) FIELD(c2 OF char))             \
+    Something,                                                              \
+    VARIANT(MkA)                                                            \
+    VARIANT(MkB, int)                                                       \
+    VARIANT_MANY(MkC, FIELD(c1, double) FIELD(c2, char))
 
 ENUM(MY_ENUM);
 #define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
@@ -244,7 +244,6 @@ ENUM(MY_ENUM);
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }
-
 ```
 
 <details>
@@ -268,11 +267,11 @@ int main(void) {
 
 #include <boost/preprocessor.hpp>
 
-#define MY_RECORD                                                             \
-    Something,                                                                 \
-    FIELD(a OF int)                                                            \
-    FIELD(b OF const char *)                                                   \
-    FIELD(c OF double)                                                         \
+#define MY_RECORD                                                           \
+    Something,                                                              \
+    FIELD(a, int)                                                           \
+    FIELD(b, const char *)                                                  \
+    FIELD(c, double)
 
 RECORD(MY_RECORD);
 #define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
@@ -319,8 +318,8 @@ ENUM(
 
 ENUM(
     RecvMsgRes,
-    VARIANT(MkRecvMsgOk OF char *)
-    VARIANT(MkSendMsgErr OF RecvMsgErrKind))
+    VARIANT(MkRecvMsgOk, char *)
+    VARIANT(MkSendMsgErr, RecvMsgErrKind))
 );
 
 RecvMsgRes recv_msg(...) { ... }

@@ -28,13 +28,12 @@
 
 #include <poica/private/aux.h>
 
-#include <poica/keywords.h>
 #include <poica/record/field.h>
 
 #include <poica/enum/gen/fields.h>
+#include <poica/enum/gen/records_for_many.h>
 #include <poica/enum/gen/redirects.h>
 #include <poica/enum/gen/tags.h>
-#include <poica/enum/gen/variant_many.h>
 #include <poica/enum/gen/vconstrs.h>
 #include <poica/enum/pattern_matching.h>
 #include <poica/enum/try.h>
@@ -42,10 +41,13 @@
 
 #include <boost/preprocessor.hpp>
 
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual sum type data is transferred through a macro:
+// RECORD(MY_RECORD);
 #define ENUM(...) POICA_P_ENUM_AUX(__VA_ARGS__)
 
 #define POICA_P_ENUM_AUX(name, variants)                                       \
-    POICA_P_ENUM_GEN_VARIANT_MANY_RECORDS(variants)                            \
+    POICA_P_ENUM_GEN_RECORDS_FOR_MANY(variants)                                \
                                                                                \
     typedef struct name {                                                      \
         enum { POICA_P_ENUM_GEN_TAGS(variants) } tag;                          \

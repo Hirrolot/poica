@@ -27,7 +27,6 @@
 #define POICA_H
 
 #include <poica/enum.h>
-#include <poica/keywords.h>
 #include <poica/obj.h>
 #include <poica/record.h>
 

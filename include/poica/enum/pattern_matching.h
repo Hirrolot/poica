@@ -27,7 +27,6 @@
 #define POICA_ENUM_PATTERN_MATCHING_H
 
 #include <poica/enum/gen/tags.h>
-#include <poica/keywords.h>
 #include <poica/record/gen/redirects/to_field_type.h>
 
 #include <stdbool.h>
@@ -69,7 +68,7 @@
              var_name != (void *)0;                                            \
              var_name = (void *)0)
 
-#define POICA_P_ENUM_CASE_3(variant_name, _many, var_names)                    \
+#define CASE_MANY(variant_name, var_names)                                     \
     /* FALLTHRU */                                                             \
     case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
         POICA_P_ENUM_BREAK_IF_NEEDED                                           \
@@ -78,14 +77,12 @@
              poica_p_case_var != (void *)0;                                    \
              poica_p_case_var = (void *)0)                                     \
                                                                                \
-        POICA_P_ENUM_EXTRACT_MATCHED_VARS(var_names FROM(                      \
-            poica_p_case_var OF POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(   \
-                variant_name)))
+        POICA_P_ENUM_EXTRACT_MATCHED_VARS(                                     \
+            var_names,                                                         \
+            (poica_p_case_var,                                                 \
+             POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)))
 
-#define POICA_P_ENUM_EXTRACT_MATCHED_VARS(...)                                 \
-    POICA_P_ENUM_EXTRACT_MATCHED_VARS_AUX(__VA_ARGS__)
-
-#define POICA_P_ENUM_EXTRACT_MATCHED_VARS_AUX(fields, val)                     \
+#define POICA_P_ENUM_EXTRACT_MATCHED_VARS(fields, val)                         \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR, \
                           val,                                                 \
                           BOOST_PP_TUPLE_TO_SEQ(fields))

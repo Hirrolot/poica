@@ -41,17 +41,17 @@
 // clang-format off
 RECORD(
     ExprPair,
-    FIELD(left OF const struct Expr *)
-    FIELD(right OF const struct Expr *)
+    FIELD(left, const struct Expr *)
+    FIELD(right, const struct Expr *)
 );
 
 ENUM(
     Expr,
-    VARIANT(MkConst OF double)
-    VARIANT(MkAdd OF ExprPair)
-    VARIANT(MkSub OF ExprPair)
-    VARIANT(MkMul OF ExprPair)
-    VARIANT(MkDiv OF ExprPair)
+    VARIANT(MkConst, double)
+    VARIANT(MkAdd, ExprPair)
+    VARIANT(MkSub, ExprPair)
+    VARIANT(MkMul, ExprPair)
+    VARIANT(MkDiv, ExprPair)
 );
 // clang-format on
 
@@ -75,7 +75,7 @@ double eval(const Expr *expr) {
     }
 }
 
-#define EXPR(expr)          OBJ(expr OF Expr)
+#define EXPR(expr)          OBJ(expr, Expr)
 #define OP(op, left, right) Mk##op((ExprPair){EXPR(left), EXPR(right)})
 
 int main(void) {

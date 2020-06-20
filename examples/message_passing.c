@@ -44,8 +44,8 @@
 // clang-format off
 ENUM(
     Command,
-    VARIANT(MkAdd OF MANY FIELD(left OF int) FIELD(right OF int))
-    VARIANT(MkDouble OF int)
+    VARIANT_MANY(MkAdd, FIELD(left, int) FIELD(right, int))
+    VARIANT(MkDouble, int)
 );
 // clang-format on
 
@@ -56,7 +56,7 @@ coroutine void worker(int rx) {
 
     int res;
     MATCH(&command) {
-        CASE(MkAdd, MANY(left, right)) {
+        CASE_MANY(MkAdd, (left, right)) {
             res = *left + *right;
         }
         CASE(MkDouble, number) {
