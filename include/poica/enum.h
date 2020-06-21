@@ -60,6 +60,6 @@
     POICA_P_ENUM_GEN_REDIRECTS_VARIANT_TO_OUTER_ENUM_TYPE(name, variants)      \
     POICA_P_ENUM_GEN_VCONSTRS(name, variants)                                  \
                                                                                \
-    POICA_P_USELESS_TYPEDEF(name)
+    POICA_P_FORCE_SEMICOLON
 
 #endif // POICA_ENUM_H

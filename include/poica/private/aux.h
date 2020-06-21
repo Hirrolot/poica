@@ -30,9 +30,22 @@
 
 #define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
 
-// Used to force a user to put a semicolon after a macro invocation (such as
-// ENUM, RECORD).
-#define POICA_P_USELESS_TYPEDEF(name)                                          \
-    typedef int POICA_P_PREFIX(BOOST_PP_CAT(name, _UselessTypedef))
+/* Forces a user to put a semicolon.
+ *
+ * This works by (ab)using the concept of tentative definitions. A translation
+ * unit will look like this:
+ *
+ * ...
+ * static int poica_p_force_semicolon;
+ * ...
+ * static int poica_p_force_semicolon;
+ * ...
+ * ...
+ *
+ * All these declarations are tentative. Eventually a compiler won't find an
+ * external definition of poica_p_force_semicolon and eventually produce an
+ * external definition with an initializer equal to 0.
+ */
+#define POICA_P_FORCE_SEMICOLON static int poica_p_force_semicolon
 
 #endif // POICA_PRIVATE_AUX_H

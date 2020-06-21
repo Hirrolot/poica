@@ -26,8 +26,6 @@
 #ifndef POICA_RECORD_H
 #define POICA_RECORD_H
 
-#include <poica/private/aux.h>
-
 #include <poica/record/field.h>
 
 #include <poica/record/field.h>
@@ -43,12 +41,10 @@
 #define RECORD(...) POICA_P_RECORD_AUX(__VA_ARGS__)
 
 #define POICA_P_RECORD_AUX(name, fields)                                       \
-    typedef struct name {                                                      \
-        POICA_P_RECORD_GEN_FIELDS(fields)                                      \
-    } name;                                                                    \
-                                                                               \
     POICA_P_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE(name, fields)                   \
                                                                                \
-    POICA_P_USELESS_TYPEDEF(name)
+    typedef struct name {                                                      \
+        POICA_P_RECORD_GEN_FIELDS(fields)                                      \
+    } name
 
 #endif // POICA_RECORD_H
