@@ -42,9 +42,9 @@
  * ...
  * ...
  *
- * All these declarations are tentative. Eventually a compiler won't find an
- * external definition of poica_p_force_semicolon and eventually produce an
- * external definition with an initializer equal to 0.
+ * All these declarations are tentative. A compiler won't find an external
+ * definition of poica_p_force_semicolon and eventually produce an external
+ * definition with an initializer equal to 0.
  */
 #define POICA_P_FORCE_SEMICOLON static int poica_p_force_semicolon
 
