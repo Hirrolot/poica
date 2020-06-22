@@ -404,4 +404,4 @@ A: You have three choices:
  - Or rename software entities in conflicting libraries,
  - Or `#define POICA_USE_PREFIX` before `#include <poica.h>`.
 
-In the latter case, all the public `camelCase`ed macro names are prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...), and `SCREAMING_CASED`ed macros are prefixed with `POICA` (`ENUM_INTROSPECT` -> `POICA_ENUM_INTROSPECT`, ...).
+In the latter case, all the public `camelCase`ed macro names are prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...), and `SCREAMING_CASED`ed macros are prefixed with `POICA` (`ENUM_INTROSPECT` -> `POICA_ENUM_INTROSPECT`, `RECORD_FIELD_TYPES_SEQ` -> `POICA_RECORD_FIELD_TYPES_SEQ`, ...).
