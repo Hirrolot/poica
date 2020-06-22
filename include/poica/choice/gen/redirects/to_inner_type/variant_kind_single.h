@@ -23,60 +23,14 @@
  * SOFTWARE.
  */
 
-#include <poica.h>
+#ifndef CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
+#define CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
 
-#include <stdio.h>
+#include <boost/preprocessor.hpp>
 
-// clang-format off
-choice(
-    Tree,
-    variant(MkEmpty)
-    variant(MkLeaf, int)
-    variantMany(MkNode,
-        field(left, struct Tree *)
-        field(number, int)
-        field(right, struct Tree *)
-    )
-);
-// clang-format on
+#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_SINGLE( \
+    _data, variant_name, variant_type)                                         \
+    typedef variant_type POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(        \
+        variant_name);
 
-void print_tree(const Tree *tree) {
-    match(tree) {
-        case(MkEmpty) {
-            return;
-        }
-        case(MkLeaf, number) {
-            printf("%d\n", *number);
-        }
-        caseMany(MkNode, (left, number, right)) {
-            print_tree(*left);
-            printf("%d\n", *number);
-            print_tree(*right);
-        }
-    }
-}
-
-#define TREE(tree)                obj(tree, Tree)
-#define NODE(left, number, right) TREE(MkNode(left, number, right))
-#define LEAF(number)              TREE(MkLeaf(number))
-
-int main(void) {
-    const Tree *tree =
-        NODE(NODE(LEAF(81), 456, NODE(LEAF(90), 7, LEAF(111))), 57, LEAF(123));
-
-    /*
-     * Output:
-     * 81
-     * 456
-     * 90
-     * 7
-     * 111
-     * 57
-     * 123
-     */
-    print_tree(tree);
-}
-
-#undef TREE
-#undef NODE
-#undef LEAF
+#endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H

@@ -23,38 +23,38 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_TRY_H
-#define POICA_ENUM_TRY_H
+#ifndef POICA_CHOICE_TRY_H
+#define POICA_CHOICE_TRY_H
 
-#include <poica/enum/pattern_matching.h>
+#include <poica/choice/pattern_matching.h>
 
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaTry(enum_ptr, case_expr, failure_expr)                            \
-    POICA_P_TRY(const, enum_ptr, case_expr, failure_expr)
-#define poicaTryMut(enum_ptr, case_expr, failure_expr)                         \
-    POICA_P_TRY(, enum_ptr, case_expr, failure_expr)
+#define poicaTry(choice_ptr, case_expr, failure_expr)                          \
+    POICA_P_TRY(const, choice_ptr, case_expr, failure_expr)
+#define poicaTryMut(choice_ptr, case_expr, failure_expr)                       \
+    POICA_P_TRY(, choice_ptr, case_expr, failure_expr)
 
 #else
 
 // clang-format off
-#define try(enum_ptr, case_expr, failure_expr)                                \
-    POICA_P_TRY(const, enum_ptr, case_expr, failure_expr)
+#define try(choice_ptr, case_expr, failure_expr)                                \
+    POICA_P_TRY(const, choice_ptr, case_expr, failure_expr)
 // clang-format on
 
-#define tryMut(enum_ptr, case_expr, failure_expr)                              \
-    POICA_P_TRY(, enum_ptr, case_expr, failure_expr)
+#define tryMut(choice_ptr, case_expr, failure_expr)                            \
+    POICA_P_TRY(, choice_ptr, case_expr, failure_expr)
 
 #endif
 
-#define POICA_P_TRY(qualifier, enum_ptr, case_expr, failure_expr)              \
-    POICA_P_MATCH(qualifier, enum_ptr) {                                       \
+#define POICA_P_TRY(qualifier, choice_ptr, case_expr, failure_expr)            \
+    POICA_P_MATCH(qualifier, choice_ptr) {                                     \
         case_expr {                                                            \
             return failure_expr;                                               \
         }                                                                      \
         POICA_P_DEFAULT {}                                                     \
     }
 
-#endif // POICA_ENUM_TRY_H
+#endif // POICA_CHOICE_TRY_H

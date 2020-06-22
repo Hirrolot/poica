@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 // clang-format off
-enum(
-    MyEnum,
+choice(
+    MyChoice,
     variant(MkInt, int)
     variant(MkStr, const char *)
     variant(MkDouble, double)
@@ -13,8 +13,9 @@ enum(
 // clang-format on
 
 int main(void) {
-    MyEnum enum1 = MkInt(123), enum2 = MkStr("Hello"), enum3 = MkInt(6578);
+    MyChoice choice1 = MkInt(123), choice2 = MkStr("Hello"),
+             choice3 = MkInt(6578);
 
-    assert(variantTag(&enum1) != variantTag(&enum2));
-    assert(variantTag(&enum1) == variantTag(&enum3));
+    assert(variantTag(&choice1) != variantTag(&choice2));
+    assert(variantTag(&choice1) == variantTag(&choice3));
 }

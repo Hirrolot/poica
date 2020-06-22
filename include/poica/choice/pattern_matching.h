@@ -23,29 +23,33 @@
  * SOFTWARE.
  */
 
-#include <poica.h>
+#ifndef POICA_CHOICE_PATTERN_MATCHING_H
+#define POICA_CHOICE_PATTERN_MATCHING_H
 
-#include <stdio.h>
+#include <poica/choice/gen/tags.h>
 
-#include <boost/preprocessor.hpp>
+#include <poica/choice/pattern_matching/aux.h>
+#include <poica/choice/pattern_matching/immut.h>
+#include <poica/choice/pattern_matching/mut.h>
 
-// clang-format off
-#define MY_ENUM                                                             \
-    Something,                                                              \
-    variant(MkA)                                                            \
-    variant(MkB, int)                                                       \
-    variantMany(MkC, field(c1, double) field(c2, char))
-// clang-format on
+#ifdef POICA_USE_PREFIX
 
-enum(MY_ENUM);
-#define Something_INTROSPECT POICA_ENUM_INTROSPECT(MY_ENUM)
+#define poicaMatches   POICA_P_MATCHES
+#define poicaDefault() POICA_P_DEFAULT()
 
-int main(void) {
-    /*
-     * Output:
-     * ((POICA_VARIANT_KIND_EMPTY)(MkA))
-     * ((POICA_VARIANT_KIND_SINGLE)(MkB)(int))
-     * ((POICA_VARIANT_KIND_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
-     */
-    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
-}
+#else
+
+#define matches POICA_P_MATCHES
+#define default() POICA_P_DEFAULT()
+
+#endif
+
+#define POICA_P_MATCHES(choice_ptr, variant_name)                              \
+    ((choice_ptr)->tag == POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
+
+#define POICA_P_DEFAULT                                                        \
+    /* FALLTHRU */                                                             \
+    default:                                                                   \
+        POICA_P_CHOICE_BREAK_IF_NEEDED
+
+#endif // POICA_CHOICE_PATTERN_MATCHING_H

@@ -1,4 +1,3 @@
-
 /*
  * MIT License
  *
@@ -24,20 +23,28 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
-#define POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+#ifndef POICA_CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_H
+#define POICA_CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_H
 
-#include <poica/enum/gen/tags.h>
+#include <poica/private/aux.h>
+
+#include <poica/choice/gen/records_for_many.h>
+#include <poica/choice/gen/redirects/to_inner_type/variant_kind_empty.h>
+#include <poica/choice/gen/redirects/to_inner_type/variant_kind_many.h>
+#include <poica/choice/gen/redirects/to_inner_type/variant_kind_single.h>
+#include <poica/choice/introspection.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_VCONSTR_VARIANT_KIND_SINGLE(                          \
-    enum_name, variant_name, variant_type)                                     \
-    inline static enum_name variant_name(variant_type arg) {                   \
-        return (enum_name){                                                    \
-            .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
-            .data.variant_name = arg,                                          \
-        };                                                                     \
-    }
+#define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)           \
+    BOOST_PP_SEQ_FOR_EACH(                                                     \
+        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE, _data, variants)
 
-#endif // POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE(_r, _data, variant)  \
+    POICA_OVERLOAD_ON_VARIANT(                                                 \
+        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, variant)
+
+#define POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)            \
+    POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToInnerType))
+
+#endif // POICA_CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_H

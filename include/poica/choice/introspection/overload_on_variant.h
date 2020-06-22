@@ -23,20 +23,25 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_INTROSPECTION_H
-#define POICA_ENUM_INTROSPECTION_H
+#ifndef POICA_CHOICE_INTROSPECTION_OVERLOAD_ON_VARIANT_H
+#define POICA_CHOICE_INTROSPECTION_OVERLOAD_ON_VARIANT_H
 
-#include <poica/enum/introspection/overload_on_variant.h>
+#include <poica/choice/introspection.h>
 
 #include <boost/preprocessor.hpp>
 
-// This macro is variadic because, due to type introspection, it must work
-// correctly if actual sum type data is transferred through a macro:
-// POICA_ENUM_INTROSPECT(MY_ENUM);
-#define POICA_ENUM_INTROSPECT(...)                  POICA_P_ENUM_INTROSPECT_AUX(__VA_ARGS__)
-#define POICA_P_ENUM_INTROSPECT_AUX(name, variants) variants
+#define POICA_OVERLOAD_ON_VARIANT(macro, data, variant)                        \
+    POICA_P_CHOICE_OVERLOAD_ON_VARIANT_AUX(                                    \
+        BOOST_PP_CAT(macro,                                                    \
+                     BOOST_PP_CAT(POICA_P_CHOICE_RENAME_,                      \
+                                  POICA_VARIANT_KIND(variant))),               \
+        data,                                                                  \
+        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(variant)))
 
-#define POICA_VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
-#define POICA_VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
+#define POICA_P_CHOICE_OVERLOAD_ON_VARIANT_AUX(macro, ...) macro(__VA_ARGS__)
 
-#endif // POICA_ENUM_INTROSPECTION_H
+#define POICA_P_CHOICE_RENAME_POICA_VARIANT_KIND_EMPTY  VARIANT_KIND_EMPTY
+#define POICA_P_CHOICE_RENAME_POICA_VARIANT_KIND_SINGLE VARIANT_KIND_SINGLE
+#define POICA_P_CHOICE_RENAME_POICA_VARIANT_KIND_MANY   VARIANT_KIND_MANY
+
+#endif // POICA_CHOICE_INTROSPECTION_OVERLOAD_ON_VARIANT_H

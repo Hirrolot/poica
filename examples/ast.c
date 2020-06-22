@@ -45,7 +45,7 @@ record(
     field(right, const struct Expr *)
 );
 
-enum(
+choice(
     Expr,
     variant(MkConst, double)
     variant(MkAdd, ExprPair)

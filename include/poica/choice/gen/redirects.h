@@ -23,22 +23,10 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_TAGS_H
-#define POICA_ENUM_GEN_TAGS_H
+#ifndef POICA_CHOICE_GEN_REDIRECTS_H
+#define POICA_CHOICE_GEN_REDIRECTS_H
 
-#include <poica/private/aux.h>
+#include <poica/choice/gen/redirects/to_inner_type.h>
+#include <poica/choice/gen/redirects/to_outer_choice_type.h>
 
-#include <poica/enum/introspection.h>
-
-#include <boost/preprocessor.hpp>
-
-#define POICA_P_ENUM_GEN_TAGS(variants)                                        \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_TAG, _data, variants)
-
-#define POICA_P_ENUM_GEN_TAG(_r, _data, variant)                               \
-    POICA_P_ENUM_VARIANT_NAME_AS_TAG(POICA_VARIANT_NAME(variant)),
-
-#define POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name)                         \
-    POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _Tag))
-
-#endif // POICA_ENUM_GEN_TAGS_H
+#endif // POICA_CHOICE_GEN_REDIRECTS_H

@@ -23,24 +23,24 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_VCONSTRS_H
-#define POICA_ENUM_GEN_VCONSTRS_H
+#ifndef POICA_CHOICE_GEN_VCONSTRS_H
+#define POICA_CHOICE_GEN_VCONSTRS_H
 
 #include <poica/private/defer.h>
 
-#include <poica/enum/introspection.h>
+#include <poica/choice/introspection.h>
 
-#include <poica/enum/gen/vconstrs/variant_kind_empty.h>
-#include <poica/enum/gen/vconstrs/variant_kind_many.h>
-#include <poica/enum/gen/vconstrs/variant_kind_single.h>
+#include <poica/choice/gen/vconstrs/variant_kind_empty.h>
+#include <poica/choice/gen/vconstrs/variant_kind_many.h>
+#include <poica/choice/gen/vconstrs/variant_kind_single.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_VCONSTRS(enum_name, variants)                         \
-    POICA_P_EXPAND(POICA_P_EXPAND(                                             \
-        BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_VCONSTR, enum_name, variants)))
+#define POICA_P_CHOICE_GEN_VCONSTRS(choice_name, variants)                     \
+    POICA_P_EXPAND(POICA_P_EXPAND(BOOST_PP_SEQ_FOR_EACH(                       \
+        POICA_P_CHOICE_GEN_VCONSTR, choice_name, variants)))
 
-#define POICA_P_ENUM_GEN_VCONSTR(_r, enum_name, variant)                       \
-    POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_VCONSTR_, enum_name, variant)
+#define POICA_P_CHOICE_GEN_VCONSTR(_r, choice_name, variant)                   \
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_VCONSTR_, choice_name, variant)
 
-#endif // POICA_ENUM_GEN_VCONSTRS_H
+#endif // POICA_CHOICE_GEN_VCONSTRS_H

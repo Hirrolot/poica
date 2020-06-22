@@ -28,7 +28,7 @@
 #include <stdio.h>
 
 // clang-format off
-enum(
+choice(
     Token,
     variant(MkIdent, const char *)
     variant(MkInteger, int)

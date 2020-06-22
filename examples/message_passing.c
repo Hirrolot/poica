@@ -42,7 +42,7 @@
 #define CHECK_RC(rc) assert(rc != -1)
 
 // clang-format off
-enum(
+choice(
     Command,
     variantMany(MkAdd, field(left, int) field(right, int))
     variant(MkDouble, int)

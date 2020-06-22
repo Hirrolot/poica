@@ -23,29 +23,35 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_REDIRECTS_TO_INNER_TYPE_H
-#define POICA_ENUM_GEN_REDIRECTS_TO_INNER_TYPE_H
+#ifndef POICA_CHOICE_GEN_VARIANT_KIND_MANY
+#define POICA_CHOICE_GEN_VARIANT_KIND_MANY
 
 #include <poica/private/aux.h>
+#include <poica/private/defer.h>
 
-#include <poica/enum/gen/redirects/to_inner_type/variant_kind_empty.h>
-#include <poica/enum/gen/redirects/to_inner_type/variant_kind_many.h>
-#include <poica/enum/gen/redirects/to_inner_type/variant_kind_single.h>
-
-#include <poica/enum/gen/records_for_many.h>
-#include <poica/enum/introspection.h>
+#include <poica/choice/gen/redirects/to_inner_type.h>
+#include <poica/choice/introspection.h>
+#include <poica/record.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)             \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE, _data, variants)
+#define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY(variants)                          \
+    POICA_P_EXPAND(BOOST_PP_SEQ_FOR_EACH(                                      \
+        POICA_P_CHOICE_GEN_RECORD_FOR_MANY, _data, variants))
 
-#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE(_r, _data, variant)    \
+#define POICA_P_CHOICE_GEN_RECORD_FOR_MANY(_r, data, variant)                  \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
-        POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, variant)
+        POICA_P_CHOICE_GEN_RECORD_FOR_MANY_, _data, variant)
 
-#define POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)              \
-    POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToInnerType))
+#define POICA_P_CHOICE_GEN_RECORD_FOR_MANY_VARIANT_KIND_EMPTY(_data,           \
+                                                              _variant_name)
 
-#endif // POICA_ENUM_GEN_REDIRECTS_TO_INNER_TYPE_H
+#define POICA_P_CHOICE_GEN_RECORD_FOR_MANY_VARIANT_KIND_SINGLE(                \
+    _data, _variant_name, _variant_type)
+
+#define POICA_P_CHOICE_GEN_RECORD_FOR_MANY_VARIANT_KIND_MANY(                  \
+    _data, variant_name, fields)                                               \
+    POICA_P_DEFER(POICA_P_RECORD)                                              \
+    (POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
+
+#endif // POICA_CHOICE_GEN_VARIANT_KIND_MANY

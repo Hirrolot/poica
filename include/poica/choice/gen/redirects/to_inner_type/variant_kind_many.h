@@ -23,33 +23,15 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_PATTERN_MATCHING_H
-#define POICA_ENUM_PATTERN_MATCHING_H
+#ifndef CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
+#define CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
 
-#include <poica/enum/gen/tags.h>
+#include <boost/preprocessor.hpp>
 
-#include <poica/enum/pattern_matching/aux.h>
-#include <poica/enum/pattern_matching/immut.h>
-#include <poica/enum/pattern_matching/mut.h>
+// Generate nothing because we already generate a product type for
+// POICA_VARIANT_KIND_MANY with a name
+// POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name).
+#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_MANY(   \
+    _data, _variant_name, _fields)
 
-#ifdef POICA_USE_PREFIX
-
-#define poicaMatches   POICA_P_MATCHES
-#define poicaDefault() POICA_P_DEFAULT()
-
-#else
-
-#define matches POICA_P_MATCHES
-#define default() POICA_P_DEFAULT()
-
-#endif
-
-#define POICA_P_MATCHES(enum_ptr, variant_name)                                \
-    ((enum_ptr)->tag == POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name))
-
-#define POICA_P_DEFAULT                                                        \
-    /* FALLTHRU */                                                             \
-    default:                                                                   \
-        POICA_P_ENUM_BREAK_IF_NEEDED
-
-#endif // POICA_ENUM_PATTERN_MATCHING_H
+#endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H

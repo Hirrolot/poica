@@ -23,18 +23,33 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H
-#define POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H
+#ifndef POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_MANY_H
+#define POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_MANY_H
 
-#include <poica/enum/gen/tags.h>
+#include <poica/private/defer.h>
+
+#include <poica/record/introspection.h>
+
+#include <poica/choice/gen/tags.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_VCONSTR_VARIANT_KIND_EMPTY(enum_name, variant_name)   \
-    inline static enum_name variant_name(void) {                               \
-        return (enum_name){                                                    \
-            .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
+#define POICA_P_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY(                          \
+    choice_name, variant_name, fields)                                         \
+    inline static choice_name variant_name(                                    \
+        POICA_P_DEFER(POICA_RECORD_FIELDS_AS_PARAMS)(fields)) {                \
+        return (choice_name){                                                  \
+            .tag = POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name),           \
+            .data.variant_name = {POICA_P_DEFER(                               \
+                POICA_P_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT)(fields)},       \
         };                                                                     \
     }
 
-#endif // POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H
+#define POICA_P_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT(fields)                  \
+    POICA_P_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS                   \
+    POICA_RECORD_FIELD_NAMES_TUPLE(fields)
+
+#define POICA_P_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS(...)          \
+    __VA_ARGS__
+
+#endif // POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_MANY_H

@@ -23,29 +23,31 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_REDIRECTS_TO_OUTER_ENUM_TYPE_H
-#define POICA_ENUM_GEN_REDIRECTS_TO_OUTER_ENUM_TYPE_H
+#ifndef POICA_CHOICE_VARIANT_H
+#define POICA_CHOICE_VARIANT_H
 
-#include <poica/private/aux.h>
-
-#include <poica/enum/introspection.h>
-#include <poica/enum/variant.h>
+#include <poica/record/field.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_REDIRECTS_VARIANT_TO_OUTER_ENUM_TYPE(enum_name,       \
-                                                              variants)        \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE,                  \
-        enum_name,                                                             \
-        variants)
+#ifdef POICA_USE_PREFIX
+#define poicaVariant     POICA_P_VARIANT
+#define poicaVariantMany POICA_P_VARIANT_KIND_MANY
+#else
+#define variant     POICA_P_VARIANT
+#define variantMany POICA_P_VARIANT_KIND_MANY
+#endif
 
-#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(                  \
-    _r, enum_name, variant)                                                    \
-    typedef enum_name POICA_P_ENUM_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(        \
-        POICA_VARIANT_NAME(variant));
+#define POICA_P_VARIANT(...)                                                   \
+    BOOST_PP_OVERLOAD(POICA_P_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
 
-#define POICA_P_ENUM_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(variant_name)         \
-    POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToOuterSumType))
+#define POICA_P_VARIANT_KIND_MANY(variant_name, fields)                        \
+    ((POICA_VARIANT_KIND_MANY)(variant_name)(fields))
 
-#endif // POICA_ENUM_GEN_REDIRECTS_TO_OUTER_ENUM_TYPE_H
+#define POICA_P_VARIANT_1(variant_name)                                        \
+    ((POICA_VARIANT_KIND_EMPTY)(variant_name))
+
+#define POICA_P_VARIANT_2(variant_name, variant_type)                          \
+    ((POICA_VARIANT_KIND_SINGLE)(variant_name)(variant_type))
+
+#endif // POICA_CHOICE_VARIANT_H

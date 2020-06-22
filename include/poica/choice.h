@@ -23,48 +23,48 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_H
-#define POICA_ENUM_H
+#ifndef POICA_CHOICE_H
+#define POICA_CHOICE_H
 
 #include <poica/private/aux.h>
 
 #include <poica/record/field.h>
 
-#include <poica/enum/gen/fields.h>
-#include <poica/enum/gen/records_for_many.h>
-#include <poica/enum/gen/redirects.h>
-#include <poica/enum/gen/tags.h>
-#include <poica/enum/gen/vconstrs.h>
-#include <poica/enum/pattern_matching.h>
-#include <poica/enum/try.h>
-#include <poica/enum/variant.h>
-#include <poica/enum/variant_tag.h>
+#include <poica/choice/gen/fields.h>
+#include <poica/choice/gen/records_for_many.h>
+#include <poica/choice/gen/redirects.h>
+#include <poica/choice/gen/tags.h>
+#include <poica/choice/gen/vconstrs.h>
+#include <poica/choice/pattern_matching.h>
+#include <poica/choice/try.h>
+#include <poica/choice/variant.h>
+#include <poica/choice/variant_tag.h>
 
 #include <boost/preprocessor.hpp>
 
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual sum type data is transferred through a macro:
-// ENUM(MY_ENUM);
+// CHOICE(MY_CHOICE);
 #ifdef POICA_USE_PREFIX
-#define poicaEnum(...) POICA_P_ENUM(__VA_ARGS__)
+#define poicaChoice(...) POICA_P_CHOICE(__VA_ARGS__)
 #else
-#define enum(...) POICA_P_ENUM(__VA_ARGS__)
+#define choice(...) POICA_P_CHOICE(__VA_ARGS__)
 #endif
 
-#define POICA_P_ENUM(name, variants)                                           \
-    POICA_P_ENUM_GEN_RECORDS_FOR_MANY(variants)                                \
+#define POICA_P_CHOICE(name, variants)                                         \
+    POICA_P_CHOICE_GEN_RECORDS_FOR_MANY(variants)                              \
                                                                                \
     typedef struct name {                                                      \
-        enum { POICA_P_ENUM_GEN_TAGS(variants) } tag;                          \
+        enum { POICA_P_CHOICE_GEN_TAGS(variants) } tag;                        \
         struct {                                                               \
-            POICA_P_ENUM_GEN_FIELDS(variants)                                  \
+            POICA_P_CHOICE_GEN_FIELDS(variants)                                \
         } data;                                                                \
     } name;                                                                    \
                                                                                \
-    POICA_P_ENUM_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)                 \
-    POICA_P_ENUM_GEN_REDIRECTS_VARIANT_TO_OUTER_ENUM_TYPE(name, variants)      \
-    POICA_P_ENUM_GEN_VCONSTRS(name, variants)                                  \
+    POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)               \
+    POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE(name, variants)  \
+    POICA_P_CHOICE_GEN_VCONSTRS(name, variants)                                \
                                                                                \
     POICA_P_FORCE_SEMICOLON
 
-#endif // POICA_ENUM_H
+#endif // POICA_CHOICE_H

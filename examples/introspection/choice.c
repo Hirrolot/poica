@@ -23,27 +23,29 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_FIELDS_H
-#define POICA_ENUM_GEN_FIELDS_H
+#include <poica.h>
 
-#include <poica/enum/gen/redirects/to_inner_type.h>
-#include <poica/enum/variant.h>
+#include <stdio.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_FIELDS(variants)                                      \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_FIELD, _data, variants)
+// clang-format off
+#define MY_CHOICE                                                             \
+    Something,                                                              \
+    variant(MkA)                                                            \
+    variant(MkB, int)                                                       \
+    variantMany(MkC, field(c1, double) field(c2, char))
+// clang-format on
 
-#define POICA_P_ENUM_GEN_FIELD(_r, _data, variant)                             \
-    POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_FIELD_, _data, variant)
+choice(MY_CHOICE);
+#define Something_INTROSPECT POICA_CHOICE_INTROSPECT(MY_CHOICE)
 
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name)
-
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_SINGLE(                            \
-    _data, variant_name, variant_type)                                         \
-    variant_type variant_name;
-
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_MANY(_data, variant_name, _fields) \
-    POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) variant_name;
-
-#endif // POICA_ENUM_GEN_FIELDS_H
+int main(void) {
+    /*
+     * Output:
+     * ((POICA_VARIANT_KIND_EMPTY)(MkA))
+     * ((POICA_VARIANT_KIND_SINGLE)(MkB)(int))
+     * ((POICA_VARIANT_KIND_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+     */
+    puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
+}

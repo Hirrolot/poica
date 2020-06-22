@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -23,25 +24,20 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_INTROSPECTION_OVERLOAD_ON_VARIANT_H
-#define POICA_ENUM_INTROSPECTION_OVERLOAD_ON_VARIANT_H
+#ifndef POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+#define POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
 
-#include <poica/enum/introspection.h>
+#include <poica/choice/gen/tags.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_OVERLOAD_ON_VARIANT(macro, data, variant)                        \
-    POICA_P_ENUM_OVERLOAD_ON_VARIANT_AUX(                                      \
-        BOOST_PP_CAT(                                                          \
-            macro,                                                             \
-            BOOST_PP_CAT(POICA_P_ENUM_RENAME_, POICA_VARIANT_KIND(variant))),  \
-        data,                                                                  \
-        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(variant)))
+#define POICA_P_CHOICE_GEN_VCONSTR_VARIANT_KIND_SINGLE(                        \
+    choice_name, variant_name, variant_type)                                   \
+    inline static choice_name variant_name(variant_type arg) {                 \
+        return (choice_name){                                                  \
+            .tag = POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name),           \
+            .data.variant_name = arg,                                          \
+        };                                                                     \
+    }
 
-#define POICA_P_ENUM_OVERLOAD_ON_VARIANT_AUX(macro, ...) macro(__VA_ARGS__)
-
-#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_EMPTY  VARIANT_KIND_EMPTY
-#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_SINGLE VARIANT_KIND_SINGLE
-#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_MANY   VARIANT_KIND_MANY
-
-#endif // POICA_ENUM_INTROSPECTION_OVERLOAD_ON_VARIANT_H
+#endif // POICA_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H

@@ -23,31 +23,28 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_VARIANT_H
-#define POICA_ENUM_VARIANT_H
+#ifndef POICA_CHOICE_GEN_FIELDS_H
+#define POICA_CHOICE_GEN_FIELDS_H
 
-#include <poica/record/field.h>
+#include <poica/choice/gen/redirects/to_inner_type.h>
+#include <poica/choice/variant.h>
 
 #include <boost/preprocessor.hpp>
 
-#ifdef POICA_USE_PREFIX
-#define poicaVariant     POICA_P_VARIANT
-#define poicaVariantMany POICA_P_VARIANT_KIND_MANY
-#else
-#define variant     POICA_P_VARIANT
-#define variantMany POICA_P_VARIANT_KIND_MANY
-#endif
+#define POICA_P_CHOICE_GEN_FIELDS(variants)                                    \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_CHOICE_GEN_FIELD, _data, variants)
 
-#define POICA_P_VARIANT(...)                                                   \
-    BOOST_PP_OVERLOAD(POICA_P_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
+#define POICA_P_CHOICE_GEN_FIELD(_r, _data, variant)                           \
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_FIELD_, _data, variant)
 
-#define POICA_P_VARIANT_KIND_MANY(variant_name, fields)                        \
-    ((POICA_VARIANT_KIND_MANY)(variant_name)(fields))
+#define POICA_P_CHOICE_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name)
 
-#define POICA_P_VARIANT_1(variant_name)                                        \
-    ((POICA_VARIANT_KIND_EMPTY)(variant_name))
+#define POICA_P_CHOICE_GEN_FIELD_VARIANT_KIND_SINGLE(                          \
+    _data, variant_name, variant_type)                                         \
+    variant_type variant_name;
 
-#define POICA_P_VARIANT_2(variant_name, variant_type)                          \
-    ((POICA_VARIANT_KIND_SINGLE)(variant_name)(variant_type))
+#define POICA_P_CHOICE_GEN_FIELD_VARIANT_KIND_MANY(                            \
+    _data, variant_name, _fields)                                              \
+    POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) variant_name;
 
-#endif // POICA_ENUM_VARIANT_H
+#endif // POICA_CHOICE_GEN_FIELDS_H

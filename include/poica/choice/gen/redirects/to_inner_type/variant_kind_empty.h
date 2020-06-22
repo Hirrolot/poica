@@ -23,15 +23,13 @@
  * SOFTWARE.
  */
 
-#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
-#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
+#ifndef CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_EMPTY_H
+#define CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_EMPTY_H
 
 #include <boost/preprocessor.hpp>
 
-// Generate nothing because we already generate a product type for
-// POICA_VARIANT_KIND_MANY with a name
-// POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name).
-#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_MANY(     \
-    _data, _variant_name, _fields)
+// Generate nothing because an empty variant has no actual type.
+#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_EMPTY(  \
+    _data, _variant_name)
 
-#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
+#endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_EMPTY_H

@@ -26,7 +26,7 @@
 #ifndef POICA_H
 #define POICA_H
 
-#include <poica/enum.h>
+#include <poica/choice.h>
 #include <poica/obj.h>
 #include <poica/record.h>
 

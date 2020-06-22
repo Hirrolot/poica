@@ -42,14 +42,14 @@ record(
 
 // Can be represented as an ordinary enumeration, but we define it as a sum type
 // for consistency.
-enum(
+choice(
     ParseErr,
     variant(MkInvalidAge)
     variant(MkNoFirstApostrophe)
     variant(MkNoSecondApostrophe)
 );
 
-enum(
+choice(
     ParseRes,
     variant(MkParseOk, Person)
     variant(MkParseErr, ParseErr)
@@ -63,7 +63,7 @@ void skip_emptiness(const char **src) {
 }
 
 // clang-format off
-enum(
+choice(
     ParseFullNameRes,
     variant(MkParseFullNameOk)
     variant(MkParseFullNameErr, ParseErr)
@@ -82,7 +82,7 @@ ParseFullNameRes parse_full_name(Person *person, const char **src) {
 }
 
 // clang-format off
-enum(
+choice(
     ParseAgeRes,
     variant(MkParseAgeOk)
     variant(MkParseAgeErr, ParseErr)

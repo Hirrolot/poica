@@ -11,7 +11,7 @@ add_executable(tokens tokens.c)
 add_executable(compare_variants compare_variants.c)
 
 add_executable(record_introspection introspection/record.c)
-add_executable(enum_introspection introspection/enum.c)
+add_executable(choice_introspection introspection/choice.c)
 
 if(UNIX)
   add_executable(message_passing message_passing.c)
@@ -32,4 +32,6 @@ set_target_properties(
   obj
   tokens
   compare_variants
+  record_introspection
+  choice_introspection
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
