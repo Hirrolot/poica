@@ -11,4 +11,4 @@ cd examples/build
 ./compare_variants
 
 ./record_introspection
-./enum_introspection
+./choice_introspection
