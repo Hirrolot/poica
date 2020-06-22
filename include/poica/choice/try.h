@@ -54,7 +54,7 @@
         case_expr {                                                            \
             return failure_expr;                                               \
         }                                                                      \
-        POICA_P_DEFAULT {}                                                     \
+        POICA_P_OTHERWISE {}                                                   \
     }
 
 #endif // POICA_CHOICE_TRY_H

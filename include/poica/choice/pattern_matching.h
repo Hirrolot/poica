@@ -35,19 +35,19 @@
 #ifdef POICA_USE_PREFIX
 
 #define poicaMatches   POICA_P_MATCHES
-#define poicaDefault() POICA_P_DEFAULT()
+#define poicaOtherwise POICA_P_OTHERWISE
 
 #else
 
-#define matches POICA_P_MATCHES
-#define default() POICA_P_DEFAULT()
+#define matches   POICA_P_MATCHES
+#define otherwise POICA_P_OTHERWISE
 
 #endif
 
 #define POICA_P_MATCHES(choice_ptr, variant_name)                              \
     ((choice_ptr)->tag == POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
 
-#define POICA_P_DEFAULT                                                        \
+#define POICA_P_OTHERWISE                                                      \
     /* FALLTHRU */                                                             \
     default:                                                                   \
         POICA_P_CHOICE_BREAK_IF_NEEDED
