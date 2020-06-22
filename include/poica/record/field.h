@@ -26,7 +26,11 @@
 #ifndef POICA_RECORD_FIELD_H
 #define POICA_RECORD_FIELD_H
 
+#ifdef POICA_USE_PREFIX
+#define poicaField POICA_P_FIELD
+#else
 #define field POICA_P_FIELD
+#endif
 
 #define POICA_P_FIELD(field_name, field_type) ((field_name)(field_type))
 

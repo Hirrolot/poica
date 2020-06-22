@@ -30,8 +30,13 @@
 
 #include <boost/preprocessor.hpp>
 
+#ifdef POICA_USE_PREFIX
+#define poicaVariant     POICA_P_VARIANT
+#define poicaVariantMany POICA_P_VARIANT_MANY
+#else
 #define variant     POICA_P_VARIANT
 #define variantMany POICA_P_VARIANT_MANY
+#endif
 
 #define POICA_P_VARIANT(...)                                                   \
     BOOST_PP_OVERLOAD(POICA_P_VARIANT_, __VA_ARGS__)(__VA_ARGS__)

@@ -44,7 +44,11 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual record data is transferred through a macro:
 // ENUM(MY_ENUM);
+#ifdef POICA_USE_PREFIX
+#define poicaEnum(...) POICA_P_ENUM(__VA_ARGS__)
+#else
 #define enum(...) POICA_P_ENUM(__VA_ARGS__)
+#endif
 
 #define POICA_P_ENUM(name, variants)                                           \
     POICA_P_ENUM_GEN_RECORDS_FOR_MANY(variants)                                \

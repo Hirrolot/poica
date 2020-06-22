@@ -38,7 +38,12 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual record data is transferred through a macro:
 // RECORD(MY_RECORD);
+
+#ifdef POICA_USE_PREFIX
+#define poicaRecord(...) POICA_P_RECORD(__VA_ARGS__)
+#else
 #define record(...) POICA_P_RECORD(__VA_ARGS__)
+#endif
 
 #define POICA_P_RECORD(name, fields)                                           \
     POICA_P_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE(name, fields)                   \

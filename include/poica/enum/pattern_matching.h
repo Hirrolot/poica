@@ -33,13 +33,27 @@
 
 #include <boost/preprocessor.hpp>
 
-#define matches POICA_P_MATCHES
-#define match   POICA_P_MATCH
-#define default() POICA_P_DEFAULT()
+#ifdef POICA_USE_PREFIX
+
+#define poicaMatches  POICA_P_MATCHES
+#define poicaMatch    POICA_P_MATCH
+#define poicaCaseMany POICA_P_CASE_MANY
+
+#define poicaCase(...) POICA_P_CASE(__VA_ARGS__)
+#define poicaDefault() POICA_P_DEFAULT()
+
+#else
+
+#define matches  POICA_P_MATCHES
+#define match    POICA_P_MATCH
 #define caseMany POICA_P_CASE_MANY
+
 // clang-format off
 #define case(...) POICA_P_CASE(__VA_ARGS__)
+#define default() POICA_P_DEFAULT()
 // clang-format off
+
+#endif
 
 #define POICA_P_MATCHES(enum_ptr, variant_name)                                \
     ((enum_ptr)->tag == POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name))

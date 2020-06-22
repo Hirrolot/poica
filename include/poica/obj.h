@@ -26,7 +26,11 @@
 #ifndef POICA_OBJ_H
 #define POICA_OBJ_H
 
+#ifdef POICA_USE_PREFIX
+#define poicaObj POICA_P_OBJ
+#else
 #define obj POICA_P_OBJ
+#endif
 
 #define POICA_P_OBJ(value, value_type)                                         \
     (value_type *)(value_type[]) {                                             \

@@ -30,7 +30,11 @@
 
 #include <boost/preprocessor.hpp>
 
+#ifdef POICA_USE_PREFIX
+#define poicaTry POICA_P_TRY
+#else
 #define try POICA_P_TRY
+#endif
 
 #define POICA_P_TRY(enum_ptr, case_expr, failure_expr)                         \
     POICA_P_MATCH(enum_ptr) {                                                  \
