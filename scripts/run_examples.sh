@@ -8,6 +8,7 @@ cd examples/build
 ./message_passing
 ./obj
 ./tokens
+./compare_variants
 
 ./record_introspection
 ./enum_introspection

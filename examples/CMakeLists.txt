@@ -8,6 +8,7 @@ add_executable(binary_tree binary_tree.c)
 add_executable(error_handling error_handling.c)
 add_executable(obj obj.c)
 add_executable(tokens tokens.c)
+add_executable(compare_variants compare_variants.c)
 
 add_executable(record_introspection introspection/record.c)
 add_executable(enum_introspection introspection/enum.c)
@@ -30,4 +31,5 @@ set_target_properties(
   message_passing
   obj
   tokens
+  compare_variants
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)

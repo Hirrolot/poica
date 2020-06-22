@@ -38,6 +38,7 @@
 #include <poica/enum/pattern_matching.h>
 #include <poica/enum/try.h>
 #include <poica/enum/variant.h>
+#include <poica/enum/variant_tag.h>
 
 #include <boost/preprocessor.hpp>
 
