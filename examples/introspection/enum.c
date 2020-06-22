@@ -38,14 +38,14 @@
 // clang-format on
 
 enum(MY_ENUM);
-#define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
+#define Something_INTROSPECT POICA_ENUM_INTROSPECT(MY_ENUM)
 
 int main(void) {
     /*
      * Output:
-     * ((POICA_variant_EMPTY)(MkA))
-     * ((POICA_variant_SINGLE)(MkB)(int))
-     * ((POICA_variant_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+     * ((POICA_VARIANT_KIND_EMPTY)(MkA))
+     * ((POICA_VARIANT_KIND_SINGLE)(MkB)(int))
+     * ((POICA_VARIANT_KIND_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
      */
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }

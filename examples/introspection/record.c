@@ -38,7 +38,7 @@
 // clang-format on
 
 record(MY_RECORD);
-#define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
+#define Something_INTROSPECT POICA_RECORD_INTROSPECT(MY_RECORD)
 
 int main(void) {
     /*
