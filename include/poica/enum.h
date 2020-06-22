@@ -42,7 +42,7 @@
 #include <boost/preprocessor.hpp>
 
 // This macro is variadic because, due to type introspection, it must work
-// correctly if actual record data is transferred through a macro:
+// correctly if actual sum type data is transferred through a macro:
 // ENUM(MY_ENUM);
 #ifdef POICA_USE_PREFIX
 #define poicaEnum(...) POICA_P_ENUM(__VA_ARGS__)
