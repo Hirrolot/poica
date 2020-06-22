@@ -60,8 +60,8 @@
         /* FALLTHRU */                                                         \
         for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
                  qualifier, var_name, variant_name);                           \
-             var_name != (qualifier void *)0;                                  \
-             var_name = (qualifier void *)0)
+             var_name != (void *)0;                                            \
+             var_name = (void *)0)
 
 #define POICA_P_OF_MANY(qualifier, variant_name, var_names)                    \
     /* FALLTHRU */                                                             \
@@ -70,8 +70,8 @@
                                                                                \
         for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
                  qualifier, poica_p_case_var, variant_name);                   \
-             poica_p_case_var != (qualifier void *)0;                          \
-             poica_p_case_var = (qualifier void *)0)                           \
+             poica_p_case_var != (void *)0;                                    \
+             poica_p_case_var = (void *)0)                                     \
                                                                                \
         POICA_P_CHOICE_EXTRACT_MATCHED_VARS(                                   \
             qualifier,                                                         \
@@ -87,16 +87,21 @@
 
 #define POICA_P_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR(                 \
     _r, qualifier_and_val, field_name)                                         \
-    for (BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val)                          \
+    for (POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                   \
              POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(                            \
-                 BOOST_PP_TUPLE_ELEM(                                          \
-                     2, 1, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val)),      \
+                 POICA_P_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val),           \
                  field_name) *field_name =                                     \
-                 &BOOST_PP_TUPLE_ELEM(                                         \
-                      2, 0, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val))      \
+                 &POICA_P_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)           \
                       ->field_name;                                            \
-         field_name != (BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val) void *)0; \
-         field_name = (BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val) void *)0)
+         field_name != (void *)0;                                              \
+         field_name = (void *)0)
+
+#define POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                    \
+    BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val)
+#define POICA_P_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)                     \
+    BOOST_PP_TUPLE_ELEM(2, 0, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val))
+#define POICA_P_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val)                     \
+    BOOST_PP_TUPLE_ELEM(2, 1, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val))
 
 #define POICA_P_CHOICE_DEDUCE_MATCHED_VAR(qualifier, var_name, variant_name)   \
     qualifier POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(                   \
