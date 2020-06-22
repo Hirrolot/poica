@@ -239,7 +239,7 @@ user.balance *= 2;
     variantMany(MkC, field(c1, double) field(c2, char))
 
 enum(MY_ENUM);
-#define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
+#define Something_INTROSPECT POICA_ENUM_INTROSPECT(MY_ENUM)
 
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
@@ -274,7 +274,7 @@ int main(void) {
     field(c, double)
 
 record(MY_RECORD);
-#define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
+#define Something_INTROSPECT POICA_RECORD_INTROSPECT(MY_RECORD)
 
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
