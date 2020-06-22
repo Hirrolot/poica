@@ -395,3 +395,7 @@ A: Yes.
 Q: Why did you created this project?
 
 A: Initially poica was born as my experiment of what's possible in plain C.
+
+Q: How to resolve name collisions?
+
+A: You have three choices. Either rename macros in poica, or rename software entities in conflicting libraries, or `#define POICA_USE_PREFIX` before `#include <poica.h>`. In the latter case, all the public `camelCase`ed macro names are prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...), and `SCREAMING_CASED`ed macros are prefixed with `POICA` (`ENUM_INTROSPECT` -> `POICA_ENUM_INTROSPECT`, ...).
