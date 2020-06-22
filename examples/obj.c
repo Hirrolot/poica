@@ -35,4 +35,5 @@ Point create_point(void) {
 
 int main(void) {
     Point *point = obj(create_point(), Point);
+    (void)point;
 }
