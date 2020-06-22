@@ -398,10 +398,9 @@ A: Initially poica was born as my experiment of what's possible in plain C.
 
 Q: How to resolve name collisions?
 
-A: You have three choices:
+A: `#define POICA_USE_PREFIX` before `#include <poica.h>`. It has the following effects:
 
- - Either rename macros in poica,
- - Or rename software entities in conflicting libraries,
- - Or `#define POICA_USE_PREFIX` before `#include <poica.h>`.
+ - All the public `camelCase`ed macros are prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...).
+ - All the public `SCREAMING_CASE`ed macros are prefixed with `POICA` (`ENUM_INTROSPECT` -> `POICA_ENUM_INTROSPECT`, `RECORD_FIELD_TYPES_SEQ` -> `POICA_RECORD_FIELD_TYPES_SEQ`, ...).
 
-In the latter case, all the public `camelCase`ed macro names are prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...), and `SCREAMING_CASED`ed macros are prefixed with `POICA` (`ENUM_INTROSPECT` -> `POICA_ENUM_INTROSPECT`, `RECORD_FIELD_TYPES_SEQ` -> `POICA_RECORD_FIELD_TYPES_SEQ`, ...).
+Note that you don't need to define `POICA_USE_PREFIX` in all your files, instead you can use it only in files that cause conflicts with other code.
