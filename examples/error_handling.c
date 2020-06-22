@@ -76,7 +76,7 @@ ParseFullNameRes parse_full_name(Person *person, const char **src) {
     }
 
     person->full_name++;
-    *src = (char *)person->full_name;
+    *src = (const char *)person->full_name;
 
     return MkParseFullNameOk();
 }
