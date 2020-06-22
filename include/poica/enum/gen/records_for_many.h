@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_VARIANT_MANY
-#define POICA_ENUM_GEN_VARIANT_MANY
+#ifndef POICA_ENUM_GEN_VARIANT_KIND_MANY
+#define POICA_ENUM_GEN_VARIANT_KIND_MANY
 
 #include <poica/private/aux.h>
 #include <poica/private/defer.h>
@@ -42,12 +42,13 @@
 #define POICA_P_ENUM_GEN_RECORD_FOR_MANY(_r, data, variant)                    \
     POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_RECORD_FOR_MANY_, _data, variant)
 
-#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_EMPTY(_data, _variant_name)
-#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_SINGLE(                       \
+#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_KIND_EMPTY(_data,             \
+                                                            _variant_name)
+#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_KIND_SINGLE(                  \
     _data, _variant_name, _variant_type)
-#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_MANY(                         \
+#define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_KIND_MANY(                    \
     _data, variant_name, fields)                                               \
     POICA_P_DEFER(POICA_P_RECORD)                                              \
     (POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
 
-#endif // POICA_ENUM_GEN_VARIANT_MANY
+#endif // POICA_ENUM_GEN_VARIANT_KIND_MANY

@@ -250,9 +250,9 @@ int main(void) {
     <summary>Output</summary>
 
 ```
-((POICA_VARIANT_EMPTY)(MkA))
-((POICA_VARIANT_SINGLE)(MkB)(int))
-((POICA_VARIANT_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+((POICA_VARIANT_KIND_EMPTY)(MkA))
+((POICA_VARIANT_KIND_SINGLE)(MkB)(int))
+((POICA_VARIANT_KIND_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
 ```
 
 </details>

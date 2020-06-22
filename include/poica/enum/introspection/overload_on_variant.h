@@ -32,16 +32,16 @@
 
 #define POICA_OVERLOAD_ON_VARIANT(macro, data, variant)                        \
     POICA_P_ENUM_OVERLOAD_ON_VARIANT_AUX(                                      \
-        BOOST_PP_CAT(macro,                                                    \
-                     BOOST_PP_CAT(POICA_P_ENUM_RENAME_VARIANT_KIND_,           \
-                                  POICA_VARIANT_KIND(variant))),               \
+        BOOST_PP_CAT(                                                          \
+            macro,                                                             \
+            BOOST_PP_CAT(POICA_P_ENUM_RENAME_, POICA_VARIANT_KIND(variant))),  \
         data,                                                                  \
         BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(variant)))
 
 #define POICA_P_ENUM_OVERLOAD_ON_VARIANT_AUX(macro, ...) macro(__VA_ARGS__)
 
-#define POICA_P_ENUM_RENAME_VARIANT_KIND_POICA_VARIANT_EMPTY  VARIANT_EMPTY
-#define POICA_P_ENUM_RENAME_VARIANT_KIND_POICA_VARIANT_SINGLE VARIANT_SINGLE
-#define POICA_P_ENUM_RENAME_VARIANT_KIND_POICA_VARIANT_MANY   VARIANT_MANY
+#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_EMPTY  VARIANT_KIND_EMPTY
+#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_SINGLE VARIANT_KIND_SINGLE
+#define POICA_P_ENUM_RENAME_POICA_VARIANT_KIND_MANY   VARIANT_KIND_MANY
 
 #endif // POICA_ENUM_INTROSPECTION_OVERLOAD_ON_VARIANT_H

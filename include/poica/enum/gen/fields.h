@@ -37,13 +37,13 @@
 #define POICA_P_ENUM_GEN_FIELD(_r, _data, variant)                             \
     POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_FIELD_, _data, variant)
 
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_EMPTY(_data, variant_name)
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name)
 
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_SINGLE(                                 \
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_SINGLE(                            \
     _data, variant_name, variant_type)                                         \
     variant_type variant_name;
 
-#define POICA_P_ENUM_GEN_FIELD_VARIANT_MANY(_data, variant_name, _fields)      \
+#define POICA_P_ENUM_GEN_FIELD_VARIANT_KIND_MANY(_data, variant_name, _fields) \
     POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) variant_name;
 
 #endif // POICA_ENUM_GEN_FIELDS_H

@@ -23,14 +23,15 @@
  * SOFTWARE.
  */
 
-#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H
-#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H
+#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
+#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_SINGLE(        \
-    _data, variant_name, variant_type)                                         \
-    typedef variant_type POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(          \
-        variant_name);
+// Generate nothing because we already generate a product type for
+// POICA_VARIANT_KIND_MANY with a name
+// POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name).
+#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_MANY(     \
+    _data, _variant_name, _fields)
 
-#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_SINGLE_H
+#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H

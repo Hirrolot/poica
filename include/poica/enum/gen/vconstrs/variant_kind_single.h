@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -23,13 +24,20 @@
  * SOFTWARE.
  */
 
-#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_EMPTY_H
-#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_EMPTY_H
+#ifndef POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+#define POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+
+#include <poica/enum/gen/tags.h>
 
 #include <boost/preprocessor.hpp>
 
-// Generate nothing because an empty variant has no actual type.
-#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_EMPTY(         \
-    _data, _variant_name)
+#define POICA_P_ENUM_GEN_VCONSTR_VARIANT_KIND_SINGLE(                          \
+    enum_name, variant_name, variant_type)                                     \
+    inline static enum_name variant_name(variant_type arg) {                   \
+        return (enum_name){                                                    \
+            .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
+            .data.variant_name = arg,                                          \
+        };                                                                     \
+    }
 
-#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_EMPTY_H
+#endif // POICA_ENUM_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H

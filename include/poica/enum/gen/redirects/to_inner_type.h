@@ -28,9 +28,9 @@
 
 #include <poica/private/aux.h>
 
-#include <poica/enum/gen/redirects/to_inner_type/variant_empty.h>
-#include <poica/enum/gen/redirects/to_inner_type/variant_many.h>
-#include <poica/enum/gen/redirects/to_inner_type/variant_single.h>
+#include <poica/enum/gen/redirects/to_inner_type/variant_kind_empty.h>
+#include <poica/enum/gen/redirects/to_inner_type/variant_kind_many.h>
+#include <poica/enum/gen/redirects/to_inner_type/variant_kind_single.h>
 
 #include <poica/enum/gen/records_for_many.h>
 #include <poica/enum/introspection.h>

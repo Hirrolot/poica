@@ -30,9 +30,9 @@
 
 #include <poica/enum/introspection.h>
 
-#include <poica/enum/gen/vconstrs/variant_empty.h>
-#include <poica/enum/gen/vconstrs/variant_many.h>
-#include <poica/enum/gen/vconstrs/variant_single.h>
+#include <poica/enum/gen/vconstrs/variant_kind_empty.h>
+#include <poica/enum/gen/vconstrs/variant_kind_many.h>
+#include <poica/enum/gen/vconstrs/variant_kind_single.h>
 
 #include <boost/preprocessor.hpp>
 

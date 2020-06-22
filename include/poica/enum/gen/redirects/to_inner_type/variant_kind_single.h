@@ -23,18 +23,14 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ENUM_GEN_VCONSTRS_VARIANT_EMPTY_H
-#define POICA_ENUM_GEN_VCONSTRS_VARIANT_EMPTY_H
-
-#include <poica/enum/gen/tags.h>
+#ifndef ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
+#define ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_ENUM_GEN_VCONSTR_VARIANT_EMPTY(enum_name, variant_name)        \
-    inline static enum_name variant_name(void) {                               \
-        return (enum_name){                                                    \
-            .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
-        };                                                                     \
-    }
+#define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_SINGLE(   \
+    _data, variant_name, variant_type)                                         \
+    typedef variant_type POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(          \
+        variant_name);
 
-#endif // POICA_ENUM_GEN_VCONSTRS_VARIANT_EMPTY_H
+#endif // ENUM_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
