@@ -39,43 +39,43 @@
 #include <stdio.h>
 
 // clang-format off
-RECORD(
+record(
     ExprPair,
-    FIELD(left, const struct Expr *)
-    FIELD(right, const struct Expr *)
+    field(left, const struct Expr *)
+    field(right, const struct Expr *)
 );
 
-ENUM(
+enum(
     Expr,
-    VARIANT(MkConst, double)
-    VARIANT(MkAdd, ExprPair)
-    VARIANT(MkSub, ExprPair)
-    VARIANT(MkMul, ExprPair)
-    VARIANT(MkDiv, ExprPair)
+    variant(MkConst, double)
+    variant(MkAdd, ExprPair)
+    variant(MkSub, ExprPair)
+    variant(MkMul, ExprPair)
+    variant(MkDiv, ExprPair)
 );
 // clang-format on
 
 double eval(const Expr *expr) {
-    MATCH(expr) {
-        CASE(MkConst, number) {
+    match(expr) {
+        case(MkConst, number) {
             return *number;
         }
-        CASE(MkAdd, add) {
+        case(MkAdd, add) {
             return eval(add->left) + eval(add->right);
         }
-        CASE(MkSub, sub) {
+        case(MkSub, sub) {
             return eval(sub->left) - eval(sub->right);
         }
-        CASE(MkMul, mul) {
+        case(MkMul, mul) {
             return eval(mul->left) * eval(mul->right);
         }
-        CASE(MkDiv, div) {
+        case(MkDiv, div) {
             return eval(div->left) / eval(div->right);
         }
     }
 }
 
-#define EXPR(expr)          OBJ(expr, Expr)
+#define EXPR(expr)          obj(expr, Expr)
 #define OP(op, left, right) Mk##op((ExprPair){EXPR(left), EXPR(right)})
 
 int main(void) {

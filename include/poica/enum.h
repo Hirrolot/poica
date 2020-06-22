@@ -42,11 +42,11 @@
 #include <boost/preprocessor.hpp>
 
 // This macro is variadic because, due to type introspection, it must work
-// correctly if actual sum type data is transferred through a macro:
-// RECORD(MY_RECORD);
-#define ENUM(...) POICA_P_ENUM_AUX(__VA_ARGS__)
+// correctly if actual record data is transferred through a macro:
+// ENUM(MY_ENUM);
+#define enum(...) POICA_P_ENUM(__VA_ARGS__)
 
-#define POICA_P_ENUM_AUX(name, variants)                                       \
+#define POICA_P_ENUM(name, variants)                                           \
     POICA_P_ENUM_GEN_RECORDS_FOR_MANY(variants)                                \
                                                                                \
     typedef struct name {                                                      \

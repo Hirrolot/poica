@@ -32,20 +32,20 @@
 // clang-format off
 #define MY_ENUM                                                             \
     Something,                                                              \
-    VARIANT(MkA)                                                            \
-    VARIANT(MkB, int)                                                       \
-    VARIANT_MANY(MkC, FIELD(c1, double) FIELD(c2, char))
+    variant(MkA)                                                            \
+    variant(MkB, int)                                                       \
+    variantMany(MkC, field(c1, double) field(c2, char))
 // clang-format on
 
-ENUM(MY_ENUM);
+enum(MY_ENUM);
 #define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
 
 int main(void) {
     /*
      * Output:
-     * ((POICA_VARIANT_EMPTY)(MkA))
-     * ((POICA_VARIANT_SINGLE)(MkB)(int))
-     * ((POICA_VARIANT_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+     * ((POICA_variant_EMPTY)(MkA))
+     * ((POICA_variant_SINGLE)(MkB)(int))
+     * ((POICA_variant_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
      */
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }

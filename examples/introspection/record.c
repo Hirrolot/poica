@@ -32,12 +32,12 @@
 // clang-format off
 #define MY_RECORD                                                           \
     Something,                                                              \
-    FIELD(a, int)                                                           \
-    FIELD(b, const char *)                                                  \
-    FIELD(c, double)
+    field(a, int)                                                           \
+    field(b, const char *)                                                  \
+    field(c, double)
 // clang-format on
 
-RECORD(MY_RECORD);
+record(MY_RECORD);
 #define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
 
 int main(void) {

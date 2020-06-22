@@ -30,12 +30,14 @@
 
 #include <boost/preprocessor.hpp>
 
-#define TRY(enum_ptr, case_expr, failure_expr)                                 \
-    MATCH(enum_ptr) {                                                          \
+#define try POICA_P_TRY
+
+#define POICA_P_TRY(enum_ptr, case_expr, failure_expr)                         \
+    POICA_P_MATCH(enum_ptr) {                                                  \
         case_expr {                                                            \
             return failure_expr;                                               \
         }                                                                      \
-        DEFAULT {}                                                             \
+        POICA_P_DEFAULT {}                                                     \
     }
 
 #endif // POICA_ENUM_TRY_H

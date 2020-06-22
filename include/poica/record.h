@@ -38,9 +38,9 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual record data is transferred through a macro:
 // RECORD(MY_RECORD);
-#define RECORD(...) POICA_P_RECORD_AUX(__VA_ARGS__)
+#define record(...) POICA_P_RECORD(__VA_ARGS__)
 
-#define POICA_P_RECORD_AUX(name, fields)                                       \
+#define POICA_P_RECORD(name, fields)                                           \
     POICA_P_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE(name, fields)                   \
                                                                                \
     typedef struct name {                                                      \

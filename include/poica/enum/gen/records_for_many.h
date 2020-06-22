@@ -47,7 +47,7 @@
     _data, _variant_name, _variant_type)
 #define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_MANY(                         \
     _data, variant_name, fields)                                               \
-    POICA_P_DEFER(RECORD)                                                      \
+    POICA_P_DEFER(POICA_P_RECORD)                                              \
     (POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
 
 #endif // POICA_ENUM_GEN_VARIANT_MANY

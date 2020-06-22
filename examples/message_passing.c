@@ -42,10 +42,10 @@
 #define CHECK_RC(rc) assert(rc != -1)
 
 // clang-format off
-ENUM(
+enum(
     Command,
-    VARIANT_MANY(MkAdd, FIELD(left, int) FIELD(right, int))
-    VARIANT(MkDouble, int)
+    variantMany(MkAdd, field(left, int) field(right, int))
+    variant(MkDouble, int)
 );
 // clang-format on
 
@@ -55,11 +55,11 @@ coroutine void worker(int rx) {
     CHECK_RC(rc);
 
     int res;
-    MATCH(&command) {
-        CASE_MANY(MkAdd, (left, right)) {
+    match(&command) {
+        caseMany(MkAdd, (left, right)) {
             res = *left + *right;
         }
-        CASE(MkDouble, number) {
+        case(MkDouble, number) {
             res = *number * 2;
         }
     }

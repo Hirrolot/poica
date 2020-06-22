@@ -28,27 +28,27 @@
 #include <stdio.h>
 
 // clang-format off
-ENUM(
+enum(
     Tree,
-    VARIANT(MkEmpty)
-    VARIANT(MkLeaf, int)
-    VARIANT_MANY(MkNode,
-        FIELD(left, struct Tree *)
-        FIELD(number, int)
-        FIELD(right, struct Tree *)
+    variant(MkEmpty)
+    variant(MkLeaf, int)
+    variantMany(MkNode,
+        field(left, struct Tree *)
+        field(number, int)
+        field(right, struct Tree *)
     )
 );
 // clang-format on
 
 void print_tree(const Tree *tree) {
-    MATCH(tree) {
-        CASE(MkEmpty) {
+    match(tree) {
+        case(MkEmpty) {
             return;
         }
-        CASE(MkLeaf, number) {
+        case(MkLeaf, number) {
             printf("%d\n", *number);
         }
-        CASE_MANY(MkNode, (left, number, right)) {
+        caseMany(MkNode, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -56,7 +56,7 @@ void print_tree(const Tree *tree) {
     }
 }
 
-#define TREE(tree)                OBJ(tree, Tree)
+#define TREE(tree)                obj(tree, Tree)
 #define NODE(left, number, right) TREE(MkNode(left, number, right))
 #define LEAF(number)              TREE(MkLeaf(number))
 

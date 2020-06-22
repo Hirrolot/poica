@@ -34,25 +34,25 @@
 #include <string.h>
 
 // clang-format off
-RECORD(
+record(
     Person,
-    FIELD(full_name, const char *)
-    FIELD(age, unsigned char)
+    field(full_name, const char *)
+    field(age, unsigned char)
 );
 
 // Can be represented as an ordinary enumeration, but we define it as a sum type
 // for consistency.
-ENUM(
+enum(
     ParseErr,
-    VARIANT(MkInvalidAge)
-    VARIANT(MkNoFirstApostrophe)
-    VARIANT(MkNoSecondApostrophe)
+    variant(MkInvalidAge)
+    variant(MkNoFirstApostrophe)
+    variant(MkNoSecondApostrophe)
 );
 
-ENUM(
+enum(
     ParseRes,
-    VARIANT(MkParseOk, Person)
-    VARIANT(MkParseErr, ParseErr)
+    variant(MkParseOk, Person)
+    variant(MkParseErr, ParseErr)
 );
 // clang-format on
 
@@ -63,10 +63,10 @@ void skip_emptiness(const char **src) {
 }
 
 // clang-format off
-ENUM(
+enum(
     ParseFullNameRes,
-    VARIANT(MkParseFullNameOk)
-    VARIANT(MkParseFullNameErr, ParseErr)
+    variant(MkParseFullNameOk)
+    variant(MkParseFullNameErr, ParseErr)
 );
 // clang-format on
 
@@ -82,10 +82,10 @@ ParseFullNameRes parse_full_name(Person *person, const char **src) {
 }
 
 // clang-format off
-ENUM(
+enum(
     ParseAgeRes,
-    VARIANT(MkParseAgeOk)
-    VARIANT(MkParseAgeErr, ParseErr)
+    variant(MkParseAgeOk)
+    variant(MkParseAgeErr, ParseErr)
 );
 // clang-format on
 
@@ -113,26 +113,28 @@ ParseRes parse(char *src) {
 
     {
         ParseFullNameRes res = parse_full_name(&person, (const char **)&src);
-        TRY(&res, CASE(MkParseFullNameErr, err), MkParseErr(*err));
+        try
+            (&res, case (MkParseFullNameErr, err), MkParseErr(*err));
     }
 
     {
         ParseAgeRes res = parse_age(&person, &src);
-        TRY(&res, CASE(MkParseAgeErr, err), MkParseErr(*err));
+        try
+            (&res, case (MkParseAgeErr, err), MkParseErr(*err));
     }
 
     return MkParseOk(person);
 }
 
 const char *stringify_parse_err(const ParseErr *err) {
-    MATCH(err) {
-        CASE(MkInvalidAge) {
+    match(err) {
+        case(MkInvalidAge) {
             return "a range must be a nonnegative integral number";
         }
-        CASE(MkNoFirstApostrophe) {
+        case(MkNoFirstApostrophe) {
             return "no apostrophe before a full name";
         }
-        CASE(MkNoSecondApostrophe) {
+        case(MkNoSecondApostrophe) {
             return "no apostrophe after a full name";
         }
     }
@@ -146,13 +148,13 @@ int main(void) {
      * Output:
      * Success!
      */
-    MATCH(&res) {
-        CASE(MkParseOk, person) {
+    match(&res) {
+        case(MkParseOk, person) {
             assert(person->age == 73);
             assert(strcmp(person->full_name, "James Brown") == 0);
             puts("Success!");
         }
-        CASE(MkParseErr, err) {
+        case(MkParseErr, err) {
             printf("Parsing has been failed! Reason: %s.\n",
                    stringify_parse_err(err));
         }

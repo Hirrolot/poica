@@ -30,10 +30,13 @@
 
 #include <boost/preprocessor.hpp>
 
-#define VARIANT(...)                                                           \
+#define variant     POICA_P_VARIANT
+#define variantMany POICA_P_VARIANT_MANY
+
+#define POICA_P_VARIANT(...)                                                   \
     BOOST_PP_OVERLOAD(POICA_P_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
 
-#define VARIANT_MANY(variant_name, fields)                                     \
+#define POICA_P_VARIANT_MANY(variant_name, fields)                             \
     ((POICA_VARIANT_MANY)(variant_name)(fields))
 
 #define POICA_P_VARIANT_1(variant_name) ((POICA_VARIANT_EMPTY)(variant_name))

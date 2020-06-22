@@ -28,32 +28,32 @@
 #include <stdio.h>
 
 // clang-format off
-ENUM(
+enum(
     Token,
-    VARIANT(MkIdent, const char *)
-    VARIANT(MkInteger, int)
-    VARIANT(MkComma)
-    VARIANT(MkPlus)
-    VARIANT(MkOpenParen)
-    VARIANT(MkCloseParen)
+    variant(MkIdent, const char *)
+    variant(MkInteger, int)
+    variant(MkComma)
+    variant(MkPlus)
+    variant(MkOpenParen)
+    variant(MkCloseParen)
 );
 // clang-format on
 
 void print_token(Token token) {
-    MATCH(&token) {
-        CASE(MkIdent, ident) {
+    match(&token) {
+        case(MkIdent, ident) {
             printf("%s", *ident);
         }
-        CASE(MkInteger, integer) {
+        case(MkInteger, integer) {
             printf("%d", *integer);
         }
-        CASE(MkPlus) {
+        case(MkPlus) {
             printf(" + ");
         }
-        CASE(MkOpenParen) {
+        case(MkOpenParen) {
             printf("(");
         }
-        CASE(MkCloseParen) {
+        case(MkCloseParen) {
             printf(")");
         }
     }

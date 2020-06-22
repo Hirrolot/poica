@@ -26,7 +26,9 @@
 #ifndef POICA_OBJ_H
 #define POICA_OBJ_H
 
-#define OBJ(value, value_type)                                                 \
+#define obj POICA_P_OBJ
+
+#define POICA_P_OBJ(value, value_type)                                         \
     (value_type *)(value_type[]) {                                             \
         value                                                                  \
     }

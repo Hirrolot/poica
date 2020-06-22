@@ -33,10 +33,18 @@
 
 #include <boost/preprocessor.hpp>
 
-#define MATCHES(enum_ptr, variant_name)                                        \
+#define matches POICA_P_MATCHES
+#define match   POICA_P_MATCH
+#define default() POICA_P_DEFAULT()
+#define caseMany POICA_P_CASE_MANY
+// clang-format off
+#define case(...) POICA_P_CASE(__VA_ARGS__)
+// clang-format off
+
+#define POICA_P_MATCHES(enum_ptr, variant_name)                                \
     ((enum_ptr)->tag == POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name))
 
-#define MATCH(enum_ptr)                                                        \
+#define POICA_P_MATCH(enum_ptr)                                                \
     for (void *poica_p_enum_ptr = (void *)(enum_ptr);                          \
          poica_p_enum_ptr != (void *)0;                                        \
          poica_p_enum_ptr = (void *)0)                                         \
@@ -44,10 +52,10 @@
              poica_p_break_is_needed = true)                                   \
             switch ((enum_ptr)->tag)
 
-#define CASE(...)                                                              \
+#define POICA_P_CASE(...)                                                      \
     BOOST_PP_OVERLOAD(POICA_P_ENUM_CASE_, __VA_ARGS__)(__VA_ARGS__)
 
-#define DEFAULT                                                                \
+#define POICA_P_DEFAULT                                                        \
     default:                                                                   \
         POICA_P_ENUM_BREAK_IF_NEEDED
 
@@ -68,7 +76,7 @@
              var_name != (void *)0;                                            \
              var_name = (void *)0)
 
-#define CASE_MANY(variant_name, var_names)                                     \
+#define POICA_P_CASE_MANY(variant_name, var_names)                             \
     /* FALLTHRU */                                                             \
     case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
         POICA_P_ENUM_BREAK_IF_NEEDED                                           \
