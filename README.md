@@ -87,11 +87,11 @@ some_procedure(res2.data.state_1);
 poica solves these two problems by introducing [algebraic data types] (discussed in the next section). That's how it's accomplished with poica:
 
 ```c
-ENUM(
+enum(
     OurTaggedUnion,
-    VARIANT(MkState1, int)
-    VARIANT(MkState2, const char *)
-    VARIANT(MkState3, double)
+    variant(MkState1, int)
+    variant(MkState2, const char *)
+    variant(MkState3, double)
 );
 
 // (i) Compilation failed!
@@ -135,26 +135,26 @@ Can be conveniently represented as a sum type and further manipulated using patt
 
 #include <stdio.h>
 
-ENUM(
+enum(
     Tree,
-    VARIANT(MkEmpty)
-    VARIANT(MkLeaf, int)
-    VARIANT_MANY(MkNode,
-        FIELD(left, struct Tree *)
-        FIELD(number, int)
-        FIELD(right, struct Tree *)
+    variant(MkEmpty)
+    variant(MkLeaf, int)
+    variantMany(MkNode,
+        field(left, struct Tree *)
+        field(number, int)
+        field(right, struct Tree *)
     )
 );
 
 void print_tree(const Tree *tree) {
-    MATCH(tree) {
-        CASE(MkEmpty) {
+    match(tree) {
+        case(MkEmpty) {
             return;
         }
-        CASE(MkLeaf, number) {
+        case(MkLeaf, number) {
             printf("%d\n", *number);
         }
-        CASE_MANY(MkNode, (left, number, right)) {
+        caseMany(MkNode, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -162,7 +162,7 @@ void print_tree(const Tree *tree) {
     }
 }
 
-#define TREE(tree)                OBJ(tree, Tree)
+#define TREE(tree)                obj(tree, Tree)
 #define NODE(left, number, right) TREE(MkNode(left, number, right))
 #define LEAF(number)              TREE(MkLeaf(number))
 
@@ -198,11 +198,11 @@ int main(void) {
 If we have structures in C, why do we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
 
 ```c
-RECORD(
+record(
     UserAccount,
-    FIELD(name, const char *)
-    FIELD(balance, double)
-    FIELD(age, unsigned char)
+    field(name, const char *)
+    field(balance, double)
+    field(age, unsigned char)
 );
 ```
 
@@ -234,11 +234,11 @@ user.balance *= 2;
 
 #define MY_ENUM                                                             \
     Something,                                                              \
-    VARIANT(MkA)                                                            \
-    VARIANT(MkB, int)                                                       \
-    VARIANT_MANY(MkC, FIELD(c1, double) FIELD(c2, char))
+    variant(MkA)                                                            \
+    variant(MkB, int)                                                       \
+    variantMany(MkC, field(c1, double) field(c2, char))
 
-ENUM(MY_ENUM);
+enum(MY_ENUM);
 #define Something_INTROSPECT ENUM_INTROSPECT(MY_ENUM)
 
 int main(void) {
@@ -269,11 +269,11 @@ int main(void) {
 
 #define MY_RECORD                                                           \
     Something,                                                              \
-    FIELD(a, int)                                                           \
-    FIELD(b, const char *)                                                  \
-    FIELD(c, double)
+    field(a, int)                                                           \
+    field(b, const char *)                                                  \
+    field(c, double)
 
-RECORD(MY_RECORD);
+record(MY_RECORD);
 #define Something_INTROSPECT RECORD_INTROSPECT(MY_RECORD)
 
 int main(void) {
@@ -309,17 +309,17 @@ With type introspection it is possible to achieve [type-driven (de)serialization
 ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a enum type, designating either a successful or a failure value, like this:
 
 ```c
-ENUM(
+enum(
     RecvMsgErrKind,
-    VARIANT(MkBadConnection)
-    VARIANT(MkNoSuchUser)
+    variant(MkBadConnection)
+    variant(MkNoSuchUser)
     ...
 );
 
-ENUM(
+enum(
     RecvMsgRes,
-    VARIANT(MkRecvMsgOk, char *)
-    VARIANT(MkSendMsgErr, RecvMsgErrKind))
+    variant(MkRecvMsgOk, char *)
+    variant(MkSendMsgErr, RecvMsgErrKind))
 );
 
 RecvMsgRes recv_msg(...) { ... }
@@ -329,9 +329,9 @@ And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecv
 
 ```c
 RecvMsgRes res = recv_msg(...);
-MATCH(&res) {
-    CASE(MkRecvMsgOk, msg) { ... }
-    CASE(MkSendMsgErr, err_kind) { ... }
+match(&res) {
+    case(MkRecvMsgOk, msg) { ... }
+    case(MkSendMsgErr, err_kind) { ... }
 }
 ```
 
