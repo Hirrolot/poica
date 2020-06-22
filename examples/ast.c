@@ -57,19 +57,19 @@ choice(
 
 double eval(const Expr *expr) {
     match(expr) {
-        case(MkConst, number) {
+        of(MkConst, number) {
             return *number;
         }
-        case(MkAdd, add) {
+        of(MkAdd, add) {
             return eval(add->left) + eval(add->right);
         }
-        case(MkSub, sub) {
+        of(MkSub, sub) {
             return eval(sub->left) - eval(sub->right);
         }
-        case(MkMul, mul) {
+        of(MkMul, mul) {
             return eval(mul->left) * eval(mul->right);
         }
-        case(MkDiv, div) {
+        of(MkDiv, div) {
             return eval(div->left) / eval(div->right);
         }
     }

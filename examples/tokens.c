@@ -40,19 +40,19 @@ choice(
 
 void print_token(Token token) {
     match(&token) {
-        case(MkIdent, ident) {
+        of(MkIdent, ident) {
             printf("%s", *ident);
         }
-        case(MkInteger, integer) {
+        of(MkInteger, integer) {
             printf("%d", *integer);
         }
-        case(MkPlus) {
+        of(MkPlus) {
             printf(" + ");
         }
-        case(MkOpenParen) {
+        of(MkOpenParen) {
             printf("(");
         }
-        case(MkCloseParen) {
+        of(MkCloseParen) {
             printf(")");
         }
     }

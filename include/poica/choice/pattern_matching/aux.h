@@ -41,19 +41,19 @@
              poica_p_break_is_needed = true)                                   \
             switch ((choice_ptr)->tag)
 
-#define POICA_P_CASE(qualifier, ...)                                           \
-    BOOST_PP_OVERLOAD(POICA_P_CHOICE_CASE_, qualifier, __VA_ARGS__)            \
+#define POICA_P_OF(qualifier, ...)                                             \
+    BOOST_PP_OVERLOAD(POICA_P_CHOICE_OF_, qualifier, __VA_ARGS__)              \
     (qualifier, __VA_ARGS__)
 
 // These FALLTHRU comments are used to suppress the -Wimplicit-fallthrough gcc
 // warning, because it's false positive.
 
-#define POICA_P_CHOICE_CASE_2(_qualifier, variant_name)                        \
+#define POICA_P_CHOICE_OF_2(_qualifier, variant_name)                          \
     /* FALLTHRU */                                                             \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
         POICA_P_CHOICE_BREAK_IF_NEEDED
 
-#define POICA_P_CHOICE_CASE_3(qualifier, variant_name, var_name)               \
+#define POICA_P_CHOICE_OF_3(qualifier, variant_name, var_name)                 \
     /* FALLTHRU */                                                             \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
         POICA_P_CHOICE_BREAK_IF_NEEDED                                         \
@@ -63,7 +63,7 @@
              var_name != (qualifier void *)0;                                  \
              var_name = (qualifier void *)0)
 
-#define POICA_P_CASE_MANY(qualifier, variant_name, var_names)                  \
+#define POICA_P_OF_MANY(qualifier, variant_name, var_names)                    \
     /* FALLTHRU */                                                             \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
         POICA_P_CHOICE_BREAK_IF_NEEDED                                         \

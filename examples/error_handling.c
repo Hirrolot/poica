@@ -114,13 +114,13 @@ ParseRes parse(char *src) {
     {
         ParseFullNameRes res = parse_full_name(&person, (const char **)&src);
         try
-            (&res, case (MkParseFullNameErr, err), MkParseErr(*err));
+            (&res, of(MkParseFullNameErr, err), MkParseErr(*err));
     }
 
     {
         ParseAgeRes res = parse_age(&person, &src);
         try
-            (&res, case (MkParseAgeErr, err), MkParseErr(*err));
+            (&res, of(MkParseAgeErr, err), MkParseErr(*err));
     }
 
     return MkParseOk(person);
@@ -128,13 +128,13 @@ ParseRes parse(char *src) {
 
 const char *stringify_parse_err(const ParseErr *err) {
     match(err) {
-        case(MkInvalidAge) {
+        of(MkInvalidAge) {
             return "a range must be a nonnegative integral number";
         }
-        case(MkNoFirstApostrophe) {
+        of(MkNoFirstApostrophe) {
             return "no apostrophe before a full name";
         }
-        case(MkNoSecondApostrophe) {
+        of(MkNoSecondApostrophe) {
             return "no apostrophe after a full name";
         }
     }
@@ -149,12 +149,12 @@ int main(void) {
      * Success!
      */
     match(&res) {
-        case(MkParseOk, person) {
+        of(MkParseOk, person) {
             assert(person->age == 73);
             assert(strcmp(person->full_name, "James Brown") == 0);
             puts("Success!");
         }
-        case(MkParseErr, err) {
+        of(MkParseErr, err) {
             printf("Parsing has been failed! Reason: %s.\n",
                    stringify_parse_err(err));
         }

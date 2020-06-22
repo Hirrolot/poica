@@ -148,13 +148,13 @@ choice(
 
 void print_tree(const Tree *tree) {
     match(tree) {
-        case(MkEmpty) {
+        of(MkEmpty) {
             return;
         }
-        case(MkLeaf, number) {
+        of(MkLeaf, number) {
             printf("%d\n", *number);
         }
-        caseMany(MkNode, (left, number, right)) {
+        ofMany(MkNode, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -330,8 +330,8 @@ And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecv
 ```c
 RecvMsgRes res = recv_msg(...);
 match(&res) {
-    case(MkRecvMsgOk, msg) { ... }
-    case(MkSendMsgErr, err_kind) { ... }
+    of(MkRecvMsgOk, msg) { ... }
+    of(MkSendMsgErr, err_kind) { ... }
 }
 ```
 

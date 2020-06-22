@@ -56,10 +56,10 @@ coroutine void worker(int rx) {
 
     int res;
     match(&command) {
-        caseMany(MkAdd, (left, right)) {
+        ofMany(MkAdd, (left, right)) {
             res = *left + *right;
         }
-        case(MkDouble, number) {
+        of(MkDouble, number) {
             res = *number * 2;
         }
     }
