@@ -34,6 +34,6 @@
     BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELD, _data, fields)
 
 #define POICA_P_RECORD_GEN_FIELD(_r, _data, field)                             \
-    FIELD_TYPE(field) FIELD_NAME(field);
+    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field);
 
 #endif // POICA_RECORD_GEN_FIELDS_H

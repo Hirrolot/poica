@@ -41,6 +41,6 @@
         BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_VCONSTR, enum_name, variants)))
 
 #define POICA_P_ENUM_GEN_VCONSTR(_r, enum_name, variant)                       \
-    OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_VCONSTR_, enum_name, variant)
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_VCONSTR_, enum_name, variant)
 
 #endif // POICA_ENUM_GEN_VCONSTRS_H

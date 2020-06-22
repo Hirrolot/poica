@@ -42,7 +42,7 @@
         POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE, _data, variants)
 
 #define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE(_r, _data, variant)    \
-    OVERLOAD_ON_VARIANT(                                                       \
+    POICA_OVERLOAD_ON_VARIANT(                                                 \
         POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, variant)
 
 #define POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)              \

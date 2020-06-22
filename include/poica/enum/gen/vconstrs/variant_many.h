@@ -36,7 +36,7 @@
 
 #define POICA_P_ENUM_GEN_VCONSTR_VARIANT_MANY(enum_name, variant_name, fields) \
     inline static enum_name variant_name(                                      \
-        POICA_P_DEFER(RECORD_FIELDS_AS_PARAMS)(fields)) {                      \
+        POICA_P_DEFER(POICA_RECORD_FIELDS_AS_PARAMS)(fields)) {                \
         return (enum_name){                                                    \
             .tag = POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name),             \
             .data.variant_name = {POICA_P_DEFER(                               \
@@ -46,7 +46,7 @@
 
 #define POICA_P_ENUM_VCONSTR_VARIANT_MANY_INIT(fields)                         \
     POICA_P_ENUM_GEN_VCONSTR_VARIANT_MANY_EXPAND_ARGS                          \
-    RECORD_FIELD_NAMES_TUPLE(fields)
+    POICA_RECORD_FIELD_NAMES_TUPLE(fields)
 
 #define POICA_P_ENUM_GEN_VCONSTR_VARIANT_MANY_EXPAND_ARGS(...) __VA_ARGS__
 

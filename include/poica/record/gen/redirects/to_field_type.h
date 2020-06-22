@@ -37,8 +37,8 @@
         POICA_P_RECORD_GEN_REDIRECT_TO_FIELD_TYPE, record_name, fields)
 
 #define POICA_P_RECORD_GEN_REDIRECT_TO_FIELD_TYPE(_r, record_name, field)      \
-    typedef FIELD_TYPE(field)                                                  \
-        POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(record_name, FIELD_NAME(field));
+    typedef POICA_FIELD_TYPE(field) POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(     \
+        record_name, POICA_FIELD_NAME(field));
 
 #define POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(record_name, field_name)         \
     POICA_P_PREFIX(BOOST_PP_CAT(                                               \

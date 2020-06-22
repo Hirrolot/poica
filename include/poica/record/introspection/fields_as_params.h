@@ -37,9 +37,9 @@
         BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), fields))
 
 #define POICA_P_RECORD_GEN_FIELD_AS_PARAM(_r, _data, field)                    \
-    FIELD_TYPE(field) FIELD_NAME(field),
+    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field),
 
 #define POICA_P_RECORD_GEN_FIELD_AS_PARAM_LAST(field)                          \
-    FIELD_TYPE(field) FIELD_NAME(field)
+    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field)
 
 #endif // POICA_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H

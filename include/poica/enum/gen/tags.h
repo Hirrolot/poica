@@ -36,7 +36,7 @@
     BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_GEN_TAG, _data, variants)
 
 #define POICA_P_ENUM_GEN_TAG(_r, _data, variant)                               \
-    POICA_P_ENUM_VARIANT_NAME_AS_TAG(VARIANT_NAME(variant)),
+    POICA_P_ENUM_VARIANT_NAME_AS_TAG(POICA_VARIANT_NAME(variant)),
 
 #define POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name)                         \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _Tag))

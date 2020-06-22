@@ -40,7 +40,7 @@
         POICA_P_ENUM_GEN_RECORD_FOR_MANY, _data, variants))
 
 #define POICA_P_ENUM_GEN_RECORD_FOR_MANY(_r, data, variant)                    \
-    OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_RECORD_FOR_MANY_, _data, variant)
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_ENUM_GEN_RECORD_FOR_MANY_, _data, variant)
 
 #define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_EMPTY(_data, _variant_name)
 #define POICA_P_ENUM_GEN_RECORD_FOR_MANY_VARIANT_SINGLE(                       \

@@ -28,6 +28,7 @@
 
 #include <poica/private/aux.h>
 
+#include <poica/enum/introspection.h>
 #include <poica/enum/variant.h>
 
 #include <boost/preprocessor.hpp>
@@ -42,7 +43,7 @@
 #define POICA_P_ENUM_GEN_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(                  \
     _r, enum_name, variant)                                                    \
     typedef enum_name POICA_P_ENUM_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(        \
-        VARIANT_NAME(variant));
+        POICA_VARIANT_NAME(variant));
 
 #define POICA_P_ENUM_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(variant_name)         \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToOuterSumType))
