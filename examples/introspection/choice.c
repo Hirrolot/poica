@@ -30,7 +30,7 @@
 #include <boost/preprocessor.hpp>
 
 // clang-format off
-#define MY_CHOICE                                                             \
+#define MY_CHOICE                                                           \
     Something,                                                              \
     variant(MkA)                                                            \
     variant(MkB, int)                                                       \

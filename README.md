@@ -12,11 +12,11 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - [Installation](#installation)
  - [Motivation](#motivation)
  - [ADTs](#adts)
-   - [Sum types](#enum-types)
-   - [Product types](#record-types)
+   - [Sum types](#sum-types)
+   - [Product types](#product-types)
  - [Type introspection](#type-introspection)
-   - [Sum types](#enum-types-1)
-   - [Product types](#record-types-1)
+   - [Sum types](#sum-types-1)
+   - [Product types](#product-types-1)
  - [Real-world usage](#real-world-usage)
    - [Safe, consistent error handling](#safe-consistent-error-handling)
    - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
@@ -87,7 +87,7 @@ some_procedure(res2.data.state_1);
 poica solves these two problems by introducing [algebraic data types] (discussed in the next section). That's how it's accomplished with poica:
 
 ```c
-enum(
+choice(
     OurTaggedUnion,
     variant(MkState1, int)
     variant(MkState2, const char *)
@@ -135,7 +135,7 @@ Can be conveniently represented as a sum type and further manipulated using patt
 
 #include <stdio.h>
 
-enum(
+choice(
     Tree,
     variant(MkEmpty)
     variant(MkLeaf, int)
@@ -224,7 +224,7 @@ user.balance *= 2;
 
 ### Sum types
 
-[[`examples/introspection/enum.c`](examples/introspection/enum.c)]
+[[`examples/introspection/choice.c`](examples/introspection/choice.c)]
 ```c
 #include <poica.h>
 
@@ -232,14 +232,14 @@ user.balance *= 2;
 
 #include <boost/preprocessor.hpp>
 
-#define MY_ENUM                                                             \
+#define MY_CHOICE                                                           \
     Something,                                                              \
     variant(MkA)                                                            \
     variant(MkB, int)                                                       \
     variantMany(MkC, field(c1, double) field(c2, char))
 
-enum(MY_ENUM);
-#define Something_INTROSPECT POICA_ENUM_INTROSPECT(MY_ENUM)
+choice(MY_CHOICE);
+#define Something_INTROSPECT POICA_CHOICE_INTROSPECT(MY_CHOICE)
 
 int main(void) {
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
@@ -306,17 +306,17 @@ With type introspection it is possible to achieve [type-driven (de)serialization
 
 ### Safe, consistent error handling
 
-ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a enum type, designating either a successful or a failure value, like this:
+ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
 
 ```c
-enum(
+choice(
     RecvMsgErrKind,
     variant(MkBadConnection)
     variant(MkNoSuchUser)
     ...
 );
 
-enum(
+choice(
     RecvMsgRes,
     variant(MkRecvMsgOk, char *)
     variant(MkSendMsgErr, RecvMsgErrKind))
@@ -398,4 +398,4 @@ A: Initially poica was born as my experiment of what's possible in plain C.
 
 Q: How to resolve name collisions?
 
-A: `#define POICA_USE_PREFIX` before `#include <poica.h>`. All the public `camelCase`ed macros will be prefixed with `poica` (`match` -> `poicaMatch`, `enum` -> `poicaEnum`, ...). Note that you don't need to define `POICA_USE_PREFIX` in all your files, instead you can use it only in files that cause conflicts with other code.
+A: `#define POICA_USE_PREFIX` before `#include <poica.h>`. All the public `camelCase`ed macros will be prefixed with `poica` (`match` -> `poicaMatch`, `choice` -> `poicaChoice`, ...). Note that you don't need to define `POICA_USE_PREFIX` in all your files, instead you can use it only in files that cause conflicts with other code.
