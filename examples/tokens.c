@@ -32,7 +32,6 @@ enum(
     Token,
     variant(MkIdent, const char *)
     variant(MkInteger, int)
-    variant(MkComma)
     variant(MkPlus)
     variant(MkOpenParen)
     variant(MkCloseParen)
