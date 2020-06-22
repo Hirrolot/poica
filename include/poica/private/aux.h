@@ -26,26 +26,11 @@
 #ifndef POICA_PRIVATE_AUX_H
 #define POICA_PRIVATE_AUX_H
 
+#include <assert.h>
+
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
-
-/* Forces a user to put a semicolon.
- *
- * This works by (ab)using the concept of tentative definitions. A translation
- * unit will look like this:
- *
- * ...
- * static int poica_p_force_semicolon;
- * ...
- * static int poica_p_force_semicolon;
- * ...
- * ...
- *
- * All these declarations are tentative. A compiler won't find an external
- * definition of poica_p_force_semicolon and eventually produce an external
- * definition with an initializer equal to 0.
- */
-#define POICA_P_FORCE_SEMICOLON static int poica_p_force_semicolon
+#define POICA_P_FORCE_SEMICOLON   static_assert(true, "")
 
 #endif // POICA_PRIVATE_AUX_H
