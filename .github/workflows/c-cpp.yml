@@ -23,5 +23,3 @@ jobs:
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
     - name: Run examples
       run: bash scripts/run_examples.sh
-    - name: Run cppcheck
-      run: cppcheck include examples/*.c examples/introspection --force
