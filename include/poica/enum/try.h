@@ -31,13 +31,26 @@
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
-#define poicaTry POICA_P_TRY
+
+#define poicaTry(enum_ptr, case_expr, failure_expr)                            \
+    POICA_P_TRY(const, enum_ptr, case_expr, failure_expr)
+#define poicaTryMut(enum_ptr, case_expr, failure_expr)                         \
+    POICA_P_TRY(, enum_ptr, case_expr, failure_expr)
+
 #else
-#define try POICA_P_TRY
+
+// clang-format off
+#define try(enum_ptr, case_expr, failure_expr)                                \
+    POICA_P_TRY(const, enum_ptr, case_expr, failure_expr)
+// clang-format on
+
+#define tryMut(enum_ptr, case_expr, failure_expr)                              \
+    POICA_P_TRY(, enum_ptr, case_expr, failure_expr)
+
 #endif
 
-#define POICA_P_TRY(enum_ptr, case_expr, failure_expr)                         \
-    POICA_P_MATCH(enum_ptr) {                                                  \
+#define POICA_P_TRY(qualifier, enum_ptr, case_expr, failure_expr)              \
+    POICA_P_MATCH(qualifier, enum_ptr) {                                       \
         case_expr {                                                            \
             return failure_expr;                                               \
         }                                                                      \

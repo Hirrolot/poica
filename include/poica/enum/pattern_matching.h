@@ -27,109 +27,29 @@
 #define POICA_ENUM_PATTERN_MATCHING_H
 
 #include <poica/enum/gen/tags.h>
-#include <poica/record/gen/redirects/to_field_type.h>
 
-#include <stdbool.h>
-
-#include <boost/preprocessor.hpp>
+#include <poica/enum/pattern_matching/aux.h>
+#include <poica/enum/pattern_matching/immut.h>
+#include <poica/enum/pattern_matching/mut.h>
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaMatches  POICA_P_MATCHES
-#define poicaMatch    POICA_P_MATCH
-#define poicaCaseMany POICA_P_CASE_MANY
-
-#define poicaCase(...) POICA_P_CASE(__VA_ARGS__)
+#define poicaMatches   POICA_P_MATCHES
 #define poicaDefault() POICA_P_DEFAULT()
 
 #else
 
-#define matches  POICA_P_MATCHES
-#define match    POICA_P_MATCH
-#define caseMany POICA_P_CASE_MANY
-
-// clang-format off
-#define case(...) POICA_P_CASE(__VA_ARGS__)
+#define matches POICA_P_MATCHES
 #define default() POICA_P_DEFAULT()
-// clang-format off
 
 #endif
 
 #define POICA_P_MATCHES(enum_ptr, variant_name)                                \
     ((enum_ptr)->tag == POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name))
 
-#define POICA_P_MATCH(enum_ptr)                                                \
-    for (void *poica_p_enum_ptr = (void *)(enum_ptr);                          \
-         poica_p_enum_ptr != (void *)0;                                        \
-         poica_p_enum_ptr = (void *)0)                                         \
-        for (bool poica_p_break_is_needed = false; !poica_p_break_is_needed;   \
-             poica_p_break_is_needed = true)                                   \
-            switch ((enum_ptr)->tag)
-
-#define POICA_P_CASE(...)                                                      \
-    BOOST_PP_OVERLOAD(POICA_P_ENUM_CASE_, __VA_ARGS__)(__VA_ARGS__)
-
 #define POICA_P_DEFAULT                                                        \
     /* FALLTHRU */                                                             \
     default:                                                                   \
         POICA_P_ENUM_BREAK_IF_NEEDED
-
-// These FALLTHRU comments are used to shut down the -Wimplicit-fallthrough gcc
-// warning, because it's false positive.
-
-#define POICA_P_ENUM_CASE_1(variant_name)                                      \
-    /* FALLTHRU */                                                             \
-    case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
-        POICA_P_ENUM_BREAK_IF_NEEDED
-
-#define POICA_P_ENUM_CASE_2(variant_name, var_name)                            \
-    /* FALLTHRU */                                                             \
-    case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
-        POICA_P_ENUM_BREAK_IF_NEEDED                                           \
-        /* FALLTHRU */                                                         \
-        for (POICA_P_ENUM_DEDUCE_MATCHED_VAR(var_name, variant_name);          \
-             var_name != (void *)0;                                            \
-             var_name = (void *)0)
-
-#define POICA_P_CASE_MANY(variant_name, var_names)                             \
-    /* FALLTHRU */                                                             \
-    case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
-        POICA_P_ENUM_BREAK_IF_NEEDED                                           \
-                                                                               \
-        for (POICA_P_ENUM_DEDUCE_MATCHED_VAR(poica_p_case_var, variant_name);  \
-             poica_p_case_var != (void *)0;                                    \
-             poica_p_case_var = (void *)0)                                     \
-                                                                               \
-        POICA_P_ENUM_EXTRACT_MATCHED_VARS(                                     \
-            var_names,                                                         \
-            (poica_p_case_var,                                                 \
-             POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)))
-
-#define POICA_P_ENUM_EXTRACT_MATCHED_VARS(fields, val)                         \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_ENUM_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR, \
-                          val,                                                 \
-                          BOOST_PP_TUPLE_TO_SEQ(fields))
-
-#define POICA_P_ENUM_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR(                   \
-    _r, val, field_name)                                                       \
-    for (POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(BOOST_PP_TUPLE_ELEM(2, 1, val), \
-                                               field_name) *field_name =       \
-             &BOOST_PP_TUPLE_ELEM(2, 0, val)->field_name;                      \
-         field_name != (void *)0;                                              \
-         field_name = (void *)0)
-
-#define POICA_P_ENUM_DEDUCE_MATCHED_VAR(var_name, variant_name)                \
-    POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) *var_name =      \
-        (POICA_P_ENUM_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)             \
-             *)(&((POICA_P_ENUM_REDIRECT_VARIANT_TO_OUTER_ENUM_TYPE(           \
-                      variant_name) *)poica_p_enum_ptr)                        \
-                     ->data.variant_name)
-
-#define POICA_P_ENUM_BREAK_IF_NEEDED                                           \
-    if (poica_p_break_is_needed) {                                             \
-        break;                                                                 \
-    } else {                                                                   \
-        poica_p_break_is_needed = true;                                        \
-    }
 
 #endif // POICA_ENUM_PATTERN_MATCHING_H
