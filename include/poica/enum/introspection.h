@@ -30,10 +30,13 @@
 
 #include <boost/preprocessor.hpp>
 
-#define ENUM_INTROSPECT(...)                        POICA_P_ENUM_INTROSPECT_AUX(__VA_ARGS__)
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual sum type data is transferred through a macro:
+// POICA_ENUM_INTROSPECT(MY_ENUM);
+#define POICA_ENUM_INTROSPECT(...)                  POICA_P_ENUM_INTROSPECT_AUX(__VA_ARGS__)
 #define POICA_P_ENUM_INTROSPECT_AUX(name, variants) variants
 
-#define VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
-#define VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
+#define POICA_VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
+#define POICA_VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
 
 #endif // POICA_ENUM_INTROSPECTION_H

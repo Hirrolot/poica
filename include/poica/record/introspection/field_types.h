@@ -30,13 +30,13 @@
 
 #include <boost/preprocessor.hpp>
 
-#define FIELD_TYPE(field) BOOST_PP_SEQ_ELEM(1, field)
+#define POICA_FIELD_TYPE(field) BOOST_PP_SEQ_ELEM(1, field)
 
-#define RECORD_FIELD_TYPES_SEQ(fields)                                         \
+#define POICA_RECORD_FIELD_TYPES_SEQ(fields)                                   \
     POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_TYPE_SEQ, fields)
 #define POICA_P_RECORD_GEN_FIELD_TYPE_SEQ(_r, _data, field) (FIELD_TYPE(field))
 
-#define RECORD_FIELD_TYPES_TUPLE(fields)                                       \
+#define POICA_RECORD_FIELD_TYPES_TUPLE(fields)                                 \
     POICA_P_RECORD_X_TUPLE(POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE,                \
                            POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST,           \
                            fields)

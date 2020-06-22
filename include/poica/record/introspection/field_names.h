@@ -30,13 +30,13 @@
 
 #include <boost/preprocessor.hpp>
 
-#define FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
+#define POICA_FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
 
-#define RECORD_FIELD_NAMES_SEQ(fields)                                         \
+#define POICA_RECORD_FIELD_NAMES_SEQ(fields)                                   \
     POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_NAME_SEQ, fields)
 #define POICA_P_RECORD_GEN_FIELD_NAME_SEQ(_r, _data, field) (FIELD_NAME(field))
 
-#define RECORD_FIELD_NAMES_TUPLE(fields)                                       \
+#define POICA_RECORD_FIELD_NAMES_TUPLE(fields)                                 \
     POICA_P_RECORD_FIELD_X_TUPLE(POICA_P_RECORD_GEN_FIELD_NAME_TUPLE,          \
                                  POICA_P_RECORD_GEN_FIELD_NAME_TUPLE_LAST,     \
                                  fields)

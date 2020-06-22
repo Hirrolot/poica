@@ -28,7 +28,7 @@
 
 #include <boost/preprocessor.hpp>
 
-#define OVERLOAD_ON_VARIANT(macro, data, variant)                              \
+#define POICA_OVERLOAD_ON_VARIANT(macro, data, variant)                        \
     POICA_P_ENUM_OVERLOAD_ON_VARIANT_AUX(                                      \
         BOOST_PP_CAT(macro,                                                    \
                      BOOST_PP_CAT(POICA_P_ENUM_RENAME_VARIANT_KIND_,           \

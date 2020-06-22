@@ -28,7 +28,7 @@
 
 #include <boost/preprocessor.hpp>
 
-#define RECORD_FIELDS_AS_PARAMS(fields)                                        \
+#define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                  \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELD_AS_PARAM,                   \
                           _data,                                               \
                           BOOST_PP_SEQ_POP_BACK(fields))                       \

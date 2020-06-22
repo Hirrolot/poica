@@ -33,7 +33,10 @@
 
 #include <boost/preprocessor.hpp>
 
-#define RECORD_INTROSPECT(...)                      POICA_P_RECORD_INTROSPECT_AUX(__VA_ARGS__)
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual record data is transferred through a macro:
+// POICA_RECORD_INTROSPECT(MY_RECORD);
+#define POICA_RECORD_INTROSPECT(...)                POICA_P_RECORD_INTROSPECT_AUX(__VA_ARGS__)
 #define POICA_P_RECORD_INTROSPECT_AUX(name, fields) fields
 
 #endif // POICA_RECORD_INTROSPECTION_H
