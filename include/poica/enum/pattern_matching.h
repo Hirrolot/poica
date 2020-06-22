@@ -70,6 +70,7 @@
     BOOST_PP_OVERLOAD(POICA_P_ENUM_CASE_, __VA_ARGS__)(__VA_ARGS__)
 
 #define POICA_P_DEFAULT                                                        \
+    /* FALLTHRU */                                                             \
     default:                                                                   \
         POICA_P_ENUM_BREAK_IF_NEEDED
 
@@ -85,7 +86,7 @@
     /* FALLTHRU */                                                             \
     case POICA_P_ENUM_VARIANT_NAME_AS_TAG(variant_name):                       \
         POICA_P_ENUM_BREAK_IF_NEEDED                                           \
-                                                                               \
+        /* FALLTHRU */                                                         \
         for (POICA_P_ENUM_DEDUCE_MATCHED_VAR(var_name, variant_name);          \
              var_name != (void *)0;                                            \
              var_name = (void *)0)
