@@ -43,9 +43,6 @@
     BOOST_PP_OVERLOAD(POICA_P_CHOICE_OF_, qualifier, __VA_ARGS__)              \
     (qualifier, __VA_ARGS__)
 
-// These FALLTHRU comments are used to suppress the -Wimplicit-fallthrough gcc
-// warning, because it's false positive.
-
 #define POICA_P_CHOICE_OF_2(_qualifier, variant_name)                          \
     break;                                                                     \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):
@@ -102,10 +99,8 @@
 #define POICA_P_CHOICE_DEDUCE_MATCHED_VAR(qualifier, var_name, variant_name)   \
     qualifier POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(                   \
         variant_name) *var_name =                                              \
-        (qualifier POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) \
-             *)(&((qualifier                                                   \
-                       POICA_P_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(   \
-                           variant_name) *)poica_p_choice_ptr)                 \
-                     ->data.variant_name)
+        (&((qualifier POICA_P_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(    \
+               variant_name) *)poica_p_choice_ptr)                             \
+              ->data.variant_name)
 
 #endif // POICA_CHOICE_PATTERN_MATCHING_AUX_H

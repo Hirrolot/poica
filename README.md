@@ -353,11 +353,11 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 If we observe the generated assembly-code listings of the [examples](/examples) using poica and hand-written ADTs, we see that they are almost or totally identical:
 
-| Example name | poica | Hand-written |
+| Example name | poica (expanded) | Hand-written |
 |----------|----------|----------|
-| `tokens.c` | https://godbolt.org/z/L65Xnd | https://godbolt.org/z/LkiTRx |
-| `ast.c` | https://godbolt.org/z/TB68vx | https://godbolt.org/z/KG_NVR |
-| `binary_tree.c` | https://godbolt.org/z/UapY2i | https://godbolt.org/z/86J7d7 |
+| `tokens.c` | https://godbolt.org/z/tPVLzv | https://godbolt.org/z/LkiTRx |
+| `ast.c` | https://godbolt.org/z/yExH6u | https://godbolt.org/z/KG_NVR |
+| `binary_tree.c` | https://godbolt.org/z/P3Ye9S | https://godbolt.org/z/86J7d7 |
 
 ## Contributing
 
