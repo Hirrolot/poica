@@ -363,7 +363,7 @@ A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
 Q: Is it production-ready?
 
-A: Yes.
+A: You can already use it in production if you're ok with the pitfalls, described in the answer below.
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
 
