@@ -351,8 +351,6 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 ### Performance
 
-If we observe the generated assembly-code listings of the [examples](/examples) using poica and hand-written ADTs, we see that they are almost or totally identical:
-
 | Example name | poica (expanded) | Hand-written |
 |----------|----------|----------|
 | `tokens.c` | https://godbolt.org/z/tPVLzv | https://godbolt.org/z/LkiTRx |
