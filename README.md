@@ -377,7 +377,11 @@ A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
 Q: Any pitfalls?
 
-A: The only pitfall I discovered so far is scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error. [Macro blueprinting] occurs rarely, but nevertheless, it can be solved using the `DEFER` + `EXPAND` combination in the link above.
+A:
+
+ - Scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
+ 
+ - [Macro blueprinting]. It occurs typically in advanced metaprogramming, but nevertheless, it can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
 
 [Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
 
