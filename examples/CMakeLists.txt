@@ -5,6 +5,7 @@ include_directories(../include)
 
 add_executable(ast ast.c)
 add_executable(binary_tree binary_tree.c)
+add_executable(binary_tree_malloc binary_tree_malloc.c)
 add_executable(error_handling error_handling.c)
 add_executable(obj obj.c)
 add_executable(tokens tokens.c)
@@ -27,6 +28,7 @@ endif()
 set_target_properties(
   ast
   binary_tree
+  binary_tree_malloc
   error_handling
   message_passing
   obj

@@ -4,6 +4,7 @@ cd examples/build
 
 ./ast
 ./binary_tree
+./binary_tree_malloc
 ./error_handling
 ./message_passing
 ./obj
