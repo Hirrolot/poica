@@ -3,7 +3,11 @@
 [![version](https://img.shields.io/badge/version-0.1.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.1.0)
 [![docs](https://img.shields.io/badge/docs-wiki/Specification-blue.svg)](https://github.com/Hirrolot/poica/wiki/Specification)
 
-This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11.
+This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They have tremendous amount of applications to real-world programming, including:
+
+ - [Safe, consistent error handling](#safe-consistent-error-handling)
+ - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
+ - Concurrency: [message passing](examples/message_passing.c)
 
 <details>
  <summary>Table of contents</summary>
@@ -17,9 +21,8 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - [Type introspection](#type-introspection)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
- - [Real-world usage](#real-world-usage)
-   - [Safe, consistent error handling](#safe-consistent-error-handling)
-   - [Message passing, tokens, AST, ...](#message-passing-tokens-ast-)
+ - [Safe, consistent error handling](#safe-consistent-error-handling)
+ - [Performance](#performance)
  - [Contributing](#contributing)
  - [Changelog](#changelog)
  - [FAQ](#faq)
@@ -302,9 +305,7 @@ With type introspection it is possible to achieve [type-driven (de)serialization
 [declarative command-line arguments parsing]: https://github.com/clap-rs/clap
 [decorator pattern]: https://en.wikipedia.org/wiki/Decorator_pattern
 
-### Real-world usage
-
-### Safe, consistent error handling
+## Safe, consistent error handling
 
 ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
 
@@ -346,11 +347,6 @@ But why this is better than `int` error codes? Because of:
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
-
-
-### Message passing, tokens, AST, ...
-
-ADTs have tremendous amount of applications to real-world programming. For example, it's very naturally to [encode tokens](examples/tokens.c) as a sum type, [pass messages](examples/message_passing.c) from one process to another, [evaluate an AST](examples/ast.c).
 
 ### Performance
 Generated machine code is almost or totally identical to compiled hand-written ADTs. Here are the compiled versions of hand-written ADTs and the examples using poica:
