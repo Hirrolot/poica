@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -34,10 +35,9 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_MATCH(qualifier, choice_ptr)                                   \
-    for (qualifier void *poica_p_choice_ptr = (qualifier void *)(choice_ptr);  \
-         poica_p_choice_ptr != (qualifier void *)0;                            \
-         poica_p_choice_ptr = (qualifier void *)0)                             \
-        switch ((choice_ptr)->tag)
+    POICA_P_CHOICE_SCOPE(qualifier void *poica_p_choice_ptr =                  \
+                             (qualifier void *)(choice_ptr))                   \
+    switch ((choice_ptr)->tag)
 
 #define POICA_P_OF(qualifier, ...)                                             \
     BOOST_PP_OVERLOAD(POICA_P_CHOICE_OF_, qualifier, __VA_ARGS__)              \
@@ -50,19 +50,15 @@
 #define POICA_P_CHOICE_OF_3(qualifier, variant_name, var_name)                 \
     break;                                                                     \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
-        for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
-                 qualifier, var_name, variant_name);                           \
-             var_name != (qualifier void *)0;                                  \
-             var_name = (qualifier void *)0)
+        POICA_P_CHOICE_SCOPE(POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                \
+            qualifier, var_name, variant_name))
 
 #define POICA_P_OF_MANY(qualifier, variant_name, var_names)                    \
     break;                                                                     \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
                                                                                \
-        for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
-                 qualifier, poica_p_case_var, variant_name);                   \
-             poica_p_case_var != (qualifier void *)0;                          \
-             poica_p_case_var = (qualifier void *)0)                           \
+        POICA_P_CHOICE_SCOPE(POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                \
+            qualifier, poica_p_case_var, variant_name))                        \
                                                                                \
         POICA_P_CHOICE_EXTRACT_MATCHED_VARS(                                   \
             qualifier,                                                         \
@@ -78,16 +74,13 @@
 
 #define POICA_P_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR(                 \
     _r, qualifier_and_val, field_name)                                         \
-    for (POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                   \
-             POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(                            \
-                 POICA_P_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val),           \
-                 field_name) *field_name =                                     \
-                 &POICA_P_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)           \
-                      ->field_name;                                            \
-         field_name !=                                                         \
-         (POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val) void *)0;        \
-         field_name =                                                          \
-             (POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val) void *)0)
+    POICA_P_CHOICE_SCOPE(                                                      \
+        POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                    \
+            POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(                             \
+                POICA_P_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val),            \
+                field_name) *field_name =                                      \
+                &POICA_P_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)            \
+                     ->field_name)
 
 #define POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                    \
     BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val)
@@ -102,5 +95,25 @@
         (&((qualifier POICA_P_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(    \
                variant_name) *)poica_p_choice_ptr)                             \
               ->data.variant_name)
+
+/*
+ * Creates a new block scope with some variables within.
+ *
+ * It's implemented by a single-iteration for-loop, which is semantically
+ * equivalent to the following compound statement:
+ *
+ * {
+ *     vars;
+ *     ...
+ * }
+ *
+ * Why don't we use this one? Because such macros as match, of and ofMany have
+ * the following form:
+ *
+ * macro(...) { ... }
+ */
+#define POICA_P_CHOICE_SCOPE(vars)                                             \
+    for (vars, *poica_p_break_for = (void *)1; poica_p_break_for != (void *)2; \
+         poica_p_break_for = (void *)2)
 
 #endif // POICA_CHOICE_PATTERN_MATCHING_AUX_H
