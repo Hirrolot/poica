@@ -352,6 +352,14 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 ADTs have tremendous amount of applications to real-world programming. For example, it's very naturally to [encode tokens](examples/tokens.c) as a sum type, [pass messages](examples/message_passing.c) from one process to another, [evaluate an AST](examples/ast.c).
 
+### Performance
+Generated machine code is almost or totally identical to compiled hand-written ADTs. Here are the compiled versions of hand-written ADTs and the examples using poica:
+
+| Example name | poica | Hand-written |
+|----------|----------|----------|
+| `tokens.c` | https://godbolt.org/z/zGYoiB | https://godbolt.org/z/LkiTRx |
+| `ast.c` | https://godbolt.org/z/_APCKK | https://godbolt.org/z/KG_NVR |
+
 ## Contributing
 
 [wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing)
@@ -366,19 +374,7 @@ Q: What "poica" means?
 
 A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
-
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
-
-Q: Are these macros zero-cost?
-
-A: poica has no runtime and performs no system calls, the macros expand to plain C code. Here are the disassembled versions of the examples:
-
-| Example | Link |
-|--------|-------|
-| `ast.c` | https://godbolt.org/z/BHQEog |
-| `binary_tree.c` | https://godbolt.org/z/5XKjVu |
-| `tokens.c` | https://godbolt.org/z/pNx4jX |
-| `error_handling.c` | https://godbolt.org/z/6Kotvn |
 
 Q: Any pitfalls?
 
