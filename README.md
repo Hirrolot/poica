@@ -355,8 +355,8 @@ If we observe the generated assembly-code listings of the [examples](/examples) 
 
 | Example name | poica | Hand-written |
 |----------|----------|----------|
-| `tokens.c` | https://godbolt.org/z/zGYoiB | https://godbolt.org/z/LkiTRx |
-| `ast.c` | https://godbolt.org/z/_APCKK | https://godbolt.org/z/KG_NVR |
+| `tokens.c` | https://godbolt.org/z/L65Xnd | https://godbolt.org/z/LkiTRx |
+| `ast.c` | https://godbolt.org/z/TB68vx | https://godbolt.org/z/KG_NVR |
 
 ## Contributing
 
