@@ -32,7 +32,6 @@ This library provides [algebraic data types], [type introspection], and [pattern
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
- - [Zero-cost](#performance)
  - Comes with the [specification]
  - No third-party code generators, just `#include <poica.h>` and go!
 
@@ -348,14 +347,6 @@ But why this is better than `int` error codes? Because of:
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
-
-### Performance
-
-| Example name | poica (expanded) | Hand-written |
-|----------|----------|----------|
-| `tokens.c` | https://godbolt.org/z/tPVLzv | https://godbolt.org/z/LkiTRx |
-| `ast.c` | https://godbolt.org/z/yExH6u | https://godbolt.org/z/KG_NVR |
-| `binary_tree.c` | https://godbolt.org/z/AcQj-Z | https://godbolt.org/z/86J7d7 |
 
 ## Contributing
 
