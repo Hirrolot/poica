@@ -350,7 +350,8 @@ ADTs even have advantages over exceptions: they do not perform transformations w
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
 
 ### Performance
-Generated machine code is almost or totally identical to compiled hand-written ADTs. Here are the compiled versions of hand-written ADTs and the examples using poica:
+
+Generated machine code is almost or totally identical to compiled hand-written ADTs:
 
 | Example name | poica | Hand-written |
 |----------|----------|----------|
