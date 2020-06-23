@@ -32,6 +32,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
 ## Features
  - C11-compliant
  - Can work on bare-metal environments
+ - [Zero-cost](#performance)
  - Comes with the [specification]
  - No third-party code generators, just `#include <poica.h>` and go!
 
