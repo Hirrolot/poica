@@ -357,6 +357,7 @@ If we observe the generated assembly-code listings of the [examples](/examples) 
 |----------|----------|----------|
 | `tokens.c` | https://godbolt.org/z/L65Xnd | https://godbolt.org/z/LkiTRx |
 | `ast.c` | https://godbolt.org/z/TB68vx | https://godbolt.org/z/KG_NVR |
+| `binary_tree.c` | https://godbolt.org/z/UapY2i | https://godbolt.org/z/86J7d7 |
 
 ## Contributing
 
