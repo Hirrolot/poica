@@ -22,7 +22,6 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
- - [Performance](#performance)
  - [Contributing](#contributing)
  - [Changelog](#changelog)
  - [FAQ](#faq)
