@@ -37,9 +37,7 @@
     for (qualifier void *poica_p_choice_ptr = (qualifier void *)(choice_ptr);  \
          poica_p_choice_ptr != (qualifier void *)0;                            \
          poica_p_choice_ptr = (qualifier void *)0)                             \
-        for (bool poica_p_break_is_needed = false; !poica_p_break_is_needed;   \
-             poica_p_break_is_needed = true)                                   \
-            switch ((choice_ptr)->tag)
+        switch ((choice_ptr)->tag)
 
 #define POICA_P_OF(qualifier, ...)                                             \
     BOOST_PP_OVERLOAD(POICA_P_CHOICE_OF_, qualifier, __VA_ARGS__)              \
@@ -49,24 +47,20 @@
 // warning, because it's false positive.
 
 #define POICA_P_CHOICE_OF_2(_qualifier, variant_name)                          \
-    /* FALLTHRU */                                                             \
-    case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
-        POICA_P_CHOICE_BREAK_IF_NEEDED
+    break;                                                                     \
+    case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):
 
 #define POICA_P_CHOICE_OF_3(qualifier, variant_name, var_name)                 \
-    /* FALLTHRU */                                                             \
+    break;                                                                     \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
-        POICA_P_CHOICE_BREAK_IF_NEEDED                                         \
-        /* FALLTHRU */                                                         \
         for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
                  qualifier, var_name, variant_name);                           \
              var_name != (qualifier void *)0;                                  \
              var_name = (qualifier void *)0)
 
 #define POICA_P_OF_MANY(qualifier, variant_name, var_names)                    \
-    /* FALLTHRU */                                                             \
+    break;                                                                     \
     case POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                     \
-        POICA_P_CHOICE_BREAK_IF_NEEDED                                         \
                                                                                \
         for (POICA_P_CHOICE_DEDUCE_MATCHED_VAR(                                \
                  qualifier, poica_p_case_var, variant_name);                   \
@@ -113,12 +107,5 @@
                        POICA_P_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(   \
                            variant_name) *)poica_p_choice_ptr)                 \
                      ->data.variant_name)
-
-#define POICA_P_CHOICE_BREAK_IF_NEEDED                                         \
-    if (poica_p_break_is_needed) {                                             \
-        break;                                                                 \
-    } else {                                                                   \
-        poica_p_break_is_needed = true;                                        \
-    }
 
 #endif // POICA_CHOICE_PATTERN_MATCHING_AUX_H

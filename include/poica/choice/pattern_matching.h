@@ -48,8 +48,7 @@
     ((choice_ptr)->tag == POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
 
 #define POICA_P_OTHERWISE                                                      \
-    /* FALLTHRU */                                                             \
-    default:                                                                   \
-        POICA_P_CHOICE_BREAK_IF_NEEDED
+    break;                                                                     \
+    default:
 
 #endif // POICA_CHOICE_PATTERN_MATCHING_H
