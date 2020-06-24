@@ -29,8 +29,10 @@
 #include <poica/private/aux.h>
 #include <poica/private/defer.h>
 
+#include <poica/choice/gen/records_for_many/redirects.h>
 #include <poica/choice/gen/redirects/to_inner_type.h>
 #include <poica/choice/introspection.h>
+
 #include <poica/record.h>
 
 #include <boost/preprocessor.hpp>
@@ -52,6 +54,9 @@
 #define POICA_P_CHOICE_GEN_RECORD_FOR_MANY_VARIANT_KIND_MANY(                  \
     _data, variant_name, fields)                                               \
     POICA_P_DEFER(POICA_P_RECORD)                                              \
-    (POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);
+    (POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);     \
+                                                                               \
+    POICA_P_DEFER(POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE)  \
+    (POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields)
 
 #endif // POICA_CHOICE_GEN_VARIANT_KIND_MANY

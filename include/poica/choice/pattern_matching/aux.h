@@ -27,8 +27,8 @@
 #ifndef POICA_CHOICE_PATTERN_MATCHING_AUX_H
 #define POICA_CHOICE_PATTERN_MATCHING_AUX_H
 
+#include <poica/choice/gen/records_for_many/redirects.h>
 #include <poica/choice/gen/tags.h>
-#include <poica/record/gen/redirects/to_field_type.h>
 
 #include <stdbool.h>
 
@@ -76,7 +76,7 @@
     _r, qualifier_and_val, field_name)                                         \
     POICA_P_CHOICE_SCOPE(                                                      \
         POICA_P_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                    \
-            POICA_P_RECORD_REDIRECT_TO_FIELD_TYPE(                             \
+            POICA_P_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(             \
                 POICA_P_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val),            \
                 field_name) *field_name =                                      \
                 &POICA_P_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)            \

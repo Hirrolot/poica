@@ -23,9 +23,9 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_RECORD_GEN_REDIRECTS_H
-#define POICA_RECORD_GEN_REDIRECTS_H
+#ifndef POICA_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H
+#define POICA_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H
 
-#include <poica/record/gen/redirects/to_field_type.h>
+#include <poica/choice/gen/records_for_many/redirects/to_field_type.h>
 
-#endif // POICA_RECORD_GEN_REDIRECTS_H
+#endif // POICA_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H

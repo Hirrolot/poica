@@ -30,7 +30,6 @@
 
 #include <poica/record/field.h>
 #include <poica/record/gen/fields.h>
-#include <poica/record/gen/redirects.h>
 #include <poica/record/introspection.h>
 
 #include <boost/preprocessor.hpp>
@@ -46,8 +45,6 @@
 #endif
 
 #define POICA_P_RECORD(name, fields)                                           \
-    POICA_P_RECORD_GEN_REDIRECTS_TO_FIELD_TYPE(name, fields)                   \
-                                                                               \
     typedef struct name {                                                      \
         POICA_P_RECORD_GEN_FIELDS(fields)                                      \
     } name
