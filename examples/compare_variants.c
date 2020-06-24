@@ -41,6 +41,6 @@ int main(void) {
     MyChoice choice1 = MkInt(123), choice2 = MkStr("Hello"),
              choice3 = MkInt(6578);
 
-    assert(variantTag(&choice1) != variantTag(&choice2));
-    assert(variantTag(&choice1) == variantTag(&choice3));
+    assert(variantTag(choice1) != variantTag(choice2));
+    assert(variantTag(choice1) == variantTag(choice3));
 }

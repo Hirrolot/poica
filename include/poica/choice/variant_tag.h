@@ -32,6 +32,6 @@
 #define variantTag POICA_P_VARIANT_TAG
 #endif
 
-#define POICA_P_VARIANT_TAG(choice_ptr) ((choice_ptr)->tag)
+#define POICA_P_VARIANT_TAG(val) ((val).tag)
 
 #endif // POICA_CHOICE_VARIANT_TAG_H
