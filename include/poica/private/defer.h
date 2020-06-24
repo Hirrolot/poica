@@ -23,6 +23,9 @@
  * SOFTWARE.
  */
 
+// A work-around for macro blueprinting:
+// https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion.
+
 #ifndef POICA_PRIVATE_DEFER_H
 #define POICA_PRIVATE_DEFER_H
 
