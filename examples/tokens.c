@@ -39,7 +39,7 @@ choice(
 // clang-format on
 
 void print_token(Token token) {
-    match(&token) {
+    match(token) {
         of(MkIdent, ident) {
             printf("%s", *ident);
         }

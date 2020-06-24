@@ -48,7 +48,7 @@ choice(
 // clang-format on
 
 void print_tree(const Tree *tree) {
-    match(tree) {
+    match(*tree) {
         of(MkEmpty) {
             return;
         }
@@ -71,7 +71,7 @@ Tree *alloc_tree(Tree tree) {
 }
 
 void destroy_tree(Tree *tree) {
-    match(tree) {
+    match(*tree) {
         of(MkEmpty) {
             return;
         }

@@ -56,7 +56,7 @@ choice(
 // clang-format on
 
 double eval(const Expr *expr) {
-    match(expr) {
+    match(*expr) {
         of(MkConst, number) {
             return *number;
         }

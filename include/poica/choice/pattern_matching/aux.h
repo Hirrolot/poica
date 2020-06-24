@@ -34,11 +34,6 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_MATCH(qualifier, choice_ptr)                                   \
-    POICA_P_CHOICE_SCOPE(qualifier void *poica_p_choice_ptr =                  \
-                             (qualifier void *)(choice_ptr))                   \
-    switch ((choice_ptr)->tag)
-
 #define POICA_P_OF(qualifier, ...)                                             \
     BOOST_PP_OVERLOAD(POICA_P_CHOICE_OF_, qualifier, __VA_ARGS__)              \
     (qualifier, __VA_ARGS__)

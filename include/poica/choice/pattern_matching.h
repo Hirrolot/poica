@@ -34,18 +34,25 @@
 
 #ifdef POICA_USE_PREFIX
 
+#define poicaMatch     POICA_P_MATCH
 #define poicaMatches   POICA_P_MATCHES
 #define poicaOtherwise POICA_P_OTHERWISE
 
 #else
 
+#define match     POICA_P_MATCH
 #define matches   POICA_P_MATCHES
 #define otherwise POICA_P_OTHERWISE
 
 #endif
 
-#define POICA_P_MATCHES(choice_ptr, variant_name)                              \
-    ((choice_ptr)->tag == POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
+#define POICA_P_MATCH(val)                                                     \
+    POICA_P_CHOICE_SCOPE(const void *poica_p_choice_ptr =                      \
+                             (const void *)&(val))                             \
+    switch ((val).tag)
+
+#define POICA_P_MATCHES(val, variant_name)                                     \
+    ((val).tag == POICA_P_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
 
 #define POICA_P_OTHERWISE                                                      \
     break;                                                                     \

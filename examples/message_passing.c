@@ -55,7 +55,7 @@ coroutine void worker(int rx) {
     CHECK_RC(rc);
 
     int res;
-    match(&command) {
+    match(command) {
         ofMany(MkAdd, (left, right)) {
             res = *left + *right;
         }

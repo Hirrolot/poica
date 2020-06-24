@@ -114,20 +114,20 @@ ParseRes parse(char *src) {
     {
         ParseFullNameRes res = parse_full_name(&person, (const char **)&src);
         try
-            (&res, of(MkParseFullNameErr, err), MkParseErr(*err));
+            (res, of(MkParseFullNameErr, err), MkParseErr(*err));
     }
 
     {
         ParseAgeRes res = parse_age(&person, &src);
         try
-            (&res, of(MkParseAgeErr, err), MkParseErr(*err));
+            (res, of(MkParseAgeErr, err), MkParseErr(*err));
     }
 
     return MkParseOk(person);
 }
 
 const char *stringify_parse_err(const ParseErr *err) {
-    match(err) {
+    match(*err) {
         of(MkInvalidAge) {
             return "a range must be a nonnegative integral number";
         }
@@ -148,7 +148,7 @@ int main(void) {
      * Output:
      * Success!
      */
-    match(&res) {
+    match(res) {
         of(MkParseOk, person) {
             assert(person->age == 73);
             assert(strcmp(person->full_name, "James Brown") == 0);

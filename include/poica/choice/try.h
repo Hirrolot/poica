@@ -32,25 +32,20 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaTry(choice_ptr, case_expr, failure_expr)                          \
-    POICA_P_TRY(const, choice_ptr, case_expr, failure_expr)
-#define poicaTryMut(choice_ptr, case_expr, failure_expr)                       \
-    POICA_P_TRY(, choice_ptr, case_expr, failure_expr)
+#define poicaTry(val, case_expr, failure_expr)                                 \
+    POICA_P_TRY(val, case_expr, failure_expr)
 
 #else
 
 // clang-format off
-#define try(choice_ptr, case_expr, failure_expr)                                \
-    POICA_P_TRY(const, choice_ptr, case_expr, failure_expr)
+#define try(val, case_expr, failure_expr)                                      \
+    POICA_P_TRY(val, case_expr, failure_expr)
 // clang-format on
-
-#define tryMut(choice_ptr, case_expr, failure_expr)                            \
-    POICA_P_TRY(, choice_ptr, case_expr, failure_expr)
 
 #endif
 
-#define POICA_P_TRY(qualifier, choice_ptr, case_expr, failure_expr)            \
-    POICA_P_MATCH(qualifier, choice_ptr) {                                     \
+#define POICA_P_TRY(val, case_expr, failure_expr)                              \
+    POICA_P_MATCH(val) {                                                       \
         case_expr {                                                            \
             return failure_expr;                                               \
         }                                                                      \

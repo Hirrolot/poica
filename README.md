@@ -149,7 +149,7 @@ choice(
 );
 
 void print_tree(const Tree *tree) {
-    match(tree) {
+    match(*tree) {
         of(MkEmpty) {
             return;
         }
@@ -329,7 +329,7 @@ And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecv
 
 ```c
 RecvMsgRes res = recv_msg(...);
-match(&res) {
+match(res) {
     of(MkRecvMsgOk, msg) { ... }
     of(MkSendMsgErr, err_kind) { ... }
 }
