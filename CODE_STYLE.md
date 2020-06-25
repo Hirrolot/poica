@@ -1,3 +1,5 @@
+# Code style
+
 ## Naming
 
 | Naming | Software entities |
