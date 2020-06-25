@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_MAYBE_H
-#define POICA_MAYBE_H
+#ifndef POICA_BUILTIN_MAYBE_H
+#define POICA_BUILTIN_MAYBE_H
 
 #include <poica/private/form_type_name.h>
 
@@ -58,4 +58,4 @@
 #define POICA_P_MAYBE_NOTHING(type)                                            \
     POICA_P_FORM_TYPE_NAME(MaybeNothing, ok_type)
 
-#endif // POICA_MAYBE_H
+#endif // POICA_BUILTIN_MAYBE_H

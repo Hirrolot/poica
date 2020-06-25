@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PAIR_H
-#define POICA_PAIR_H
+#ifndef POICA_BUILTIN_PAIR_H
+#define POICA_BUILTIN_PAIR_H
 
 #include <poica/private/form_type_name.h>
 
@@ -51,4 +51,4 @@
 #define POICA_P_PAIR(fst_type, snd_type)                                       \
     POICA_P_FORM_TYPE_NAME(Pair, fst_type, snd_type)
 
-#endif // POICA_PAIR_H
+#endif // POICA_BUILTIN_PAIR_H

@@ -26,8 +26,8 @@
 #ifndef POICA_CHOICE_TRY_H
 #define POICA_CHOICE_TRY_H
 
+#include <poica/builtin/res.h>
 #include <poica/choice/pattern_matching.h>
-#include <poica/res.h>
 
 #include <boost/preprocessor.hpp>
 

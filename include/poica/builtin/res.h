@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_RES_H
-#define POICA_RES_H
+#ifndef POICA_BUILTIN_RES_H
+#define POICA_BUILTIN_RES_H
 
 #include <poica/private/form_type_name.h>
 
@@ -62,4 +62,4 @@
 #define POICA_P_RES_ERR(ok_type, err_type)                                     \
     POICA_P_FORM_TYPE_NAME(ResErr, ok_type, err_type)
 
-#endif // POICA_RES_H
+#endif // POICA_BUILTIN_RES_H

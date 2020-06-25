@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_EITHER_H
-#define POICA_EITHER_H
+#ifndef POICA_BUILTIN_EITHER_H
+#define POICA_BUILTIN_EITHER_H
 
 #include <poica/private/form_type_name.h>
 
@@ -62,4 +62,4 @@
 #define POICA_P_EITHER_RIGHT(ok_type, err_type)                                \
     POICA_P_FORM_TYPE_NAME(EitherRight, ok_type, err_type)
 
-#endif // POICA_EITHER_H
+#endif // POICA_BUILTIN_EITHER_H

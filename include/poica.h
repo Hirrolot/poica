@@ -26,15 +26,10 @@
 #ifndef POICA_H
 #define POICA_H
 
+#include <poica/builtin.h>
 #include <poica/choice.h>
-#include <poica/record.h>
-
 #include <poica/obj.h>
+#include <poica/record.h>
 #include <poica/unit.h>
-
-#include <poica/either.h>
-#include <poica/maybe.h>
-#include <poica/pair.h>
-#include <poica/res.h>
 
 #endif // POICA_H
