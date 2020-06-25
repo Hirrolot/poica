@@ -309,18 +309,20 @@ typedef enum RecvMsgErrKind {
     ...
 } RecvMsgErrKind;
 
-DefRes(CharPtr, RecvMsgErrKind);
+typedef const char *Msg;
 
-Res(CharPtr, RecvMsgErrKind) recv_msg(...) { ... }
+DefRes(Msg, RecvMsgErrKind);
+
+Res(Msg, RecvMsgErrKind) recv_msg(...) { ... }
 ```
 
-And then `Res(CharPtr, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(CharPtr, RecvMsgErrKind)` and `Err(CharPtr, RecvMsgErrKind)`:
+And then `Res(Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(Msg, RecvMsgErrKind)` and `Err(Msg, RecvMsgErrKind)`:
 
 ```c
-Res(CharPtr, RecvMsgErrKind) res = recv_msg(...);
+Res(Msg, RecvMsgErrKind) res = recv_msg(...);
 match(res) {
-    of(Ok(CharPtr, RecvMsgErrKind), msg) { ... }
-    of(Err(CharPtr, RecvMsgErrKind), err_kind) { ... }
+    of(Ok(Msg, RecvMsgErrKind), msg) { ... }
+    of(Err(Msg, RecvMsgErrKind), err_kind) { ... }
 }
 ```
 
