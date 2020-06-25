@@ -27,27 +27,28 @@
 #define POICA_CHOICE_TRY_H
 
 #include <poica/choice/pattern_matching.h>
+#include <poica/res.h>
 
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaTry(val, case_variant_name, return_variant_name)                  \
-    POICA_P_TRY(val, case_variant_name, return_variant_name)
+#define poicaTry(val, ok_type_1, ok_type_2, err_type)                          \
+    POICA_P_TRY(val, ok_type_1, ok_type_2, err_type)
 
 #else
 
 // clang-format off
-#define try(val, case_variant_name, return_variant_name)                       \
-    POICA_P_TRY(val, case_variant_name, return_variant_name)
+#define try(val, ok_type_1, ok_type_2, err_type)                               \
+    POICA_P_TRY(val, ok_type_1, ok_type_2, err_type)
 // clang-format on
 
 #endif
 
-#define POICA_P_TRY(val, case_variant_name, return_variant_name)               \
+#define POICA_P_TRY(val, ok_type_1, ok_type_2, err_type)                       \
     POICA_P_MATCH(val) {                                                       \
-        of(case_variant_name, variant_val) {                                   \
-            return return_variant_name(*variant_val);                          \
+        of(Err(ok_type_1, err_type), err) {                                    \
+            return Err(ok_type_2, err_type)(*err);                             \
         }                                                                      \
         POICA_P_OTHERWISE {}                                                   \
     }

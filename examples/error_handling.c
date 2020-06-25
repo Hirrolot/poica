@@ -56,7 +56,7 @@ const char *err_msgs[] = {
 };
 
 ResDef(Person, ParseErr);
-MaybeDef(ParseErr);
+ResDef(Unit, ParseErr);
 
 void skip_emptiness(const char **src) {
     while (**src != '\0' && isblank(**src)) {
@@ -64,21 +64,21 @@ void skip_emptiness(const char **src) {
     }
 }
 
-Maybe(ParseErr) parse_full_name(Person *person, const char **src) {
+Res(Unit, ParseErr) parse_full_name(Person *person, const char **src) {
     if ((person->full_name = strchr(*src, '\'')) == NULL) {
-        return Just(ParseErr)(NO_FIRST_APOSTROPHE);
+        return Err(Unit, ParseErr)(NO_FIRST_APOSTROPHE);
     }
 
     person->full_name++;
     *src = (const char *)person->full_name;
 
-    return Nothing(ParseErr)();
+    return Ok(Unit, ParseErr)(unit);
 }
 
-Maybe(ParseErr) parse_age(Person *person, char **src) {
+Res(Unit, ParseErr) parse_age(Person *person, char **src) {
     char *age_pos;
     if ((age_pos = strchr(*src, '\'')) == NULL) {
-        return Just(ParseErr)(NO_SECOND_APOSTROPHE);
+        return Err(Unit, ParseErr)(NO_SECOND_APOSTROPHE);
     }
 
     *age_pos = '\0';
@@ -88,22 +88,22 @@ Maybe(ParseErr) parse_age(Person *person, char **src) {
     skip_emptiness((const char **)&age_pos);
 
     if (sscanf(age_pos, "%hhu", &person->age) == 0) {
-        return Just(ParseErr)(INVALID_AGE);
+        return Err(Unit, ParseErr)(INVALID_AGE);
     }
 
-    return Nothing(ParseErr)();
+    return Ok(Unit, ParseErr)(unit);
 }
 
 Res(Person, ParseErr) parse(char *src) {
     Person person;
 
-    Maybe(ParseErr) res1 = parse_full_name(&person, (const char **)&src);
+    Res(Unit, ParseErr) res1 = parse_full_name(&person, (const char **)&src);
     try
-        (res1, Just(ParseErr), Err(Person, ParseErr));
+        (res1, Unit, Person, ParseErr);
 
-    Maybe(ParseErr) res2 = parse_age(&person, &src);
+    Res(Unit, ParseErr) res2 = parse_age(&person, &src);
     try
-        (res2, Just(ParseErr), Err(Person, ParseErr));
+        (res2, Unit, Person, ParseErr);
 
     return Ok(Person, ParseErr)(person);
 }

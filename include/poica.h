@@ -27,8 +27,10 @@
 #define POICA_H
 
 #include <poica/choice.h>
-#include <poica/obj.h>
 #include <poica/record.h>
+
+#include <poica/obj.h>
+#include <poica/unit.h>
 
 #include <poica/either.h>
 #include <poica/maybe.h>
