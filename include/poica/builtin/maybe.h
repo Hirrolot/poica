@@ -43,9 +43,6 @@
 #define poicaIsJust    POICA_P_MAYBE_IS_JUST
 #define poicaIsNothing POICA_P_MAYBE_IS_NOTHING
 
-#define poicaMaybeExtractOr     POICA_P_MAYBE_EXTRACT_OR
-#define poicaMaybeLazyExtractOr POICA_P_MAYBE_LAZY_EXTRACT_OR
-
 #else
 
 #define DefMaybe POICA_P_MAYBE_DEF
@@ -55,9 +52,6 @@
 
 #define isJust    POICA_P_MAYBE_IS_JUST
 #define isNothing POICA_P_MAYBE_IS_NOTHING
-
-#define maybeExtractOr     POICA_P_MAYBE_EXTRACT_OR
-#define maybeLazyExtractOr POICA_P_MAYBE_LAZY_EXTRACT_OR
 
 #endif
 
@@ -76,32 +70,6 @@
         return POICA_P_MATCHES(maybe, POICA_P_MAYBE_NOTHING(type));            \
     }                                                                          \
                                                                                \
-    inline static POICA_P_MAYBE_EXTRACT_OR(type)(                              \
-        const POICA_P_MAYBE(type) * restrict maybe,                            \
-        const type *restrict default_val) {                                    \
-        POICA_P_MATCH(*maybe) {                                                \
-            POICA_P_OF(POICA_P_MAYBE_JUST(type), val) {                        \
-                return *val;                                                   \
-            }                                                                  \
-            POICA_P_OF(POICA_P_MAYBE_NOTHING(type)) {                          \
-                return *default_val                                            \
-            }                                                                  \
-        }                                                                      \
-    }                                                                          \
-                                                                               \
-    inline static POICA_P_MAYBE_LAZY_EXTRACT_OR(type)(                         \
-        const POICA_P_MAYBE(type) * restrict maybe,                            \
-        const type(default_fn *)(void)) {                                      \
-        POICA_P_MATCH(*maybe) {                                                \
-            POICA_P_OF(POICA_P_MAYBE_JUST(type), val) {                        \
-                return *val;                                                   \
-            }                                                                  \
-            POICA_P_OF(POICA_P_MAYBE_NOTHING(type)) {                          \
-                return default_fn();                                           \
-            }                                                                  \
-        }                                                                      \
-    }                                                                          \
-                                                                               \
     POICA_P_FORCE_SEMICOLON
 
 #define POICA_P_MAYBE(type)         POICA_P_MONOMORPHIZE(Maybe, type)
@@ -111,10 +79,5 @@
 #define POICA_P_MAYBE_IS_JUST(type) POICA_P_MONOMORPHIZE(maybeIsJust, type)
 #define POICA_P_MAYBE_IS_NOTHING(type)                                         \
     POICA_P_MONOMORPHIZE(maybeIsNothing, type)
-
-#define POICA_P_MAYBE_EXTRACT_OR(type)                                         \
-    POICA_P_MONOMORPHIZE(maybeExtractOr, type)
-#define POICA_P_MAYBE_LAZY_EXTRACT_OR(type)                                    \
-    POICA_P_MONOMORPHIZE(maybeLazyExtractOr, type)
 
 #endif // POICA_BUILTIN_MAYBE_H
