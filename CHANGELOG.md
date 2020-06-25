@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - unreleased
+### Changed
+ - Move the specification, changelog, code style, and contributing documents from the wiki into the file tree.
+ - The `try` macro.
+
+### Added
+ - `Res`, `Either`, `Maybe`, `Pair`.
+
+### Removed
+ - The wiki.
+
+
 ## [0.3.0] - 2020-06-25
 ### Changed
  - Turn several public macros into `camelCase`:
