@@ -23,33 +23,43 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_CHOICE_TRY_H
-#define POICA_CHOICE_TRY_H
+#ifndef POICA_EITHER_H
+#define POICA_EITHER_H
 
-#include <poica/choice/pattern_matching.h>
+#include <poica/private/form_type_name.h>
+
+#include <poica/choice.h>
 
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaTry(val, case_variant, return_variant)                            \
-    POICA_P_TRY(val, case_variant, return_variant)
+#define PoicaEitherDef POICA_P_EITHER_DEF
+#define PoicaEither    POICA_P_Either
+#define PoicaRight     POICA_P_EITHER_LEFT
+#define PoicaLeft      POICA_P_EITHER_RIGHT
 
 #else
 
-// clang-format off
-#define try(val, case_variant, return_variant)                                 \
-    POICA_P_TRY(val, case_variant, return_variant)
-// clang-format on
+#define EitherDef POICA_P_EITHER_DEF
+#define Either    POICA_P_Either
+#define Right     POICA_P_EITHER_LEFT
+#define Left      POICA_P_EITHER_RIGHT
 
 #endif
 
-#define POICA_P_TRY(val, case_variant, return_variant)                         \
-    POICA_P_MATCH(val) {                                                       \
-        of(case_variant, variant_val) {                                        \
-            return return_variant(*variant_val);                               \
-        }                                                                      \
-        POICA_P_OTHERWISE {}                                                   \
-    }
+#define POICA_P_EITHER_DEF(ok_type, err_type)                                  \
+    choice(POICA_P_EITHER(ok_type, err_type),                                  \
+           variant(POICA_P_EITHER_LEFT(ok_type, err_type), ok_type)            \
+               variant(POICA_P_EITHER_RIGHT(ok_type, err_type), err_type))
 
-#endif // POICA_CHOICE_TRY_H
+#define POICA_P_EITHER(ok_type, err_type)                                      \
+    POICA_P_FORM_TYPE_NAME(Either, ok_type, err_type)
+
+#define POICA_P_EITHER_LEFT(ok_type, err_type)                                 \
+    POICA_P_FORM_TYPE_NAME(EitherLeft, ok_type, err_type)
+
+#define POICA_P_EITHER_RIGHT(ok_type, err_type)                                \
+    POICA_P_FORM_TYPE_NAME(EitherRight, ok_type, err_type)
+
+#endif // POICA_EITHER_H

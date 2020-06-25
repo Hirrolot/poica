@@ -23,16 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_PRIVATE_CAT_TYPES_H
+#define POICA_PRIVATE_CAT_TYPES_H
 
-#include <poica/choice.h>
-#include <poica/obj.h>
-#include <poica/record.h>
+#include <boost/preprocessor.hpp>
 
-#include <poica/either.h>
-#include <poica/maybe.h>
-#include <poica/pair.h>
-#include <poica/res.h>
+#define POICA_P_FORM_TYPE_NAME(...)                                            \
+    BOOST_PP_SEQ_CAT(                                                          \
+        BOOST_PP_SEQ_TRANSFORM(POICA_P_FORM_TYPE_NAME_AUX,                     \
+                               _data,                                          \
+                               BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)))
 
-#endif // POICA_H
+#define POICA_P_FORM_TYPE_NAME_AUX(_r, _data, type_name)                       \
+    BOOST_PP_CAT(BOOST_PP_CAT(POICA_P_FormTypeNameStart, type_name),           \
+                 POICA_P_FormTypeNameEnd)
+
+#endif // POICA_PRIVATE_CAT_TYPES_H

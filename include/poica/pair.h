@@ -23,16 +23,32 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_PAIR_H
+#define POICA_PAIR_H
 
-#include <poica/choice.h>
-#include <poica/obj.h>
+#include <poica/private/form_type_name.h>
+
 #include <poica/record.h>
 
-#include <poica/either.h>
-#include <poica/maybe.h>
-#include <poica/pair.h>
-#include <poica/res.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+#ifdef POICA_USE_PREFIX
+
+#define PoicaPairDef POICA_P_PAIR_DEF
+#define PoicaPair    POICA_P_PAIR
+
+#else
+
+#define PairDef POICA_P_PAIR_DEF
+#define Pair    POICA_P_PAIR
+
+#endif
+
+#define POICA_P_PAIR_DEF(fst_type, snd_type)                                   \
+    record(POICA_P_PAIR(fst_type, snd_type),                                   \
+           field(fst, fst_type) variant(snd, snd_type))
+
+#define POICA_P_PAIR(fst_type, snd_type)                                       \
+    POICA_P_FORM_TYPE_NAME(Pair, fst_type, snd_type)
+
+#endif // POICA_PAIR_H

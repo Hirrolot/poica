@@ -23,8 +23,10 @@
  * SOFTWARE.
  */
 
-// Error handling with ADTs. This is demonstrated on parsing the "'<full name>'
-// <age>" string.
+/*
+ * Error handling with ADTs. This is demonstrated on parsing the "'<full name>'
+ * <age>" string.
+ */
 
 #include <poica.h>
 
@@ -39,22 +41,22 @@ record(
     field(full_name, const char *)
     field(age, unsigned char)
 );
-
-// Can be represented as an ordinary enumeration, but we define it as a sum type
-// for consistency.
-choice(
-    ParseErr,
-    variant(MkInvalidAge)
-    variant(MkNoFirstApostrophe)
-    variant(MkNoSecondApostrophe)
-);
-
-choice(
-    ParseRes,
-    variant(MkParseOk, Person)
-    variant(MkParseErr, ParseErr)
-);
 // clang-format on
+
+typedef enum {
+    INVALID_AGE,
+    NO_FIRST_APOSTROPHE,
+    NO_SECOND_APOSTROPHE,
+} ParseErr;
+
+const char *err_msgs[] = {
+    [INVALID_AGE] = "a range must be a nonnegative integral number",
+    [NO_FIRST_APOSTROPHE] = "no apostrophe before a full name",
+    [NO_SECOND_APOSTROPHE] = "no apostrophe after a full name",
+};
+
+ResDef(Person, ParseErr);
+MaybeDef(ParseErr);
 
 void skip_emptiness(const char **src) {
     while (**src != '\0' && isblank(**src)) {
@@ -62,37 +64,21 @@ void skip_emptiness(const char **src) {
     }
 }
 
-// clang-format off
-choice(
-    ParseFullNameRes,
-    variant(MkParseFullNameOk)
-    variant(MkParseFullNameErr, ParseErr)
-);
-// clang-format on
-
-ParseFullNameRes parse_full_name(Person *person, const char **src) {
+Maybe(ParseErr) parse_full_name(Person *person, const char **src) {
     if ((person->full_name = strchr(*src, '\'')) == NULL) {
-        return MkParseFullNameErr(MkNoFirstApostrophe());
+        return Just(ParseErr)(NO_FIRST_APOSTROPHE);
     }
 
     person->full_name++;
     *src = (const char *)person->full_name;
 
-    return MkParseFullNameOk();
+    return Nothing(ParseErr)();
 }
 
-// clang-format off
-choice(
-    ParseAgeRes,
-    variant(MkParseAgeOk)
-    variant(MkParseAgeErr, ParseErr)
-);
-// clang-format on
-
-ParseAgeRes parse_age(Person *person, char **src) {
+Maybe(ParseErr) parse_age(Person *person, char **src) {
     char *age_pos;
     if ((age_pos = strchr(*src, '\'')) == NULL) {
-        return MkParseAgeErr(MkNoSecondApostrophe());
+        return Just(ParseErr)(NO_SECOND_APOSTROPHE);
     }
 
     *age_pos = '\0';
@@ -102,61 +88,42 @@ ParseAgeRes parse_age(Person *person, char **src) {
     skip_emptiness((const char **)&age_pos);
 
     if (sscanf(age_pos, "%hhu", &person->age) == 0) {
-        return MkParseAgeErr(MkInvalidAge());
+        return Just(ParseErr)(INVALID_AGE);
     }
 
-    return MkParseAgeOk();
+    return Nothing(ParseErr)();
 }
 
-ParseRes parse(char *src) {
+Res(Person, ParseErr) parse(char *src) {
     Person person;
 
-    {
-        ParseFullNameRes res = parse_full_name(&person, (const char **)&src);
-        try
-            (res, of(MkParseFullNameErr, err), MkParseErr(*err));
-    }
+    Maybe(ParseErr) res1 = parse_full_name(&person, (const char **)&src);
+    try
+        (res1, Just(ParseErr), Err(Person, ParseErr));
 
-    {
-        ParseAgeRes res = parse_age(&person, &src);
-        try
-            (res, of(MkParseAgeErr, err), MkParseErr(*err));
-    }
+    Maybe(ParseErr) res2 = parse_age(&person, &src);
+    try
+        (res2, Just(ParseErr), Err(Person, ParseErr));
 
-    return MkParseOk(person);
-}
-
-const char *stringify_parse_err(const ParseErr *err) {
-    match(*err) {
-        of(MkInvalidAge) {
-            return "a range must be a nonnegative integral number";
-        }
-        of(MkNoFirstApostrophe) {
-            return "no apostrophe before a full name";
-        }
-        of(MkNoSecondApostrophe) {
-            return "no apostrophe after a full name";
-        }
-    }
+    return Ok(Person, ParseErr)(person);
 }
 
 int main(void) {
     char src[] = "'James Brown' 73";
-    ParseRes res = parse(src);
+    Res(Person, ParseErr) res = parse(src);
 
     /*
      * Output:
      * Success!
      */
     match(res) {
-        of(MkParseOk, person) {
+        of(Ok(Person, ParseErr), person) {
             assert(person->age == 73);
             assert(strcmp(person->full_name, "James Brown") == 0);
             puts("Success!");
         }
-        of(MkParseErr, err) {
-            printf("Parsing has been failed! Reason: %s.\n",
-                   stringify_parse_err(err));
+        of(Err(Person, ParseErr), err) {
+            printf("Parsing has been failed! Reason: %s.\n", err_msgs[*err]);
         }
     }
 }
