@@ -26,7 +26,7 @@
 #ifndef POICA_BUILTIN_EITHER_H
 #define POICA_BUILTIN_EITHER_H
 
-#include <poica/private/form_type_name.h>
+#include <poica/private/monomorphize.h>
 
 #include <poica/choice.h>
 
@@ -54,12 +54,12 @@
                variant(POICA_P_EITHER_RIGHT(ok_type, err_type), err_type))
 
 #define POICA_P_EITHER(ok_type, err_type)                                      \
-    POICA_P_FORM_TYPE_NAME(Either, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(Either, ok_type, err_type)
 
 #define POICA_P_EITHER_LEFT(ok_type, err_type)                                 \
-    POICA_P_FORM_TYPE_NAME(EitherLeft, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(EitherLeft, ok_type, err_type)
 
 #define POICA_P_EITHER_RIGHT(ok_type, err_type)                                \
-    POICA_P_FORM_TYPE_NAME(EitherRight, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(EitherRight, ok_type, err_type)
 
 #endif // POICA_BUILTIN_EITHER_H

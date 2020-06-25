@@ -26,7 +26,7 @@
 #ifndef POICA_BUILTIN_RES_H
 #define POICA_BUILTIN_RES_H
 
-#include <poica/private/form_type_name.h>
+#include <poica/private/monomorphize.h>
 
 #include <poica/choice.h>
 
@@ -54,12 +54,12 @@
                variant(POICA_P_RES_ERR(ok_type, err_type), err_type))
 
 #define POICA_P_RES(ok_type, err_type)                                         \
-    POICA_P_FORM_TYPE_NAME(Res, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(Res, ok_type, err_type)
 
 #define POICA_P_RES_OK(ok_type, err_type)                                      \
-    POICA_P_FORM_TYPE_NAME(ResOk, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(ResOk, ok_type, err_type)
 
 #define POICA_P_RES_ERR(ok_type, err_type)                                     \
-    POICA_P_FORM_TYPE_NAME(ResErr, ok_type, err_type)
+    POICA_P_MONOMORPHIZE(ResErr, ok_type, err_type)
 
 #endif // POICA_BUILTIN_RES_H

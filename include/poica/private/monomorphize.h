@@ -28,13 +28,13 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_FORM_TYPE_NAME(...)                                            \
+#define POICA_P_MONOMORPHIZE(...)                                              \
     BOOST_PP_SEQ_CAT(                                                          \
-        BOOST_PP_SEQ_TRANSFORM(POICA_P_FORM_TYPE_NAME_AUX,                     \
+        BOOST_PP_SEQ_TRANSFORM(POICA_P_MONOMORPHIZE_AUX,                       \
                                _data,                                          \
                                BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__)))
 
-#define POICA_P_FORM_TYPE_NAME_AUX(_r, _data, type_name)                       \
+#define POICA_P_MONOMORPHIZE_AUX(_r, _data, type_name)                         \
     BOOST_PP_CAT(BOOST_PP_CAT(POICA_P_FormTypeNameStart, type_name),           \
                  POICA_P_FormTypeNameEnd)
 

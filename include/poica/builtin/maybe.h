@@ -26,7 +26,7 @@
 #ifndef POICA_BUILTIN_MAYBE_H
 #define POICA_BUILTIN_MAYBE_H
 
-#include <poica/private/form_type_name.h>
+#include <poica/private/monomorphize.h>
 
 #include <poica/choice.h>
 
@@ -53,9 +53,8 @@
            variant(POICA_P_MAYBE_JUST(type), type)                             \
                variant(POICA_P_MAYBE_NOTHING(type)))
 
-#define POICA_P_MAYBE(type)      POICA_P_FORM_TYPE_NAME(Maybe, ok_type)
-#define POICA_P_MAYBE_JUST(type) POICA_P_FORM_TYPE_NAME(MaybeJust, ok_type)
-#define POICA_P_MAYBE_NOTHING(type)                                            \
-    POICA_P_FORM_TYPE_NAME(MaybeNothing, ok_type)
+#define POICA_P_MAYBE(type)         POICA_P_MONOMORPHIZE(Maybe, ok_type)
+#define POICA_P_MAYBE_JUST(type)    POICA_P_MONOMORPHIZE(MaybeJust, ok_type)
+#define POICA_P_MAYBE_NOTHING(type) POICA_P_MONOMORPHIZE(MaybeNothing, ok_type)
 
 #endif // POICA_BUILTIN_MAYBE_H
