@@ -26,7 +26,7 @@
 #ifndef POICA_CHOICE_GEN_REDIRECTS_TO_OUTER_CHOICE_TYPE_H
 #define POICA_CHOICE_GEN_REDIRECTS_TO_OUTER_CHOICE_TYPE_H
 
-#include <poica/private/aux.h>
+#include <poica/private/prefix.h>
 
 #include <poica/choice/introspection.h>
 #include <poica/choice/variant.h>

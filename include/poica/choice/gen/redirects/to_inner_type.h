@@ -26,7 +26,7 @@
 #ifndef POICA_CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_H
 #define POICA_CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_H
 
-#include <poica/private/aux.h>
+#include <poica/private/prefix.h>
 
 #include <poica/choice/gen/records_for_many.h>
 #include <poica/choice/gen/redirects/to_inner_type/variant_kind_empty.h>

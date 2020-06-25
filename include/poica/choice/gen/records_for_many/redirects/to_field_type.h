@@ -26,8 +26,6 @@
 #ifndef POICA_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_TO_FIELD_TYPE_H
 #define POICA_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_TO_FIELD_TYPE_H
 
-#include <poica/private/aux.h>
-
 #include <poica/record/introspection.h>
 
 #include <boost/preprocessor.hpp>

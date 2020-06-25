@@ -26,7 +26,7 @@
 #ifndef POICA_CHOICE_H
 #define POICA_CHOICE_H
 
-#include <poica/private/aux.h>
+#include <poica/private/force_semicolon.h>
 
 #include <poica/record/field.h>
 

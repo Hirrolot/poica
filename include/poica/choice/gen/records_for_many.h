@@ -26,7 +26,6 @@
 #ifndef POICA_CHOICE_GEN_VARIANT_KIND_MANY
 #define POICA_CHOICE_GEN_VARIANT_KIND_MANY
 
-#include <poica/private/aux.h>
 #include <poica/private/defer.h>
 
 #include <poica/choice/gen/records_for_many/redirects.h>
