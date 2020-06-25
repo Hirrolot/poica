@@ -303,39 +303,34 @@ With type introspection it is possible to achieve [type-driven (de)serialization
 ADTs provide a safe, consistent approach to error handling. A procedure that can fail returns a sum type, designating either a successful or a failure value, like this:
 
 ```c
-choice(
-    RecvMsgErrKind,
-    variant(MkBadConnection)
-    variant(MkNoSuchUser)
+typedef enum RecvMsgErrKind {
+    BAD_CONN,
+    NO_SUCH_USER,
     ...
-);
+} RecvMsgErrKind;
 
-choice(
-    RecvMsgRes,
-    variant(MkRecvMsgOk, char *)
-    variant(MkSendMsgErr, RecvMsgErrKind))
-);
+DefRes(CharPtr, RecvMsgErrKind);
 
-RecvMsgRes recv_msg(...) { ... }
+Res(CharPtr, RecvMsgErrKind) recv_msg(...) { ... }
 ```
 
-And then `RecvMsgRes` can be matched to decide what to do in the case of `MkRecvMsgOk` and `MkSendMsgErr`:
+And then `Res(CharPtr, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(CharPtr, RecvMsgErrKind)` and `Err(CharPtr, RecvMsgErrKind)`:
 
 ```c
-RecvMsgRes res = recv_msg(...);
+Res(CharPtr, RecvMsgErrKind) res = recv_msg(...);
 match(res) {
-    of(MkRecvMsgOk, msg) { ... }
-    of(MkSendMsgErr, err_kind) { ... }
+    of(Ok(CharPtr, RecvMsgErrKind), msg) { ... }
+    of(Err(CharPtr, RecvMsgErrKind), err_kind) { ... }
 }
 ```
 
 But why this is better than `int` error codes? Because of:
 
- - **Readability.** Such identifiers as `MkRecvMsgOk` and `MkSendMsgErr` are more for humans, and therefore, it's much harder to confuse them with each other. In contrast to this, the usual approach in C to determine an error is by using magic ranges (for example, <0 or -1).
+ - **Readability.** Such identifiers as `Ok` and `Err` are more for humans, and therefore, it's much harder to confuse them with each other. In contrast to this, the usual approach in C to determine an error is by using magic ranges (for example, <0 or -1).
 
  - **Consistency.** No need to invent different strategies to handle different kinds of errors (i.e. using exceptions for less likely errors, `int` codes for a normal control flow, ...); ADTs address the problem of error handling generally.
 
- - **Exhaustiveness checking (case analysis).** A smart compiler and static analysis tools ensure that all the variants of `RecvMsgRes` are handled in `MATCH`, so we can't forget to handle an error and make a possibly serious bug by leaving an application work as there's no error, when there is.
+ - **Exhaustiveness checking (case analysis).** A smart compiler and static analysis tools ensure that all the variants of `Res` are handled in `MATCH`, so we can't forget to handle an error and make a possibly serious bug by leaving an application work as there's no error, when there is.
 
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
