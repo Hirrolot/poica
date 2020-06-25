@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
  - `Res`, `Either`, `Maybe`, `Pair`.
+ - `Unit` (type)  and `unit` (a static constant value of type `Unit`).
 
 ### Removed
  - The wiki.
