@@ -20,6 +20,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
+ - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
 ## Features
@@ -337,6 +338,17 @@ But why this is better than `int` error codes? Because of:
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
+
+## Roadmap
+
+ - Add built-in ADTs and operations with them: `Res`, `Maybe`, `Either`, `Pair`.
+ - Change the interface of the `try` macro to make it more convenient for working with `Res`.
+ - Add a library of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1)).
+ - Add a library for type-driven JSON (de)serialization (see [serde-json]).
+ - Add a library for type-driven command-line argument parsing (see [clap]).
+
+[serde-json]: https://github.com/serde-rs/json
+[clap]: https://github.com/clap-rs/clap
 
 ## FAQ
 
