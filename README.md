@@ -9,9 +9,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
  - Concurrency: [message passing](examples/message_passing.c)
 
-<details>
- <summary>Table of contents</summary>
-
+## Table of contents
  - [Features](#features)
  - [Installation](#installation)
  - [Motivation](#motivation)
@@ -22,11 +20,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
- - [Contributing](#contributing)
- - [Changelog](#changelog)
  - [FAQ](#faq)
-
-</details>
 
 ## Features
  - C11-compliant
@@ -346,14 +340,6 @@ But why this is better than `int` error codes? Because of:
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
-
-## Contributing
-
-[wiki/Contributing](https://github.com/Hirrolot/poica/wiki/Contributing)
-
-## Changelog
-
-[wiki/Changelog](https://github.com/Hirrolot/poica/wiki/Changelog)
 
 ## FAQ
 
