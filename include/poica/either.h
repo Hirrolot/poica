@@ -34,14 +34,14 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define PoicaEitherDef POICA_P_EITHER_DEF
+#define PoicaDefEither POICA_P_EITHER_DEF
 #define PoicaEither    POICA_P_Either
 #define PoicaRight     POICA_P_EITHER_LEFT
 #define PoicaLeft      POICA_P_EITHER_RIGHT
 
 #else
 
-#define EitherDef POICA_P_EITHER_DEF
+#define DefEither POICA_P_EITHER_DEF
 #define Either    POICA_P_Either
 #define Right     POICA_P_EITHER_LEFT
 #define Left      POICA_P_EITHER_RIGHT

@@ -34,14 +34,14 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define PoicaMaybeDef POICA_P_MAYBE_DEF
+#define PoicaDefMaybe POICA_P_MAYBE_DEF
 #define PoicaMaybe    POICA_P_MAYBE
 #define PoicaJust     POICA_P_MAYBE_JUST
 #define PoicaNothing  POICA_P_MAYBE_NOTHING
 
 #else
 
-#define MaybeDef POICA_P_MAYBE_DEF
+#define DefMaybe POICA_P_MAYBE_DEF
 #define Maybe    POICA_P_MAYBE
 #define Just     POICA_P_MAYBE_JUST
 #define Nothing  POICA_P_MAYBE_NOTHING

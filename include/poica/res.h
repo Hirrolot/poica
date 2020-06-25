@@ -34,14 +34,14 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define PoicaResDef POICA_P_RES_DEF
+#define PoicaDefRes POICA_P_RES_DEF
 #define PoicaRes    POICA_P_RES
 #define PoicaOk     POICA_P_RES_OK
 #define PoicaErr    POICA_P_RES_ERR
 
 #else
 
-#define ResDef POICA_P_RES_DEF
+#define DefRes POICA_P_RES_DEF
 #define Res    POICA_P_RES
 #define Ok     POICA_P_RES_OK
 #define Err    POICA_P_RES_ERR

@@ -43,20 +43,21 @@ record(
 );
 // clang-format on
 
-typedef enum {
-    INVALID_AGE,
-    NO_FIRST_APOSTROPHE,
-    NO_SECOND_APOSTROPHE,
-} ParseErr;
+#define PARSE_ERRS                                                             \
+    X(INVALID_AGE, "a range must be a nonnegative integral number")            \
+    X(NO_FIRST_APOSTROPHE, "no apostrophe before a full name")                 \
+    X(NO_SECOND_APOSTROPHE, "no apostrophe after a full name")
 
-const char *err_msgs[] = {
-    [INVALID_AGE] = "a range must be a nonnegative integral number",
-    [NO_FIRST_APOSTROPHE] = "no apostrophe before a full name",
-    [NO_SECOND_APOSTROPHE] = "no apostrophe after a full name",
-};
+#define X(id, msg) id,
+typedef enum { PARSE_ERRS } ParseErr;
+#undef X
 
-ResDef(Person, ParseErr);
-ResDef(Unit, ParseErr);
+#define X(id, msg) [id] = msg,
+const char *err_msgs[] = {PARSE_ERRS};
+#undef X
+
+DefRes(Person, ParseErr);
+DefRes(Unit, ParseErr);
 
 void skip_emptiness(const char **src) {
     while (**src != '\0' && isblank(**src)) {

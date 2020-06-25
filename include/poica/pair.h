@@ -34,12 +34,12 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define PoicaPairDef POICA_P_PAIR_DEF
+#define PoicaDefPair POICA_P_PAIR_DEF
 #define PoicaPair    POICA_P_PAIR
 
 #else
 
-#define PairDef POICA_P_PAIR_DEF
+#define DefPair POICA_P_PAIR_DEF
 #define Pair    POICA_P_PAIR
 
 #endif

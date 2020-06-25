@@ -5,6 +5,6 @@ typedef struct Unit {
     char poica_p_untouched;
 } Unit;
 
-static const Unit unit = {'\0'};
+static const Unit unit;
 
 #endif // POICA_UNIT_H
