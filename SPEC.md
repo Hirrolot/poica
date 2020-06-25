@@ -281,3 +281,9 @@ Make sure that expressions of a sum type, passed to macros, produce no side effe
 MySumType var = <expr>;
 match(var) { ... }
 ```
+
+Do **NOT** do this:
+
+```c
+match(<cpu-bound-or-io-expr>) { ... }
+```
