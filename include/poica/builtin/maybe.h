@@ -31,6 +31,8 @@
 
 #include <poica/choice.h>
 
+#include <stdbool.h>
+
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
@@ -60,13 +62,13 @@
            variant(POICA_P_MAYBE_JUST(type), type)                             \
                variant(POICA_P_MAYBE_NOTHING(type)));                          \
                                                                                \
-    inline static POICA_P_MAYBE_IS_JUST(type)(const POICA_P_MAYBE(type) *      \
-                                              restrict maybe) {                \
+    inline static bool POICA_P_MAYBE_IS_JUST(type)(POICA_P_MAYBE(type)         \
+                                                       maybe) {                \
         return POICA_P_MATCHES(maybe, POICA_P_MAYBE_JUST(type));               \
     }                                                                          \
                                                                                \
-    inline static POICA_P_MAYBE_IS_NOTHING(type)(const POICA_P_MAYBE(type) *   \
-                                                 restrict maybe) {             \
+    inline static bool POICA_P_MAYBE_IS_NOTHING(type)(POICA_P_MAYBE(type)      \
+                                                          maybe) {             \
         return POICA_P_MATCHES(maybe, POICA_P_MAYBE_NOTHING(type));            \
     }                                                                          \
                                                                                \
