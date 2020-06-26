@@ -53,7 +53,7 @@ typedef enum { PARSE_ERRS } ParseErr;
 #undef X
 
 #define X(id, msg) [id] = msg,
-const char *err_msgs[] = {PARSE_ERRS};
+static const char *err_msgs[] = {PARSE_ERRS};
 #undef X
 
 DefRes(Person, ParseErr);

@@ -35,6 +35,7 @@
 #include <poica/choice/gen/redirects.h>
 #include <poica/choice/gen/tags.h>
 #include <poica/choice/gen/vconstrs.h>
+#include <poica/choice/is_empty_struct.h>
 #include <poica/choice/pattern_matching.h>
 #include <poica/choice/try.h>
 #include <poica/choice/variant.h>
@@ -56,9 +57,8 @@
                                                                                \
     typedef struct name {                                                      \
         enum { POICA_P_CHOICE_GEN_TAGS(variants) } tag;                        \
-        struct {                                                               \
-            POICA_P_CHOICE_GEN_FIELDS(variants)                                \
-        } data;                                                                \
+        BOOST_PP_IF(POICA_P_IS_EMPTY_STRUCT(variants), ,                       \
+                    struct {POICA_P_CHOICE_GEN_FIELDS(variants)} data;)        \
     } name;                                                                    \
                                                                                \
     POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)               \
