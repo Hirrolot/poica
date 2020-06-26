@@ -1,7 +1,7 @@
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
-[![docs](https://img.shields.io/badge/docs-wiki/Specification-blue.svg)](https://github.com/Hirrolot/poica/wiki/Specification)
+[![docs](https://img.shields.io/badge/docs-wiki/]-blue.svg)](https://github.com/Hirrolot/poica/blob/master/SPEC.md)
 
 This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They have tremendous amount of applications to real-world programming, including:
 
@@ -30,7 +30,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
  - Comes with the [specification]
  - No third-party code generators, just `#include <poica.h>` and go!
 
-[specification]: https://github.com/Hirrolot/poica/wiki/Specification
+[specification]: https://github.com/Hirrolot/poica/blob/master/SPEC.md
 
 ## Installation
 
@@ -288,7 +288,7 @@ int main(void) {
 
 </details>
 
-That is, the metainformation about types is actually a [sequence] in the terms of [Boost/Preprocessor]. So the [`BOOST_PP_SEQ_*` macros] can be used further, as well as [other utility macros](https://github.com/Hirrolot/poica/wiki/Specification) from poica.
+That is, the metainformation about types is actually a [sequence] in the terms of [Boost/Preprocessor]. So the [`BOOST_PP_SEQ_*` macros] can be used further, as well as [other utility macros](https://github.com/Hirrolot/poica/blob/master/SPEC.md) from poica.
 
 [sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
