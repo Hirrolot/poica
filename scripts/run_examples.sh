@@ -13,3 +13,7 @@ cd examples/build
 
 ./record_introspection
 ./choice_introspection
+
+./maybe
+./either
+./pair

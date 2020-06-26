@@ -14,6 +14,10 @@ add_executable(compare_variants compare_variants.c)
 add_executable(record_introspection introspection/record.c)
 add_executable(choice_introspection introspection/choice.c)
 
+add_executable(maybe maybe.c)
+add_executable(either either.c)
+add_executable(pair pair.c)
+
 if(UNIX)
   add_executable(message_passing message_passing.c)
   target_link_libraries(message_passing libdill.a pthread)
@@ -36,4 +40,7 @@ set_target_properties(
   compare_variants
   record_introspection
   choice_introspection
+  maybe
+  either
+  pair
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)

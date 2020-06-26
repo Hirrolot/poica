@@ -46,7 +46,7 @@
 
 #define POICA_P_PAIR_DEF(fst_type, snd_type)                                   \
     record(POICA_P_PAIR(fst_type, snd_type),                                   \
-           field(fst, fst_type) variant(snd, snd_type))
+           field(fst, fst_type) field(snd, snd_type))
 
 #define POICA_P_PAIR(fst_type, snd_type)                                       \
     POICA_P_MONOMORPHIZE(Pair, fst_type, snd_type)

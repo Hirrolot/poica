@@ -20,6 +20,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
+ - [Built-in ADTs](#builtin-adts)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -338,6 +339,26 @@ But why this is better than `int` error codes? Because of:
 ADTs even have advantages over exceptions: they do not perform transformations with a program stack, since they are just values with no implicit logic that can hurt performance.
 
 See [`examples/error_handling.c`](examples/error_handling.c) as an example of error handling using ADTs.
+
+## Built-in ADTs
+
+poica provides four generic ADTs: `Maybe`, `Either`, `Pair`, and `Res`. The last one has been presented in the previous section. All these types share the common API:
+
+```c
+// Generate a definition of an ADT.
+DefX(T1, ..., Tn);
+
+// Generate a type name.
+X(T1, ..., Tn) = ...;
+```
+
+ - `Maybe` is a value, which is either exists or does not ([example](examples/maybe.c)).
+ - `Either` is a value, which is either this or that ([example](examples/either.c)).
+ - `Pair` is a pair of elements ([example](examples/pair.c)).
+
+### Either
+
+### Pair
 
 ## Roadmap
 
