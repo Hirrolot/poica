@@ -409,4 +409,4 @@ A: Initially poica was born as my experiment of what's possible in plain C.
 
 Q: How to resolve name collisions?
 
-A: `#define POICA_USE_PREFIX` before `#include <poica.h>`. All the public `camelCase`ed macros will be prefixed with `poica` (`match` -> `poicaMatch`, `choice` -> `poicaChoice`, ...). Note that you don't need to define `POICA_USE_PREFIX` in all your files, instead you can use it only in files that cause conflicts with other code.
+A: `#define POICA_USE_PREFIX` before `#include <poica.h>`. All the public `camelCase`ed and `PascalCase`ed macros will be prefixed with `poica` (`match` -> `poicaMatch`, `DefRes` -> `PoicaDefRes`, ...). Note that you don't need to define `POICA_USE_PREFIX` in all your files, instead you can use it only in files that cause conflicts with other code.
