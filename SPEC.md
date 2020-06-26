@@ -290,6 +290,18 @@ Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `v
 
 [unnamed object]: https://en.cppreference.com/w/c/language/compound_literal
 
+### `Unit`, `unit`
+
+`Unit` is a [unit type], i.e. a type that allows the only one value, `unit`, which is defined as follows:
+
+```c
+static const Unit unit;
+```
+
+
+
+[unit type]: https://en.wikipedia.org/wiki/Unit_type
+
 ## Cautions
 
 Make sure that expressions of a sum type, passed to macros, produce no side effects and/or performs heavy computations. You'd better first place `<expr>` into a variable, and then pass this variable into `match` and other similar macros:
