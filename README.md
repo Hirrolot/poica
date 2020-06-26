@@ -342,7 +342,7 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 ## Built-in ADTs
 
-poica provides four generic ADTs: `Maybe`, `Either`, `Pair`, and `Res`. The last one has been presented in the previous section. All these types share the common API:
+poica provides four generic ADTs: `Maybe` (an optional value), `Either` (either this value or that), `Pair` (a pair of elements), and `Res`. The last one has been presented in the previous section. All these types share the common API:
 
 ```c
 // Generate a definition of an ADT.
@@ -352,9 +352,7 @@ DefX(T1, ..., Tn);
 X(T1, ..., Tn) = ...;
 ```
 
- - `Maybe` is a value, which is either exists or does not ([example](examples/maybe.c)).
- - `Either` is a value, which is either this or that ([example](examples/either.c)).
- - `Pair` is a pair of elements ([example](examples/pair.c)).
+And the utility functions can be found in the [specification], and [examples](examples) exist as well.
 
 ### Either
 
