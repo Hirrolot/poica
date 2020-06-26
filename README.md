@@ -20,7 +20,7 @@ This library provides [algebraic data types], [type introspection], and [pattern
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
- - [Built-in ADTs](#builtin-adts)
+ - [Built-in ADTs](#built-in-adts)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -342,14 +342,14 @@ See [`examples/error_handling.c`](examples/error_handling.c) as an example of er
 
 ## Built-in ADTs
 
-poica provides four generic ADTs:
+| ADT | Description | Example |
+|-----|-------------|---------|
+| `Maybe` | An optional value | [`examples/maybe.c`](examples/maybe.c) |
+| `Either` | Either this value or that | [`examples/either.c`](examples/either.c) |
+| `Pair` | A pair of elements | [`examples/pair.c`](examples/pair.c) |
+| `Res` | Either a successful or a failure value | [`examples/error_handling.c`](examples/error_handling.c) |
 
- - `Maybe` (an optional value)
- - `Either` (either this value or that)
- - `Pair` (a pair of elements)
- - `Res` (either a successful or a failure value)
-
-The last one has been presented in the previous section. All these types share the common API:
+The last one has been presented in the previous section. All these generic types share the common API:
 
 ```c
 // Generate a definition of an ADT.
@@ -359,7 +359,7 @@ DefX(T1, ..., Tn);
 X(T1, ..., Tn) = ...;
 ```
 
-The utility functions can be found in the [specification], and [examples](examples) exist as well.
+The utility functions can be found in the [specification].
 
 ## Roadmap
 
