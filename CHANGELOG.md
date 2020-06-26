@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - unreleased
 ### Changed
  - Move the specification, changelog, code style, and contributing documents from the wiki into the file tree.
- - The `try` macro.
+ - Make the `try` macro more convenient for handling `Res`: now it accepts `ok-type-1`, `ok-type-2`, and `err-type`.
 
 ### Added
- - `Res`, `Either`, `Maybe`, `Pair`.
- - `Unit` (type)  and `unit` (a static constant value of type `Unit`).
+ - `Res`, `DefRes`, `Ok`, `Err`, `isOk`, `isErr`
+ - `Either`, `DefEither`, `Left`, `Right`, `isLeft`, `isRight`
+ - `Maybe`, `DefMaybe`, `Just`, `Nothing`, `isJust`, `isNothing`
+ - `Pair`, `DefPair`
+ - `Unit` (type)  and `unit` (a static constant value of type `Unit`)
 
 ### Removed
  - The wiki.
