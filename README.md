@@ -363,8 +363,6 @@ The utility functions can be found in the [specification].
 
 ## Roadmap
 
- - Add built-in ADTs and operations with them: `Res`, `Maybe`, `Either`, `Pair`.
- - Change the interface of the `try` macro to make it more convenient for working with `Res`.
  - Allow specifying attributes on ADTs and their items (probably a breaking change).
  - Add several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1)).
  - Add a library for type-driven JSON (de)serialization (see [serde-json]).
