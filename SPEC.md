@@ -54,15 +54,27 @@ product-field-names-tuple = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
 
 def-maybe-type            = "DefMaybe(" type ");" ;
 maybe-type                = "Maybe(" type ")" ;
+vconstr-just              = "Just(" type ")" ;
+vconstr-nothing           = "Nothing(" type ")" ;
+is-just                   = "isJust(" type ")" ;
+is-nothing                = "isNothing(" type ")" ;
 
-def-either-type            = "DefEither(" left-type "," right-type ");" ;
-either-type                = "Either(" left-type "," right-type  ")" ;
+def-either-type           = "DefEither(" left-type "," right-type ");" ;
+either-type               = "Either(" left-type "," right-type  ")" ;
+vconstr-left              = "Left(" left-type "," right-type ")" ;
+vconstr-right             = "Right(" left-type "," right-type ")" ;
+is-left                   = "isLeft(" left-type "," right-type ")" ;
+is-right                  = "isRight(" left-type "," right-type ")" ;
 
 def-pair-type            = "DefPair(" fst-type "," snd-type ");" ;
 pair-type                = "Pair(" fst-type "," snd-type  ")" ;
 
-def-res-type            = "DefRes(" ok-type "," err-type ");" ;
-res-type                = "Res(" ok-type "," err-type  ")" ;
+def-res-type             = "DefRes(" ok-type "," err-type ");" ;
+res-type                 = "Res(" ok-type "," err-type  ")" ;
+vconstr-ok               = "Ok(" ok-type "," err-type ")" ;
+vconstr-err              = "Err(" ok-type "," err-type ")" ;
+is-ok                    = "isOk(" ok-type "," err-type ")" ;
+is-err                   = "isErr(" ok-type "," err-type ")" ;
 
 (* Miscellaneous *)
 
