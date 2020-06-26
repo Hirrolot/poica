@@ -285,6 +285,80 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 (<f1>, ..., <fm>)
 ```
 
+### `Maybe`
+
+`DefMaybe` expands to:
+
+```c
+choice(
+    Maybe(<type>),
+    variant(Just(<type>), <type>)
+    variant(Nothing(<type>))
+);
+
+
+inline static bool isJust(<type>)(Maybe(<type>) maybe) { ... }
+inline static bool isNothing(<type>)(Maybe(<type>) maybe) { ... }
+```
+
+ - `Maybe(<type>)` expands to a name of a monomorphized `Maybe` type.
+ - `Just(<type>)` and `Nothing(<type>)` expand to names of value constructors. The first one accepts a value of type `<type>`, the latter constructs an empty `Maybe`.
+ - `isJust(<type>)` and `isNothing(<type>)` expand to names of functions that test whether the provided `Maybe` is `Just(<type>)` or `Nothing(<type>)`, respectively.
+
+### `Either`
+
+`DefEither` expands to:
+
+```c
+choice(
+    Either(<left-type>, <right-type>),
+    variant(Left(<left-type>, <right-type>), <left-type>)
+    variant(Right(<left-type>, <right-type>), <right-type>)
+);
+
+
+inline static bool isLeft(<left-type>, <right-type>)(Either(<left-type, right-type>) either) { ... }
+inline static bool isRight(<left-type>, <right-type>)(Either(<left-type, right-type>) either) { ... }
+```
+
+ - `Either(<left-type>, <right-type>)` expands to a name of a monomorphized `Either` type.
+ - `Left(<left-type>, <right-type>)` and `Right(<left-type>, <right-type>)` expand to names of value constructors. They accept values of `<left-type>` and `<right-type>` and construct the appropriate variants of `Either`, respectively.
+ - `isLeft(<left-type>, <right-type>)` and `isRight(<left-type>, <right-type>)` expand to names of functions that test whether the provided `Either` is `Left(<left-type>, <right-type>)` or `Right(<left-type>, <right-type>)`, respectively.
+
+### `Pair`
+
+`DefPair` expands to:
+
+```c
+record(
+    Pair(<fst-type>, <snd-type>)
+    field(fst, <fst-type>)
+    field(snd, <snd-type>)
+);
+```
+
+ - `Pair(<fst-type>, <snd-type>)` expands to a name of a monomorphized `Pair` type.
+
+### `Res`
+
+`DefRes` expands to:
+
+```c
+choice(
+    Res(<ok-type>, <err-type>),
+    variant(Ok(<ok-type>, <err-type>), <ok-type>)
+    variant(Err(<ok-type>, <err-type>), <err-type>)
+);
+
+
+inline static bool isOk(<ok-type>, <right-type>)(Res(<ok-type, err-type>) res) { ... }
+inline static bool isErr(<ok-type>, <right-type>)(Res(<ok-type, err-type>) res) { ... }
+```
+
+ - `Res(<ok-type>, <err-type>)` expands to a name of a monomorphized `Res` type.
+ - `Ok(<ok-type>, <err-type>)` and `Err(<ok-type>, <err-type>)` expand to names of value constructors. They accept values of `<ok-type>` and `<err-type>` and construct the appropriate variants of `Res`, respectively.
+ - `isOk(<ok-type>, <err-type>)` and `isErr(<ok-type>, <err-type>)` expand to names of functions that test whether the provided `Res` is `Ok(<ok-type>, <err-type>)` or `Err(<ok-type>, <err-type>)`, respectively.
+
 ### `obj`
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.
 
@@ -297,8 +371,6 @@ Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `v
 ```c
 static const Unit unit;
 ```
-
-
 
 [unit type]: https://en.wikipedia.org/wiki/Unit_type
 
