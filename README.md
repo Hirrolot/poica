@@ -354,10 +354,6 @@ X(T1, ..., Tn) = ...;
 
 And the utility functions can be found in the [specification], and [examples](examples) exist as well.
 
-### Either
-
-### Pair
-
 ## Roadmap
 
  - Add built-in ADTs and operations with them: `Res`, `Maybe`, `Either`, `Pair`.
