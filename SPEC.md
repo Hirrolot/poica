@@ -13,7 +13,7 @@ variant-tag               = "variantTag(" expr ")" ;
 match                     = "match(" expr ")" "{" { of compound-statement }+ "}" [ otherwise ] ;
 matches                   = "matches(" expr "," identifier ")" ;
 
-try                       = "try(" expr "," case-variant-name "," return-variant-name ");" ;
+try                       = "try(" expr "," ok-type-1 "," ok-type-2 "," err-type ");" ;
 
 of                        = "of(" identifier ")"
                           | "of(" identifier "," identifier ")"
@@ -66,15 +66,15 @@ vconstr-right             = "Right(" left-type "," right-type ")" ;
 is-left                   = "isLeft(" left-type "," right-type ")" ;
 is-right                  = "isRight(" left-type "," right-type ")" ;
 
-def-pair-type            = "DefPair(" fst-type "," snd-type ");" ;
-pair-type                = "Pair(" fst-type "," snd-type  ")" ;
+def-pair-type             = "DefPair(" fst-type "," snd-type ");" ;
+pair-type                 = "Pair(" fst-type "," snd-type  ")" ;
 
-def-res-type             = "DefRes(" ok-type "," err-type ");" ;
-res-type                 = "Res(" ok-type "," err-type  ")" ;
-vconstr-ok               = "Ok(" ok-type "," err-type ")" ;
-vconstr-err              = "Err(" ok-type "," err-type ")" ;
-is-ok                    = "isOk(" ok-type "," err-type ")" ;
-is-err                   = "isErr(" ok-type "," err-type ")" ;
+def-res-type              = "DefRes(" ok-type "," err-type ");" ;
+res-type                  = "Res(" ok-type "," err-type  ")" ;
+vconstr-ok                = "Ok(" ok-type "," err-type ")" ;
+vconstr-err               = "Err(" ok-type "," err-type ")" ;
+is-ok                     = "isOk(" ok-type "," err-type ")" ;
+is-err                    = "isErr(" ok-type "," err-type ")" ;
 
 (* Miscellaneous *)
 
@@ -164,8 +164,8 @@ Expands to:
 
 ```c
 match(<expr>) {
-    of(<case-variant-name>, val) {
-        return <return-variant-name>(*val);
+    of(Err(<ok-type-1>, <err-type>), err) {
+        return Err(<ok-type-2>, <err-type>)(*err);
     }
     otherwise {}
 }
