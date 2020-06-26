@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `Either`, `DefEither`, `Left`, `Right`, `isLeft`, `isRight`
  - `Maybe`, `DefMaybe`, `Just`, `Nothing`, `isJust`, `isNothing`
  - `Pair`, `DefPair`
+ - `examples/pair.c`, `examples/maybe.c`, `examples/either.c`
  - `Unit` (type)  and `unit` (a static constant value of type `Unit`)
 
 ### Removed
