@@ -50,9 +50,26 @@ field-name                = "POICA_FIELD_NAME(" field ")" ;
 product-field-names-seq   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
 product-field-names-tuple = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
 
+(* Built-in ADTs *)
+
+def-maybe-type            = "DefMaybe(" type ");" ;
+maybe-type                = "Maybe(" type ")" ;
+
+def-either-type            = "DefEither(" left-type "," right-type ");" ;
+either-type                = "Either(" left-type "," right-type  ")" ;
+
+def-pair-type            = "DefPair(" fst-type "," snd-type ");" ;
+pair-type                = "Pair(" fst-type "," snd-type  ")" ;
+
+def-res-type            = "DefRes(" ok-type "," err-type ");" ;
+res-type                = "Res(" ok-type "," err-type  ")" ;
+
 (* Miscellaneous *)
 
 obj                       = "obj(" value "," value-type ")" ;
+
+unit-type                 = "Unit" ;
+unit-value                = "unit" ;
 ```
 
 ## Semantics
