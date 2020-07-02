@@ -70,11 +70,11 @@ This problem is often addressed via `void *` in C. However, it has two big disad
  - `void *` types could be confused with each other;
  - Not self-documenting.
 
-poica implements generic types via a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
+poica uses a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
 
 ### Usage
 
-Below is a trivial implementation of a generic [linked list]. There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
+Below is a trivial implementation of a generic [linked list]:
 
 [linked list]: https://en.wikipedia.org/wiki/Linked_list
 
@@ -141,6 +141,8 @@ int main(void) {
     listFree(int)(list);
 }
 ```
+
+There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
 
 ## ADTs
 
