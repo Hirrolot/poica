@@ -82,6 +82,8 @@ obj                       = "obj(" value "," value-type ")" ;
 
 unit-type                 = "Unit" ;
 unit-value                = "unit" ;
+
+monomorphise              = "POICA_MONOMORPHISE(" ( identifier | identifier { "," identifier }+ ) ")"
 ```
 
 ## Semantics
@@ -385,6 +387,16 @@ static const Unit unit;
 ```
 
 [unit type]: https://en.wikipedia.org/wiki/Unit_type
+
+### `POICA_MONOMORPHISE`
+
+Concatenates all the provided identifiers, thereby producing a name of a monomorphised software entity. Example:
+
+```
+POICA_MONOMORPHISE(a, b, c) ==> abc
+```
+
+Note that even if we provide different types, this macro may produce the same identifier: `POICA_MONOMORPHISE(a, aa)` is the same as `POICA_MONOMORPHISE(aa, a)`. However, this behavior occurs almost never, and a compiler must generate a compilation error.
 
 ## Cautions
 
