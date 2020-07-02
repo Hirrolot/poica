@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
  - `POICA_MONOMORPHISE`
+ - `POICA_FORCE_SEMICOLON`
 
 ### Fixed
  - Add prefixed versions `PoicaUnit` and `poicaUnit`.
