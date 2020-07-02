@@ -504,7 +504,7 @@ A:
 
  - Scary macro errors, describing consequences, not causes.
  
- - [Macro blueprinting]. It occurs typically in advanced metaprogramming, but nevertheless, it can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
+ - [Macro blueprinting]. It occurs typically in advanced metaprogramming and can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
 
 [Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
 
