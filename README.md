@@ -502,7 +502,7 @@ Q: Any pitfalls?
 
 A:
 
- - Scary macro errors, describing consequences, not causes. However, in user code they can be solved by just carefully looking at line numbers that trigger an error.
+ - Scary macro errors, describing consequences, not causes.
  
  - [Macro blueprinting]. It occurs typically in advanced metaprogramming, but nevertheless, it can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
 
