@@ -8,20 +8,25 @@ This library exports [type-driven development] to plain C11.
 [type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
 
 ## Table of contents
+ - [Motivation](#motivation)
  - [Features](#features)
  - [Installation](#installation)
  - [ADTs](#adts)
-   - [Motivation](#motivation)
+   - [Motivation](#motivation-1)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
-   - [Motivation](#motivation-1)
+   - [Motivation](#motivation-2)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
+
+## Motivation
+
+...
 
 ## Features
  - C11-compliant
