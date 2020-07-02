@@ -407,7 +407,7 @@ POICA_MONOMORPHISE(fnPtr, abc) ==> fnPtrabc
 
 ## Cautions
 
-Make sure that expressions of a sum type, passed to macros, produce no side effects and/or performs heavy computations. You'd better first place `<expr>` into a variable, and then pass this variable into `match` and other similar macros:
+ - Make sure that expressions of a sum type, passed to macros, produce no side effects and/or performs heavy computations. You'd better first place `<expr>` into a variable, and then pass this variable into `match` and other similar macros:
 
 ```c
 MySumType var = <expr>;
@@ -419,3 +419,6 @@ Do **NOT** do this:
 ```c
 match(<cpu-bound-or-io-expr>) { ... }
 ```
+
+ - All the generic types inherit the edge-cases of [`POICA_MONOMORPHISE`](#poica_monomorphise).
+ 
