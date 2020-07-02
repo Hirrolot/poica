@@ -31,7 +31,7 @@ This library exports [type-driven development] to plain C11.
 
 Programming (especially in C!) is notoriously error-prone. The bad thing is that a part of the programmer's mistakes is usually detected during testing, and another part goes to production, leaving our users with improperly working devices and making business lose money.
 
-The good news are that some kinds of mistakes can be detected during compilation, thereby:
+The good news are that many kinds of mistakes can be detected during compilation, thereby:
 
  - Improving safety of our software;
  - Increasing execution speed by eliminating run-time assertions.
