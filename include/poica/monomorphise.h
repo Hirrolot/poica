@@ -26,6 +26,8 @@
 #ifndef POICA_MONOMORPHISE_H
 #define POICA_MONOMORPHISE_H
 
+#include <boost/preprocessor.hpp>
+
 #define POICA_MONOMORPHISE(...)                                                \
     BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
 
