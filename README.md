@@ -29,7 +29,14 @@ This library exports [type-driven development] to plain C11.
 
 ## Motivation
 
-...
+Programming (especially in C!) is notoriously error-prone. The bad thing is that a part of the programmer's mistakes is usually detected during testing, and another part goes to production, leaving our users with improperly working devices and making business lose money.
+
+The good news are that some kinds of mistakes can be detected during compilation, thereby:
+
+ - Improving safety of our software;
+ - Increasing execution speed by eliminating run-time assertions.
+
+Powerful type systems are good for this, because they limit ranges of values that can be assigned to variables. Unfortunately, C has a very weak type system, which is unable to express most of business logic constraints between communicating software components. To resolve the situation, poica imitates various features from modern type systems via the macro system of C. The further explanations and examples will convey the key ideas to you!
 
 ## Features
  - C11-compliant
