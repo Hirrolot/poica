@@ -26,7 +26,7 @@
 #ifndef POICA_CHOICE_H
 #define POICA_CHOICE_H
 
-#include <poica/private/force_semicolon.h>
+#include <poica/force_semicolon.h>
 
 #include <poica/record/field.h>
 
@@ -65,6 +65,6 @@
     POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE(name, variants)  \
     POICA_P_CHOICE_GEN_VCONSTRS(name, variants)                                \
                                                                                \
-    POICA_P_FORCE_SEMICOLON
+    POICA_FORCE_SEMICOLON
 
 #endif // POICA_CHOICE_H

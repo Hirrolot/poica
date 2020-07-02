@@ -26,8 +26,8 @@
 #ifndef POICA_BUILTIN_RES_H
 #define POICA_BUILTIN_RES_H
 
+#include <poica/force_semicolon.h>
 #include <poica/monomorphise.h>
-#include <poica/private/force_semicolon.h>
 
 #include <poica/choice.h>
 
@@ -72,7 +72,7 @@
         return POICA_P_MATCHES(res, POICA_P_RES_ERR(ok_type, err_type));       \
     }                                                                          \
                                                                                \
-    POICA_P_FORCE_SEMICOLON
+    POICA_FORCE_SEMICOLON
 
 #define POICA_P_RES(ok_type, err_type)                                         \
     POICA_MONOMORPHISE(Res, ok_type, err_type)

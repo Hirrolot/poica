@@ -23,11 +23,11 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_FORCE_SEMICOLON_H
-#define POICA_PRIVATE_FORCE_SEMICOLON_H
+#ifndef POICA_FORCE_SEMICOLON_H
+#define POICA_FORCE_SEMICOLON_H
 
 #include <assert.h>
 
-#define POICA_P_FORCE_SEMICOLON static_assert(true, "")
+#define POICA_FORCE_SEMICOLON static_assert(true, "")
 
-#endif // POICA_PRIVATE_FORCE_SEMICOLON_H
+#endif // POICA_FORCE_SEMICOLON_H
