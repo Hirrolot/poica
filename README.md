@@ -15,6 +15,7 @@ This library exports [type-driven development] to plain C11.
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
+   - [Motivation](#motivation-1)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
@@ -225,6 +226,13 @@ user.balance *= 2;
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 [type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
+### Motivation
+
+Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. With type introspection it is possible to achieve [type-driven (de)serialization], [type-driven command-line arguments parsing] and more such things (planned!).
+
+[type-driven (de)serialization]: https://github.com/serde-rs/json
+[type-driven command-line arguments parsing]: https://github.com/clap-rs/clap
+
 ### Sum types
 
 [[`examples/introspection/choice.c`](examples/introspection/choice.c)]
@@ -298,12 +306,6 @@ That is, the metainformation about types is actually a [sequence] in the terms o
 [sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
 [`BOOST_PP_SEQ_*` macros]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/headers/seq.html
-
-With type introspection it is possible to achieve [type-driven (de)serialization], [declarative command-line arguments parsing], the [decorator pattern] and more such things.
-
-[type-driven (de)serialization]: https://github.com/serde-rs/json
-[declarative command-line arguments parsing]: https://github.com/clap-rs/clap
-[decorator pattern]: https://en.wikipedia.org/wiki/Decorator_pattern
 
 ## Safe, consistent error handling
 
