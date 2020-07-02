@@ -3,17 +3,15 @@
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
 [![docs](https://img.shields.io/badge/docs-SPEC.md-blue)](SPEC.md)
 
-This library provides [algebraic data types], [type introspection], and [pattern matching] for pure C11. They have tremendous amount of applications to real-world programming, including:
+This library exports [type-driven development] to plain C11.
 
- - [Safe, consistent error handling](#safe-consistent-error-handling)
- - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
- - Concurrency: [message passing](examples/message_passing.c)
+[type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
 
 ## Table of contents
  - [Features](#features)
  - [Installation](#installation)
- - [Motivation](#motivation)
  - [ADTs](#adts)
+   - [Motivation](#motivation)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
@@ -49,7 +47,17 @@ Alternatively, [Boost/Preprocessor] can be downloaded and then installed from it
 
 Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
 
-## Motivation
+## ADTs
+
+[**ADT**s (**A**lgebraic **D**ata **T**ypes)] have tremendous amount of applications to real-world programming, including:
+
+ - [Safe, consistent error handling](#safe-consistent-error-handling)
+ - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
+ - Concurrency: [message passing](examples/message_passing.c)
+
+[**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
+
+### Motivation
 
 Usually in C we use unions to tell a compiler that we're going to interpret a single memory region in different ways. To decide how to interpret a union, we endow it with a tag and get a [tagged union].
 
@@ -99,15 +107,12 @@ OurTaggedUnion res2 = MkState3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
 
-## ADTs
-
-[**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
+ADTs provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
 Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
 [Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
 
-[**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
 
 [tagged union]: https://en.wikipedia.org/wiki/Tagged_union
@@ -393,7 +398,7 @@ A:
 
 [Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
 
-Q: Why they are called algebraic?
+Q: Why ADTs are algebraic?
 
 A: Read ["The algebra (and calculus!) of algebraic data types"](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
 
