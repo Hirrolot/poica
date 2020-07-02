@@ -26,7 +26,7 @@
 #ifndef POICA_BUILTIN_PAIR_H
 #define POICA_BUILTIN_PAIR_H
 
-#include <poica/private/monomorphize.h>
+#include <poica/monomorphise.h>
 
 #include <poica/record.h>
 
@@ -49,6 +49,6 @@
            field(fst, fst_type) field(snd, snd_type))
 
 #define POICA_P_PAIR(fst_type, snd_type)                                       \
-    POICA_P_MONOMORPHIZE(Pair, fst_type, snd_type)
+    POICA_MONOMORPHISE(Pair, fst_type, snd_type)
 
 #endif // POICA_BUILTIN_PAIR_H

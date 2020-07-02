@@ -28,6 +28,7 @@
 
 #include <poica/builtin.h>
 #include <poica/choice.h>
+#include <poica/monomorphise.h>
 #include <poica/obj.h>
 #include <poica/record.h>
 #include <poica/unit.h>

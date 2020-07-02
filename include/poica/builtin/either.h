@@ -26,8 +26,8 @@
 #ifndef POICA_BUILTIN_EITHER_H
 #define POICA_BUILTIN_EITHER_H
 
+#include <poica/monomorphise.h>
 #include <poica/private/force_semicolon.h>
-#include <poica/private/monomorphize.h>
 
 #include <poica/choice.h>
 
@@ -80,16 +80,16 @@
     POICA_P_FORCE_SEMICOLON
 
 #define POICA_P_EITHER(left_type, right_type)                                  \
-    POICA_P_MONOMORPHIZE(Either, left_type, right_type)
+    POICA_MONOMORPHISE(Either, left_type, right_type)
 
 #define POICA_P_EITHER_LEFT(left_type, right_type)                             \
-    POICA_P_MONOMORPHIZE(EitherLeft, left_type, right_type)
+    POICA_MONOMORPHISE(EitherLeft, left_type, right_type)
 #define POICA_P_EITHER_RIGHT(left_type, right_type)                            \
-    POICA_P_MONOMORPHIZE(EitherRight, left_type, right_type)
+    POICA_MONOMORPHISE(EitherRight, left_type, right_type)
 
 #define POICA_P_EITHER_IS_LEFT(left_type, right_type)                          \
-    POICA_P_MONOMORPHIZE(eitherIsLeft, left_type, right_type)
+    POICA_MONOMORPHISE(eitherIsLeft, left_type, right_type)
 #define POICA_P_EITHER_IS_RIGHT(left_type, right_type)                         \
-    POICA_P_MONOMORPHIZE(eitherIsRight, left_type, right_type)
+    POICA_MONOMORPHISE(eitherIsRight, left_type, right_type)
 
 #endif // POICA_BUILTIN_EITHER_H

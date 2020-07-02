@@ -26,8 +26,8 @@
 #ifndef POICA_BUILTIN_MAYBE_H
 #define POICA_BUILTIN_MAYBE_H
 
+#include <poica/monomorphise.h>
 #include <poica/private/force_semicolon.h>
-#include <poica/private/monomorphize.h>
 
 #include <poica/choice.h>
 
@@ -74,12 +74,11 @@
                                                                                \
     POICA_P_FORCE_SEMICOLON
 
-#define POICA_P_MAYBE(type)         POICA_P_MONOMORPHIZE(Maybe, type)
-#define POICA_P_MAYBE_JUST(type)    POICA_P_MONOMORPHIZE(MaybeJust, type)
-#define POICA_P_MAYBE_NOTHING(type) POICA_P_MONOMORPHIZE(MaybeNothing, type)
+#define POICA_P_MAYBE(type)         POICA_MONOMORPHISE(Maybe, type)
+#define POICA_P_MAYBE_JUST(type)    POICA_MONOMORPHISE(MaybeJust, type)
+#define POICA_P_MAYBE_NOTHING(type) POICA_MONOMORPHISE(MaybeNothing, type)
 
-#define POICA_P_MAYBE_IS_JUST(type) POICA_P_MONOMORPHIZE(maybeIsJust, type)
-#define POICA_P_MAYBE_IS_NOTHING(type)                                         \
-    POICA_P_MONOMORPHIZE(maybeIsNothing, type)
+#define POICA_P_MAYBE_IS_JUST(type)    POICA_MONOMORPHISE(maybeIsJust, type)
+#define POICA_P_MAYBE_IS_NOTHING(type) POICA_MONOMORPHISE(maybeIsNothing, type)
 
 #endif // POICA_BUILTIN_MAYBE_H
