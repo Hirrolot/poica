@@ -494,7 +494,7 @@ A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
 Q: Is it production-ready?
 
-A: You can already use it in production if you're ok with the pitfalls, described in the answer below.
+A: Definitely not; poica is just my experiment. If you are concerned with the safety of your application, you'd better look at [Frama-C](https://frama-c.com/download/acsl-tutorial.pdf)/[Rust](https://www.rust-lang.org/).
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
 
