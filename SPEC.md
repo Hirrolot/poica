@@ -84,6 +84,7 @@ unit-type                 = "Unit" ;
 unit-value                = "unit" ;
 
 monomorphise              = "POICA_MONOMORPHISE(" ( identifier | identifier { "," identifier }+ ) ")"
+force-semicolon           = "POICA_FORCE_SEMICOLON"
 ```
 
 ## Semantics
@@ -404,6 +405,16 @@ Another edge-case is that `POICA_MONOMORPHISE` doesn't handle special characters
 typedef int (*fnPtr)(int, int);
 POICA_MONOMORPHISE(fnPtr, abc) ==> fnPtrabc
 ```
+
+### `POICA_FORCE_SEMICOLON`
+
+`POICA_FORCE_SEMICOLON` forces a user to put a semicolon after itself. One of its use cases is a semicolon after a data type definition:
+
+```c
+DefMyDataType(...);
+```
+
+See [`examples/generic_linked_list.c`](https://github.com/Hirrolot/poica/blob/master/examples/generic_linked_list.c) as an example.
 
 ## Cautions
 
