@@ -17,3 +17,5 @@ cd examples/build
 ./maybe
 ./either
 ./pair
+
+./generic_linked_list

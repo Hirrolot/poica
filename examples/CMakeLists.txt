@@ -18,6 +18,8 @@ add_executable(maybe maybe.c)
 add_executable(either either.c)
 add_executable(pair pair.c)
 
+add_executable(generic_linked_list generic_linked_list.c)
+
 if(UNIX)
   add_executable(message_passing message_passing.c)
   target_link_libraries(message_passing libdill.a pthread)
@@ -43,4 +45,5 @@ set_target_properties(
   maybe
   either
   pair
+  generic_linked_list
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
