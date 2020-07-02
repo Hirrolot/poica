@@ -398,6 +398,13 @@ POICA_MONOMORPHISE(a, b, c) ==> abc
 
 Note that even if we provide different types, this macro may produce the same identifier: `POICA_MONOMORPHISE(a, aa)` is the same as `POICA_MONOMORPHISE(aa, a)`. However, this behavior occurs almost never, and a compiler must generate a compilation error.
 
+Another edge-case is that `POICA_MONOMORPHISE` doesn't handle special characters and whitespaces, for example, `int *`, `int (*fnPtr)(int, int)` and so on. Instead you can use `typedef`s:
+
+```c
+typedef int (*fnPtr)(int, int);
+POICA_MONOMORPHISE(fnPtr, abc) ==> fnPtrabc
+```
+
 ## Cautions
 
 Make sure that expressions of a sum type, passed to macros, produce no side effects and/or performs heavy computations. You'd better first place `<expr>` into a variable, and then pass this variable into `match` and other similar macros:
