@@ -498,10 +498,6 @@ A: Definitely not; poica is just my experiment. If you are concerned with the sa
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
 
-Q: Why did you created this project?
-
-A: Initially poica was born as my experiment of what's possible in plain C.
-
 Q: Any pitfalls?
 
 A:
