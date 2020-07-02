@@ -498,6 +498,10 @@ A: Definitely not; poica is just my experiment. If you are concerned with the sa
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
 
+Q: Why did you created this project?
+
+A: Initially poica was born as my experiment of what's possible in plain C.
+
 Q: Any pitfalls?
 
 A:
@@ -511,10 +515,6 @@ A:
 Q: Why ADTs are algebraic?
 
 A: Read ["The algebra (and calculus!) of algebraic data types"](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
-
-Q: Why did you created this project?
-
-A: Initially poica was born as my experiment of what's possible in plain C.
 
 Q: How to resolve name collisions?
 
