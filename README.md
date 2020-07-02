@@ -329,7 +329,7 @@ Sometimes it's desirable not to only declare new data types, but also to introsp
  - [Type-driven (de)serialization]
  - [Type-driven command-line arguments parsing]
 
-And more such things (planned!).
+And more (planned!).
 
 [type-driven (de)serialization]: https://github.com/serde-rs/json
 [type-driven command-line arguments parsing]: https://github.com/clap-rs/clap
