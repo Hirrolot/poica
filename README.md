@@ -11,12 +11,15 @@ This library exports [type-driven development] to plain C11.
  - [Motivation](#motivation)
  - [Features](#features)
  - [Installation](#installation)
- - [ADTs](#adts)
+ - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
+   - [Usage](#usage)
+ - [ADTs](#adts)
+   - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
-   - [Motivation](#motivation-2)
+   - [Motivation](#motivation-3)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
@@ -52,6 +55,92 @@ sudo bash scripts/install_boost_pp.sh
 Alternatively, [Boost/Preprocessor] can be downloaded and then installed from its [official releases](https://github.com/boostorg/preprocessor/releases).
 
 Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
+
+## Type-generic programming
+
+[Type-generic programming] is a way to abstract over concrete data types: instead of writing the same function or data structure each time for concrete types, you write it _generically_, allowing specific types to be substituted later.
+
+[Type-generic programming]: https://en.wikipedia.org/wiki/Generic_programming
+
+### Motivation
+
+This problem is often addressed via `void *` in C. However, it has two big disadvantages:
+
+ - A compiler is unable to perform type-specific optimisations;
+ - `void *` types could be confused with each other;
+ - Not self-documenting.
+
+poica implements generic types via a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
+
+### Usage
+
+Below is a trivial implementation of a generic [linked list]. There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
+
+[linked list]: https://en.wikipedia.org/wiki/Linked_list
+
+[[`examples/generic_linked_list.c`](examples/generic_linked_list.c)]
+```c
+
+#include <poica.h>
+
+#include <assert.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define DeclLinkedList(type)                                                   \
+    typedef struct LinkedList(type) {                                          \
+        type *data;                                                            \
+        struct LinkedList(type) * next;                                        \
+    }                                                                          \
+    LinkedList(type);                                                          \
+                                                                               \
+    static LinkedList(type) * listNew(type)(type item);                        \
+    static void listFree(type)(LinkedList(type) * list);                       \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define DefLinkedList(type)                                                    \
+    static LinkedList(type) * listNew(type)(type item) {                       \
+        LinkedList(type) *list = malloc(sizeof(type));                         \
+        assert(list);                                                          \
+                                                                               \
+        list->data = malloc(sizeof(type));                                     \
+        assert(list->data);                                                    \
+        memcpy(list->data, &item, sizeof(type));                               \
+        list->next = NULL;                                                     \
+                                                                               \
+        return list;                                                           \
+    }                                                                          \
+                                                                               \
+    static void listFree(type)(LinkedList(type) * list) {                      \
+        LinkedList(type) *node = list;                                         \
+                                                                               \
+        do {                                                                   \
+            free(node->data);                                                  \
+            LinkedList(type) *next_node = node->next;                          \
+            free(node);                                                        \
+            node = next_node;                                                  \
+        } while (node);                                                        \
+    }                                                                          \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define LinkedList(type) POICA_MONOMORPHISE(LinkedList, type)
+#define listNew(type)    POICA_MONOMORPHISE(listNew, type)
+#define listFree(type)   POICA_MONOMORPHISE(listFree, type)
+
+DeclLinkedList(int);
+DefLinkedList(int);
+
+int main(void) {
+    LinkedList(int) *list = listNew(int)(123);
+    list->next = listNew(int)(456);
+    list->next->next = listNew(int)(789);
+
+    listFree(int)(list);
+}
+```
 
 ## ADTs
 
