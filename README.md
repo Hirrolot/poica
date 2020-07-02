@@ -50,7 +50,20 @@ Since poica is a header-only library, feel free to copy necessary files to your 
 
 ## ADTs
 
-[**ADT**s (**A**lgebraic **D**ata **T**ypes)] have tremendous amount of applications to real-world programming, including:
+[**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
+
+Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
+
+[Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
+
+[algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
+
+[tagged union]: https://en.wikipedia.org/wiki/Tagged_union
+
+[Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
+[pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
+
+They have tremendous amount of applications to real-world programming, including:
 
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
@@ -107,19 +120,6 @@ OurTaggedUnion res1 = MkState2(123);
 OurTaggedUnion res2 = MkState3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
-
-ADTs provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
-
-Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
-
-[Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
-
-[algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
-
-[tagged union]: https://en.wikipedia.org/wiki/Tagged_union
-
-[Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
-[pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
 
 ### Sum types
 
