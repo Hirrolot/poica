@@ -324,7 +324,7 @@ user.balance *= 2;
 
 ### Motivation
 
-Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. With type introspection it is possible to achieve:
+Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. Type introspection makes possible such things as these:
 
  - [Type-driven (de)serialization]
  - [Type-driven command-line arguments parsing]
