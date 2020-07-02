@@ -1,4 +1,4 @@
-> WARNING: proof of concept. Do **NOT** rely on it.
+> WARNING: this is just my experiment I work on in my free time. Do **NOT** rely on it.
 
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
