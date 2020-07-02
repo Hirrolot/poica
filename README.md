@@ -324,7 +324,12 @@ user.balance *= 2;
 
 ### Motivation
 
-Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. With type introspection it is possible to achieve [type-driven (de)serialization], [type-driven command-line arguments parsing] and more such things (planned!).
+Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. With type introspection it is possible to achieve:
+
+ - [Type-driven (de)serialization]
+ - [Type-driven command-line arguments parsing]
+
+And more such things (planned!).
 
 [type-driven (de)serialization]: https://github.com/serde-rs/json
 [type-driven command-line arguments parsing]: https://github.com/clap-rs/clap
