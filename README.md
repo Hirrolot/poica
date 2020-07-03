@@ -480,6 +480,8 @@ The utility functions can be found in the [specification].
 
 ## Roadmap
 
+ - GADTs
+ - Higher-order abstract syntax
  - Allow specifying attributes on ADTs and their items (probably a breaking change).
  - Add several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1)).
  - Add a library for type-driven JSON (de)serialization (see [serde-json]).
