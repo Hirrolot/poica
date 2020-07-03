@@ -480,6 +480,7 @@ The utility functions can be found in the [specification].
 
 ## Roadmap
 
+ - Compile-time computational effects verification
  - GADTs
  - Higher-order abstract syntax
  - Allow specifying attributes on ADTs and their items (probably a breaking change).
