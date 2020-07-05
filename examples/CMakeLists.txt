@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
 include_directories(../include)
@@ -20,6 +20,7 @@ add_executable(pair pair.c)
 
 add_executable(generic_linked_list generic_linked_list.c)
 add_executable(swap_registers swap_registers.c)
+add_executable(int_bool_ast int_bool_ast.c)
 
 if(UNIX)
   add_executable(message_passing message_passing.c)
@@ -48,4 +49,5 @@ set_target_properties(
   pair
   generic_linked_list
   swap_registers
+  int_bool_ast
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
