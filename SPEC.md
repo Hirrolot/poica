@@ -222,7 +222,7 @@ Expands to:
 <variantN>
 ```
 
-And `<variant1>`, ..., `<variantN>` will then expand according to the [rules that variants expand](#variant).
+And `<variant1>`, ..., `<variantN>` will then expand according to the [rules that variants expand](#variant-variantmany).
 
 ### `POICA_VARIAND_KIND`, `POICA_VARIANT_NAME`
 
