@@ -36,14 +36,14 @@
 #define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
 #define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
 
-// The "Init type class.
+// The "Init" type class.
 
 #define declInit(type) static type init(type)(void)
 
 #define init(type) POICA_MONOMORPHISE(init, type)
 
 // Swap two registers.
-
+//
 // 'type' must implement Register and Init.
 #define declSwap(type) static void swap(type)(type * left, type * right)
 #define defSwap(type)                                                          \
