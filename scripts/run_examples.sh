@@ -19,3 +19,4 @@ cd examples/build
 ./pair
 
 ./generic_linked_list
+./swap_registers

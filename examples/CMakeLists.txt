@@ -19,6 +19,7 @@ add_executable(either either.c)
 add_executable(pair pair.c)
 
 add_executable(generic_linked_list generic_linked_list.c)
+add_executable(swap_registers swap_registers.c)
 
 if(UNIX)
   add_executable(message_passing message_passing.c)
@@ -46,4 +47,5 @@ set_target_properties(
   either
   pair
   generic_linked_list
+  swap_registers
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
