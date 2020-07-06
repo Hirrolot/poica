@@ -256,7 +256,7 @@ They have tremendous amount of applications to real-world programming, including
  - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
  - Concurrency: [message passing](examples/message_passing.c)
 
-[ADTs)]: https://en.wikipedia.org/wiki/Algebraic_data_type
+[ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
 
 ### Motivation
 
