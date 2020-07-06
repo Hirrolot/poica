@@ -16,6 +16,7 @@ This library exports [type-driven development] to plain C11.
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Usage](#usage)
+   - [Interfaces](#interfaces)
  - [ADTs](#adts)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
@@ -152,6 +153,87 @@ int main(void) {
 ```
 
 There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
+
+### Interfaces
+
+An interface declares a collection of procedures, which shall be defined by its implemetors. Interfaces can be used to achieve [ad-hoc polymorphism], by defining a [parametrically polymorphic] procedure with type constraints on a specific interface.
+
+For example, consider the `Register` interface with `load` and `store` operations:
+
+[ad-hoc polymorphism]: https://en.wikipedia.org/wiki/Ad_hoc_polymorphism
+[parametrically polymorphic]: https://en.wikipedia.org/wiki/Parametric_polymorphism
+
+[[`examples/swap_registers.c`](examples/swap_registers.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+#define declRegisterLoad(type) static type registerLoad(type)(const type *self)
+#define declRegisterStore(type)                                                \
+    static void registerStore(type)(type * self, const type *src)
+
+#define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
+#define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
+```
+
+And then we can define a [parametrically polymorphic] `swap` procedure, taking three pointers to some type, which implements `Register`:
+
+```c
+#define declSwap(type)                                                         \
+    static void swap(type)(type * left, type * right, type * tmp)
+#define defSwap(type)                                                          \
+    declSwap(type) {                                                           \
+        registerStore(type)(tmp, left);                                        \
+        registerStore(type)(left, right);                                      \
+        registerStore(type)(right, tmp);                                       \
+    }                                                                          \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define swap(type) POICA_MONOMORPHISE(swap, type)
+```
+
+After that, we implement `Register` and define `swap` for `int`:
+
+```c
+declRegisterLoad(int);
+declRegisterStore(int);
+declSwap(int);
+
+declRegisterLoad(int) {
+    return *self;
+}
+
+declRegisterStore(int) {
+    *self = *src;
+}
+
+defSwap(int);
+```
+
+The `main` procedure looks like this. Here we work only with `int` as a register, but later you can implement `Register` for arbitrary types in the same manner.
+
+```c
+int main(void) {
+    int ax = 2, bx = 63, tmp = 0;
+    printf("ax = %d, bx = %d\n", ax, bx);
+
+    swap(int)(&ax, &bx, &tmp);
+
+    printf("ax = %d, bx = %d\n", ax, bx);
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+ax = 2, bx = 63
+ax = 63, bx = 2
+```
+
+</details>
 
 ## ADTs
 
