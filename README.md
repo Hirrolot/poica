@@ -17,7 +17,7 @@ This library exports [type-driven development] to plain C11.
    - [Motivation](#motivation-1)
    - [Usage](#usage)
    - [Interfaces](#interfaces)
- - [ADTs (algebraic data types)](#adts)
+ - [ADTs (algebraic data types)](#adts-algebraic-data-types)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
