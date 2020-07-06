@@ -19,7 +19,7 @@
 
 #define DefLinkedList(type)                                                    \
     static LinkedList(type) * listNew(type)(type item) {                       \
-        LinkedList(type) *list = malloc(sizeof(type));                         \
+        LinkedList(type) *list = malloc(sizeof(*list));                        \
         assert(list);                                                          \
                                                                                \
         list->data = malloc(sizeof(type));                                     \
