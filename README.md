@@ -112,7 +112,7 @@ Below is a trivial implementation of a generic [linked list]:
 
 #define DefLinkedList(type)                                                    \
     static LinkedList(type) * listNew(type)(type item) {                       \
-        LinkedList(type) *list = malloc(sizeof(*list));                         \
+        LinkedList(type) *list = malloc(sizeof(*list));                        \
         assert(list);                                                          \
                                                                                \
         list->data = malloc(sizeof(type));                                     \
