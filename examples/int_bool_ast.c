@@ -11,23 +11,15 @@
 #define MY_CAT_AUX(a, b) a##b
 
 #define Expr(t1, t2) POICA_MONOMORPHISE(Expr, t1, t2)
-
-#define DefExprPair(t1, t2)                                                    \
-    record(ExprPair(t1, t2),                                                   \
-           field(left, const struct Expr(t1, t2) *)                            \
-               field(right, const struct Expr(t1, t2) *))
-#define ExprPair(t1, t2) POICA_MONOMORPHISE(ExprPair, t1, t2)
-
-DefExprPair(int, _Bool);
-DefExprPair(int, int);
-DefExprPair(_Bool, int);
-DefExprPair(_Bool, _Bool);
+#define ExprPair(t1, t2)                                                       \
+    field(left, const struct Expr(t1, t2) *)                                   \
+        field(right, const struct Expr(t1, t2) *)
 
 #define IExprBody(type)                                                        \
     Expr(int, type),                                                           \
-        variant(IConst(type), int) variant(Add(type), ExprPair(int, type))     \
-            variant(Sub(type), ExprPair(int, int))                             \
-                variant(Mul(type), ExprPair(int, int))
+        variant(IConst(type), int) variantMany(Add(type), ExprPair(int, type)) \
+            variantMany(Sub(type), ExprPair(int, int))                         \
+                variantMany(Mul(type), ExprPair(int, int))
 
 #define IConst(type) POICA_MONOMORPHISE(IConst, type)
 #define Add(type)    POICA_MONOMORPHISE(Add, type)
@@ -36,10 +28,11 @@ DefExprPair(_Bool, _Bool);
 
 #define BExprBody(type)                                                        \
     Expr(_Bool, type),                                                         \
-        variant(BConst(type), _Bool) variant(And(type), ExprPair(_Bool, type)) \
-            variant(Or(type), ExprPair(_Bool, type))                           \
-                variant(Xor(type), ExprPair(_Bool, type))                      \
-                    variant(Eq(type), ExprPair(type, type))
+        variant(BConst(type), _Bool)                                           \
+            variantMany(And(type), ExprPair(_Bool, type))                      \
+                variantMany(Or(type), ExprPair(_Bool, type))                   \
+                    variantMany(Xor(type), ExprPair(_Bool, type))              \
+                        variantMany(Eq(type), ExprPair(type, type))
 
 #define BConst(type) POICA_MONOMORPHISE(BConst, type)
 #define And(type)    POICA_MONOMORPHISE(And, type)
@@ -62,12 +55,8 @@ choice(BExprBody(_Bool));
 #define declEval(t1, t2) t1 eval(t1, t2)(const Expr(t1, t2) * expr)
 
 #define defEval(t1, t2)                                                        \
-    declEval(t1, t2) {                                                         \
-        match(*expr) {                                                         \
-            BOOST_PP_SEQ_FOR_EACH(                                             \
-                GEN_CASE, (t1, t2), MY_CAT(Expr(t1, t2), _INTROSPECT))         \
-        }                                                                      \
-    }                                                                          \
+    POICA_P_EXPAND(declEval(t1, t2){match(*expr){BOOST_PP_SEQ_FOR_EACH(        \
+        GEN_CASE, (t1, t2), MY_CAT(Expr(t1, t2), _INTROSPECT))}})              \
                                                                                \
     POICA_FORCE_SEMICOLON
 
@@ -113,8 +102,8 @@ choice(BExprBody(_Bool));
     }
 
 #define GEN_CASE_AUX(variant_name, op, t1, t2)                                 \
-    of(variant_name, pair) {                                                   \
-        return eval(t1, t2)(pair->left) op eval(t1, t2)(pair->right);          \
+    POICA_P_DEFER(ofMany)(variant_name, (left, right)) {                       \
+        return eval(t1, t2)(*left) op eval(t1, t2)(*right);                    \
     }
 
 declEval(int, _Bool);
@@ -127,9 +116,6 @@ defEval(int, int);
 defEval(_Bool, _Bool);
 defEval(_Bool, int);
 
-#define EXPR(expr)          obj(expr, Expr)
-#define OP(op, left, right) op((ExprPair){EXPR(left), EXPR(right)})
-
 int main(void) {
     const Expr(_Bool, _Bool) true_node = BConst(_Bool)(true);
     const Expr(_Bool, int) false_node = BConst(int)(false);
@@ -137,12 +123,10 @@ int main(void) {
     const Expr(int, int) _12_node = IConst(int)(12);
 
     // 12 == 12 == true
-    const Expr(_Bool, int) eq_node =
-        Eq(int)((ExprPair(int, int)){&_12_node, &_12_node});
+    const Expr(_Bool, int) eq_node = Eq(int)(&_12_node, &_12_node);
 
     // true && false == false
-    Expr(_Bool, int) expr =
-        And(int)((ExprPair(_Bool, int)){&eq_node, &false_node});
+    Expr(_Bool, int) expr = And(int)(&eq_node, &false_node);
 
     _Bool res = eval(_Bool, int)(&expr);
 
