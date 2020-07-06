@@ -17,7 +17,7 @@ This library exports [type-driven development] to plain C11.
    - [Motivation](#motivation-1)
    - [Usage](#usage)
    - [Interfaces](#interfaces)
- - [ADTs](#adts)
+ - [ADTs (algebraic data types)](#adts)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
@@ -235,9 +235,9 @@ ax = 63, bx = 2
 
 </details>
 
-## ADTs
+## ADTs (algebraic data types)
 
-[**ADT**s (**A**lgebraic **D**ata **T**ypes)] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
+[ADTs] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
 
 Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
 
@@ -256,7 +256,7 @@ They have tremendous amount of applications to real-world programming, including
  - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
  - Concurrency: [message passing](examples/message_passing.c)
 
-[**ADT**s (**A**lgebraic **D**ata **T**ypes)]: https://en.wikipedia.org/wiki/Algebraic_data_type
+[ADTs)]: https://en.wikipedia.org/wiki/Algebraic_data_type
 
 ### Motivation
 
