@@ -15,7 +15,7 @@ This library exports [type-driven development] to plain C11.
  - [Installation](#installation)
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
-   - [Usage](#usage)
+   - [Generic types](#generic-types)
    - [Interfaces](#interfaces)
    - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
@@ -83,7 +83,7 @@ This problem is often addressed via `void *` in C. However, it has two big disad
 
 poica uses a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
 
-### Usage
+### Generic types
 
 Below is a trivial implementation of a generic [linked list]:
 
