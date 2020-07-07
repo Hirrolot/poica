@@ -10,7 +10,7 @@ This library exports [type-driven development] to plain C11.
 [type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
 
 ## Table of contents
- - [Motivation](#motivation)hkts-higher-kinded-types
+ - [Motivation](#motivation)
  - [Features](#features)
  - [Installation](#installation)
  - [Type-generic programming](#type-generic-programming)
