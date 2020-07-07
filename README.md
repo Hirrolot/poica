@@ -270,7 +270,7 @@ For instance, `TreeG` has kind `(* -> *) -> * -> *`:
 #define Leaf(branch, type)   POICA_MONOMORPHISE(Leaf, branch, type)
 ```
 
-The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are to about be passed into `TreeG` later:
+The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are about to be passed into `TreeG` later:
 
 ```c
 #define DefBinaryTree(type)                                                    \
