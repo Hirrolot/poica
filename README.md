@@ -10,14 +10,14 @@ This library exports [type-driven development] to plain C11.
 [type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
 
 ## Table of contents
- - [Motivation](#motivation)
+ - [Motivation](#motivation)hkts-higher-kinded-types
  - [Features](#features)
  - [Installation](#installation)
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Usage](#usage)
    - [Interfaces](#interfaces)
-   - [HKTs (higher-kinded types)](#hkts-higher--kinded-types)
+   - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
@@ -238,9 +238,11 @@ ax = 63, bx = 2
 
 ## HKTs (higher-kinded types)
 
- - `int` has kind `*`.
- - `LinkedList`, `Vect`, `Set` have kind `* -> *`.
- - `HashMap` has kind `* -> * -> *`.
+Higher-kinded types allow to write code even more generically. Consider these facts:
+
+ - `int` has kind `*`
+ - `LinkedList`, `Vect`, `Set` have kind `* -> *`
+ - `HashMap` has kind `* -> * -> *`
 
 Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
 
