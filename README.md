@@ -246,7 +246,7 @@ Higher-kinded types allow to write code even more generically. Consider these fa
 
 Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
 
-poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby complete it at some later point.
+poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
 
 For instance, `TreeG` has kind `(* -> *) -> * -> *`:
 
