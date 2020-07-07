@@ -13,11 +13,6 @@ This library exports [type-driven development] to plain C11.
  - [Motivation](#motivation)
  - [Features](#features)
  - [Installation](#installation)
- - [Type-generic programming](#type-generic-programming)
-   - [Motivation](#motivation-1)
-   - [Generic types](#generic-types)
-   - [Interfaces](#interfaces)
-   - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
@@ -28,6 +23,11 @@ This library exports [type-driven development] to plain C11.
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
+ - [Type-generic programming](#type-generic-programming)
+   - [Motivation](#motivation-1)
+   - [Generic types](#generic-types)
+   - [Interfaces](#interfaces)
+   - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -66,258 +66,6 @@ sudo bash scripts/install_boost_pp.sh
 Alternatively, [Boost/Preprocessor] can be downloaded and then installed from its [official releases](https://github.com/boostorg/preprocessor/releases).
 
 Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
-
-## Type-generic programming
-
-[Type-generic programming] is a way to abstract over concrete data types: instead of writing the same function or data structure each time for concrete types, you write it _generically_, allowing specific types to be substituted later.
-
-[Type-generic programming]: https://en.wikipedia.org/wiki/Generic_programming
-
-### Motivation
-
-This problem is often addressed via `void *` in C. However, it has two big disadvantages:
-
- - A compiler is unable to perform type-specific optimisations;
- - `void *` types could be confused with each other;
- - Not self-documenting.
-
-poica uses a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
-
-### Generic types
-
-Below is a trivial implementation of a generic [linked list]:
-
-[linked list]: https://en.wikipedia.org/wiki/Linked_list
-
-[[`examples/generic_linked_list.c`](examples/generic_linked_list.c)]
-```c
-
-#include <poica.h>
-
-#include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define DeclLinkedList(type)                                                   \
-    typedef struct LinkedList(type) {                                          \
-        type *data;                                                            \
-        struct LinkedList(type) * next;                                        \
-    }                                                                          \
-    LinkedList(type);                                                          \
-                                                                               \
-    static LinkedList(type) * listNew(type)(type item);                        \
-    static void listFree(type)(LinkedList(type) * list);                       \
-                                                                               \
-    POICA_FORCE_SEMICOLON
-
-#define DefLinkedList(type)                                                    \
-    static LinkedList(type) * listNew(type)(type item) {                       \
-        LinkedList(type) *list = malloc(sizeof(*list));                        \
-        assert(list);                                                          \
-                                                                               \
-        list->data = malloc(sizeof(type));                                     \
-        assert(list->data);                                                    \
-        memcpy(list->data, &item, sizeof(type));                               \
-        list->next = NULL;                                                     \
-                                                                               \
-        return list;                                                           \
-    }                                                                          \
-                                                                               \
-    static void listFree(type)(LinkedList(type) * list) {                      \
-        LinkedList(type) *node = list;                                         \
-                                                                               \
-        do {                                                                   \
-            free(node->data);                                                  \
-            LinkedList(type) *next_node = node->next;                          \
-            free(node);                                                        \
-            node = next_node;                                                  \
-        } while (node);                                                        \
-    }                                                                          \
-                                                                               \
-    POICA_FORCE_SEMICOLON
-
-#define LinkedList(type) POICA_MONOMORPHISE(LinkedList, type)
-#define listNew(type)    POICA_MONOMORPHISE(listNew, type)
-#define listFree(type)   POICA_MONOMORPHISE(listFree, type)
-
-DeclLinkedList(int);
-DefLinkedList(int);
-
-int main(void) {
-    LinkedList(int) *list = listNew(int)(123);
-    list->next = listNew(int)(456);
-    list->next->next = listNew(int)(789);
-
-    listFree(int)(list);
-}
-```
-
-There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
-
-### Interfaces
-
-An interface declares a collection of procedures, which shall be defined by its implemetors. Interfaces can be used to achieve [ad-hoc polymorphism], by defining a [parametrically polymorphic] procedure with type constraints on a specific interface.
-
-For example, consider the `Register` interface with `load` and `store` operations:
-
-[ad-hoc polymorphism]: https://en.wikipedia.org/wiki/Ad_hoc_polymorphism
-[parametrically polymorphic]: https://en.wikipedia.org/wiki/Parametric_polymorphism
-
-[[`examples/swap_registers.c`](examples/swap_registers.c)]
-```c
-#include <poica.h>
-
-#include <stdio.h>
-
-#define declRegisterLoad(type) static type registerLoad(type)(const type *self)
-#define declRegisterStore(type)                                                \
-    static void registerStore(type)(type * self, const type *src)
-
-#define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
-#define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
-```
-
-And then we can define a [parametrically polymorphic] `swap` procedure, taking three pointers to some type, which implements `Register`:
-
-```c
-#define declSwap(type)                                                         \
-    static void swap(type)(type * left, type * right, type * tmp)
-#define defSwap(type)                                                          \
-    declSwap(type) {                                                           \
-        registerStore(type)(tmp, left);                                        \
-        registerStore(type)(left, right);                                      \
-        registerStore(type)(right, tmp);                                       \
-    }                                                                          \
-                                                                               \
-    POICA_FORCE_SEMICOLON
-
-#define swap(type) POICA_MONOMORPHISE(swap, type)
-```
-
-After that, we implement `Register` and define `swap` for `int`:
-
-```c
-declRegisterLoad(int);
-declRegisterStore(int);
-declSwap(int);
-
-declRegisterLoad(int) {
-    return *self;
-}
-
-declRegisterStore(int) {
-    *self = *src;
-}
-
-defSwap(int);
-```
-
-The `main` procedure looks like this. Here we work only with `int` as a register, but later you can implement `Register` for arbitrary types in the same manner.
-
-```c
-int main(void) {
-    int ax = 2, bx = 63, tmp = 0;
-    printf("ax = %d, bx = %d\n", ax, bx);
-
-    swap(int)(&ax, &bx, &tmp);
-
-    printf("ax = %d, bx = %d\n", ax, bx);
-}
-```
-
-<details>
-    <summary>Output</summary>
-
-```
-ax = 2, bx = 63
-ax = 63, bx = 2
-```
-
-</details>
-
-## HKTs (higher-kinded types)
-
-Higher-kinded types allow to write code even more generically. Consider these facts:
-
- - `int` has kind `*`
- - `LinkedList`, `Vect`, `Set` have kind `* -> *`
- - `HashMap` has kind `* -> * -> *`
-
-Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
-
-poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
-
-For instance, `TreeG` (taken from the [SO answer](https://stackoverflow.com/a/21170809/13166656)) has kind `(* -> *) -> * -> *`:
-
-[[`examples/hkt.c`](examples/hkt.c)]
-```c
-#include <poica.h>
-
-#define DefTreeG(branch, type)                                                 \
-    choice(                                                                    \
-        TreeG(branch, type),                                                   \
-        variantMany(Branch(branch, type),                                      \
-            field(data, type)                                                  \
-            field(branches,                                                    \
-                POICA_MONOMORPHISE(branch, TreeG(branch, type))                \
-            )                                                                  \
-        )                                                                      \
-        variant(Leaf(branch, type), type))
-
-#define TreeG(branch, type)  POICA_MONOMORPHISE(TreeG, branch, type)
-#define Branch(branch, type) POICA_MONOMORPHISE(Branch, branch, type)
-#define Leaf(branch, type)   POICA_MONOMORPHISE(Leaf, branch, type)
-```
-
-The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are about to be passed into `TreeG` later:
-
-```c
-#define DefBinaryTree(type)                                                    \
-    record(                                                                    \
-        BinaryTree(type),                                                      \
-        field(left, struct type *)                                             \
-        field(right, struct type *)                                            \
-    )
-#define BinaryTree(type) POICA_MONOMORPHISE(BinaryTree, type)
-
-#define DefWeirdTree(type)                                                     \
-    record(                                                                    \
-        WeirdTree(type),                                                       \
-        field(text, const char *)                                              \
-    )
-#define WeirdTree(type) POICA_MONOMORPHISE(WeirdTree, type)
-
-DefBinaryTree(TreeG(BinaryTree, int));
-DefTreeG(BinaryTree, int);
-
-DefWeirdTree(TreeG(WeirdTree, int));
-DefTreeG(WeirdTree, int);
-```
-
-And they can be constructed as follows:
-
-```c
-void binary_tree(void) {
-    TreeG(BinaryTree, int) _456_leaf = Leaf(BinaryTree, int)(456);
-    TreeG(BinaryTree, int) _789_leaf = Leaf(BinaryTree, int)(789);
-
-    TreeG(BinaryTree, int) binary_tree =
-        Branch(BinaryTree, int)(123,
-                                (BinaryTree(TreeG(BinaryTree, int))){
-                                    &_456_leaf,
-                                    &_789_leaf,
-                                });
-}
-
-void weird_tree(void) {
-    TreeG(WeirdTree, int) weird_tree_1 =
-        Branch(WeirdTree, int)(123,
-                               (WeirdTree(TreeG(WeirdTree, int))){
-                                   .text = "Hey",
-                               });
-}
-```
 
 ## ADTs (algebraic data types)
 
@@ -643,6 +391,258 @@ X(T1, ..., Tn) = ...;
 ```
 
 The utility functions can be found in the [specification].
+
+## Type-generic programming
+
+[Type-generic programming] is a way to abstract over concrete data types: instead of writing the same function or data structure each time for concrete types, you write it _generically_, allowing specific types to be substituted later.
+
+[Type-generic programming]: https://en.wikipedia.org/wiki/Generic_programming
+
+### Motivation
+
+This problem is often addressed via `void *` in C. However, it has two big disadvantages:
+
+ - A compiler is unable to perform type-specific optimisations;
+ - `void *` types could be confused with each other;
+ - Not self-documenting.
+
+poica uses a technique called _monomorphisation_, which means that it'll instantiate your generic types with concrete substitutions after preprocessing, eliminating all the disadvantages of `void *`.
+
+### Generic types
+
+Below is a trivial implementation of a generic [linked list]:
+
+[linked list]: https://en.wikipedia.org/wiki/Linked_list
+
+[[`examples/generic_linked_list.c`](examples/generic_linked_list.c)]
+```c
+
+#include <poica.h>
+
+#include <assert.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define DeclLinkedList(type)                                                   \
+    typedef struct LinkedList(type) {                                          \
+        type *data;                                                            \
+        struct LinkedList(type) * next;                                        \
+    }                                                                          \
+    LinkedList(type);                                                          \
+                                                                               \
+    static LinkedList(type) * listNew(type)(type item);                        \
+    static void listFree(type)(LinkedList(type) * list);                       \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define DefLinkedList(type)                                                    \
+    static LinkedList(type) * listNew(type)(type item) {                       \
+        LinkedList(type) *list = malloc(sizeof(*list));                        \
+        assert(list);                                                          \
+                                                                               \
+        list->data = malloc(sizeof(type));                                     \
+        assert(list->data);                                                    \
+        memcpy(list->data, &item, sizeof(type));                               \
+        list->next = NULL;                                                     \
+                                                                               \
+        return list;                                                           \
+    }                                                                          \
+                                                                               \
+    static void listFree(type)(LinkedList(type) * list) {                      \
+        LinkedList(type) *node = list;                                         \
+                                                                               \
+        do {                                                                   \
+            free(node->data);                                                  \
+            LinkedList(type) *next_node = node->next;                          \
+            free(node);                                                        \
+            node = next_node;                                                  \
+        } while (node);                                                        \
+    }                                                                          \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define LinkedList(type) POICA_MONOMORPHISE(LinkedList, type)
+#define listNew(type)    POICA_MONOMORPHISE(listNew, type)
+#define listFree(type)   POICA_MONOMORPHISE(listFree, type)
+
+DeclLinkedList(int);
+DefLinkedList(int);
+
+int main(void) {
+    LinkedList(int) *list = listNew(int)(123);
+    list->next = listNew(int)(456);
+    list->next->next = listNew(int)(789);
+
+    listFree(int)(list);
+}
+```
+
+There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
+
+### Interfaces
+
+An interface declares a collection of procedures, which shall be defined by its implemetors. Interfaces can be used to achieve [ad-hoc polymorphism], by defining a [parametrically polymorphic] procedure with type constraints on a specific interface.
+
+For example, consider the `Register` interface with `load` and `store` operations:
+
+[ad-hoc polymorphism]: https://en.wikipedia.org/wiki/Ad_hoc_polymorphism
+[parametrically polymorphic]: https://en.wikipedia.org/wiki/Parametric_polymorphism
+
+[[`examples/swap_registers.c`](examples/swap_registers.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+#define declRegisterLoad(type) static type registerLoad(type)(const type *self)
+#define declRegisterStore(type)                                                \
+    static void registerStore(type)(type * self, const type *src)
+
+#define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
+#define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
+```
+
+And then we can define a [parametrically polymorphic] `swap` procedure, taking three pointers to some type, which implements `Register`:
+
+```c
+#define declSwap(type)                                                         \
+    static void swap(type)(type * left, type * right, type * tmp)
+#define defSwap(type)                                                          \
+    declSwap(type) {                                                           \
+        registerStore(type)(tmp, left);                                        \
+        registerStore(type)(left, right);                                      \
+        registerStore(type)(right, tmp);                                       \
+    }                                                                          \
+                                                                               \
+    POICA_FORCE_SEMICOLON
+
+#define swap(type) POICA_MONOMORPHISE(swap, type)
+```
+
+After that, we implement `Register` and define `swap` for `int`:
+
+```c
+declRegisterLoad(int);
+declRegisterStore(int);
+declSwap(int);
+
+declRegisterLoad(int) {
+    return *self;
+}
+
+declRegisterStore(int) {
+    *self = *src;
+}
+
+defSwap(int);
+```
+
+The `main` procedure looks like this. Here we work only with `int` as a register, but later you can implement `Register` for arbitrary types in the same manner.
+
+```c
+int main(void) {
+    int ax = 2, bx = 63, tmp = 0;
+    printf("ax = %d, bx = %d\n", ax, bx);
+
+    swap(int)(&ax, &bx, &tmp);
+
+    printf("ax = %d, bx = %d\n", ax, bx);
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+ax = 2, bx = 63
+ax = 63, bx = 2
+```
+
+</details>
+
+## HKTs (higher-kinded types)
+
+Higher-kinded types allow to write code even more generically. Consider these facts:
+
+ - `int` has kind `*`
+ - `LinkedList`, `Vect`, `Set` have kind `* -> *`
+ - `HashMap` has kind `* -> * -> *`
+
+Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
+
+poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
+
+For instance, `TreeG` (taken from the [SO answer](https://stackoverflow.com/a/21170809/13166656)) has kind `(* -> *) -> * -> *`:
+
+[[`examples/hkt.c`](examples/hkt.c)]
+```c
+#include <poica.h>
+
+#define DefTreeG(branch, type)                                                 \
+    choice(                                                                    \
+        TreeG(branch, type),                                                   \
+        variantMany(Branch(branch, type),                                      \
+            field(data, type)                                                  \
+            field(branches,                                                    \
+                POICA_MONOMORPHISE(branch, TreeG(branch, type))                \
+            )                                                                  \
+        )                                                                      \
+        variant(Leaf(branch, type), type))
+
+#define TreeG(branch, type)  POICA_MONOMORPHISE(TreeG, branch, type)
+#define Branch(branch, type) POICA_MONOMORPHISE(Branch, branch, type)
+#define Leaf(branch, type)   POICA_MONOMORPHISE(Leaf, branch, type)
+```
+
+The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are about to be passed into `TreeG` later:
+
+```c
+#define DefBinaryTree(type)                                                    \
+    record(                                                                    \
+        BinaryTree(type),                                                      \
+        field(left, struct type *)                                             \
+        field(right, struct type *)                                            \
+    )
+#define BinaryTree(type) POICA_MONOMORPHISE(BinaryTree, type)
+
+#define DefWeirdTree(type)                                                     \
+    record(                                                                    \
+        WeirdTree(type),                                                       \
+        field(text, const char *)                                              \
+    )
+#define WeirdTree(type) POICA_MONOMORPHISE(WeirdTree, type)
+
+DefBinaryTree(TreeG(BinaryTree, int));
+DefTreeG(BinaryTree, int);
+
+DefWeirdTree(TreeG(WeirdTree, int));
+DefTreeG(WeirdTree, int);
+```
+
+And they can be constructed as follows:
+
+```c
+void binary_tree(void) {
+    TreeG(BinaryTree, int) _456_leaf = Leaf(BinaryTree, int)(456);
+    TreeG(BinaryTree, int) _789_leaf = Leaf(BinaryTree, int)(789);
+
+    TreeG(BinaryTree, int) binary_tree =
+        Branch(BinaryTree, int)(123,
+                                (BinaryTree(TreeG(BinaryTree, int))){
+                                    &_456_leaf,
+                                    &_789_leaf,
+                                });
+}
+
+void weird_tree(void) {
+    TreeG(WeirdTree, int) weird_tree_1 =
+        Branch(WeirdTree, int)(123,
+                               (WeirdTree(TreeG(WeirdTree, int))){
+                                   .text = "Hey",
+                               });
+}
+```
 
 ## Roadmap
 
