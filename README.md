@@ -248,7 +248,7 @@ Do you see the pattern? `int` is already a concrete type, so its kind is just `*
 
 poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
 
-For instance, `TreeG` has kind `(* -> *) -> * -> *`:
+For instance, `TreeG` (taken from the [SO answer](https://stackoverflow.com/a/21170809/13166656)) has kind `(* -> *) -> * -> *`:
 
 [[`examples/hkt.c`](examples/hkt.c)]
 ```c
