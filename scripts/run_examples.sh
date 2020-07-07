@@ -21,3 +21,4 @@ cd examples/build
 ./generic_linked_list
 ./swap_registers
 ./int_bool_ast
+./hkt

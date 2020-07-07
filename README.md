@@ -17,6 +17,7 @@ This library exports [type-driven development] to plain C11.
    - [Motivation](#motivation-1)
    - [Usage](#usage)
    - [Interfaces](#interfaces)
+   - [HKTs (higher-kinded types)](#hkts-higher--kinded-types)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
    - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
@@ -234,6 +235,87 @@ ax = 63, bx = 2
 ```
 
 </details>
+
+## HKTs (higher-kinded types)
+
+ - `int` has kind `*`.
+ - `LinkedList`, `Vect`, `Set` have kind `* -> *`.
+ - `HashMap` has kind `* -> * -> *`.
+
+Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
+
+poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby complete it at some later point.
+
+For instance, `TreeG` has kind `(* -> *) -> * -> *`:
+
+[[`examples/hkt.c`](examples/hkt.c)]
+```c
+#include <poica.h>
+
+#define DefTreeG(branch, type)                                                 \
+    choice(                                                                    \
+        TreeG(branch, type),                                                   \
+        variantMany(Branch(branch, type),                                      \
+            field(data, type)                                                  \
+            field(branches,                                                    \
+                POICA_MONOMORPHISE(branch, TreeG(branch, type))                \
+            )                                                                  \
+        )                                                                      \
+        variant(Leaf(branch, type), type))
+
+#define TreeG(branch, type)  POICA_MONOMORPHISE(TreeG, branch, type)
+#define Branch(branch, type) POICA_MONOMORPHISE(Branch, branch, type)
+#define Leaf(branch, type)   POICA_MONOMORPHISE(Leaf, branch, type)
+```
+
+The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are to about be passed into `TreeG` later:
+
+```c
+#define DefBinaryTree(type)                                                    \
+    record(                                                                    \
+        BinaryTree(type),                                                      \
+        field(left, struct type *)                                             \
+        field(right, struct type *)                                            \
+    )
+#define BinaryTree(type) POICA_MONOMORPHISE(BinaryTree, type)
+
+#define DefWeirdTree(type)                                                     \
+    record(                                                                    \
+        WeirdTree(type),                                                       \
+        field(text, const char *)                                              \
+    )
+#define WeirdTree(type) POICA_MONOMORPHISE(WeirdTree, type)
+
+DefBinaryTree(TreeG(BinaryTree, int));
+DefTreeG(BinaryTree, int);
+
+DefWeirdTree(TreeG(WeirdTree, int));
+DefTreeG(WeirdTree, int);
+```
+
+And they can be constructed as follows:
+
+```c
+void binary_tree(void) {
+    TreeG(BinaryTree, int) _456_leaf = Leaf(BinaryTree, int)(456);
+    TreeG(BinaryTree, int) _789_leaf = Leaf(BinaryTree, int)(789);
+
+    TreeG(BinaryTree, int) binary_tree =
+        Branch(BinaryTree, int)(123,
+                                (BinaryTree(TreeG(BinaryTree, int))){
+                                    &_456_leaf,
+                                    &_789_leaf,
+                                });
+}
+
+void weird_tree(void) {
+    TreeG(WeirdTree, int) weird_tree_1 =
+        Branch(WeirdTree, int)(123,
+                               (WeirdTree(TreeG(WeirdTree, int))){
+                                   .text = "Hey",
+                               });
+}
+```
 
 ## ADTs (algebraic data types)
 
