@@ -8,7 +8,7 @@
 | `PascalCase` | Types |
 | `SCREAMING_CASE` | Macros |
 
-Private stuff (except for files) has either `POICA_P` (for types and macros) or `poica_p` prefix (for procedures and variables). Variant names have the `Mk` prefix.
+Private stuff (except for files) has either `POICA_P` (for types and macros) or `poica_p` prefix (for procedures and variables).
 
 ## Headers
 

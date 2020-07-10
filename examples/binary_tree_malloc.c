@@ -37,9 +37,9 @@
 // clang-format off
 choice(
     Tree,
-    variant(MkEmpty)
-    variant(MkLeaf, int)
-    variantMany(MkNode,
+    variant(Empty)
+    variant(Leaf, int)
+    variantMany(Node,
         field(left, struct Tree *)
         field(number, int)
         field(right, struct Tree *)
@@ -49,13 +49,13 @@ choice(
 
 void print_tree(const Tree *tree) {
     match(*tree) {
-        of(MkEmpty) {
+        of(Empty) {
             return;
         }
-        of(MkLeaf, number) {
+        of(Leaf, number) {
             printf("%d\n", *number);
         }
-        ofMany(MkNode, (left, number, right)) {
+        ofMany(Node, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -72,14 +72,14 @@ Tree *alloc_tree(Tree tree) {
 
 void destroy_tree(Tree *tree) {
     match(*tree) {
-        of(MkEmpty) {
+        of(Empty) {
             return;
         }
-        of(MkLeaf, number) {
+        of(Leaf, number) {
             free(tree);
             return;
         }
-        ofMany(MkNode, (left, number, right)) {
+        ofMany(Node, (left, number, right)) {
             destroy_tree(*left);
             destroy_tree(*right);
             free(tree);
@@ -88,8 +88,8 @@ void destroy_tree(Tree *tree) {
 }
 
 #define TREE(tree)                alloc_tree(tree)
-#define NODE(left, number, right) TREE(MkNode(left, number, right))
-#define LEAF(number)              TREE(MkLeaf(number))
+#define NODE(left, number, right) TREE(Node(left, number, right))
+#define LEAF(number)              TREE(Leaf(number))
 
 int main(void) {
     Tree *tree =

@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
  - Add prefixed versions `PoicaUnit` and `poicaUnit`.
 
+
+### Changed
+ - Remove from the style guide that variants must be prefixed with `Mk`.
+
 ## [0.4.0] - 2020-06-27
 ### Changed
  - Move the specification, changelog, code style, and contributing documents from the wiki into the file tree.

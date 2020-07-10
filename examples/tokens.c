@@ -30,29 +30,29 @@
 // clang-format off
 choice(
     Token,
-    variant(MkIdent, const char *)
-    variant(MkInteger, int)
-    variant(MkPlus)
-    variant(MkOpenParen)
-    variant(MkCloseParen)
+    variant(Ident, const char *)
+    variant(Integer, int)
+    variant(Plus)
+    variant(OpenParen)
+    variant(CloseParen)
 );
 // clang-format on
 
 void print_token(Token token) {
     match(token) {
-        of(MkIdent, ident) {
+        of(Ident, ident) {
             printf("%s", *ident);
         }
-        of(MkInteger, integer) {
+        of(Integer, integer) {
             printf("%d", *integer);
         }
-        of(MkPlus) {
+        of(Plus) {
             printf(" + ");
         }
-        of(MkOpenParen) {
+        of(OpenParen) {
             printf("(");
         }
-        of(MkCloseParen) {
+        of(CloseParen) {
             printf(")");
         }
     }
@@ -60,11 +60,11 @@ void print_token(Token token) {
 
 int main(void) {
     Token tokens[] = {
-        MkOpenParen(),
-        MkIdent("x"),
-        MkPlus(),
-        MkInteger(123),
-        MkCloseParen(),
+        OpenParen(),
+        Ident("x"),
+        Plus(),
+        Integer(123),
+        CloseParen(),
     };
 
     /*

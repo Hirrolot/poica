@@ -38,50 +38,46 @@
 
 #include <stdio.h>
 
-// clang-format off
-record(
-    ExprPair,
-    field(left, const struct Expr *)
-    field(right, const struct Expr *)
-);
+#define EXPR_PAIR                                                              \
+    field(left, const struct Expr *) field(right, const struct Expr *)
 
+// clang-format off
 choice(
     Expr,
-    variant(MkConst, double)
-    variant(MkAdd, ExprPair)
-    variant(MkSub, ExprPair)
-    variant(MkMul, ExprPair)
-    variant(MkDiv, ExprPair)
+    variant(Const, double)
+    variantMany(Add, EXPR_PAIR)
+    variantMany(Sub, EXPR_PAIR)
+    variantMany(Mul, EXPR_PAIR)
+    variantMany(Div, EXPR_PAIR)
 );
 // clang-format on
 
 double eval(const Expr *expr) {
     match(*expr) {
-        of(MkConst, number) {
+        of(Const, number) {
             return *number;
         }
-        of(MkAdd, add) {
-            return eval(add->left) + eval(add->right);
+        ofMany(Add, (left, right)) {
+            return eval(left) + eval(right);
         }
-        of(MkSub, sub) {
-            return eval(sub->left) - eval(sub->right);
+        ofMany(Sub, (left, right)) {
+            return eval(left) - eval(right);
         }
-        of(MkMul, mul) {
-            return eval(mul->left) * eval(mul->right);
+        ofMany(Mul, (left, right)) {
+            return eval(left) * eval(right);
         }
-        of(MkDiv, div) {
-            return eval(div->left) / eval(div->right);
+        ofMany(Div, (left, right)) {
+            return eval(left) / eval(right);
         }
     }
 }
 
 #define EXPR(expr)          obj(expr, Expr)
-#define OP(op, left, right) Mk##op((ExprPair){EXPR(left), EXPR(right)})
+#define OP(op, left, right) op(EXPR(left), EXPR(right))
 
 int main(void) {
-    Expr expr = OP(Add,
-                   MkConst(53),
-                   OP(Sub, OP(Div, MkConst(155), MkConst(5)), MkConst(113)));
+    Expr expr =
+        OP(Add, Const(53), OP(Sub, OP(Div, Const(155), Const(5)), Const(113)));
 
     /*
      * Output:

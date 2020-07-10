@@ -128,15 +128,15 @@ poica solves these two problems by introducing [algebraic data types] (discussed
 ```c
 choice(
     OurTaggedUnion,
-    variant(MkState1, int)
-    variant(MkState2, const char *)
-    variant(MkState3, double)
+    variant(State1, int)
+    variant(State2, const char *)
+    variant(State3, double)
 );
 
 // (i) Compilation failed!
-OurTaggedUnion res1 = MkState2(123);
+OurTaggedUnion res1 = State2(123);
 
-OurTaggedUnion res2 = MkState3(.99);
+OurTaggedUnion res2 = State3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
 
@@ -147,7 +147,7 @@ For example, a [binary tree] like this:
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
-  <img src="https://i.imgur.com/MkefQNV.png" width="380px" />
+  <img src="https://i.imgur.com/efQNV.png" width="380px" />
 </div>
 
 Can be conveniently represented as a sum type and further manipulated using pattern matching. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
@@ -160,9 +160,9 @@ Can be conveniently represented as a sum type and further manipulated using patt
 
 choice(
     Tree,
-    variant(MkEmpty)
-    variant(MkLeaf, int)
-    variantMany(MkNode,
+    variant(Empty)
+    variant(Leaf, int)
+    variantMany(Node,
         field(left, struct Tree *)
         field(number, int)
         field(right, struct Tree *)
@@ -171,13 +171,13 @@ choice(
 
 void print_tree(const Tree *tree) {
     match(*tree) {
-        of(MkEmpty) {
+        of(Empty) {
             return;
         }
-        of(MkLeaf, number) {
+        of(Leaf, number) {
             printf("%d\n", *number);
         }
-        ofMany(MkNode, (left, number, right)) {
+        ofMany(Node, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -186,8 +186,8 @@ void print_tree(const Tree *tree) {
 }
 
 #define TREE(tree)                obj(tree, Tree)
-#define NODE(left, number, right) TREE(MkNode(left, number, right))
-#define LEAF(number)              TREE(MkLeaf(number))
+#define NODE(left, number, right) TREE(Node(left, number, right))
+#define LEAF(number)              TREE(Leaf(number))
 
 int main(void) {
     const Tree *tree =
@@ -269,9 +269,9 @@ And more (planned!).
 
 #define MY_CHOICE                                                           \
     Something,                                                              \
-    variant(MkA)                                                            \
-    variant(MkB, int)                                                       \
-    variantMany(MkC, field(c1, double) field(c2, char))
+    variant(A)                                                            \
+    variant(B, int)                                                       \
+    variantMany(C, field(c1, double) field(c2, char))
 
 choice(MY_CHOICE);
 #define Something_INTROSPECT POICA_CHOICE_INTROSPECT(MY_CHOICE)
@@ -285,9 +285,9 @@ int main(void) {
     <summary>Output</summary>
 
 ```
-((POICA_VARIANT_KIND_EMPTY)(MkA))
-((POICA_VARIANT_KIND_SINGLE)(MkB)(int))
-((POICA_VARIANT_KIND_MANY)(MkC)( ((c1)(double)) ((c2)(char)) ))
+((POICA_VARIANT_KIND_EMPTY)(A))
+((POICA_VARIANT_KIND_SINGLE)(B)(int))
+((POICA_VARIANT_KIND_MANY)(C)( ((c1)(double)) ((c2)(char)) ))
 ```
 
 </details>

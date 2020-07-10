@@ -30,9 +30,9 @@
 // clang-format off
 choice(
     Tree,
-    variant(MkEmpty)
-    variant(MkLeaf, int)
-    variantMany(MkNode,
+    variant(Empty)
+    variant(Leaf, int)
+    variantMany(Node,
         field(left, struct Tree *)
         field(number, int)
         field(right, struct Tree *)
@@ -42,13 +42,13 @@ choice(
 
 void print_tree(const Tree *tree) {
     match(*tree) {
-        of(MkEmpty) {
+        of(Empty) {
             return;
         }
-        of(MkLeaf, number) {
+        of(Leaf, number) {
             printf("%d\n", *number);
         }
-        ofMany(MkNode, (left, number, right)) {
+        ofMany(Node, (left, number, right)) {
             print_tree(*left);
             printf("%d\n", *number);
             print_tree(*right);
@@ -57,8 +57,8 @@ void print_tree(const Tree *tree) {
 }
 
 #define TREE(tree)                obj(tree, Tree)
-#define NODE(left, number, right) TREE(MkNode(left, number, right))
-#define LEAF(number)              TREE(MkLeaf(number))
+#define NODE(left, number, right) TREE(Node(left, number, right))
+#define LEAF(number)              TREE(Leaf(number))
 
 int main(void) {
     const Tree *tree =

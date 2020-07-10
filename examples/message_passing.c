@@ -44,8 +44,8 @@
 // clang-format off
 choice(
     Command,
-    variantMany(MkAdd, field(left, int) field(right, int))
-    variant(MkDouble, int)
+    variantMany(Add, field(left, int) field(right, int))
+    variant(Double, int)
 );
 // clang-format on
 
@@ -56,10 +56,10 @@ coroutine void worker(int rx) {
 
     int res;
     match(command) {
-        ofMany(MkAdd, (left, right)) {
+        ofMany(Add, (left, right)) {
             res = *left + *right;
         }
-        of(MkDouble, number) {
+        of(Double, number) {
             res = *number * 2;
         }
     }
@@ -76,7 +76,7 @@ int main() {
     int rc = chmake(ch);
     CHECK_RC(rc);
 
-    const Command command = MkAdd(1, 2);
+    const Command command = Add(1, 2);
 
     rc = go(worker(*rx));
     CHECK_RC(rc);
