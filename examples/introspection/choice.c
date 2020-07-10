@@ -33,8 +33,8 @@
 #define MY_CHOICE                                                           \
     Something,                                                              \
     variant(A)                                                              \
-    variant(A, int)                                                         \
-    variantMany(A, field(c1, double) field(c2, char))
+    variant(B, int)                                                         \
+    variantMany(C, field(c1, double) field(c2, char))
 // clang-format on
 
 choice(MY_CHOICE);
@@ -44,8 +44,8 @@ int main(void) {
     /*
      * Output:
      * ((POICA_VARIANT_KIND_EMPTY)(A))
-     * ((POICA_VARIANT_KIND_SINGLE)(A)(int))
-     * ((POICA_VARIANT_KIND_MANY)(A)( ((c1)(double)) ((c2)(char)) ))
+     * ((POICA_VARIANT_KIND_SINGLE)(B)(int))
+     * ((POICA_VARIANT_KIND_MANY)(C)( ((c1)(double)) ((c2)(char)) ))
      */
     puts(BOOST_PP_STRINGIZE(Something_INTROSPECT));
 }

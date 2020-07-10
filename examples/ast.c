@@ -58,16 +58,16 @@ double eval(const Expr *expr) {
             return *number;
         }
         ofMany(Add, (left, right)) {
-            return eval(left) + eval(right);
+            return eval(*left) + eval(*right);
         }
         ofMany(Sub, (left, right)) {
-            return eval(left) - eval(right);
+            return eval(*left) - eval(*right);
         }
         ofMany(Mul, (left, right)) {
-            return eval(left) * eval(right);
+            return eval(*left) * eval(*right);
         }
         ofMany(Div, (left, right)) {
-            return eval(left) / eval(right);
+            return eval(*left) / eval(*right);
         }
     }
 }
