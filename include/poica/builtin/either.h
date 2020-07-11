@@ -27,7 +27,7 @@
 #define POICA_BUILTIN_EITHER_H
 
 #include <poica/force_semicolon.h>
-#include <poica/monomorphise.h>
+#include <poica/p.h>
 
 #include <poica/choice.h>
 
@@ -36,60 +36,28 @@
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
-
 #define PoicaDefEither POICA_P_EITHER_DEF
-#define PoicaEither    POICA_P_Either
-
-#define PoicaLeft  POICA_P_EITHER_LEFT
-#define PoicaRight POICA_P_EITHER_RIGHT
-
-#define poicaIsLeft  POICA_P_EITHER_IS_LEFT
-#define poicaIsRight POICA_P_EITHER_IS_RIGHT
-
 #else
-
 #define DefEither POICA_P_EITHER_DEF
-#define Either    POICA_P_EITHER
-
-#define Left  POICA_P_EITHER_LEFT
-#define Right POICA_P_EITHER_RIGHT
-
-#define isLeft  POICA_P_EITHER_IS_LEFT
-#define isRight POICA_P_EITHER_IS_RIGHT
-
 #endif
 
 #define POICA_P_EITHER_DEF(left_type, right_type)                              \
-    choice(                                                                    \
-        POICA_P_EITHER(left_type, right_type),                                 \
-        variant(POICA_P_EITHER_LEFT(left_type, right_type), left_type)         \
-            variant(POICA_P_EITHER_RIGHT(left_type, right_type), right_type)); \
+    choice(POICA_P_P(Either, left_type, right_type),                           \
+           variant(POICA_P_P(Left, left_type, right_type), left_type)          \
+               variant(POICA_P_P(Right, left_type, right_type), right_type));  \
                                                                                \
-    inline static bool POICA_P_EITHER_IS_LEFT(left_type, right_type)(          \
-        POICA_P_EITHER(left_type, right_type) either) {                        \
+    inline static bool POICA_P_P(isLeft, left_type, right_type)(               \
+        POICA_P_P(Either, left_type, right_type) either) {                     \
         return POICA_P_MATCHES(either,                                         \
-                               POICA_P_EITHER_LEFT(left_type, right_type));    \
+                               POICA_P_P(Left, left_type, right_type));        \
     }                                                                          \
                                                                                \
-    inline static bool POICA_P_EITHER_IS_RIGHT(left_type, right_type)(         \
-        POICA_P_EITHER(left_type, right_type) either) {                        \
+    inline static bool POICA_P_P(isRight, left_type, right_type)(              \
+        POICA_P_P(Either, left_type, right_type) either) {                     \
         return POICA_P_MATCHES(either,                                         \
-                               POICA_P_EITHER_RIGHT(left_type, right_type));   \
+                               POICA_P_P(Right, left_type, right_type));       \
     }                                                                          \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define POICA_P_EITHER(left_type, right_type)                                  \
-    POICA_MONOMORPHISE(Either, left_type, right_type)
-
-#define POICA_P_EITHER_LEFT(left_type, right_type)                             \
-    POICA_MONOMORPHISE(EitherLeft, left_type, right_type)
-#define POICA_P_EITHER_RIGHT(left_type, right_type)                            \
-    POICA_MONOMORPHISE(EitherRight, left_type, right_type)
-
-#define POICA_P_EITHER_IS_LEFT(left_type, right_type)                          \
-    POICA_MONOMORPHISE(eitherIsLeft, left_type, right_type)
-#define POICA_P_EITHER_IS_RIGHT(left_type, right_type)                         \
-    POICA_MONOMORPHISE(eitherIsRight, left_type, right_type)
 
 #endif // POICA_BUILTIN_EITHER_H

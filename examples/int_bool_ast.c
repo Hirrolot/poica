@@ -10,7 +10,7 @@
 #define MY_CAT(a, b)     MY_CAT_AUX(a, b)
 #define MY_CAT_AUX(a, b) a##b
 
-#define Expr(t1, t2) POICA_MONOMORPHISE(Expr, t1, t2)
+#define Expr(t1, t2) P(Expr, t1, t2)
 #define ExprPair(t1, t2)                                                       \
     field(left, const struct Expr(t1, t2) *)                                   \
         field(right, const struct Expr(t1, t2) *)
@@ -21,10 +21,10 @@
             variantMany(Sub(type), ExprPair(int, int))                         \
                 variantMany(Mul(type), ExprPair(int, int))
 
-#define IConst(type) POICA_MONOMORPHISE(IConst, type)
-#define Add(type)    POICA_MONOMORPHISE(Add, type)
-#define Sub(type)    POICA_MONOMORPHISE(Sub, type)
-#define Mul(type)    POICA_MONOMORPHISE(Mul, type)
+#define IConst(type) P(IConst, type)
+#define Add(type)    P(Add, type)
+#define Sub(type)    P(Sub, type)
+#define Mul(type)    P(Mul, type)
 
 #define BExprBody(type)                                                        \
     Expr(_Bool, type),                                                         \
@@ -34,11 +34,11 @@
                     variantMany(Xor(type), ExprPair(_Bool, type))              \
                         variantMany(Eq(type), ExprPair(type, type))
 
-#define BConst(type) POICA_MONOMORPHISE(BConst, type)
-#define And(type)    POICA_MONOMORPHISE(And, type)
-#define Or(type)     POICA_MONOMORPHISE(Or, type)
-#define Xor(type)    POICA_MONOMORPHISE(Xor, type)
-#define Eq(type)     POICA_MONOMORPHISE(Eq, type)
+#define BConst(type) P(BConst, type)
+#define And(type)    P(And, type)
+#define Or(type)     P(Or, type)
+#define Xor(type)    P(Xor, type)
+#define Eq(type)     P(Eq, type)
 
 choice(IExprBody(int));
 choice(IExprBody(_Bool));
@@ -60,7 +60,7 @@ choice(BExprBody(_Bool));
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#define eval(t1, t2) POICA_MONOMORPHISE(eval, t1, t2)
+#define eval(t1, t2) P(eval, t1, t2)
 
 #define GEN_CASE(_r, t1t2, variant)                                            \
     BOOST_PP_CAT(GEN_CASE_, POICA_VARIANT_NAME(variant)) t1t2

@@ -23,12 +23,17 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_MONOMORPHISE_H
-#define POICA_MONOMORPHISE_H
+#ifndef P_H
+#define P_H
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_MONOMORPHISE(...)                                                \
-    BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
+#ifdef POICA_USE_PREFIX
+#define PoicaP POICA_P_P
+#else
+#define P POICA_P_P
+#endif
 
-#endif // POICA_MONOMORPHISE_H
+#define POICA_P_P(...) BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
+
+#endif // P_H

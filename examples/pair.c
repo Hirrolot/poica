@@ -32,7 +32,7 @@ typedef const char *Msg;
 DefPair(Msg, double);
 
 int main(void) {
-    Pair(Msg, double) pair = {"Hello", 89267.2529909};
+    P(Pair, Msg, double) pair = {"Hello", 89267.2529909};
 
     /*
      * Output:

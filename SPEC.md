@@ -83,7 +83,7 @@ obj                       = "obj(" value "," value-type ")" ;
 unit-type                 = "Unit" ;
 unit-value                = "unit" ;
 
-monomorphise              = "POICA_MONOMORPHISE(" ( identifier | identifier { "," identifier }+ ) ")"
+monomorphise              = "P(" ( identifier | identifier { "," identifier }+ ) ")"
 force-semicolon           = "POICA_FORCE_SEMICOLON"
 ```
 
@@ -306,19 +306,19 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 
 ```c
 choice(
-    Maybe(<type>),
-    variant(Just(<type>), <type>)
-    variant(Nothing(<type>))
+    P(Maybe, <type>),
+    variant(P(Just, <type>), <type>)
+    variant(P(Nothing, <type>))
 );
 
 
-inline static bool isJust(<type>)(Maybe(<type>) maybe) { ... }
-inline static bool isNothing(<type>)(Maybe(<type>) maybe) { ... }
+inline static bool P(isJust, <type>)(P(Maybe, <type>) maybe) { ... }
+inline static bool P(isNothing, <type>)(P(Maybe, <type>) maybe) { ... }
 ```
 
- - `Maybe(<type>)` expands to a name of a monomorphized `Maybe` type.
- - `Just(<type>)` and `Nothing(<type>)` expand to names of value constructors. The first one accepts a value of type `<type>`, the latter constructs an empty `Maybe`.
- - `isJust(<type>)` and `isNothing(<type>)` expand to names of functions that test whether the provided `Maybe` is `Just(<type>)` or `Nothing(<type>)`, respectively.
+ - `P(Maybe, <type>)` expands to a name of a monomorphized `Maybe` type.
+ - `P(isNothing, <type>)` and `P(Nothing, <type>)` expand to names of value constructors. The first one accepts a value of type `<type>`, the latter constructs an empty `Maybe`.
+ - `P(isJust, <type>)` and `P(isNothing, <type>)` expand to names of functions that test whether the provided `Maybe` is `P(Just, <type>)` or `P(Nothing, <type>)`, respectively.
 
 ### `Either`
 
@@ -326,19 +326,18 @@ inline static bool isNothing(<type>)(Maybe(<type>) maybe) { ... }
 
 ```c
 choice(
-    Either(<left-type>, <right-type>),
-    variant(Left(<left-type>, <right-type>), <left-type>)
-    variant(Right(<left-type>, <right-type>), <right-type>)
+    P(Either, <left-type>, <right-type>),
+    variant(P(Left, <left-type>, <right-type>), <left-type>)
+    variant(P(Right, <left-type>, <right-type>), <right-type>)
 );
 
-
-inline static bool isLeft(<left-type>, <right-type>)(Either(<left-type, right-type>) either) { ... }
-inline static bool isRight(<left-type>, <right-type>)(Either(<left-type, right-type>) either) { ... }
+inline static bool P(isLeft, <left-type>, <right-type>)(P(Either, <left-type>, <right-type>) either) { ... }
+inline static bool P(isRight, <left-type>, <right-type>)(P(Either, <left-type>, <right-type>) either) { ... }
 ```
 
- - `Either(<left-type>, <right-type>)` expands to a name of a monomorphized `Either` type.
- - `Left(<left-type>, <right-type>)` and `Right(<left-type>, <right-type>)` expand to names of value constructors. They accept values of `<left-type>` and `<right-type>` and construct the appropriate variants of `Either`, respectively.
- - `isLeft(<left-type>, <right-type>)` and `isRight(<left-type>, <right-type>)` expand to names of functions that test whether the provided `Either` is `Left(<left-type>, <right-type>)` or `Right(<left-type>, <right-type>)`, respectively.
+ - `P(Either, <left-type>, <right-type>)` expands to a name of a monomorphized `Either` type.
+ - `P(Left, <left-type>, <right-type>)` and `P(Right, <left-type>, <right-type>)` expand to names of value constructors. They accept values of `<left-type>` and `<right-type>` and construct the appropriate variants of `Either`, respectively.
+ - `P(isLeft, <left-type>, <right-type>)` and `P(isRight, <left-type>, <right-type>)` expand to names of functions that test whether the provided `Either` is `P(Left, <left-type>, <right-type>)` or `P(Right, <left-type>, <right-type>)`, respectively.
 
 ### `Pair`
 
@@ -346,13 +345,13 @@ inline static bool isRight(<left-type>, <right-type>)(Either(<left-type, right-t
 
 ```c
 record(
-    Pair(<fst-type>, <snd-type>)
+    P(Pair, <fst-type>, <snd-type>)
     field(fst, <fst-type>)
     field(snd, <snd-type>)
 );
 ```
 
- - `Pair(<fst-type>, <snd-type>)` expands to a name of a monomorphized `Pair` type.
+ - `P(Pair, <fst-type>, <snd-type>)` expands to a name of a monomorphized `Pair` type.
 
 ### `Res`
 
@@ -360,19 +359,19 @@ record(
 
 ```c
 choice(
-    Res(<ok-type>, <err-type>),
-    variant(Ok(<ok-type>, <err-type>), <ok-type>)
-    variant(Err(<ok-type>, <err-type>), <err-type>)
+    P(Res, <ok-type>, <err-type>),
+    variant(P(Ok, <ok-type>, <err-type>), <ok-type>)
+    variant(P(Err, <ok-type>, <err-type>), <err-type>)
 );
 
 
-inline static bool isOk(<ok-type>, <right-type>)(Res(<ok-type, err-type>) res) { ... }
-inline static bool isErr(<ok-type>, <right-type>)(Res(<ok-type, err-type>) res) { ... }
+inline static bool isOk(<ok-type>, <right-type>)(P(Res, <ok-type>, <err-type>) res) { ... }
+inline static bool isErr(<ok-type>, <right-type>)(P(Res, <ok-type>, <err-type>) res) { ... }
 ```
 
- - `Res(<ok-type>, <err-type>)` expands to a name of a monomorphized `Res` type.
- - `Ok(<ok-type>, <err-type>)` and `Err(<ok-type>, <err-type>)` expand to names of value constructors. They accept values of `<ok-type>` and `<err-type>` and construct the appropriate variants of `Res`, respectively.
- - `isOk(<ok-type>, <err-type>)` and `isErr(<ok-type>, <err-type>)` expand to names of functions that test whether the provided `Res` is `Ok(<ok-type>, <err-type>)` or `Err(<ok-type>, <err-type>)`, respectively.
+ - `P(Res, <ok-type>, <err-type>)` expands to a name of a monomorphized `Res` type.
+ - `P(Ok, <ok-type>, <err-type>)` and `P(Err, <ok-type>, <err-type>)` expand to names of value constructors. They accept values of `<ok-type>` and `<err-type>` and construct the appropriate variants of `Res`, respectively.
+ - `P(isOk, <ok-type>, <err-type>)` and `P(isErr, <ok-type>, <err-type>)` expand to names of functions that test whether the provided `Res` is `P(Ok, <ok-type>, <err-type>)` or `P(Err, <ok-type>, <err-type>)`, respectively.
 
 ### `obj`
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.
@@ -389,21 +388,21 @@ static const Unit unit;
 
 [unit type]: https://en.wikipedia.org/wiki/Unit_type
 
-### `POICA_MONOMORPHISE`
+### `P`
 
 Concatenates all the provided identifiers, thereby producing a name of a monomorphised software entity. Example:
 
 ```
-POICA_MONOMORPHISE(a, b, c) ==> abc
+P(a, b, c) ==> abc
 ```
 
-Note that even if we provide different types, this macro may produce the same identifier: `POICA_MONOMORPHISE(a, aa)` is the same as `POICA_MONOMORPHISE(aa, a)`. However, this behavior occurs almost never, and a compiler must generate a compilation error.
+Note that even if we provide different types, this macro may produce the same identifier: `P(a, aa)` is the same as `P(aa, a)`. However, this behavior occurs almost never, and a compiler must generate a compilation error.
 
-Another edge-case is that `POICA_MONOMORPHISE` doesn't handle special characters and whitespaces, for example, `int *`, `int (*fnPtr)(int, int)` and so on. Instead you can use `typedef`s:
+Another edge-case is that `P` doesn't handle special characters and whitespaces, for example, `int *`, `int (*fnPtr)(int, int)` and so on. Instead you can use `typedef`s:
 
 ```c
 typedef int (*fnPtr)(int, int);
-POICA_MONOMORPHISE(fnPtr, abc) ==> fnPtrabc
+P(fnPtr, abc) ==> fnPtrabc
 ```
 
 ### `POICA_FORCE_SEMICOLON`
@@ -431,5 +430,5 @@ Do **NOT** do this:
 match(<cpu-bound-or-io-expr>) { ... }
 ```
 
- - All the generic types inherit the edge-cases of [`POICA_MONOMORPHISE`](#poica_monomorphise).
+ - All the generic types inherit the edge-cases of [`P`](#p).
  

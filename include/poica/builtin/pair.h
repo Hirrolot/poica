@@ -26,29 +26,20 @@
 #ifndef POICA_BUILTIN_PAIR_H
 #define POICA_BUILTIN_PAIR_H
 
-#include <poica/monomorphise.h>
+#include <poica/p.h>
 
 #include <poica/record.h>
 
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
-
 #define PoicaDefPair POICA_P_PAIR_DEF
-#define PoicaPair    POICA_P_PAIR
-
 #else
-
 #define DefPair POICA_P_PAIR_DEF
-#define Pair    POICA_P_PAIR
-
 #endif
 
 #define POICA_P_PAIR_DEF(fst_type, snd_type)                                   \
-    record(POICA_P_PAIR(fst_type, snd_type),                                   \
+    record(POICA_P_P(Pair, fst_type, snd_type),                                \
            field(fst, fst_type) field(snd, snd_type))
-
-#define POICA_P_PAIR(fst_type, snd_type)                                       \
-    POICA_MONOMORPHISE(Pair, fst_type, snd_type)
 
 #endif // POICA_BUILTIN_PAIR_H

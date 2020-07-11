@@ -27,7 +27,7 @@
 #define POICA_BUILTIN_MAYBE_H
 
 #include <poica/force_semicolon.h>
-#include <poica/monomorphise.h>
+#include <poica/p.h>
 
 #include <poica/choice.h>
 
@@ -36,49 +36,25 @@
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
-
 #define PoicaDefMaybe POICA_P_MAYBE_DEF
-#define PoicaMaybe    POICA_P_MAYBE
-#define PoicaJust     POICA_P_MAYBE_JUST
-#define PoicaNothing  POICA_P_MAYBE_NOTHING
-
-#define poicaIsJust    POICA_P_MAYBE_IS_JUST
-#define poicaIsNothing POICA_P_MAYBE_IS_NOTHING
-
 #else
-
 #define DefMaybe POICA_P_MAYBE_DEF
-#define Maybe    POICA_P_MAYBE
-#define Just     POICA_P_MAYBE_JUST
-#define Nothing  POICA_P_MAYBE_NOTHING
-
-#define isJust    POICA_P_MAYBE_IS_JUST
-#define isNothing POICA_P_MAYBE_IS_NOTHING
-
 #endif
 
 #define POICA_P_MAYBE_DEF(type)                                                \
-    choice(POICA_P_MAYBE(type),                                                \
-           variant(POICA_P_MAYBE_JUST(type), type)                             \
-               variant(POICA_P_MAYBE_NOTHING(type)));                          \
+    choice(POICA_P_P(Maybe, type),                                             \
+           variant(POICA_P_P(Just, type), type)                                \
+               variant(POICA_P_P(Nothing, type)));                             \
                                                                                \
-    inline static bool POICA_P_MAYBE_IS_JUST(type)(POICA_P_MAYBE(type)         \
-                                                       maybe) {                \
-        return POICA_P_MATCHES(maybe, POICA_P_MAYBE_JUST(type));               \
+    inline static bool POICA_P_P(isJust, type)(POICA_P_P(Maybe, type) maybe) { \
+        return POICA_P_MATCHES(maybe, POICA_P_P(Just, type));                  \
     }                                                                          \
                                                                                \
-    inline static bool POICA_P_MAYBE_IS_NOTHING(type)(POICA_P_MAYBE(type)      \
-                                                          maybe) {             \
-        return POICA_P_MATCHES(maybe, POICA_P_MAYBE_NOTHING(type));            \
+    inline static bool POICA_P_P(isNothing,                                    \
+                                 type)(POICA_P_P(Maybe, type) maybe) {         \
+        return POICA_P_MATCHES(maybe, POICA_P_P(Nothing, type));               \
     }                                                                          \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define POICA_P_MAYBE(type)         POICA_MONOMORPHISE(Maybe, type)
-#define POICA_P_MAYBE_JUST(type)    POICA_MONOMORPHISE(MaybeJust, type)
-#define POICA_P_MAYBE_NOTHING(type) POICA_MONOMORPHISE(MaybeNothing, type)
-
-#define POICA_P_MAYBE_IS_JUST(type)    POICA_MONOMORPHISE(maybeIsJust, type)
-#define POICA_P_MAYBE_IS_NOTHING(type) POICA_MONOMORPHISE(maybeIsNothing, type)
 
 #endif // POICA_BUILTIN_MAYBE_H

@@ -27,7 +27,7 @@
 #define POICA_BUILTIN_RES_H
 
 #include <poica/force_semicolon.h>
-#include <poica/monomorphise.h>
+#include <poica/p.h>
 
 #include <poica/choice.h>
 
@@ -36,55 +36,26 @@
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
-
 #define PoicaDefRes POICA_P_RES_DEF
-#define PoicaRes    POICA_P_RES
-#define PoicaOk     POICA_P_RES_OK
-#define PoicaErr    POICA_P_RES_ERR
-
-#define poicaIsOk  POICA_P_RES_IS_OK
-#define poicaIsErr POICA_P_RES_IS_ERR
-
 #else
-
 #define DefRes POICA_P_RES_DEF
-#define Res    POICA_P_RES
-#define Ok     POICA_P_RES_OK
-#define Err    POICA_P_RES_ERR
-
-#define isOk  POICA_P_RES_IS_OK
-#define isErr POICA_P_RES_IS_ERR
-
 #endif
 
 #define POICA_P_RES_DEF(ok_type, err_type)                                     \
-    choice(POICA_P_RES(ok_type, err_type),                                     \
-           variant(POICA_P_RES_OK(ok_type, err_type), ok_type)                 \
-               variant(POICA_P_RES_ERR(ok_type, err_type), err_type));         \
+    choice(POICA_P_P(Res, ok_type, err_type),                                  \
+           variant(POICA_P_P(Ok, ok_type, err_type), ok_type)                  \
+               variant(POICA_P_P(Err, ok_type, err_type), err_type));          \
                                                                                \
-    inline static bool POICA_P_RES_IS_OK(ok_type, err_type)(                   \
-        POICA_P_RES(ok_type, err_type) res) {                                  \
-        return POICA_P_MATCHES(res, POICA_P_RES_OK(ok_type, err_type));        \
+    inline static bool POICA_P_P(isOk, ok_type, err_type)(                     \
+        POICA_P_P(Res, ok_type, err_type) res) {                               \
+        return POICA_P_MATCHES(res, POICA_P_P(Ok, ok_type, err_type));         \
     }                                                                          \
                                                                                \
-    inline static bool POICA_P_RES_IS_ERR(ok_type, err_type)(                  \
-        POICA_P_RES(ok_type, err_type) res) {                                  \
-        return POICA_P_MATCHES(res, POICA_P_RES_ERR(ok_type, err_type));       \
+    inline static bool POICA_P_P(isErr, ok_type, err_type)(                    \
+        POICA_P_P(Res, ok_type, err_type) res) {                               \
+        return POICA_P_MATCHES(res, POICA_P_P(Err, ok_type, err_type));        \
     }                                                                          \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define POICA_P_RES(ok_type, err_type)                                         \
-    POICA_MONOMORPHISE(Res, ok_type, err_type)
-
-#define POICA_P_RES_OK(ok_type, err_type)                                      \
-    POICA_MONOMORPHISE(ResOk, ok_type, err_type)
-#define POICA_P_RES_ERR(ok_type, err_type)                                     \
-    POICA_MONOMORPHISE(ResErr, ok_type, err_type)
-
-#define POICA_P_RES_IS_OK(ok_type, err_type)                                   \
-    POICA_MONOMORPHISE(resIsOk, ok_type, err_type)
-#define POICA_P_RES_IS_ERR(ok_type, err_type)                                  \
-    POICA_MONOMORPHISE(resIsErr, ok_type, err_type)
 
 #endif // POICA_BUILTIN_RES_H

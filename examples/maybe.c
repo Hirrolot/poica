@@ -34,39 +34,39 @@ DefMaybe(int);
 DefMaybe(Msg);
 
 int main(void) {
-    Maybe(int) maybe1 = Just(int)(123);
+    P(Maybe, int) maybe1 = P(Just, int)(123);
 
     /*
      * Output:
      * Just(123)
      */
     match(maybe1) {
-        of(Just(int), number) {
+        of(P(Just, int), number) {
             printf("Just(%d)\n", *number);
         }
-        of(Nothing(int)) {
+        of(P(Nothing, int)) {
             puts("Nothing");
         }
     }
 
-    assert(isJust(int)(maybe1));
-    assert(!isNothing(int)(maybe1));
+    assert(P(isJust, int)(maybe1));
+    assert(!P(isNothing, int)(maybe1));
 
-    Maybe(Msg) maybe2 = Nothing(Msg)();
+    P(Maybe, Msg) maybe2 = P(Nothing, Msg)();
 
     /*
      * Output:
      * Nothing
      */
     match(maybe2) {
-        of(Just(Msg), msg) {
+        of(P(Just, Msg), msg) {
             printf("Just(\"%s\")\n", *msg);
         }
-        of(Nothing(Msg)) {
+        of(P(Nothing, Msg)) {
             puts("Nothing");
         }
     }
 
-    assert(!isJust(Msg)(maybe2));
-    assert(isNothing(Msg)(maybe2));
+    assert(!P(isJust, Msg)(maybe2));
+    assert(P(isNothing, Msg)(maybe2));
 }

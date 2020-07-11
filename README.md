@@ -387,7 +387,7 @@ The last one has been presented in the previous section. All these generic types
 DefX(T1, ..., Tn);
 
 // Generate a type name.
-X(T1, ..., Tn) = ...;
+P(X, T1, ..., Tn) = ...;
 ```
 
 The utility functions can be found in the [specification].
@@ -416,7 +416,6 @@ Below is a trivial implementation of a generic [linked list]:
 
 [[`examples/generic_linked_list.c`](examples/generic_linked_list.c)]
 ```c
-
 #include <poica.h>
 
 #include <assert.h>
@@ -425,20 +424,19 @@ Below is a trivial implementation of a generic [linked list]:
 #include <string.h>
 
 #define DeclLinkedList(type)                                                   \
-    typedef struct LinkedList(type) {                                          \
+    typedef struct P(LinkedList, type) {                                       \
         type *data;                                                            \
-        struct LinkedList(type) * next;                                        \
-    }                                                                          \
-    LinkedList(type);                                                          \
+        struct P(LinkedList, type) * next;                                     \
+    } P(LinkedList, type);                                                     \
                                                                                \
-    static LinkedList(type) * listNew(type)(type item);                        \
-    static void listFree(type)(LinkedList(type) * list);                       \
+    static P(LinkedList, type) * P(listNew, type)(type item);                  \
+    static void P(listFree, type)(P(LinkedList, type) * list);                 \
                                                                                \
     POICA_FORCE_SEMICOLON
 
 #define DefLinkedList(type)                                                    \
-    static LinkedList(type) * listNew(type)(type item) {                       \
-        LinkedList(type) *list = malloc(sizeof(*list));                        \
+    static P(LinkedList, type) * P(listNew, type)(type item) {                 \
+        P(LinkedList, type) *list = malloc(sizeof(*list));                     \
         assert(list);                                                          \
                                                                                \
         list->data = malloc(sizeof(type));                                     \
@@ -449,12 +447,12 @@ Below is a trivial implementation of a generic [linked list]:
         return list;                                                           \
     }                                                                          \
                                                                                \
-    static void listFree(type)(LinkedList(type) * list) {                      \
-        LinkedList(type) *node = list;                                         \
+    static void P(listFree, type)(P(LinkedList, type) * list) {                \
+        P(LinkedList, type) *node = list;                                      \
                                                                                \
         do {                                                                   \
             free(node->data);                                                  \
-            LinkedList(type) *next_node = node->next;                          \
+            P(LinkedList, type) *next_node = node->next;                       \
             free(node);                                                        \
             node = next_node;                                                  \
         } while (node);                                                        \
@@ -462,23 +460,19 @@ Below is a trivial implementation of a generic [linked list]:
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#define LinkedList(type) POICA_MONOMORPHISE(LinkedList, type)
-#define listNew(type)    POICA_MONOMORPHISE(listNew, type)
-#define listFree(type)   POICA_MONOMORPHISE(listFree, type)
-
 DeclLinkedList(int);
 DefLinkedList(int);
 
 int main(void) {
-    LinkedList(int) *list = listNew(int)(123);
-    list->next = listNew(int)(456);
-    list->next->next = listNew(int)(789);
+    P(LinkedList, int) *list = P(listNew, int)(123);
+    list->next = P(listNew, int)(456);
+    list->next->next = P(listNew, int)(789);
 
-    listFree(int)(list);
+    P(listFree, int)(list);
 }
 ```
 
-There's nothing much to say, except that `POICA_MONOMORPHISE` expands to a unique function or type identifier, e.g. performs type substitution.
+There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
 ### Interfaces
 
@@ -495,29 +489,25 @@ For example, consider the `Register` interface with `load` and `store` operation
 
 #include <stdio.h>
 
-#define declRegisterLoad(type) static type registerLoad(type)(const type *self)
+#define declRegisterLoad(type)                                                 \
+    static type P(registerLoad, type)(const type *self)
 #define declRegisterStore(type)                                                \
-    static void registerStore(type)(type * self, const type *src)
-
-#define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
-#define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
+    static void P(registerStore, type)(type * self, const type *src)
 ```
 
 And then we can define a [parametrically polymorphic] `swap` procedure, taking three pointers to some type, which implements `Register`:
 
 ```c
 #define declSwap(type)                                                         \
-    static void swap(type)(type * left, type * right, type * tmp)
+    static void P(swap, type)(type * left, type * right, type * tmp)
 #define defSwap(type)                                                          \
     declSwap(type) {                                                           \
-        registerStore(type)(tmp, left);                                        \
-        registerStore(type)(left, right);                                      \
-        registerStore(type)(right, tmp);                                       \
+        P(registerStore, type)(tmp, left);                                     \
+        P(registerStore, type)(left, right);                                   \
+        P(registerStore, type)(right, tmp);                                    \
     }                                                                          \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define swap(type) POICA_MONOMORPHISE(swap, type)
 ```
 
 After that, we implement `Register` and define `swap` for `int`:
@@ -545,7 +535,7 @@ int main(void) {
     int ax = 2, bx = 63, tmp = 0;
     printf("ax = %d, bx = %d\n", ax, bx);
 
-    swap(int)(&ax, &bx, &tmp);
+    P(swap, int)(&ax, &bx, &tmp);
 
     printf("ax = %d, bx = %d\n", ax, bx);
 }
@@ -569,7 +559,7 @@ Higher-kinded types allow to write code even more generically. Consider these fa
  - `LinkedList`, `Vect`, `Set` have kind `* -> *`
  - `HashMap` has kind `* -> * -> *`
 
-Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `POICA_MONOMORPHISE(LinkedList, SomeType)`.
+Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `P(LinkedList, SomeType)`.
 
 poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
 
@@ -581,18 +571,14 @@ For instance, `TreeG` (taken from the [SO answer](https://stackoverflow.com/a/21
 
 #define DefTreeG(branch, type)                                                 \
     choice(                                                                    \
-        TreeG(branch, type),                                                   \
-        variantMany(Branch(branch, type),                                      \
+        P(TreeG, branch, type),                                                \
+        variantMany(P(Branch, branch, type),                                   \
             field(data, type)                                                  \
             field(branches,                                                    \
-                POICA_MONOMORPHISE(branch, TreeG(branch, type))                \
+                P(branch, P(TreeG, branch, type))                              \
             )                                                                  \
         )                                                                      \
-        variant(Leaf(branch, type), type))
-
-#define TreeG(branch, type)  POICA_MONOMORPHISE(TreeG, branch, type)
-#define Branch(branch, type) POICA_MONOMORPHISE(Branch, branch, type)
-#define Leaf(branch, type)   POICA_MONOMORPHISE(Leaf, branch, type)
+        variant(P(Leaf, branch, type), type))
 ```
 
 The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are about to be passed into `TreeG` later:
@@ -600,23 +586,21 @@ The `branch` type parameter has kind `* -> *`, so it can be something like `Link
 ```c
 #define DefBinaryTree(type)                                                    \
     record(                                                                    \
-        BinaryTree(type),                                                      \
+        P(BinaryTree, type),                                                   \
         field(left, struct type *)                                             \
         field(right, struct type *)                                            \
     )
-#define BinaryTree(type) POICA_MONOMORPHISE(BinaryTree, type)
 
 #define DefWeirdTree(type)                                                     \
     record(                                                                    \
-        WeirdTree(type),                                                       \
+        P(WeirdTree, type),                                                    \
         field(text, const char *)                                              \
     )
-#define WeirdTree(type) POICA_MONOMORPHISE(WeirdTree, type)
 
-DefBinaryTree(TreeG(BinaryTree, int));
+DefBinaryTree(P(TreeG, BinaryTree, int));
 DefTreeG(BinaryTree, int);
 
-DefWeirdTree(TreeG(WeirdTree, int));
+DefWeirdTree(P(TreeG, WeirdTree, int));
 DefTreeG(WeirdTree, int);
 ```
 
@@ -624,23 +608,25 @@ And they can be constructed as follows:
 
 ```c
 void binary_tree(void) {
-    TreeG(BinaryTree, int) _456_leaf = Leaf(BinaryTree, int)(456);
-    TreeG(BinaryTree, int) _789_leaf = Leaf(BinaryTree, int)(789);
+    P(TreeG, BinaryTree, int) _456_leaf = P(Leaf, BinaryTree, int)(456);
+    P(TreeG, BinaryTree, int) _789_leaf = P(Leaf, BinaryTree, int)(789);
 
-    TreeG(BinaryTree, int) binary_tree =
-        Branch(BinaryTree, int)(123,
-                                (BinaryTree(TreeG(BinaryTree, int))){
-                                    &_456_leaf,
-                                    &_789_leaf,
-                                });
+    P(TreeG, BinaryTree, int)
+    binary_tree =
+        P(Branch, BinaryTree, int)(123,
+                                   (P(BinaryTree, P(TreeG, BinaryTree, int))){
+                                       &_456_leaf,
+                                       &_789_leaf,
+                                   });
 }
 
 void weird_tree(void) {
-    TreeG(WeirdTree, int) weird_tree_1 =
-        Branch(WeirdTree, int)(123,
-                               (WeirdTree(TreeG(WeirdTree, int))){
-                                   .text = "Hey",
-                               });
+    P(TreeG, WeirdTree, int)
+    weird_tree_1 =
+        P(Branch, WeirdTree, int)(123,
+                                  (P(WeirdTree, P(TreeG, WeirdTree, int))){
+                                      .text = "Hey",
+                                  });
 }
 ```
 

@@ -47,8 +47,8 @@
 
 #define POICA_P_TRY(val, ok_type_1, ok_type_2, err_type)                       \
     POICA_P_MATCH(val) {                                                       \
-        of(Err(ok_type_1, err_type), err) {                                    \
-            return Err(ok_type_2, err_type)(*err);                             \
+        of(POICA_P_P(Err, ok_type_1, err_type), err) {                         \
+            return POICA_P_P(Err, ok_type_2, err_type)(*err);                  \
         }                                                                      \
         POICA_P_OTHERWISE {}                                                   \
     }

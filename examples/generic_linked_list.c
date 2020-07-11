@@ -6,20 +6,19 @@
 #include <string.h>
 
 #define DeclLinkedList(type)                                                   \
-    typedef struct LinkedList(type) {                                          \
+    typedef struct P(LinkedList, type) {                                       \
         type *data;                                                            \
-        struct LinkedList(type) * next;                                        \
-    }                                                                          \
-    LinkedList(type);                                                          \
+        struct P(LinkedList, type) * next;                                     \
+    } P(LinkedList, type);                                                     \
                                                                                \
-    static LinkedList(type) * listNew(type)(type item);                        \
-    static void listFree(type)(LinkedList(type) * list);                       \
+    static P(LinkedList, type) * P(listNew, type)(type item);                  \
+    static void P(listFree, type)(P(LinkedList, type) * list);                 \
                                                                                \
     POICA_FORCE_SEMICOLON
 
 #define DefLinkedList(type)                                                    \
-    static LinkedList(type) * listNew(type)(type item) {                       \
-        LinkedList(type) *list = malloc(sizeof(*list));                        \
+    static P(LinkedList, type) * P(listNew, type)(type item) {                 \
+        P(LinkedList, type) *list = malloc(sizeof(*list));                     \
         assert(list);                                                          \
                                                                                \
         list->data = malloc(sizeof(type));                                     \
@@ -30,12 +29,12 @@
         return list;                                                           \
     }                                                                          \
                                                                                \
-    static void listFree(type)(LinkedList(type) * list) {                      \
-        LinkedList(type) *node = list;                                         \
+    static void P(listFree, type)(P(LinkedList, type) * list) {                \
+        P(LinkedList, type) *node = list;                                      \
                                                                                \
         do {                                                                   \
             free(node->data);                                                  \
-            LinkedList(type) *next_node = node->next;                          \
+            P(LinkedList, type) *next_node = node->next;                       \
             free(node);                                                        \
             node = next_node;                                                  \
         } while (node);                                                        \
@@ -43,17 +42,13 @@
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#define LinkedList(type) POICA_MONOMORPHISE(LinkedList, type)
-#define listNew(type)    POICA_MONOMORPHISE(listNew, type)
-#define listFree(type)   POICA_MONOMORPHISE(listFree, type)
-
 DeclLinkedList(int);
 DefLinkedList(int);
 
 int main(void) {
-    LinkedList(int) *list = listNew(int)(123);
-    list->next = listNew(int)(456);
-    list->next->next = listNew(int)(789);
+    P(LinkedList, int) *list = P(listNew, int)(123);
+    list->next = P(listNew, int)(456);
+    list->next->next = P(listNew, int)(789);
 
-    listFree(int)(list);
+    P(listFree, int)(list);
 }

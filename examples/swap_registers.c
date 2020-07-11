@@ -29,28 +29,24 @@
 
 // The "Register" type class.
 
-#define declRegisterLoad(type) static type registerLoad(type)(const type *self)
+#define declRegisterLoad(type)                                                 \
+    static type P(registerLoad, type)(const type *self)
 #define declRegisterStore(type)                                                \
-    static void registerStore(type)(type * self, const type *src)
-
-#define registerLoad(type)  POICA_MONOMORPHISE(registerLoad, type)
-#define registerStore(type) POICA_MONOMORPHISE(registerStore, type)
+    static void P(registerStore, type)(type * self, const type *src)
 
 // Swap two registers.
 //
 // 'type' must implement Register.
 #define declSwap(type)                                                         \
-    static void swap(type)(type * left, type * right, type * tmp)
+    static void P(swap, type)(type * left, type * right, type * tmp)
 #define defSwap(type)                                                          \
     declSwap(type) {                                                           \
-        registerStore(type)(tmp, left);                                        \
-        registerStore(type)(left, right);                                      \
-        registerStore(type)(right, tmp);                                       \
+        P(registerStore, type)(tmp, left);                                     \
+        P(registerStore, type)(left, right);                                   \
+        P(registerStore, type)(right, tmp);                                    \
     }                                                                          \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define swap(type) POICA_MONOMORPHISE(swap, type)
 
 // Implement Register for int and define swap(int).
 
@@ -77,7 +73,7 @@ int main(void) {
     int ax = 2, bx = 63, tmp = 0;
     printf("ax = %d, bx = %d\n", ax, bx);
 
-    swap(int)(&ax, &bx, &tmp);
+    P(swap, int)(&ax, &bx, &tmp);
 
     printf("ax = %d, bx = %d\n", ax, bx);
 }

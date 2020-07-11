@@ -65,21 +65,21 @@ void skip_emptiness(const char **src) {
     }
 }
 
-Res(Unit, ParseErr) parse_full_name(Person *person, const char **src) {
+P(Res, Unit, ParseErr) parse_full_name(Person *person, const char **src) {
     if ((person->full_name = strchr(*src, '\'')) == NULL) {
-        return Err(Unit, ParseErr)(NO_FIRST_APOSTROPHE);
+        return P(Err, Unit, ParseErr)(NO_FIRST_APOSTROPHE);
     }
 
     person->full_name++;
     *src = (const char *)person->full_name;
 
-    return Ok(Unit, ParseErr)(unit);
+    return P(Ok, Unit, ParseErr)(unit);
 }
 
-Res(Unit, ParseErr) parse_age(Person *person, char **src) {
+P(Res, Unit, ParseErr) parse_age(Person *person, char **src) {
     char *age_pos;
     if ((age_pos = strchr(*src, '\'')) == NULL) {
-        return Err(Unit, ParseErr)(NO_SECOND_APOSTROPHE);
+        return P(Err, Unit, ParseErr)(NO_SECOND_APOSTROPHE);
     }
 
     *age_pos = '\0';
@@ -89,41 +89,41 @@ Res(Unit, ParseErr) parse_age(Person *person, char **src) {
     skip_emptiness((const char **)&age_pos);
 
     if (sscanf(age_pos, "%hhu", &person->age) == 0) {
-        return Err(Unit, ParseErr)(INVALID_AGE);
+        return P(Err, Unit, ParseErr)(INVALID_AGE);
     }
 
-    return Ok(Unit, ParseErr)(unit);
+    return P(Ok, Unit, ParseErr)(unit);
 }
 
-Res(Person, ParseErr) parse(char *src) {
+P(Res, Person, ParseErr) parse(char *src) {
     Person person;
 
-    Res(Unit, ParseErr) res1 = parse_full_name(&person, (const char **)&src);
+    P(Res, Unit, ParseErr) res1 = parse_full_name(&person, (const char **)&src);
     try
         (res1, Unit, Person, ParseErr);
 
-    Res(Unit, ParseErr) res2 = parse_age(&person, &src);
+    P(Res, Unit, ParseErr) res2 = parse_age(&person, &src);
     try
         (res2, Unit, Person, ParseErr);
 
-    return Ok(Person, ParseErr)(person);
+    return P(Ok, Person, ParseErr)(person);
 }
 
 int main(void) {
     char src[] = "'James Brown' 73";
-    Res(Person, ParseErr) res = parse(src);
+    P(Res, Person, ParseErr) res = parse(src);
 
     /*
      * Output:
      * Success!
      */
     match(res) {
-        of(Ok(Person, ParseErr), person) {
+        of(P(Ok, Person, ParseErr), person) {
             assert(person->age == 73);
             assert(strcmp(person->full_name, "James Brown") == 0);
             puts("Success!");
         }
-        of(Err(Person, ParseErr), err) {
+        of(P(Err, Person, ParseErr), err) {
             printf("Parsing has been failed! Reason: %s.\n", err_msgs[*err]);
         }
     }

@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
- - `POICA_MONOMORPHISE`
+ - `P`
  - `POICA_FORCE_SEMICOLON`
  - `examples/hkt.c`, `examples/int_bool_ast.c`, `examples/swap_registers.c`
 
@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
  - Remove from the style guide that variants must be prefixed with `Mk`.
+ - `POICA_MONOMORPHISE` -> `P`/`PoicaP`.
+ - Instead of writing `#define op(t1, ..., tn) POICA_MONOMORPHISE(t1, ..., tn)`, use `P(op, t1, ..., tn)`.
 
 ## [0.4.0] - 2020-06-27
 ### Changed
