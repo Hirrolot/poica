@@ -34,9 +34,6 @@
 #define declRegisterStore(type)                                                \
     static void P(registerStore, type)(type * self, const type *src)
 
-// Swap two registers.
-//
-// 'type' must implement Register.
 #define declSwap(type)                                                         \
     static void P(swap, type)(type * left, type * right, type * tmp)
 #define defSwap(type)                                                          \
