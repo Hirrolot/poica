@@ -269,8 +269,8 @@ And more (planned!).
 
 #define MY_CHOICE                                                           \
     Something,                                                              \
-    variant(A)                                                            \
-    variant(B, int)                                                       \
+    variant(A)                                                              \
+    variant(B, int)                                                         \
     variantMany(C, field(c1, double) field(c2, char))
 
 choice(MY_CHOICE);
