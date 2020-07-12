@@ -10,35 +10,24 @@
 #define MY_CAT(a, b)     MY_CAT_AUX(a, b)
 #define MY_CAT_AUX(a, b) a##b
 
-#define Expr(t1, t2) P(Expr, t1, t2)
 #define ExprPair(t1, t2)                                                       \
-    field(left, const struct Expr(t1, t2) *)                                   \
-        field(right, const struct Expr(t1, t2) *)
+    field(left, const struct P(Expr, t1, t2) *)                                \
+        field(right, const struct P(Expr, t1, t2) *)
 
 #define IExprBody(type)                                                        \
-    Expr(int, type),                                                           \
-        variant(IConst(type), int) variantMany(Add(type), ExprPair(int, type)) \
-            variantMany(Sub(type), ExprPair(int, int))                         \
-                variantMany(Mul(type), ExprPair(int, int))
-
-#define IConst(type) P(IConst, type)
-#define Add(type)    P(Add, type)
-#define Sub(type)    P(Sub, type)
-#define Mul(type)    P(Mul, type)
+    P(Expr, int, type),                                                        \
+        variant(P(IConst, type), int)                                          \
+            variantMany(P(Add, type), ExprPair(int, type))                     \
+                variantMany(P(Sub, type), ExprPair(int, int))                  \
+                    variantMany(P(Mul, type), ExprPair(int, int))
 
 #define BExprBody(type)                                                        \
-    Expr(_Bool, type),                                                         \
-        variant(BConst(type), _Bool)                                           \
-            variantMany(And(type), ExprPair(_Bool, type))                      \
-                variantMany(Or(type), ExprPair(_Bool, type))                   \
-                    variantMany(Xor(type), ExprPair(_Bool, type))              \
-                        variantMany(Eq(type), ExprPair(type, type))
-
-#define BConst(type) P(BConst, type)
-#define And(type)    P(And, type)
-#define Or(type)     P(Or, type)
-#define Xor(type)    P(Xor, type)
-#define Eq(type)     P(Eq, type)
+    P(Expr, _Bool, type),                                                      \
+        variant(P(BConst, type), _Bool)                                        \
+            variantMany(P(And, type), ExprPair(_Bool, type))                   \
+                variantMany(P(Or, type), ExprPair(_Bool, type))                \
+                    variantMany(P(Xor, type), ExprPair(_Bool, type))           \
+                        variantMany(P(Eq, type), ExprPair(type, type))
 
 choice(IExprBody(int));
 choice(IExprBody(_Bool));
@@ -52,36 +41,34 @@ choice(BExprBody(_Bool));
 #define Expr_Boolint_INTROSPECT   POICA_CHOICE_INTROSPECT(BExprBody(int))
 #define Expr_Bool_Bool_INTROSPECT POICA_CHOICE_INTROSPECT(BExprBody(_Bool))
 
-#define declEval(t1, t2) t1 eval(t1, t2)(const Expr(t1, t2) * expr)
+#define declEval(t1, t2) t1 P(eval, t1, t2)(const P(Expr, t1, t2) * expr)
 
 #define defEval(t1, t2)                                                        \
     POICA_P_EXPAND(declEval(t1, t2){match(*expr){BOOST_PP_SEQ_FOR_EACH(        \
-        GEN_CASE, (t1, t2), MY_CAT(Expr(t1, t2), _INTROSPECT))}})              \
+        GEN_CASE, (t1, t2), MY_CAT(P(Expr, t1, t2), _INTROSPECT))}})           \
                                                                                \
     POICA_FORCE_SEMICOLON
-
-#define eval(t1, t2) P(eval, t1, t2)
 
 #define GEN_CASE(_r, t1t2, variant)                                            \
     BOOST_PP_CAT(GEN_CASE_, POICA_VARIANT_NAME(variant)) t1t2
 
-#define GEN_CASE_Add_Bool(t1, t2) GEN_CASE_AUX(Add(t1), +, int, int)
-#define GEN_CASE_Sub_Bool(t1, t2) GEN_CASE_AUX(Sub(t1), -, int, int)
-#define GEN_CASE_Mul_Bool(t1, t2) GEN_CASE_AUX(Mul(t2), *, int, int)
+#define GEN_CASE_Add_Bool(t1, t2) GEN_CASE_AUX(P(Add, t1), +, int, int)
+#define GEN_CASE_Sub_Bool(t1, t2) GEN_CASE_AUX(P(Sub, t1), -, int, int)
+#define GEN_CASE_Mul_Bool(t1, t2) GEN_CASE_AUX(P(Mul, t2), *, int, int)
 
 #define GEN_CASE_Addint(t1, t2) GEN_CASE_Add_Bool(t1, t2)
 #define GEN_CASE_Subint(t1, t2) GEN_CASE_Sub_Bool(t1, t2)
 #define GEN_CASE_Mulint(t1, t2) GEN_CASE_Mul_Bool(t1, t2)
 
-#define GEN_CASE_And_Bool(t1, t2) GEN_CASE_AUX(And(t1), &&, _Bool, _Bool)
-#define GEN_CASE_Or_Bool(t1, t2)  GEN_CASE_AUX(Or(t1), ||, _Bool, _Bool)
-#define GEN_CASE_Xor_Bool(t1, t2) GEN_CASE_AUX(Xor(t1), ^, _Bool, _Bool)
-#define GEN_CASE_Eq_Bool(t1, t2)  GEN_CASE_AUX(Eq(t2), ==, t2, t2)
+#define GEN_CASE_And_Bool(t1, t2) GEN_CASE_AUX(P(And, t1), &&, _Bool, _Bool)
+#define GEN_CASE_Or_Bool(t1, t2)  GEN_CASE_AUX(P(Or, t1), ||, _Bool, _Bool)
+#define GEN_CASE_Xor_Bool(t1, t2) GEN_CASE_AUX(P(Xor, t1), ^, _Bool, _Bool)
+#define GEN_CASE_Eq_Bool(t1, t2)  GEN_CASE_AUX(P(Eq, t2), ==, t2, t2)
 
 #define GEN_CASE_Andint(t1, t2) GEN_CASE_And_Bool(t1, t2)
 #define GEN_CASE_Orint(t1, t2)  GEN_CASE_Or_Bool(t1, t2)
 #define GEN_CASE_Xorint(t1, t2) GEN_CASE_Xor_Bool(t1, t2)
-#define GEN_CASE_Eqint(t1, t2)  GEN_CASE_AUX(Eq(t2), ==, t2, t2)
+#define GEN_CASE_Eqint(t1, t2)  GEN_CASE_AUX(P(Eq, t2), ==, t2, t2)
 
 #define GEN_CASE_IConstint(t1, t2)                                             \
     of(IConstint, val) {                                                       \
@@ -103,7 +90,7 @@ choice(BExprBody(_Bool));
 
 #define GEN_CASE_AUX(variant_name, op, t1, t2)                                 \
     POICA_P_DEFER(ofMany)(variant_name, (left, right)) {                       \
-        return eval(t1, t2)(*left) op eval(t1, t2)(*right);                    \
+        return P(eval, t1, t2)(*left) op P(eval, t1, t2)(*right);              \
     }
 
 declEval(int, _Bool);
@@ -117,18 +104,18 @@ defEval(_Bool, _Bool);
 defEval(_Bool, int);
 
 int main(void) {
-    const Expr(_Bool, _Bool) true_node = BConst(_Bool)(true);
-    const Expr(_Bool, int) false_node = BConst(int)(false);
+    const P(Expr, _Bool, _Bool) true_node = P(BConst, _Bool)(true);
+    const P(Expr, _Bool, int) false_node = P(BConst, int)(false);
 
-    const Expr(int, int) _12_node = IConst(int)(12);
+    const P(Expr, int, int) _12_node = P(IConst, int)(12);
 
     // 12 == 12 == true
-    const Expr(_Bool, int) eq_node = Eq(int)(&_12_node, &_12_node);
+    const P(Expr, _Bool, int) eq_node = P(Eq, int)(&_12_node, &_12_node);
 
     // true && false == false
-    Expr(_Bool, int) expr = And(int)(&eq_node, &false_node);
+    P(Expr, _Bool, int) expr = P(And, int)(&eq_node, &false_node);
 
-    _Bool res = eval(_Bool, int)(&expr);
+    _Bool res = P(eval, _Bool, int)(&expr);
 
     /*
      * Output:
