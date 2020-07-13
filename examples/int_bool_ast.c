@@ -79,17 +79,13 @@ DefBExpr(P(Expr, Expr));
 defEvalBExpr(Expr);
 defEvalBExpr(P(Expr, Expr));
 
+// (12 == 12) && false
 int main(void) {
-    const P(Expr, Expr) true_node = P(BConst, Expr)(true);
-    const P(Expr, Expr) false_node = P(BConst, Expr)(false);
+    const P(Expr, Expr) _false = P(BConst, Expr)(false);
+    const Expr _12 = IConst(12);
 
-    const Expr _12_node = IConst(12);
-
-    // 12 == 12 == true
-    const P(Expr, Expr) eq_node = P(Eq, Expr)(&_12_node, &_12_node);
-
-    // true && false == false
-    P(Expr, P(Expr, Expr)) expr = P(And, P(Expr, Expr))(&eq_node, &false_node);
+    const P(Expr, Expr) eq = P(Eq, Expr)(&_12, &_12);
+    P(Expr, P(Expr, Expr)) expr = P(And, P(Expr, Expr))(&eq, &_false);
 
     _Bool res = P(eval, P(Expr, P(Expr, Expr)))(&expr);
 
