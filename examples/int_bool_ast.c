@@ -21,19 +21,19 @@ choice(
 );
 // clang-format on
 
-int evalExpr(const Expr *expr) {
+int P(eval, Expr)(const Expr *expr) {
     match(*expr) {
         of(IConst, number) {
             return *number;
         }
         ofMany(Add, (left, right)) {
-            return evalExpr(*left) + evalExpr(*right);
+            return P(eval, Expr)(*left) + P(eval, Expr)(*right);
         }
         ofMany(Sub, (left, right)) {
-            return evalExpr(*left) - evalExpr(*right);
+            return P(eval, Expr)(*left) - P(eval, Expr)(*right);
         }
         ofMany(Mul, (left, right)) {
-            return evalExpr(*left) * evalExpr(*right);
+            return P(eval, Expr)(*left) * P(eval, Expr)(*right);
         }
     }
 }
