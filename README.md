@@ -26,7 +26,7 @@ This library exports [type-driven development] to plain C11.
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
-   - [Interfaces, higher-kinded types, GADTs, ...](#interfaces)
+   - [Interfaces, higher-kinded types, GADTs, ...](#interfaces-higher-kinded-types-gadts-)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -478,7 +478,7 @@ There's nothing much to say, except that `P` (which stands for _polymorphic_) ex
 | Concept | Example |
 |-----|-------------|
 | Interfaces | [`examples/swap_registers.c`](examples/swap_registers.c) |
-| HKT (higher-kinded types) | [`examples/hkt.c`](examples/hkt.c) |
+| HKTs (higher-kinded types) | [`examples/hkt.c`](examples/hkt.c) |
 | GADTs (generalised ADTs) | [`examples/int_bool_ast.c`](examples/int_bool_ast.c) |
 
 ## Roadmap
