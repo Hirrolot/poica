@@ -146,7 +146,7 @@ For example, a [binary tree] like this:
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
-  <img src="https://i.imgur.com/efQNV.png" width="380px" />
+  <img src="images/BINARY_TREE.png" width="380px" />
 </div>
 
 Can be conveniently represented as a sum type and further manipulated using pattern matching. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
