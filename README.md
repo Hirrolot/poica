@@ -345,16 +345,16 @@ typedef const char *Msg;
 
 DefRes(Msg, RecvMsgErrKind);
 
-Res(Msg, RecvMsgErrKind) recv_msg(...) { ... }
+P(Res, Msg, RecvMsgErrKind) recv_msg(...) { ... }
 ```
 
 And then `Res(Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(Msg, RecvMsgErrKind)` and `Err(Msg, RecvMsgErrKind)`:
 
 ```c
-Res(Msg, RecvMsgErrKind) res = recv_msg(...);
+P(Res, Msg, RecvMsgErrKind) res = recv_msg(...);
 match(res) {
-    of(Ok(Msg, RecvMsgErrKind), msg) { ... }
-    of(Err(Msg, RecvMsgErrKind), err_kind) { ... }
+    of(P(Ok, Msg, RecvMsgErrKind), msg) { ... }
+    of(P(Err, Msg, RecvMsgErrKind), err_kind) { ... }
 }
 ```
 
