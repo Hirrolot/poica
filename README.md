@@ -348,7 +348,7 @@ DefRes(Msg, RecvMsgErrKind);
 P(Res, Msg, RecvMsgErrKind) recv_msg(...) { ... }
 ```
 
-And then `Res(Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(Msg, RecvMsgErrKind)` and `Err(Msg, RecvMsgErrKind)`:
+And then `P(Res, Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `P(Ok, Msg, RecvMsgErrKind)` and `P(Err, Msg, RecvMsgErrKind)`:
 
 ```c
 P(Res, Msg, RecvMsgErrKind) res = recv_msg(...);
