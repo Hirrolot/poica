@@ -4,21 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5.0] - 2020-07-18
+
+Now poica is for [type-driven development], not only for ADTs & type instrospection.
+
+[type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
 
 ### Added
- - `P`
+ - `P` (a macro for polymorphism)
  - `POICA_FORCE_SEMICOLON`
- - `examples/hkt.c`, `examples/int_bool_ast.c`, `examples/swap_registers.c`
+ - `examples/hkt.c`, `examples/int_bool_ast.c`, `examples/swap_registers.c`, `examples/generic_linked_list.c`
+
+### Changed
+ - Instead of `T(T1, ..., Tn)`, write `P(T, T1, ..., Tn)`.
 
 ### Fixed
  - Add prefixed versions `PoicaUnit` and `poicaUnit`.
 
-
-### Changed
- - Remove from the style guide that variants must be prefixed with `Mk`.
- - `POICA_MONOMORPHISE` -> `P`/`PoicaP`.
- - Instead of writing `#define op(t1, ..., tn) POICA_MONOMORPHISE(t1, ..., tn)`, use `P(op, t1, ..., tn)`.
+### Removed
+ - From the style guide that variants must be prefixed with `Mk`.
 
 ## [0.4.0] - 2020-06-27
 ### Changed
