@@ -28,10 +28,25 @@
 #include <assert.h>
 #include <stdio.h>
 
+#define defPrintMaybe(type, specifier)                                         \
+    void P(printMaybe, type)(P(Maybe, type) maybe) {                           \
+        match(maybe) {                                                         \
+            of(P(Just, type), val) {                                           \
+                printf("Just(" specifier ")\n", *val);                         \
+            }                                                                  \
+            of(P(Nothing, type)) {                                             \
+                puts("Nothing");                                               \
+            }                                                                  \
+        }                                                                      \
+    }
+
 typedef const char *Msg;
 
 DefMaybe(int);
 DefMaybe(Msg);
+
+defPrintMaybe(int, "%d");
+defPrintMaybe(Msg, "%s");
 
 int main(void) {
     P(Maybe, int) maybe1 = P(Just, int)(123);
@@ -40,14 +55,7 @@ int main(void) {
      * Output:
      * Just(123)
      */
-    match(maybe1) {
-        of(P(Just, int), number) {
-            printf("Just(%d)\n", *number);
-        }
-        of(P(Nothing, int)) {
-            puts("Nothing");
-        }
-    }
+    P(printMaybe, int)(maybe1);
 
     assert(P(isJust, int)(maybe1));
     assert(!P(isNothing, int)(maybe1));
@@ -58,14 +66,7 @@ int main(void) {
      * Output:
      * Nothing
      */
-    match(maybe2) {
-        of(P(Just, Msg), msg) {
-            printf("Just(\"%s\")\n", *msg);
-        }
-        of(P(Nothing, Msg)) {
-            puts("Nothing");
-        }
-    }
+    P(printMaybe, Msg)(maybe2);
 
     assert(!P(isJust, Msg)(maybe2));
     assert(P(isNothing, Msg)(maybe2));
