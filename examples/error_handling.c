@@ -59,10 +59,22 @@ static const char *err_msgs[] = {PARSE_ERRS};
 DefRes(Person, ParseErr);
 DefRes(Unit, ParseErr);
 
-void skip_emptiness(const char **src) {
-    while (**src != '\0' && isblank(**src)) {
-        (*src)++;
-    }
+P(Res, Unit, ParseErr) parse_full_name(Person *person, const char **src);
+P(Res, Unit, ParseErr) parse_age(Person *person, char **src);
+void skip_emptiness(const char **src);
+
+P(Res, Person, ParseErr) parse(char *src) {
+    Person person;
+
+    P(Res, Unit, ParseErr) res1 = parse_full_name(&person, (const char **)&src);
+    try
+        (res1, Unit, Person, ParseErr);
+
+    P(Res, Unit, ParseErr) res2 = parse_age(&person, &src);
+    try
+        (res2, Unit, Person, ParseErr);
+
+    return P(Ok, Person, ParseErr)(person);
 }
 
 P(Res, Unit, ParseErr) parse_full_name(Person *person, const char **src) {
@@ -95,18 +107,10 @@ P(Res, Unit, ParseErr) parse_age(Person *person, char **src) {
     return P(Ok, Unit, ParseErr)(unit);
 }
 
-P(Res, Person, ParseErr) parse(char *src) {
-    Person person;
-
-    P(Res, Unit, ParseErr) res1 = parse_full_name(&person, (const char **)&src);
-    try
-        (res1, Unit, Person, ParseErr);
-
-    P(Res, Unit, ParseErr) res2 = parse_age(&person, &src);
-    try
-        (res2, Unit, Person, ParseErr);
-
-    return P(Ok, Person, ParseErr)(person);
+void skip_emptiness(const char **src) {
+    while (**src != '\0' && isblank(**src)) {
+        (*src)++;
+    }
 }
 
 int main(void) {
