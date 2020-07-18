@@ -26,8 +26,7 @@ This library exports [type-driven development] to plain C11.
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
-   - [Interfaces](#interfaces)
-   - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
+   - [Interfaces, higher-kinded types, GADTs, ...](#interfaces-higher-kinded-types-gadts-)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -147,7 +146,7 @@ For example, a [binary tree] like this:
 [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
-  <img src="https://i.imgur.com/efQNV.png" width="380px" />
+  <img src="images/BINARY_TREE.png" width="380px" />
 </div>
 
 Can be conveniently represented as a sum type and further manipulated using pattern matching. In the code below we first construct this binary tree, and then print all its elements to `stdout`:
@@ -346,16 +345,16 @@ typedef const char *Msg;
 
 DefRes(Msg, RecvMsgErrKind);
 
-Res(Msg, RecvMsgErrKind) recv_msg(...) { ... }
+P(Res, Msg, RecvMsgErrKind) recv_msg(...) { ... }
 ```
 
-And then `Res(Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `Ok(Msg, RecvMsgErrKind)` and `Err(Msg, RecvMsgErrKind)`:
+And then `P(Res, Msg, RecvMsgErrKind)` can be matched to decide what to do in the case of `P(Ok, Msg, RecvMsgErrKind)` and `P(Err, Msg, RecvMsgErrKind)`:
 
 ```c
-Res(Msg, RecvMsgErrKind) res = recv_msg(...);
+P(Res, Msg, RecvMsgErrKind) res = recv_msg(...);
 match(res) {
-    of(Ok(Msg, RecvMsgErrKind), msg) { ... }
-    of(Err(Msg, RecvMsgErrKind), err_kind) { ... }
+    of(P(Ok, Msg, RecvMsgErrKind), msg) { ... }
+    of(P(Err, Msg, RecvMsgErrKind), err_kind) { ... }
 }
 ```
 
@@ -474,161 +473,13 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### Interfaces
+### Interfaces, higher-kinded types, GADTs, ...
 
-An interface declares a collection of procedures, which shall be defined by its implemetors. Interfaces can be used to achieve [ad-hoc polymorphism], by defining a [parametrically polymorphic] procedure with type constraints on a specific interface.
-
-For example, consider the `Register` interface with `load` and `store` operations:
-
-[ad-hoc polymorphism]: https://en.wikipedia.org/wiki/Ad_hoc_polymorphism
-[parametrically polymorphic]: https://en.wikipedia.org/wiki/Parametric_polymorphism
-
-[[`examples/swap_registers.c`](examples/swap_registers.c)]
-```c
-#include <poica.h>
-
-#include <stdio.h>
-
-#define declRegisterLoad(type)                                                 \
-    static type P(registerLoad, type)(const type *self)
-#define declRegisterStore(type)                                                \
-    static void P(registerStore, type)(type * self, const type *src)
-```
-
-And then we can define a [parametrically polymorphic] `swap` procedure, taking three pointers to some type, which implements `Register`:
-
-```c
-#define declSwap(type)                                                         \
-    static void P(swap, type)(type * left, type * right, type * tmp)
-#define defSwap(type)                                                          \
-    declSwap(type) {                                                           \
-        P(registerStore, type)(tmp, left);                                     \
-        P(registerStore, type)(left, right);                                   \
-        P(registerStore, type)(right, tmp);                                    \
-    }                                                                          \
-                                                                               \
-    POICA_FORCE_SEMICOLON
-```
-
-After that, we implement `Register` and define `swap` for `int`:
-
-```c
-declRegisterLoad(int);
-declRegisterStore(int);
-declSwap(int);
-
-declRegisterLoad(int) {
-    return *self;
-}
-
-declRegisterStore(int) {
-    *self = *src;
-}
-
-defSwap(int);
-```
-
-The `main` procedure looks like this. Here we work only with `int` as a register, but later you can implement `Register` for arbitrary types in the same manner.
-
-```c
-int main(void) {
-    int ax = 2, bx = 63, tmp = 0;
-    printf("ax = %d, bx = %d\n", ax, bx);
-
-    P(swap, int)(&ax, &bx, &tmp);
-
-    printf("ax = %d, bx = %d\n", ax, bx);
-}
-```
-
-<details>
-    <summary>Output</summary>
-
-```
-ax = 2, bx = 63
-ax = 63, bx = 2
-```
-
-</details>
-
-## HKTs (higher-kinded types)
-
-Higher-kinded types allow to write code even more generically. Consider these facts:
-
- - `int` has kind `*`
- - `LinkedList`, `Vect`, `Set` have kind `* -> *`
- - `HashMap` has kind `* -> * -> *`
-
-Do you see the pattern? `int` is already a concrete type, so its kind is just `*`. To drive `LinkedList` to a concrete type, we need to __apply__ some other type to it, i.e. `P(LinkedList, SomeType)`.
-
-poica supports partial application of higher-kinded types, meaning that you can pass a higher-kinded type as a type argument into another generic type, thereby completing it at some later point.
-
-For instance, `TreeG` (taken from the [SO answer](https://stackoverflow.com/a/21170809/13166656)) has kind `(* -> *) -> * -> *`:
-
-[[`examples/hkt.c`](examples/hkt.c)]
-```c
-#include <poica.h>
-
-#define DefTreeG(branch, type)                                                 \
-    choice(                                                                    \
-        P(TreeG, branch, type),                                                \
-        variantMany(P(Branch, branch, type),                                   \
-            field(data, type)                                                  \
-            field(branches,                                                    \
-                P(branch, P(TreeG, branch, type))                              \
-            )                                                                  \
-        )                                                                      \
-        variant(P(Leaf, branch, type), type))
-```
-
-The `branch` type parameter has kind `* -> *`, so it can be something like `LinkedList` or `Vect`. Below we define `BinaryTree` and `WeirdTree`. They are about to be passed into `TreeG` later:
-
-```c
-#define DefBinaryTree(type)                                                    \
-    record(                                                                    \
-        P(BinaryTree, type),                                                   \
-        field(left, struct type *)                                             \
-        field(right, struct type *)                                            \
-    )
-
-#define DefWeirdTree(type)                                                     \
-    record(                                                                    \
-        P(WeirdTree, type),                                                    \
-        field(text, const char *)                                              \
-    )
-
-DefBinaryTree(P(TreeG, BinaryTree, int));
-DefTreeG(BinaryTree, int);
-
-DefWeirdTree(P(TreeG, WeirdTree, int));
-DefTreeG(WeirdTree, int);
-```
-
-And they can be constructed as follows:
-
-```c
-void binary_tree(void) {
-    P(TreeG, BinaryTree, int) _456_leaf = P(Leaf, BinaryTree, int)(456);
-    P(TreeG, BinaryTree, int) _789_leaf = P(Leaf, BinaryTree, int)(789);
-
-    P(TreeG, BinaryTree, int)
-    binary_tree =
-        P(Branch, BinaryTree, int)(123,
-                                   (P(BinaryTree, P(TreeG, BinaryTree, int))){
-                                       &_456_leaf,
-                                       &_789_leaf,
-                                   });
-}
-
-void weird_tree(void) {
-    P(TreeG, WeirdTree, int)
-    weird_tree_1 =
-        P(Branch, WeirdTree, int)(123,
-                                  (P(WeirdTree, P(TreeG, WeirdTree, int))){
-                                      .text = "Hey",
-                                  });
-}
-```
+| Concept | Example |
+|-----|-------------|
+| Interfaces | [`examples/swap_registers.c`](examples/swap_registers.c) |
+| HKTs (higher-kinded types) | [`examples/hkt.c`](examples/hkt.c) |
+| GADTs (generalised ADTs) | [`examples/int_bool_ast.c`](examples/int_bool_ast.c) |
 
 ## Roadmap
 
