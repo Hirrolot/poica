@@ -504,11 +504,12 @@ Q: Any pitfalls?
 
 A:
 
- - Scary macro errors, describing consequences, not causes.
+ - [Scary macro errors], describing consequences, not causes. Appending `-ftrack-macro-expansion=0` to a GCC call makes the compiler to report only an erroneous line, not a full sequence of macro calls.
  
  - [Macro blueprinting]. It occurs typically in advanced metaprogramming and can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
 
 [Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
+[Scary macro errors]: https://gist.github.com/Hirrolot/fe752e0e0d58c3b0786f6b8a6ee58cb8
 
 Q: Why ADTs are algebraic?
 
