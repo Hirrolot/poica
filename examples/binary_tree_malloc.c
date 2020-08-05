@@ -108,7 +108,3 @@ int main(void) {
     print_tree(tree);
     destroy_tree(tree);
 }
-
-#undef TREE
-#undef NODE
-#undef LEAF

@@ -85,6 +85,3 @@ int main(void) {
      */
     printf("%f\n", eval(&expr));
 }
-
-#undef EXPR
-#undef OP

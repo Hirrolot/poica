@@ -194,10 +194,6 @@ int main(void) {
 
     print_tree(tree);
 }
-
-#undef TREE
-#undef NODE
-#undef LEAF
 ```
 
 <details>
