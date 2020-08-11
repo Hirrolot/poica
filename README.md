@@ -443,9 +443,30 @@ Meow!
 
 </details>
 
-The `interface` macro internally generates data structures consisting of pointers to functions. In our example, it generates `ISelfMethods(Animal)` with `void (*noise)(const void *self);` within. To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` (`ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)`) with appropriate method implementations.
+Let's discuss some interesting moments here.
 
-Go to `main`. `Animal animal;` is an interface object, which holds a VTable and a pointer to the appropriate implementation. First we call `noise` for `Dog`, and then for `Cat`.
+ 1.
+```c
+interface(Animal, iMethodSelf(void, noise, ()));
+```
+
+The `interface` macro internally generates data structures consisting of pointers to functions. In our example, it generates `ISelfMethods(Animal)` with `void (*noise)(const void *self);` within.
+
+
+ 2.
+```c
+const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
+const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
+```
+
+To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` (`ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)`) with appropriate method implementations.
+
+ 3.
+```
+Animal animal;
+```
+
+Go to `main`. `animal` is an interface object, which holds a VTable and a pointer to the appropriate implementation. First we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
