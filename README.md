@@ -459,10 +459,10 @@ const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
 const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
 ```
 
-To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` (`ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)`) with appropriate method implementations.
+To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` with appropriate method implementations. `ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)` expand to identifiers of these variables.
 
  3.
-```
+```c
 Animal animal;
 ```
 
