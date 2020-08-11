@@ -29,13 +29,13 @@
 #define POICA_P_GEN_I_OBJ(interface_name)                                      \
     typedef struct P(IObj, interface_name) {                                   \
         const void *self;                                                      \
-        POICA_P_VTABLE(interface_name) vtable;                                 \
+        const POICA_P_VTABLE(interface_name) * vtable;                         \
     } P(IObj, interface_name)
 
 #define POICA_P_GEN_MUT_I_OBJ(interface_name)                                  \
     typedef struct P(MutIObj, interface_name) {                                \
         void *self;                                                            \
-        POICA_P_VTABLE(interface_name) vtable;                                 \
+        const POICA_P_VTABLE(interface_name) * vtable;                         \
     } P(MutIObj, interface_name)
 
 #endif // POICA_INTERFACE_GEN_I_OBJ_H

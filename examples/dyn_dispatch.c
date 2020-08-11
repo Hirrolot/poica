@@ -58,14 +58,14 @@ int main(void) {
 
     animal = (P(IObj, Animal)){
         .self = &dog,
-        .vtable = VTableImpl(Animal, Dog),
+        .vtable = &VTableImpl(Animal, Dog),
     };
 
     iObjCall(animal, noise);
 
     animal = (P(IObj, Animal)){
         .self = &cat,
-        .vtable = VTableImpl(Animal, Cat),
+        .vtable = &VTableImpl(Animal, Cat),
     };
 
     iObjCall(animal, noise);
