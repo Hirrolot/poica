@@ -42,6 +42,7 @@
 #define poicaVTableImpl       POICA_P_VTABLE_IMPL
 #define poicaIObjCall         POICA_P_I_OBJ_CALL
 #define poicaIObjCallWithArgs POICA_P_I_OBJ_CALL_WITH_ARGS
+#define poicaInitIObj         POICA_P_INIT_I_OBJ
 
 #else
 
@@ -50,6 +51,7 @@
 #define VTableImpl       POICA_P_VTABLE_IMPL
 #define iObjCall         POICA_P_I_OBJ_CALL
 #define iObjCallWithArgs POICA_P_I_OBJ_CALL_WITH_ARGS
+#define initIObj         POICA_P_INIT_I_OBJ
 
 #endif
 
@@ -66,12 +68,16 @@
 #define POICA_P_VTABLE(interface_name)                                         \
     POICA_P_PREFIX(BOOST_PP_CAT(interface_name, _VTable))
 
-#define POICA_P_I_OBJ_CALL(i_obj, method) i_obj.vtable->method(&i_obj)
+#define POICA_P_I_OBJ_CALL(i_obj, method) (i_obj).vtable->method(&(i_obj))
 
 #define POICA_P_I_OBJ_CALL_WITH_ARGS(i_obj, method, ...)                       \
-    i_obj.poica_p_vtable.method(&i_obj, __VA_ARGS__)
+    (i_obj).vtable.method(&(i_obj), __VA_ARGS__)
 
 #define POICA_P_VTABLE_IMPL(interface_name, implementer_name)                  \
     BOOST_PP_CAT(POICA_P_VTABLE(interface_name), implementer_name)
+
+#define POICA_P_INIT_I_OBJ(i_obj, new_self, new_vtable)                        \
+    (i_obj).self = (new_self);                                                 \
+    (i_obj).vtable = (new_vtable);
 
 #endif // POICA_INTERFACE_H
