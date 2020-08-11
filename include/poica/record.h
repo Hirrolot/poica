@@ -30,6 +30,8 @@
 #include <poica/record/gen/fields.h>
 #include <poica/record/introspection.h>
 
+#include <poica/unit.h>
+
 #include <boost/preprocessor.hpp>
 
 // This macro is variadic because, due to type introspection, it must work
@@ -45,7 +47,10 @@
 #define POICA_P_RECORD(...)                                                    \
     BOOST_PP_OVERLOAD(POICA_P_RECORD_, __VA_ARGS__)(__VA_ARGS__)
 
-#define POICA_P_RECORD_1(name) POICA_P_RECORD_2(name, field(_, Unit))
+#define POICA_P_RECORD_1(name)                                                 \
+    typedef struct name {                                                      \
+        Unit _;                                                                \
+    } name
 
 #define POICA_P_RECORD_2(name, fields)                                         \
     typedef struct name {                                                      \

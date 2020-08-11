@@ -42,8 +42,8 @@ void catNoise(const void *self) {
     puts("Meow!");
 }
 
-VTable(Animal) VTableImpl(Animal, Dog) = {dogNoise};
-VTable(Animal) VTableImpl(Animal, Cat) = {catNoise};
+const VTable(Animal) VTableImpl(Animal, Dog) = {dogNoise};
+const VTable(Animal) VTableImpl(Animal, Cat) = {catNoise};
 
 /*
  * Output:
