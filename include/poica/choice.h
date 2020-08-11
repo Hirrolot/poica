@@ -57,7 +57,7 @@
                                                                                \
     typedef struct name {                                                      \
         enum { POICA_P_CHOICE_GEN_TAGS(variants) } tag;                        \
-        BOOST_PP_IF(POICA_P_IS_EMPTY_STRUCT(variants), ,                       \
+        BOOST_PP_IF(POICA_P_IS_EMPTY_STRUCT(variants), BOOST_PP_EMPTY(),       \
                     struct {POICA_P_CHOICE_GEN_FIELDS(variants)} data;)        \
     } name;                                                                    \
                                                                                \
