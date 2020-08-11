@@ -23,6 +23,8 @@ This library exports [type-driven development] to plain C11.
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
+ - [OOP](#oop)
+   - [Dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
@@ -386,6 +388,68 @@ P(X, T1, ..., Tn) = ...;
 ```
 
 The utility functions can be found in the [specification].
+
+## OOP
+
+### Dynamic dispatch
+
+poica supports the feature of [object-oriented programming] called [dynamic dispatch], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table]. The following example illustrates the functionality:
+
+[[`examples/dyn_dispatch.c`](examples/dyn_dispatch.c)]
+```c
+#include <poica.h>
+
+#include <stdio.h>
+
+interface(Animal, iMethodSelf(void, noise, ()));
+
+record(Dog);
+record(Cat);
+
+void dogNoise(const void *self) {
+    (void)(self);
+    puts("Woof!");
+}
+
+void catNoise(const void *self) {
+    (void)(self);
+    puts("Meow!");
+}
+
+const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
+const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
+
+int main(void) {
+    Dog dog = {unit};
+    Cat cat = {unit};
+
+    Animal animal;
+
+    initIObj(animal, &dog, &ISelfMethods(Animal, Dog));
+    iObjCall(animal, noise);
+
+    initIObj(animal, &cat, &ISelfMethods(Animal, Cat));
+    iObjCall(animal, noise);
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+Woof!
+Meow!
+```
+
+</details>
+
+The `interface` macro internally generates data structures consisting of pointers to functions. In our example, it generates `ISelfMethods(Animal)` with `void (*noise)(const void *self);` within. To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` (`ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)`) with appropriate method implementations.
+
+Go to `main`. `Animal animal;` is an interface object, which holds a VTable and a pointer to the appropriate implementation. First we call `noise` for `Dog`, and then for `Cat`.
+
+[object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
+[dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
+[virtual method table]: https://en.wikipedia.org/wiki/Virtual_method_table
 
 ## Type-generic programming
 
