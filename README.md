@@ -473,7 +473,7 @@ There's nothing much to say, except that `P` (which stands for _polymorphic_) ex
 
 | Concept | Example |
 |-----|-------------|
-| Interfaces | [`examples/swap_registers.c`](examples/swap_registers.c) |
+| Interfaces | [`examples/dyn_dispatch.c`](examples/dyn_dispatch.c) |
 | HKTs (higher-kinded types) | [`examples/hkt.c`](examples/hkt.c) |
 | GADTs (generalised ADTs) | [`examples/int_bool_ast.c`](examples/int_bool_ast.c) |
 

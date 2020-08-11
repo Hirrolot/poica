@@ -23,20 +23,32 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_INTERFACE_GEN_METHODS_PTRS_H
-#define POICA_INTERFACE_GEN_METHODS_PTRS_H
+#ifndef POICA_INTERFACE_I_OBJ_UTILS_H
+#define POICA_INTERFACE_I_OBJ_UTILS_H
 
-#include <boost/preprocessor.hpp>
+#ifdef POICA_USE_PREFIX
 
-#define POICA_P_INTERFACE_GEN_METHODS_PTRS(methods)                            \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_INTERFACE_GEN_METHOD_PTR, _data, methods)
+#define poicaIObjCall         POICA_P_I_OBJ_CALL
+#define poicaIObjCallWithArgs POICA_P_I_OBJ_CALL_WITH_ARGS
 
-#define POICA_P_INTERFACE_GEN_METHOD_PTR(_r, _data, method)                    \
-    POICA_P_INTERFACE_GEN_METHOD_PTR_AUX(BOOST_PP_SEQ_ELEM(0, method),         \
-                                         BOOST_PP_SEQ_ELEM(1, method),         \
-                                         BOOST_PP_SEQ_ELEM(2, method))
+#define poicaInitIObj POICA_P_INIT_I_OBJ
 
-#define POICA_P_INTERFACE_GEN_METHOD_PTR_AUX(return_type, name, params)        \
-    return_type(*name) params;
+#else
 
-#endif // POICA_INTERFACE_GEN_METHODS_PTRS_H
+#define iObjCall         POICA_P_I_OBJ_CALL
+#define iObjCallWithArgs POICA_P_I_OBJ_CALL_WITH_ARGS
+
+#define initIObj POICA_P_INIT_I_OBJ
+
+#endif
+
+#define POICA_P_I_OBJ_CALL(i_obj, method) (i_obj).vtable->method(&(i_obj))
+
+#define POICA_P_I_OBJ_CALL_WITH_ARGS(i_obj, method, ...)                       \
+    (i_obj).vtable.method(&(i_obj), __VA_ARGS__)
+
+#define POICA_P_INIT_I_OBJ(i_obj, new_self, new_vtable)                        \
+    (i_obj).self = (new_self);                                                 \
+    (i_obj).vtable = (new_vtable)
+
+#endif // POICA_INTERFACE_I_OBJ_UTILS_H

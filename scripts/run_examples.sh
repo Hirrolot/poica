@@ -19,6 +19,6 @@ cd examples/build
 ./pair
 
 ./generic_linked_list
-./swap_registers
+./dyn_dispatch
 ./int_bool_ast
 ./hkt

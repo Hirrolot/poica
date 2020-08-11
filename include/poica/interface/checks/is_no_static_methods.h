@@ -23,24 +23,30 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_INTERFACE_GEN_I_OBJ_H
-#define POICA_INTERFACE_GEN_I_OBJ_H
+#ifndef POICA_INTERFACE_GEN_CHECKS_IS_NO_STATIC_METHODS_H
+#define POICA_INTERFACE_GEN_CHECKS_IS_NO_STATIC_METHODS_H
 
-#include <poica/interface/gen/method_tables/mut_self.h>
-#include <poica/interface/gen/method_tables/self.h>
+#include <poica/private/overload_on_kind.h>
 
 #include <boost/preprocessor.hpp>
+#include <boost/vmd/vmd.hpp>
 
-#define POICA_P_GEN_I_OBJ(interface_name)                                      \
-    typedef struct interface_name {                                            \
-        const void *self;                                                      \
-        const POICA_P_I_SELF_METHODS(interface_name) * vtable;                 \
-    } interface_name
+#define POICA_P_INTERFACE_IS_NO_STATIC_METHODS(methods)                        \
+    BOOST_VMD_IS_EMPTY(BOOST_PP_SEQ_FOR_EACH(                                  \
+        POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE, _data, methods))
 
-#define POICA_P_GEN_MUT_I_OBJ(interface_name)                                  \
-    typedef struct BOOST_PP_CAT(interface_name, Mut) {                         \
-        void *self;                                                            \
-        const POICA_P_I_MUT_SELF_METHODS(interface_name) * vtable;             \
-    } BOOST_PP_CAT(interface_name, Mut)
+#define POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE(_r, _data, method)    \
+    POICA_P_OVERLOAD_ON_KIND(                                                  \
+        POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE_, method)
 
-#endif // POICA_INTERFACE_GEN_I_OBJ_H
+#define POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE_I_METHOD_KIND_STATIC( \
+    _return_type, _name, _params)                                              \
+    (_)
+
+#define POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE_I_METHOD_KIND_SELF(   \
+    _return_type, _name, _params)
+
+#define POICA_P_INTERFACE_IS_NO_STATIC_METHODS_VISIT_ONE_I_METHOD_KIND_MUT_SELF( \
+    _return_type, _name, _params)
+
+#endif // POICA_INTERFACE_GEN_CHECKS_IS_NO_STATIC_METHODS_H

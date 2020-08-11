@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 
-interface(Animal, iMethod(void, noise, (const void *self)));
+interface(Animal, iMethodSelf(void, noise, ()));
 
 record(Dog);
 record(Cat);
@@ -42,8 +42,8 @@ void catNoise(const void *self) {
     puts("Meow!");
 }
 
-const VTable(Animal) VTableImpl(Animal, Dog) = {dogNoise};
-const VTable(Animal) VTableImpl(Animal, Cat) = {catNoise};
+const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
+const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
 
 /*
  * Output:
@@ -56,9 +56,9 @@ int main(void) {
 
     Animal animal;
 
-    initIObj(animal, &dog, &VTableImpl(Animal, Dog));
+    initIObj(animal, &dog, &ISelfMethods(Animal, Dog));
     iObjCall(animal, noise);
 
-    initIObj(animal, &cat, &VTableImpl(Animal, Cat));
+    initIObj(animal, &cat, &ISelfMethods(Animal, Cat));
     iObjCall(animal, noise);
 }

@@ -23,30 +23,11 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_INTERFACE_METHOD_H
-#define POICA_INTERFACE_METHOD_H
+#ifndef POICA_INTERFACE_GEN_METHOD_TABLES_H
+#define POICA_INTERFACE_GEN_METHOD_TABLES_H
 
-#ifdef POICA_USE_PREFIX
+#include <poica/interface/gen/method_tables/mut_self.h>
+#include <poica/interface/gen/method_tables/self.h>
+#include <poica/interface/gen/method_tables/static.h>
 
-#define poicaIMethod        POICA_P_I_METHOD
-#define poicaIMethodSelf    POICA_P_I_METHOD_SELF
-#define poicaIMethodMutSelf POICA_P_I_METHOD_MUT_SELF
-
-#else
-
-#define iMethod        POICA_P_I_METHOD
-#define iMethodSelf    POICA_P_I_METHOD_SELF
-#define iMethodMutSelf POICA_P_I_METHOD_MUT_SELF
-
-#endif
-
-#define POICA_P_I_METHOD(return_type, name, params)                            \
-    ((I_METHOD_KIND_STATIC)(return_type)(name)(params))
-
-#define POICA_P_I_METHOD_SELF(return_type, name, params)                       \
-    ((I_METHOD_KIND_SELF)(return_type)(name)(params))
-
-#define POICA_P_I_METHOD_MUT_SELF(return_type, name, params)                   \
-    ((I_METHOD_KIND_MUT_SELF)(return_type)(name)(params))
-
-#endif // POICA_INTERFACE_METHOD_H
+#endif // POICA_INTERFACE_GEN_METHOD_TABLES_H

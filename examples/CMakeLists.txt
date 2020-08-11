@@ -19,7 +19,7 @@ add_executable(either either.c)
 add_executable(pair pair.c)
 
 add_executable(generic_linked_list generic_linked_list.c)
-add_executable(swap_registers swap_registers.c)
+add_executable(dyn_dispatch dyn_dispatch.c)
 add_executable(int_bool_ast int_bool_ast.c)
 add_executable(hkt hkt.c)
 
@@ -49,7 +49,7 @@ set_target_properties(
   either
   pair
   generic_linked_list
-  swap_registers
+  dyn_dispatch
   int_bool_ast
   hkt
   PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)

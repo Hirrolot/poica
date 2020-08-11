@@ -23,30 +23,29 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_INTERFACE_METHOD_H
-#define POICA_INTERFACE_METHOD_H
+#ifndef POICA_INTERFACE_GEN_CHECKS_IS_NO_MUT_SELF_METHODS_H
+#define POICA_INTERFACE_GEN_CHECKS_IS_NO_MUT_SELF_METHODS_H
 
-#ifdef POICA_USE_PREFIX
+#include <poica/private/overload_on_kind.h>
 
-#define poicaIMethod        POICA_P_I_METHOD
-#define poicaIMethodSelf    POICA_P_I_METHOD_SELF
-#define poicaIMethodMutSelf POICA_P_I_METHOD_MUT_SELF
+#include <boost/preprocessor.hpp>
 
-#else
+#define POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS(methods)                      \
+    BOOST_VMD_IS_EMPTY(BOOST_PP_SEQ_FOR_EACH(                                  \
+        POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE, _data, methods))
 
-#define iMethod        POICA_P_I_METHOD
-#define iMethodSelf    POICA_P_I_METHOD_SELF
-#define iMethodMutSelf POICA_P_I_METHOD_MUT_SELF
+#define POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE(_r, _data, method)  \
+    POICA_P_OVERLOAD_ON_KIND(                                                  \
+        POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE_, method)
 
-#endif
+#define POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE_I_METHOD_KIND_STATIC( \
+    _return_type, _name, _params)
 
-#define POICA_P_I_METHOD(return_type, name, params)                            \
-    ((I_METHOD_KIND_STATIC)(return_type)(name)(params))
+#define POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE_I_METHOD_KIND_SELF( \
+    _return_type, _name, _params)
 
-#define POICA_P_I_METHOD_SELF(return_type, name, params)                       \
-    ((I_METHOD_KIND_SELF)(return_type)(name)(params))
+#define POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS_VISIT_ONE_I_METHOD_KIND_MUT_SELF( \
+    _return_type, _name, _params)                                                  \
+    (_)
 
-#define POICA_P_I_METHOD_MUT_SELF(return_type, name, params)                   \
-    ((I_METHOD_KIND_MUT_SELF)(return_type)(name)(params))
-
-#endif // POICA_INTERFACE_METHOD_H
+#endif // POICA_INTERFACE_GEN_CHECKS_IS_NO_MUT_SELF_METHODS_H

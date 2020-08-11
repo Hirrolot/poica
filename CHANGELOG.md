@@ -13,7 +13,7 @@ Now poica is for [type-driven development], not only for ADTs & type instrospect
 ### Added
  - `P` (a macro for polymorphism)
  - `POICA_FORCE_SEMICOLON`
- - `examples/hkt.c`, `examples/int_bool_ast.c`, `examples/swap_registers.c`, `examples/generic_linked_list.c`
+ - `examples/hkt.c`, `examples/int_bool_ast.c`, `examples/dyn_dispatch.c`, `examples/generic_linked_list.c`
 
 ### Changed
  - Instead of `T(T1, ..., Tn)`, write `P(T, T1, ..., Tn)`.
