@@ -23,15 +23,23 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_PRIVATE_OVERLOAD_ON_KIND_H
+#define POICA_PRIVATE_OVERLOAD_ON_KIND_H
 
-#include <poica/builtin.h>
-#include <poica/choice.h>
-#include <poica/interface.h>
-#include <poica/obj.h>
-#include <poica/p.h>
-#include <poica/record.h>
-#include <poica/unit.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+/*
+ * Concatanates `macro` with the first element of `seq` (Boost/PP sequence) and
+ * calls `macro` with the rest of comma-separated elements of `seq`.
+ *
+ * `seq` shall consist of >=2 elements, and all the possible combinations of
+ * `macro` + the first element of `seq` shall be defined.
+ */
+#define POICA_P_OVERLOAD_ON_KIND(macro, seq)                                   \
+    POICA_P_OVERLOAD_ON_KIND_AUX(                                              \
+        BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),                           \
+        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
+
+#define POICA_P_OVERLOAD_ON_KIND_AUX(macro, ...) macro(__VA_ARGS__)
+
+#endif // POICA_PRIVATE_OVERLOAD_ON_KIND_H

@@ -23,15 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_INTERFACE_GEN_I_OBJ_H
+#define POICA_INTERFACE_GEN_I_OBJ_H
 
-#include <poica/builtin.h>
-#include <poica/choice.h>
-#include <poica/interface.h>
-#include <poica/obj.h>
-#include <poica/p.h>
-#include <poica/record.h>
-#include <poica/unit.h>
+#define POICA_P_GEN_I_OBJ(interface_name)                                      \
+    typedef struct P(IObj, interface_name) {                                   \
+        const void *self;                                                      \
+        POICA_P_VTABLE(interface_name) vtable;                                 \
+    } P(IObj, interface_name)
 
-#endif // POICA_H
+#define POICA_P_GEN_MUT_I_OBJ(interface_name)                                  \
+    typedef struct P(MutIObj, interface_name) {                                \
+        void *self;                                                            \
+        POICA_P_VTABLE(interface_name) vtable;                                 \
+    } P(MutIObj, interface_name)
+
+#endif // POICA_INTERFACE_GEN_I_OBJ_H

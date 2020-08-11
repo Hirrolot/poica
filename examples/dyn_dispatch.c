@@ -23,15 +23,50 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#include <poica.h>
 
-#include <poica/builtin.h>
-#include <poica/choice.h>
-#include <poica/interface.h>
-#include <poica/obj.h>
-#include <poica/p.h>
-#include <poica/record.h>
-#include <poica/unit.h>
+#include <stdio.h>
 
-#endif // POICA_H
+interface(Animal, iMethod(void, noise, (const void *self)));
+
+record(Dog, field(_, Unit));
+record(Cat, field(_, Unit));
+
+void dogNoise(const void *self) {
+    (void)(self);
+    puts("Woof!");
+}
+
+void catNoise(const void *self) {
+    (void)(self);
+    puts("Meow!");
+}
+
+VTable(Animal) VTableImpl(Animal, Dog) = {dogNoise};
+VTable(Animal) VTableImpl(Animal, Cat) = {catNoise};
+
+/*
+ * Output:
+ * Woof!
+ * Meow!
+ */
+int main(void) {
+    Dog dog = {unit};
+    Cat cat = {unit};
+
+    P(IObj, Animal) animal;
+
+    animal = (P(IObj, Animal)){
+        .self = &dog,
+        .vtable = VTableImpl(Animal, Dog),
+    };
+
+    iObjCall(animal, noise);
+
+    animal = (P(IObj, Animal)){
+        .self = &cat,
+        .vtable = VTableImpl(Animal, Cat),
+    };
+
+    iObjCall(animal, noise);
+}

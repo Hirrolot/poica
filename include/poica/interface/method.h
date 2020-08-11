@@ -23,15 +23,16 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_INTERFACE_METHOD_H
+#define POICA_INTERFACE_METHOD_H
 
-#include <poica/builtin.h>
-#include <poica/choice.h>
-#include <poica/interface.h>
-#include <poica/obj.h>
-#include <poica/p.h>
-#include <poica/record.h>
-#include <poica/unit.h>
+#ifdef POICA_USE_PREFIX
+#define poicaIMethod POICA_P_I_METHOD
+#else
+#define iMethod POICA_P_I_METHOD
+#endif
 
-#endif // POICA_H
+#define POICA_P_I_METHOD(return_type, name, params)                            \
+    ((return_type)(name)(params))
+
+#endif // POICA_INTERFACE_METHOD_H
