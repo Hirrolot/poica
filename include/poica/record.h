@@ -27,8 +27,6 @@
 #define POICA_RECORD_H
 
 #include <poica/record/field.h>
-
-#include <poica/record/field.h>
 #include <poica/record/gen/fields.h>
 #include <poica/record/introspection.h>
 
@@ -39,22 +37,19 @@
 // RECORD(MY_RECORD);
 
 #ifdef POICA_USE_PREFIX
-
-#define poicaRecord(...)      POICA_P_RECORD(__VA_ARGS__)
-#define poicaEmptyRecord(...) POICA_P_EMPTY_RECORD(__VA_ARGS__)
-
+#define poicaRecord(...) POICA_P_RECORD(__VA_ARGS__)
 #else
-
-#define record(...)      POICA_P_RECORD(__VA_ARGS__)
-#define emptyRecord(...) POICA_P_EMPTY_RECORD(__VA_ARGS__)
-
+#define record(...) POICA_P_RECORD(__VA_ARGS__)
 #endif
 
-#define POICA_P_RECORD(name, fields)                                           \
+#define POICA_P_RECORD(...)                                                    \
+    BOOST_PP_OVERLOAD(POICA_P_RECORD_, __VA_ARGS__)(__VA_ARGS__)
+
+#define POICA_P_RECORD_1(name) POICA_P_RECORD_2(name, field(_, Unit))
+
+#define POICA_P_RECORD_2(name, fields)                                         \
     typedef struct name {                                                      \
         POICA_P_RECORD_GEN_FIELDS(fields)                                      \
     } name
-
-#define POICA_P_EMPTY_RECORD(name) record(name, field(_, Unit))
 
 #endif // POICA_RECORD_H
