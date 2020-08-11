@@ -29,8 +29,8 @@
 
 interface(Animal, iMethod(void, noise, (const void *self)));
 
-record(Dog, field(_, Unit));
-record(Cat, field(_, Unit));
+emptyRecord(Dog);
+emptyRecord(Cat);
 
 void dogNoise(const void *self) {
     (void)(self);

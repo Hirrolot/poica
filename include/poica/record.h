@@ -39,14 +39,22 @@
 // RECORD(MY_RECORD);
 
 #ifdef POICA_USE_PREFIX
-#define poicaRecord(...) POICA_P_RECORD(__VA_ARGS__)
+
+#define poicaRecord(...)      POICA_P_RECORD(__VA_ARGS__)
+#define poicaEmptyRecord(...) POICA_P_EMPTY_RECORD(__VA_ARGS__)
+
 #else
-#define record(...) POICA_P_RECORD(__VA_ARGS__)
+
+#define record(...)      POICA_P_RECORD(__VA_ARGS__)
+#define emptyRecord(...) POICA_P_EMPTY_RECORD(__VA_ARGS__)
+
 #endif
 
 #define POICA_P_RECORD(name, fields)                                           \
     typedef struct name {                                                      \
         POICA_P_RECORD_GEN_FIELDS(fields)                                      \
     } name
+
+#define POICA_P_EMPTY_RECORD(name) record(name, field(_, Unit))
 
 #endif // POICA_RECORD_H
