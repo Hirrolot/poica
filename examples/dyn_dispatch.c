@@ -54,7 +54,7 @@ int main(void) {
     Dog dog = {unit};
     Cat cat = {unit};
 
-    P(IObj, Animal) animal;
+    Animal animal;
 
     initIObj(animal, &dog, &VTableImpl(Animal, Dog));
     iObjCall(animal, noise);

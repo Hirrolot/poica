@@ -26,16 +26,18 @@
 #ifndef POICA_INTERFACE_GEN_I_OBJ_H
 #define POICA_INTERFACE_GEN_I_OBJ_H
 
+#include <boost/preprocessor.hpp>
+
 #define POICA_P_GEN_I_OBJ(interface_name)                                      \
-    typedef struct P(IObj, interface_name) {                                   \
+    typedef struct interface_name {                                            \
         const void *self;                                                      \
         const POICA_P_VTABLE(interface_name) * vtable;                         \
-    } P(IObj, interface_name)
+    } interface_name
 
 #define POICA_P_GEN_MUT_I_OBJ(interface_name)                                  \
-    typedef struct P(MutIObj, interface_name) {                                \
+    typedef struct BOOST_PP_CAT(interface_name, Mut) {                         \
         void *self;                                                            \
         const POICA_P_VTABLE(interface_name) * vtable;                         \
-    } P(MutIObj, interface_name)
+    } BOOST_PP_CAT(interface_name, Mut)
 
 #endif // POICA_INTERFACE_GEN_I_OBJ_H
