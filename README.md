@@ -60,7 +60,7 @@ git submodule add -b master https://github.com/Hirrolot/poica
 git submodule update --init --recursive
 ```
 
-And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). That's all, because poica is a header-only library.
+And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). Building isn't required, because poica is a header-only library.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
