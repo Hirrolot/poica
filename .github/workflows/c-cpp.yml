@@ -13,12 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install Boost/Preprocessor
-      run: sudo bash scripts/install_boost_pp.sh
     - name: Install libdill
       run: sudo bash scripts/install_libdill.sh
-    - name: Install cppcheck
-      run: sudo apt install cppcheck
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
     - name: Run examples
