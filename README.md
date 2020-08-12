@@ -389,7 +389,7 @@ The utility functions can be found in the [specification].
 
 ### Dynamic dispatch
 
-poica supports the feature of [object-oriented programming] called [dynamic dispatch], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table]. The following example illustrates the functionality:
+poica supports the feature of [object-oriented programming] called [dynamic dispatch], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table (VTable)]. The following example illustrates the functionality:
 
 [[`examples/dyn_dispatch.c`](examples/dyn_dispatch.c)]
 ```c
@@ -473,7 +473,7 @@ To implement this interface for certain types (`Dog` and `Cat`), we shall define
 Animal animal;
 ```
 
-Go to `main`. `animal` is an interface object, which holds a VTable and a pointer to the appropriate implementation.
+Go to `main`. `animal` is an interface object, which holds a VTable (accessed as `.vtable`) and a pointer to the appropriate implementation (accessed as `.self.immut` or `.self.mut`, see below).
 
  4.
 ```c
@@ -487,7 +487,7 @@ Next we call `noise` for `Dog`, and then for `Cat`, getting the different result
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
-[virtual method table]: https://en.wikipedia.org/wiki/Virtual_method_table
+[virtual method table (VTable)]: https://en.wikipedia.org/wiki/Virtual_method_table
 
 ## Type-generic programming
 
