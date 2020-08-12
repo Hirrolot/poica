@@ -54,19 +54,13 @@ Powerful type systems are good for this, because they limit ranges of values tha
 ## Installation
 
 ```sh
-git clone https://github.com/Hirrolot/poica.git
+git clone --recurse-submodules https://github.com/Hirrolot/poica.git
 cd poica
 ```
 
-The only dependency is [Boost/Preprocessor] (yes, it supports plain C). If you are on a UNIX-like system, just run the following script:
+Since poica is a header-only library, feel free to copy necessary files to your project (or use [Git submodules]) and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
 
-```
-sudo bash scripts/install_boost_pp.sh
-```
-
-Alternatively, [Boost/Preprocessor] can be downloaded and then installed from its [official releases](https://github.com/boostorg/preprocessor/releases).
-
-Since poica is a header-only library, feel free to copy necessary files to your project and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
+[Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## ADTs (algebraic data types)
 
