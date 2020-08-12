@@ -1,0 +1,8 @@
+[submodule "preprocessor"]
+	path = preprocessor
+	url = https://github.com/boostorg/preprocessor
+	branch = master
+[submodule "vmd"]
+	path = vmd
+	url = https://github.com/boostorg/vmd
+	branch = master
