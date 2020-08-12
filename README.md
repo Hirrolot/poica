@@ -28,7 +28,8 @@ This library exports [type-driven development] to plain C11.
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
-   - [Interfaces, higher-kinded types, GADTs, ...](#interfaces-higher-kinded-types-gadts-)
+   - [Higher-kinded types](#higher-kinded-types)
+   - [GADTs](#gadts)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -485,6 +486,8 @@ Here's how we initialise our interface object. `self.mut` is of type `void *` an
 
 Next we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
 
+In fact, interfaces are not only for dynamic dispatch: you can just call `VTable(MyInterface, MyImpl).method` with appropriate arguments.
+
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
 [virtual method table (VTable)]: https://en.wikipedia.org/wiki/Virtual_method_table
@@ -571,13 +574,13 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### Interfaces, higher-kinded types, GADTs, ...
+### Higher-kinded types
 
-| Concept | Example |
-|-----|-------------|
-| Interfaces | [`examples/dyn_dispatch.c`](examples/dyn_dispatch.c) |
-| HKTs (higher-kinded types) | [`examples/hkt.c`](examples/hkt.c) |
-| GADTs (generalised ADTs) | [`examples/int_bool_ast.c`](examples/int_bool_ast.c) |
+TODO
+
+### GADTs
+
+TODO
 
 ## Roadmap
 
