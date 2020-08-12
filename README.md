@@ -397,35 +397,44 @@ poica supports the feature of [object-oriented programming] called [dynamic disp
 
 #include <stdio.h>
 
-interface(Animal, iMethodSelf(void, noise, ()));
+interface(Animal, void (*noise)(void *self););
 
-record(Dog);
-record(Cat);
+record(Dog, field(counter, int));
+record(Cat, field(counter, int));
 
-void dogNoise(const void *self) {
-    (void)(self);
-    puts("Woof!");
+void dogNoise(void *self) {
+    Dog *dog = (Dog *)self;
+    dog->counter++;
+    printf("Woof! Counter: %d\n", dog->counter);
 }
 
-void catNoise(const void *self) {
-    (void)(self);
-    puts("Meow!");
+void catNoise(void *self) {
+    Cat *cat = (Cat *)self;
+    cat->counter++;
+    printf("Meow! Counter: %d\n", cat->counter);
 }
 
-const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
-const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
+const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
+const VTable(Animal) VTable(Animal, Cat) = {catNoise};
 
 int main(void) {
-    Dog dog = {unit};
-    Cat cat = {unit};
+    Dog dog = {.counter = 0};
+    Cat cat = {.counter = 0};
 
     Animal animal;
 
-    initIObj(animal, &dog, &ISelfMethods(Animal, Dog));
-    iObjCall(animal, noise);
+    animal.self.mut = &dog;
+    animal.vtable = &VTable(Animal, Dog);
 
-    initIObj(animal, &cat, &ISelfMethods(Animal, Cat));
-    iObjCall(animal, noise);
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
+
+    animal.self.mut = &cat;
+    animal.vtable = &VTable(Animal, Cat);
+
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
 }
 ```
 
@@ -433,8 +442,11 @@ int main(void) {
     <summary>Output</summary>
 
 ```
-Woof!
-Meow!
+Woof! Counter: 1
+Woof! Counter: 2
+Woof! Counter: 3
+Meow! Counter: 1
+Meow! Counter: 2
 ```
 
 </details>
@@ -443,26 +455,35 @@ Let's discuss some interesting moments here.
 
  1.
 ```c
-interface(Animal, iMethodSelf(void, noise, ()));
+interface(Animal, void (*noise)(void *self););
 ```
 
-The `interface` macro internally generates data structures consisting of pointers to functions. In our example, it generates `ISelfMethods(Animal)` with `void (*noise)(const void *self);` within.
-
+The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and the `Animal` interface object, discussed below.
 
  2.
 ```c
-const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
-const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
+const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
+const VTable(Animal) VTable(Animal, Cat) = {catNoise};
 ```
 
-To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `ISelfMethods(Animal)` with appropriate method implementations. `ISelfMethods(Animal, Dog)` and `ISelfMethods(Animal, Cat)` expand to identifiers of these variables.
+To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `VTable(Animal)` with appropriate method implementations. `VTable(Animal, Dog)` and `VTable(Animal, Cat)` expand to identifiers of these variables.
 
  3.
 ```c
 Animal animal;
 ```
 
-Go to `main`. `animal` is an interface object, which holds a VTable and a pointer to the appropriate implementation. First we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
+Go to `main`. `animal` is an interface object, which holds a VTable and a pointer to the appropriate implementation.
+
+ 4.
+```c
+animal.self.mut = &dog;
+animal.vtable = &VTable(Animal, Dog);
+```
+
+Here's how we initialise our interface object. `self.mut` is of type `void *` and holds a pointer to our implementer object, `vtable` holds a pointer to a VTable of type of `self.mut`. In fact, if methods you wish to call in your VTable don't require `self` (a.k.a. static methods), you can skip `vtable` initialisation.
+
+Next we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch

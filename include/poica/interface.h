@@ -29,38 +29,43 @@
 #include <poica/force_semicolon.h>
 #include <poica/private/prefix.h>
 
-#include <poica/interface/gen/i_obj.h>
-#include <poica/interface/gen/method_tables.h>
-#include <poica/interface/i_obj_utils.h>
-#include <poica/interface/method.h>
-
-#include <poica/interface/checks/is_no_mut_self_methods.h>
-#include <poica/interface/checks/is_no_self_methods.h>
-#include <poica/interface/checks/is_no_static_methods.h>
-
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
+
 #define poicaInterface POICA_P_INTERFACE
+#define PoicaVTable    POICA_P_VTABLE
+
 #else
+
 #define interface POICA_P_INTERFACE
+#define VTable    POICA_P_VTABLE
+
 #endif
 
 #define POICA_P_INTERFACE(name, methods)                                       \
-    BOOST_PP_IF(POICA_P_INTERFACE_IS_NO_STATIC_METHODS(methods),               \
-                BOOST_PP_EMPTY(),                                              \
-                POICA_P_INTERFACE_GEN_METHOD_TABLES_STATIC(name, methods);)    \
+    typedef struct POICA_P_VTABLE(name) {                                      \
+        methods                                                                \
+    } POICA_P_VTABLE(name);                                                    \
                                                                                \
-    BOOST_PP_IF(POICA_P_INTERFACE_IS_NO_SELF_METHODS(methods),                 \
-                BOOST_PP_EMPTY(),                                              \
-                POICA_P_INTERFACE_GEN_METHOD_TABLES_SELF(name, methods);       \
-                POICA_P_GEN_I_OBJ(name);)                                      \
-                                                                               \
-    BOOST_PP_IF(POICA_P_INTERFACE_IS_NO_MUT_SELF_METHODS(methods),             \
-                BOOST_PP_EMPTY(),                                              \
-                POICA_P_INTERFACE_GEN_METHOD_TABLES_MUT_SELF(name, methods);   \
-                POICA_P_GEN_MUT_I_OBJ(name);)                                  \
+    typedef struct name {                                                      \
+        union {                                                                \
+            const void *immut;                                                 \
+            void *mut;                                                         \
+        } self;                                                                \
+        const POICA_P_VTABLE(name) * vtable;                                   \
+    } name;                                                                    \
                                                                                \
     POICA_FORCE_SEMICOLON
+
+#define POICA_P_VTABLE(...)                                                    \
+    BOOST_PP_OVERLOAD(POICA_P_VTABLE_, __VA_ARGS__)(__VA_ARGS__)
+
+#define POICA_P_VTABLE_1(interface_name)                                       \
+    POICA_P_PREFIX(BOOST_PP_CAT(interface_name, _VTable))
+
+#define POICA_P_VTABLE_2(interface_name, implementer_name)                     \
+    BOOST_PP_CAT(BOOST_PP_CAT(POICA_P_VTABLE_1(interface_name), _),            \
+                 implementer_name)
 
 #endif // POICA_INTERFACE_H

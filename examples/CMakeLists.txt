@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
-include_directories(../include ../preprocessor/include ../vmd/include)
+include_directories(../include ../preprocessor/include)
 
 add_executable(ast ast.c)
 add_executable(binary_tree binary_tree.c)

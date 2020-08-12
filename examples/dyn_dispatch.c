@@ -27,38 +27,50 @@
 
 #include <stdio.h>
 
-interface(Animal, iMethodSelf(void, noise, ()));
+interface(Animal, void (*noise)(void *self););
 
-record(Dog);
-record(Cat);
+record(Dog, field(counter, int));
+record(Cat, field(counter, int));
 
-void dogNoise(const void *self) {
-    (void)(self);
-    puts("Woof!");
+void dogNoise(void *self) {
+    Dog *dog = (Dog *)self;
+    dog->counter++;
+    printf("Woof! Counter: %d\n", dog->counter);
 }
 
-void catNoise(const void *self) {
-    (void)(self);
-    puts("Meow!");
+void catNoise(void *self) {
+    Cat *cat = (Cat *)self;
+    cat->counter++;
+    printf("Meow! Counter: %d\n", cat->counter);
 }
 
-const ISelfMethods(Animal) ISelfMethods(Animal, Dog) = {dogNoise};
-const ISelfMethods(Animal) ISelfMethods(Animal, Cat) = {catNoise};
+const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
+const VTable(Animal) VTable(Animal, Cat) = {catNoise};
 
 /*
  * Output:
- * Woof!
- * Meow!
+ * Woof! Counter: 1
+ * Woof! Counter: 2
+ * Woof! Counter: 3
+ * Meow! Counter: 1
+ * Meow! Counter: 2
  */
 int main(void) {
-    Dog dog = {unit};
-    Cat cat = {unit};
+    Dog dog = {.counter = 0};
+    Cat cat = {.counter = 0};
 
     Animal animal;
 
-    initIObj(animal, &dog, &ISelfMethods(Animal, Dog));
-    iObjCall(animal, noise);
+    animal.self.mut = &dog;
+    animal.vtable = &VTable(Animal, Dog);
 
-    initIObj(animal, &cat, &ISelfMethods(Animal, Cat));
-    iObjCall(animal, noise);
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
+
+    animal.self.mut = &cat;
+    animal.vtable = &VTable(Animal, Cat);
+
+    animal.vtable->noise(animal.self.mut);
+    animal.vtable->noise(animal.self.mut);
 }
