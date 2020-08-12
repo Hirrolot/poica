@@ -53,12 +53,14 @@ Powerful type systems are good for this, because they limit ranges of values tha
 
 ## Installation
 
+The recommended way is using [Git submodules]. Enter your project and execute:
+
 ```sh
-git clone --recurse-submodules https://github.com/Hirrolot/poica.git
-cd poica
+git submodule add -b master https://github.com/Hirrolot/poica
+git submodule update --init --recursive
 ```
 
-Since poica is a header-only library, feel free to copy necessary files to your project (or use [Git submodules]) and `#include <poica.h>` to export its API (using the `-I` compiler option). That's all.
+And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). That's all, because poica is a header-only library.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
