@@ -390,7 +390,7 @@ The utility functions can be found in the [specification].
 
 ### Dynamic dispatch
 
-[dynamic dispatch] is a feature of [object-oriented programming], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table (VTable)]. The following example illustrates the functionality:
+[Dynamic dispatch] is a feature of [object-oriented programming], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table (VTable)]. The following example illustrates the functionality:
 
 [[`examples/dyn_dispatch.c`](examples/dyn_dispatch.c)]
 ```c
@@ -489,7 +489,7 @@ Next we call `noise` for `Dog`, and then for `Cat`, getting the different result
 In fact, interfaces are not only for dynamic dispatch: you can just call `VTable(MyInterface, MyImpl).method` with appropriate arguments, without manipulating an interface object.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
-[dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
+[Dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
 [virtual method table (VTable)]: https://en.wikipedia.org/wiki/Virtual_method_table
 
 ## Type-generic programming
