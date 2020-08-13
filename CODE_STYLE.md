@@ -8,7 +8,8 @@
 | `PascalCase` | Types |
 | `SCREAMING_CASE` | Macros |
 
-Private stuff (except for files) has either `POICA_P` (for types and macros) or `poica_p` prefix (for procedures and variables).
+ - Private stuff (except for files) has either `POICA_P` (for types and macros) or `poica_p` prefix (for procedures and variables).
+ - Callbacks passed into `BOOST_PP_*_FOR_EACH` must have suffix `_VISIT`.
 
 ## Headers
 

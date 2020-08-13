@@ -38,9 +38,9 @@
 
 #define POICA_P_CHOICE_GEN_VCONSTRS(choice_name, variants)                     \
     POICA_P_EXPAND(POICA_P_EXPAND(BOOST_PP_SEQ_FOR_EACH(                       \
-        POICA_P_CHOICE_GEN_VCONSTR, choice_name, variants)))
+        POICA_P_CHOICE_GEN_VCONSTRS_VISIT, choice_name, variants)))
 
-#define POICA_P_CHOICE_GEN_VCONSTR(_r, choice_name, variant)                   \
+#define POICA_P_CHOICE_GEN_VCONSTRS_VISIT(_r, choice_name, variant)            \
     POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_VCONSTR_, choice_name, variant)
 
 #endif // POICA_CHOICE_GEN_VCONSTRS_H

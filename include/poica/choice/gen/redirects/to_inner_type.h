@@ -38,9 +38,12 @@
 
 #define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)           \
     BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE, _data, variants)
+        POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE_VISIT,              \
+        _data,                                                                 \
+        variants)
 
-#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE(_r, _data, variant)  \
+#define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE_VISIT(              \
+    _r, _data, variant)                                                        \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
         POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, variant)
 

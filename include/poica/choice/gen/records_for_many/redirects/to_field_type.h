@@ -33,11 +33,11 @@
 #define POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE(            \
     record_name, fields)                                                       \
     BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECT_TO_FIELD_TYPE,             \
+        POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE_VISIT,      \
         record_name,                                                           \
         fields)
 
-#define POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECT_TO_FIELD_TYPE(             \
+#define POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE_VISIT(      \
     _r, record_name, field)                                                    \
     typedef POICA_FIELD_TYPE(field)                                            \
         POICA_P_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(                 \

@@ -33,8 +33,6 @@
 
 #include <stdbool.h>
 
-#include <boost/preprocessor.hpp>
-
 #ifdef POICA_USE_PREFIX
 #define PoicaDefMaybe POICA_P_MAYBE_DEF
 #else

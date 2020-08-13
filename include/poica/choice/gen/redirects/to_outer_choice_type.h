@@ -36,11 +36,11 @@
 #define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE(choice_name, \
                                                                   variants)    \
     BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE,              \
+        POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT,       \
         choice_name,                                                           \
         variants)
 
-#define POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(              \
+#define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT(       \
     _r, choice_name, variant)                                                  \
     typedef choice_name POICA_P_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(  \
         POICA_VARIANT_NAME(variant));

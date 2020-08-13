@@ -9,10 +9,10 @@
 // whether a sum type has or has not data.
 #define POICA_P_IS_EMPTY_STRUCT(variants)                                      \
     BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(BOOST_PP_SEQ_FOR_EACH(                    \
-                       POICA_P_IS_EMPTY_STRUCT_AUX, _data, variants)),         \
+                       POICA_P_IS_EMPTY_STRUCT_VISIT, _data, variants)),       \
                    0)
 
-#define POICA_P_IS_EMPTY_STRUCT_AUX(_r, _data, variant)                        \
+#define POICA_P_IS_EMPTY_STRUCT_VISIT(_r, _data, variant)                      \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
         POICA_P_REPLACE_VARIANT_WITH_ITEM_, _data, variant)
 

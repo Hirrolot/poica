@@ -29,17 +29,17 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                  \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELD_AS_PARAM,                   \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,           \
                           _data,                                               \
                           BOOST_PP_SEQ_POP_BACK(fields))                       \
                                                                                \
-    POICA_P_RECORD_GEN_FIELD_AS_PARAM_LAST(                                    \
+    POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(                            \
         BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), fields))
 
-#define POICA_P_RECORD_GEN_FIELD_AS_PARAM(_r, _data, field)                    \
+#define POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT(_r, _data, field)            \
     POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field),
 
-#define POICA_P_RECORD_GEN_FIELD_AS_PARAM_LAST(field)                          \
+#define POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(field)                  \
     POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field)
 
 #endif // POICA_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H

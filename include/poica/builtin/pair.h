@@ -30,8 +30,6 @@
 
 #include <poica/record.h>
 
-#include <boost/preprocessor.hpp>
-
 #ifdef POICA_USE_PREFIX
 #define PoicaDefPair POICA_P_PAIR_DEF
 #else
