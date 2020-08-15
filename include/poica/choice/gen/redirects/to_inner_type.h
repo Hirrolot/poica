@@ -39,7 +39,7 @@
 #define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)           \
     BOOST_PP_SEQ_FOR_EACH(                                                     \
         POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE_VISIT,              \
-        _data,                                                                 \
+        BOOST_PP_EMPTY(),                                                      \
         variants)
 
 #define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE_VISIT(              \

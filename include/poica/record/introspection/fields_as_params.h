@@ -34,7 +34,7 @@
     POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
                                                                                \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,           \
-                          _data,                                               \
+                          BOOST_PP_EMPTY(),                                    \
                           BOOST_PP_SEQ_POP_BACK(fields))                       \
                                                                                \
     POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(                            \

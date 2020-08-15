@@ -33,7 +33,7 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_CHOICE_GEN_TAGS(variants)                                      \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_CHOICE_GEN_TAG, _data, variants)
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_CHOICE_GEN_TAG, BOOST_PP_EMPTY(), variants)
 
 #define POICA_P_CHOICE_GEN_TAG(_r, _data, variant)                             \
     POICA_P_CHOICE_VARIANT_NAME_AS_TAG(POICA_VARIANT_NAME(variant)),

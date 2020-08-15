@@ -43,14 +43,17 @@
 #define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_EXPAND(...) __VA_ARGS__
 
 #define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT(_r, data, variant)           \
-    POICA_OVERLOAD_ON_VARIANT(                                                 \
-        POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_, _data, (variant))
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_,      \
+                              BOOST_PP_EMPTY(),                                \
+                              (variant))
 
 #define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_VARIANT_KIND_EMPTY(          \
-    _data, _variant_name)
+    _data, _variant_name)                                                      \
+    BOOST_PP_EMPTY()
 
 #define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_VARIANT_KIND_SINGLE(         \
-    _data, _variant_name, _variant_type)
+    _data, _variant_name, _variant_type)                                       \
+    BOOST_PP_EMPTY()
 
 #define POICA_P_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_VARIANT_KIND_MANY(           \
     _data, variant_name, fields)                                               \

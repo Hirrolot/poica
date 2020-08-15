@@ -29,10 +29,11 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_RECORD_FIELD_X_SEQ(macro, fields)                              \
-    BOOST_PP_SEQ_FOR_EACH(macro, _data, fields)
+    BOOST_PP_SEQ_FOR_EACH(macro, BOOST_PP_EMPTY(), fields)
 
 #define POICA_P_RECORD_FIELD_X_TUPLE(macro, macro_last, fields)                \
-    (BOOST_PP_SEQ_FOR_EACH(macro, _data, BOOST_PP_SEQ_POP_BACK(fields))        \
+    (BOOST_PP_SEQ_FOR_EACH(                                                    \
+        macro, BOOST_PP_EMPTY(), BOOST_PP_SEQ_POP_BACK(fields))                \
                                                                                \
          macro_last(BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), \
                                       fields)))
