@@ -56,7 +56,7 @@
 #define POICA_P_CHOICE(...) POICA_P_CHOICE_AUX(__VA_ARGS__)
 
 #define POICA_P_CHOICE_AUX(name, variants)                                     \
-    /* POICA_P_OPT_ASSERT_ARE_VARIANTS(variants)                   */          \
+    POICA_P_OPT_ASSERT_ARE_VARIANTS(variants)                                  \
                                                                                \
     POICA_P_CHOICE_GEN_RECORDS_FOR_MANY(variants)                              \
                                                                                \
