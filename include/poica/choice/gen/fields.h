@@ -35,7 +35,7 @@
     BOOST_PP_SEQ_FOR_EACH(POICA_P_CHOICE_GEN_FIELDS_VISIT, _data, variants)
 
 #define POICA_P_CHOICE_GEN_FIELDS_VISIT(_r, _data, variant)                    \
-    POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_FIELD_, _data, variant)
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_CHOICE_GEN_FIELD_, _data, (variant))
 
 #define POICA_P_CHOICE_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name)
 

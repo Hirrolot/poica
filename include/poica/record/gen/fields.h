@@ -26,14 +26,16 @@
 #ifndef POICA_RECORD_GEN_FIELDS_H
 #define POICA_RECORD_GEN_FIELDS_H
 
+#include <poica/assertions/fields.h>
+
 #include <poica/record/introspection.h>
 
 #include <boost/preprocessor.hpp>
 
 #define POICA_P_RECORD_GEN_FIELDS(fields)                                      \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELD_VISIT, _data, fields)
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELDS_VISIT, _data, fields)
 
-#define POICA_P_RECORD_GEN_FIELD_VISIT(_r, _data, field)                       \
-    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field);
+#define POICA_P_RECORD_GEN_FIELDS_VISIT(_r, _data, field)                      \
+    POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field));
 
 #endif // POICA_RECORD_GEN_FIELDS_H

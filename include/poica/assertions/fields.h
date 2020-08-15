@@ -23,27 +23,36 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_OVERLOAD_ON_KIND_H
-#define POICA_PRIVATE_OVERLOAD_ON_KIND_H
+#ifndef POICA_ASSERTIONS_FIELDS_H
+#define POICA_ASSERTIONS_FIELDS_H
+
+#include <poica/private/defer.h>
 
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>
 
-/*
- * Concatanates `macro` with the first element of `seq` (Boost/PP sequence) and
- * calls `macro` with the rest of comma-separated elements of `seq`.
- *
- * `seq` shall consist of >=2 elements, and all the possible combinations of
- * `macro` + the first element of `seq` shall be defined.
- */
-#define POICA_P_OVERLOAD_ON_KIND(macro, seq)                                   \
-    BOOST_VMD_ASSERT_IS_SEQ(seq)                                               \
-    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(BOOST_PP_SEQ_SIZE(seq), 2))        \
-                                                                               \
-    POICA_P_OVERLOAD_ON_KIND_AUX(                                              \
-        BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),                           \
-        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
+#ifdef POICA_ENABLE_ASSERTIONS
 
-#define POICA_P_OVERLOAD_ON_KIND_AUX(macro, ...) macro(__VA_ARGS__)
+#define POICA_P_OPT_ASSERT_ARE_FIELDS(fields) POICA_ASSERT_ARE_FIELDS(fields)
+#define POICA_P_OPT_ASSERT_IS_FIELD(field)    POICA_ASSERT_IS_FIELD(field)
 
-#endif // POICA_PRIVATE_OVERLOAD_ON_KIND_H
+#else
+
+#define POICA_P_OPT_ASSERT_ARE_FIELDS(_fields) BOOST_PP_EMPTY()
+#define POICA_P_OPT_ASSERT_IS_FIELD(_field)    BOOST_PP_EMPTY()
+
+#endif
+
+#define POICA_ASSERT_ARE_FIELDS(fields)                                        \
+    BOOST_VMD_ASSERT_IS_SEQ(fields)                                            \
+    BOOST_PP_SEQ_FOR_EACH(                                                     \
+        POICA_P_ASSERT_IS_FIELDS_VISIT, BOOST_PP_EMPTY(), fields)
+
+#define POICA_P_ASSERT_IS_FIELDS_VISIT(_r, _data, field)                       \
+    POICA_ASSERT_IS_FIELD((field))
+
+#define POICA_ASSERT_IS_FIELD(field)                                           \
+    BOOST_VMD_ASSERT_IS_SEQ(POICA_P_EXPAND field)                              \
+    BOOST_VMD_ASSERT(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(POICA_P_EXPAND field), 2))
+
+#endif // POICA_ASSERTIONS_FIELDS_H

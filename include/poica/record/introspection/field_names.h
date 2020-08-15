@@ -26,26 +26,36 @@
 #ifndef POICA_RECORD_INTROSPECTION_FIELD_NAMES_H
 #define POICA_RECORD_INTROSPECTION_FIELD_NAMES_H
 
+#include <poica/assertions/fields.h>
+#include <poica/private/defer.h>
 #include <poica/record/introspection/aux.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_FIELD_NAME(field) BOOST_PP_SEQ_ELEM(0, field)
+#define POICA_FIELD_NAME(field)                                                \
+    POICA_ASSERT_IS_FIELD(field)                                               \
+                                                                               \
+    BOOST_PP_SEQ_ELEM(0, POICA_P_EXPAND field)
 
 #define POICA_RECORD_FIELD_NAMES_SEQ(fields)                                   \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_NAMES_SEQ_VISIT, fields)
+
 #define POICA_P_RECORD_GEN_FIELD_NAMES_SEQ_VISIT(_r, _data, field)             \
-    (POICA_FIELD_NAME(field))
+    (POICA_FIELD_NAME((field)))
 
 #define POICA_RECORD_FIELD_NAMES_TUPLE(fields)                                 \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     POICA_P_RECORD_FIELD_X_TUPLE(                                              \
         POICA_P_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT,                            \
         POICA_P_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST,                       \
         fields)
 
 #define POICA_P_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT(_r, _data, field)           \
-    POICA_FIELD_NAME(field),
+    POICA_FIELD_NAME((field)),
 #define POICA_P_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST(field)                 \
-    POICA_FIELD_NAME(field)
+    POICA_FIELD_NAME((field))
 
 #endif // POICA_RECORD_INTROSPECTION_FIELD_NAMES_H

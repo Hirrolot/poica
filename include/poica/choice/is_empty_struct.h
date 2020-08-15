@@ -14,7 +14,7 @@
 
 #define POICA_P_IS_EMPTY_STRUCT_VISIT(_r, _data, variant)                      \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
-        POICA_P_REPLACE_VARIANT_WITH_ITEM_, _data, variant)
+        POICA_P_REPLACE_VARIANT_WITH_ITEM_, _data, (variant))
 
 #define POICA_P_REPLACE_VARIANT_WITH_ITEM_VARIANT_KIND_EMPTY(_data,            \
                                                              _variant_name)

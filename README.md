@@ -30,6 +30,7 @@ This library exports [type-driven development] to plain C11.
    - [Generic types](#generic-types)
    - [Higher-kinded types](#higher-kinded-types)
    - [GADTs](#gadts)
+ - [Options](#options)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
@@ -87,6 +88,8 @@ They have tremendous amount of applications to real-world programming, including
  - Concurrency: [message passing](examples/message_passing.c)
 
 [ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
+
+[_The algebra (and calculus!) of algebraic data types_](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget) presents some theory behind ADTs.
 
 ### Motivation
 
@@ -582,6 +585,13 @@ TODO
 
 TODO
 
+## Options
+
+There are several options, implemented via macro definitions (turned off by default):
+
+ - `POICA_USE_PREFIX` -- prefixes all the public `camelCase`ed and `PascalCase`ed identifiers (`match` -> `poicaMatch`, `DefRes` -> `PoicaDefRes`, ...) in the current translation unit.
+ - `POICA_ENABLE_ASSERTIONS` -- enables some consistency checks on input data to macros. Can increase compilation time!
+
 ## Roadmap
 
  - Higher-order abstract syntax
@@ -611,11 +621,3 @@ A:
 
 [Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
 [Scary macro errors]: https://gist.github.com/Hirrolot/fe752e0e0d58c3b0786f6b8a6ee58cb8
-
-Q: Why ADTs are algebraic?
-
-A: Read [_The algebra (and calculus!) of algebraic data types_](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget).
-
-Q: How to resolve name collisions?
-
-A: `#define POICA_USE_PREFIX` before `#include <poica.h>` renames all the `camelCase`ed and `PascalCase`ed identifiers (`match` -> `poicaMatch`, `DefRes` -> `PoicaDefRes`, ...) in the current translation unit.

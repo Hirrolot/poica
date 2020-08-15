@@ -26,9 +26,13 @@
 #ifndef POICA_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H
 #define POICA_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H
 
+#include <poica/assertions/fields.h>
+
 #include <boost/preprocessor.hpp>
 
 #define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                  \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,           \
                           _data,                                               \
                           BOOST_PP_SEQ_POP_BACK(fields))                       \
@@ -37,9 +41,9 @@
         BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), fields))
 
 #define POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT(_r, _data, field)            \
-    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field),
+    POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field)),
 
 #define POICA_P_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(field)                  \
-    POICA_FIELD_TYPE(field) POICA_FIELD_NAME(field)
+    POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field))
 
 #endif // POICA_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H

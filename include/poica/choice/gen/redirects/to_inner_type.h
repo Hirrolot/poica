@@ -45,7 +45,7 @@
 #define POICA_P_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE_VISIT(              \
     _r, _data, variant)                                                        \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
-        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, variant)
+        POICA_P_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_, _data, (variant))
 
 #define POICA_P_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)            \
     POICA_P_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToInnerType))

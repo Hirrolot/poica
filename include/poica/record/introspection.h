@@ -26,9 +26,10 @@
 #ifndef POICA_RECORD_INTROSPECTION_H
 #define POICA_RECORD_INTROSPECTION_H
 
+#include <poica/assertions/fields.h>
+
 #include <poica/record/introspection/field_names.h>
 #include <poica/record/introspection/field_types.h>
-
 #include <poica/record/introspection/fields_as_params.h>
 
 #include <boost/preprocessor.hpp>
@@ -36,7 +37,8 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual record data is transferred through a macro:
 // POICA_RECORD_INTROSPECT(MY_RECORD);
-#define POICA_RECORD_INTROSPECT(...)                POICA_P_RECORD_INTROSPECT_AUX(__VA_ARGS__)
-#define POICA_P_RECORD_INTROSPECT_AUX(name, fields) fields
+#define POICA_RECORD_INTROSPECT(...) POICA_P_RECORD_INTROSPECT_AUX(__VA_ARGS__)
+#define POICA_P_RECORD_INTROSPECT_AUX(name, fields)                            \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields) fields
 
 #endif // POICA_RECORD_INTROSPECTION_H

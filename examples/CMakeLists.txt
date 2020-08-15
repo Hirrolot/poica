@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
-include_directories(../include ../preprocessor/include)
+include_directories(../include ../preprocessor/include ../vmd/include)
+add_compile_definitions(POICA_ENABLE_ASERTIONS)
 
 add_executable(ast ast.c)
 add_executable(binary_tree binary_tree.c)

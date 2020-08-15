@@ -30,18 +30,16 @@
 #include <poica/record/gen/fields.h>
 #include <poica/record/introspection.h>
 
+#include <poica/assertions/fields.h>
 #include <poica/unit.h>
 
 #include <boost/preprocessor.hpp>
-
-// This macro is variadic because, due to type introspection, it must work
-// correctly if actual record data is transferred through a macro:
-// RECORD(MY_RECORD);
+#include <boost/vmd/vmd.hpp>
 
 #ifdef POICA_USE_PREFIX
-#define poicaRecord(...) POICA_P_RECORD(__VA_ARGS__)
+#define poicaRecord POICA_P_RECORD
 #else
-#define record(...) POICA_P_RECORD(__VA_ARGS__)
+#define record POICA_P_RECORD
 #endif
 
 #define POICA_P_RECORD(...)                                                    \
@@ -53,6 +51,8 @@
     } name
 
 #define POICA_P_RECORD_2(name, fields)                                         \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     typedef struct name {                                                      \
         POICA_P_RECORD_GEN_FIELDS(fields)                                      \
     } name
