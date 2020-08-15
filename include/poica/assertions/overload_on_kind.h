@@ -23,27 +23,21 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_PRIVATE_OVERLOAD_ON_KIND_H
-#define POICA_PRIVATE_OVERLOAD_ON_KIND_H
+#ifndef POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
+#define POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
 
-#include <poica/assertions/overload_on_kind.h>
+#include <boost/vmd/vmd.hpp>
 
-#include <boost/preprocessor.hpp>
+#ifdef POICA_ENABLE_ASSERTIONS
 
-/*
- * Concatanates `macro` with the first element of `seq` (Boost/PP sequence) and
- * calls `macro` with the rest of comma-separated elements of `seq`.
- *
- * `seq` shall consist of >=2 elements, and all the possible combinations of
- * `macro` + the first element of `seq` shall be defined.
- */
-#define POICA_P_OVERLOAD_ON_KIND(macro, seq)                                   \
-    POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                           \
-                                                                               \
-    POICA_P_OVERLOAD_ON_KIND_AUX(                                              \
-        BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),                           \
-        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
+#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                       \
+    BOOST_VMD_ASSERT_IS_SEQ(seq)                                               \
+    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(BOOST_PP_SEQ_SIZE(seq), 2))
 
-#define POICA_P_OVERLOAD_ON_KIND_AUX(macro, ...) macro(__VA_ARGS__)
+#else
 
-#endif // POICA_PRIVATE_OVERLOAD_ON_KIND_H
+#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(_seq) BOOST_PP_EMPTY()
+
+#endif
+
+#endif // POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
