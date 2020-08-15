@@ -577,15 +577,15 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### Higher-kinded types
+### HKTs (higher-kinded types)
 
 TODO
 
-### GADTs
+### GADTs (generalised ADTs)
 
 TODO
 
-### Type-safe HOAS
+### Type-safe HOAS (higher-order abstract syntax)
 
 TODO
 
