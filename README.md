@@ -465,7 +465,7 @@ interface(
 );
 ```
 
-The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and the `Animal` & `AnimalMut` interface objects, discussed below.
+The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and interface objects, discussed below.
 
 ```c
 impl(Animal, Dog, (dogNoise));
