@@ -5,10 +5,6 @@
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
 [![docs](https://img.shields.io/badge/docs-SPEC.md-blue)](SPEC.md)
 
-This library exports [type-driven development] to plain C11.
-
-[type-driven development]: https://blog.ploeh.dk/2015/08/10/type-driven-development/
-
 ## Table of contents
  - [Motivation](#motivation)
  - [Features](#features)
