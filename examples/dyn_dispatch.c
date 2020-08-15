@@ -49,8 +49,8 @@ void catNoise(void *self) {
     printf("Meow! Counter: %d\n", cat->counter);
 }
 
-const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
-const VTable(Animal) VTable(Animal, Cat) = {catNoise};
+impl(Animal, Dog, (dogNoise));
+impl(Animal, Cat, (catNoise));
 
 /*
  * Output:
@@ -66,16 +66,14 @@ int main(void) {
 
     AnimalMut animal;
 
-    animal.self = &dog;
-    animal.vtable = &VTable(Animal, Dog);
+    animal = P(newIObj, AnimalMut, Dog)(&dog);
 
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
 
-    animal.self = &cat;
-    animal.vtable = &VTable(Animal, Cat);
+    animal = P(newIObj, AnimalMut, Cat)(&cat);
 
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
 }

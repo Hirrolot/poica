@@ -421,8 +421,8 @@ void catNoise(void *self) {
     printf("Meow! Counter: %d\n", cat->counter);
 }
 
-const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
-const VTable(Animal) VTable(Animal, Cat) = {catNoise};
+impl(Animal, Dog, (dogNoise));
+impl(Animal, Cat, (catNoise));
 
 int main(void) {
     Dog dog = {.counter = 0};
@@ -430,18 +430,16 @@ int main(void) {
 
     AnimalMut animal;
 
-    animal.self = &dog;
-    animal.vtable = &VTable(Animal, Dog);
+    animal = P(newIObj, AnimalMut, Dog)(&dog);
 
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
 
-    animal.self = &cat;
-    animal.vtable = &VTable(Animal, Cat);
+    animal = P(newIObj, AnimalMut, Cat)(&cat);
 
-    vCallSelf(animal, noise);
-    vCallSelf(animal, noise);
+    vCall(animal, noise);
+    vCall(animal, noise);
 }
 ```
 
@@ -467,27 +465,26 @@ interface(
 );
 ```
 
-The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and the `AnimalMut` interface object, discussed below.
+The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and the `Animal` & `AnimalMut` interface objects, discussed below.
 
 ```c
-const VTable(Animal) VTable(Animal, Dog) = {dogNoise};
-const VTable(Animal) VTable(Animal, Cat) = {catNoise};
+impl(Animal, Dog, (dogNoise));
+impl(Animal, Cat, (catNoise));
 ```
 
-To implement this interface for certain types (`Dog` and `Cat`), we shall define two new global constant variables of type `VTable(Animal)` with appropriate method implementations. `VTable(Animal, Dog)` and `VTable(Animal, Cat)` expand to identifiers of these variables.
+The `impl` macro implements `Animal` for `Dog` and `Cat` with the appropriate method implementations. Internally it defines two new global constant variables of type `VTable(Animal)`, filled in with the provided methods. `VTable(Animal, Dog)` and `VTable(Animal, Cat)` expand to identifiers of these variables.
 
 ```c
 AnimalMut animal;
 ```
 
-Go to `main`. `animal` is an interface object, which holds a VTable (accessed as `.vtable`) and a pointer to the mutable appropriate implementation (accessed as `.self`). `Animal` (without the `Mux` suffix) is the same as `AnimalMut`, but with `.self` pointing to immutable data.
+Go to `main`. `animal` is an interface object, which holds a VTable (accessed as `.vtable`) and a pointer to the mutable appropriate implementation (accessed as `.self`). `Animal` (without the `Mut` suffix) is the same as `AnimalMut`, but with `.self` pointing to immutable data.
 
 ```c
-animal.self = &dog;
-animal.vtable = &VTable(Animal, Dog);
+animal = P(newIObj, AnimalMut, Dog)(&dog);
 ```
 
-Here's how we initialise our interface object. `.self` is of type `void *` and is a pointer to our implementer object, `vtable` holds a pointer to a VTable of type of `.self`. In fact, if methods you wish to call in your VTable don't require `.self` (a.k.a. static methods), you can skip `vtable` initialisation.
+Here's how we initialise our interface object. `newIObj` is a type-generic function returning a new interface object, in our case -- `AnimalMut` with `Dog`'s methods and `&dog` as `.self`.
 
 Next we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
 
