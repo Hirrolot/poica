@@ -6,3 +6,6 @@
 	path = examples/libdill
 	url = https://github.com/sustrik/libdill
 	branch = master
+[submodule "vmd"]
+	path = vmd
+	url = https://github.com/boostorg/vmd

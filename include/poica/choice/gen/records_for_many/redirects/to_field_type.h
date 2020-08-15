@@ -39,9 +39,9 @@
 
 #define POICA_P_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE_VISIT(      \
     _r, record_name, field)                                                    \
-    typedef POICA_FIELD_TYPE(field)                                            \
+    typedef POICA_FIELD_TYPE((field))                                          \
         POICA_P_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(                 \
-            record_name, POICA_FIELD_NAME(field));
+            record_name, POICA_FIELD_NAME((field)));
 
 #define POICA_P_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(record_name,     \
                                                               field_name)      \

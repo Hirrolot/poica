@@ -26,24 +26,33 @@
 #ifndef POICA_RECORD_INTROSPECTION_FIELD_TYPES_H
 #define POICA_RECORD_INTROSPECTION_FIELD_TYPES_H
 
+#include <poica/assertions/fields.h>
+#include <poica/private/defer.h>
 #include <poica/record/introspection/aux.h>
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_FIELD_TYPE(field) BOOST_PP_SEQ_ELEM(1, field)
+#define POICA_FIELD_TYPE(field)                                                \
+    POICA_ASSERT_IS_FIELD(field) BOOST_PP_SEQ_ELEM(1, POICA_P_EXPAND field)
 
 #define POICA_RECORD_FIELD_TYPES_SEQ(fields)                                   \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     POICA_P_RECORD_FIELD_X_SEQ(POICA_P_RECORD_GEN_FIELD_TYPE_SEQ, fields)
+
 #define POICA_P_RECORD_GEN_FIELD_TYPE_SEQ(_r, _data, field)                    \
-    (POICA_FIELD_TYPE(field))
+    (POICA_FIELD_TYPE((field)))
 
 #define POICA_RECORD_FIELD_TYPES_TUPLE(fields)                                 \
+    POICA_P_OPT_ASSERT_ARE_FIELDS(fields)                                      \
+                                                                               \
     POICA_P_RECORD_X_TUPLE(POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE,                \
                            POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST,           \
                            fields)
 
 #define POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE(_r, _data, field)                  \
-    POICA_FIELD_TYPE(field),
-#define POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST(field) POICA_FIELD_TYPE(field)
+    POICA_FIELD_TYPE((field)),
+#define POICA_P_RECORD_GEN_FIELD_TYPE_TUPLE_LAST(field)                        \
+    POICA_FIELD_TYPE((field))
 
 #endif // POICA_RECORD_INTROSPECTION_FIELD_TYPES_H

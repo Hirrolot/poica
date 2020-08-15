@@ -26,6 +26,7 @@
 #ifndef POICA_CHOICE_H
 #define POICA_CHOICE_H
 
+#include <poica/assertions/variants.h>
 #include <poica/force_semicolon.h>
 
 #include <poica/record/field.h>
@@ -43,16 +44,20 @@
 
 #include <boost/preprocessor.hpp>
 
-// This macro is variadic because, due to type introspection, it must work
-// correctly if actual sum type data is transferred through a macro:
-// CHOICE(MY_CHOICE);
 #ifdef POICA_USE_PREFIX
-#define poicaChoice(...) POICA_P_CHOICE(__VA_ARGS__)
+#define poicaChoice POICA_P_CHOICE
 #else
-#define choice(...) POICA_P_CHOICE(__VA_ARGS__)
+#define choice POICA_P_CHOICE
 #endif
 
-#define POICA_P_CHOICE(name, variants)                                         \
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual sum type data is transferred through a macro:
+// choice(MY_CHOICE);
+#define POICA_P_CHOICE(...) POICA_P_CHOICE_AUX(__VA_ARGS__)
+
+#define POICA_P_CHOICE_AUX(name, variants)                                     \
+    /* POICA_P_OPT_ASSERT_ARE_VARIANTS(variants)                   */          \
+                                                                               \
     POICA_P_CHOICE_GEN_RECORDS_FOR_MANY(variants)                              \
                                                                                \
     typedef struct name {                                                      \

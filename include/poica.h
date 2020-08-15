@@ -26,6 +26,7 @@
 #ifndef POICA_H
 #define POICA_H
 
+#include <poica/assertions.h>
 #include <poica/builtin.h>
 #include <poica/choice.h>
 #include <poica/interface.h>
