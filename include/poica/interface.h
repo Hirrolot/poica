@@ -30,16 +30,23 @@
 #include <poica/private/prefix.h>
 
 #include <boost/preprocessor.hpp>
+#include <boost/vmd/vmd.hpp>
 
 #ifdef POICA_USE_PREFIX
 
 #define poicaInterface POICA_P_INTERFACE
 #define PoicaVTable    POICA_P_VTABLE
 
+#define poicaVCall     POICA_P_V_CALL
+#define poicaVCallSelf POICA_P_V_CALL_SELF
+
 #else
 
 #define interface POICA_P_INTERFACE
 #define VTable    POICA_P_VTABLE
+
+#define vCall     POICA_P_V_CALL
+#define vCallSelf POICA_P_V_CALL_SELF
 
 #endif
 
@@ -48,13 +55,15 @@
         methods                                                                \
     } POICA_P_VTABLE(name);                                                    \
                                                                                \
-    typedef struct name {                                                      \
-        union {                                                                \
-            const void *immut;                                                 \
-            void *mut;                                                         \
-        } self;                                                                \
+    typedef struct POICA_P_INTERFACE_NAME(name) {                              \
+        const void *self;                                                      \
         const POICA_P_VTABLE(name) * vtable;                                   \
-    } name;                                                                    \
+    } POICA_P_INTERFACE_NAME(name);                                            \
+                                                                               \
+    typedef struct POICA_P_INTERFACE_MUT_NAME(name) {                          \
+        void *self;                                                            \
+        const POICA_P_VTABLE(name) * vtable;                                   \
+    } POICA_P_INTERFACE_MUT_NAME(name);                                        \
                                                                                \
     POICA_FORCE_SEMICOLON
 
@@ -67,5 +76,17 @@
 #define POICA_P_VTABLE_2(interface_name, implementer_name)                     \
     BOOST_PP_CAT(BOOST_PP_CAT(POICA_P_VTABLE_1(interface_name), _),            \
                  implementer_name)
+
+#define POICA_P_INTERFACE_NAME(name)     name
+#define POICA_P_INTERFACE_MUT_NAME(name) BOOST_PP_CAT(name, Mut)
+
+#define POICA_P_V_CALL(interface_obj, method, ...)                             \
+    ((interface_obj).vtable->method(__VA_ARGS__))
+
+#define POICA_P_V_CALL_SELF(interface_obj, method, ...)                        \
+    BOOST_PP_IF(BOOST_VMD_IS_EMPTY(__VA_ARGS__),                               \
+                POICA_P_V_CALL(interface_obj, method, (interface_obj).self),   \
+                POICA_P_V_CALL(                                                \
+                    interface_obj, method, (interface_obj).self, __VA_ARGS__))
 
 #endif // POICA_INTERFACE_H

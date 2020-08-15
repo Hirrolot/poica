@@ -27,7 +27,12 @@
 
 #include <stdio.h>
 
-interface(Animal, void (*noise)(void *self););
+// clang-format off
+interface(
+    Animal,
+    void (*noise)(void *self);
+);
+// clang-format on
 
 record(Dog, field(counter, int));
 record(Cat, field(counter, int));
@@ -59,18 +64,18 @@ int main(void) {
     Dog dog = {.counter = 0};
     Cat cat = {.counter = 0};
 
-    Animal animal;
+    AnimalMut animal;
 
-    animal.self.mut = &dog;
+    animal.self = &dog;
     animal.vtable = &VTable(Animal, Dog);
 
-    animal.vtable->noise(animal.self.mut);
-    animal.vtable->noise(animal.self.mut);
-    animal.vtable->noise(animal.self.mut);
+    vCallSelf(animal, noise);
+    vCallSelf(animal, noise);
+    vCallSelf(animal, noise);
 
-    animal.self.mut = &cat;
+    animal.self = &cat;
     animal.vtable = &VTable(Animal, Cat);
 
-    animal.vtable->noise(animal.self.mut);
-    animal.vtable->noise(animal.self.mut);
+    vCallSelf(animal, noise);
+    vCallSelf(animal, noise);
 }
