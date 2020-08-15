@@ -30,6 +30,7 @@ This library exports [type-driven development] to plain C11.
    - [Generic types](#generic-types)
    - [Higher-kinded types](#higher-kinded-types)
    - [GADTs](#gadts)
+   - [Type-safe HOAS](#type-safe-hoas)
  - [Options](#options)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
@@ -581,6 +582,10 @@ There's nothing much to say, except that `P` (which stands for _polymorphic_) ex
 TODO
 
 ### GADTs
+
+TODO
+
+### Type-safe HOAS
 
 TODO
 
