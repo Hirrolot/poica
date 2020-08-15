@@ -29,6 +29,7 @@
 #include <poica/assertions/overload_on_kind.h>
 
 #include <boost/preprocessor.hpp>
+#include <boost/vmd/vmd.hpp>
 
 /*
  * Concatanates `macro` with the first element of `seq` (Boost/PP sequence) and
