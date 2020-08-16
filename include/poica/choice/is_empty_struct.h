@@ -4,14 +4,14 @@
 #include <poica/choice/introspection/overload_on_variant.h>
 
 #include <boost/preprocessor.hpp>
+#include <boost/vmd/vmd.hpp>
 
 // Empty structures are forbidden in the standard C11, so we need to detect
 // whether a sum type has or has not data.
 #define POICA_P_IS_EMPTY_STRUCT(variants)                                      \
-    BOOST_PP_EQUAL(                                                            \
-        BOOST_PP_SEQ_SIZE(BOOST_PP_SEQ_FOR_EACH(                               \
-            POICA_P_IS_EMPTY_STRUCT_VISIT, BOOST_PP_EMPTY(), variants)),       \
-        0)
+    BOOST_VMD_IS_EMPTY(                                                        \
+        BOOST_PP_EMPTY() BOOST_PP_SEQ_SIZE(BOOST_PP_SEQ_FOR_EACH(              \
+            POICA_P_IS_EMPTY_STRUCT_VISIT, BOOST_PP_EMPTY(), variants)))
 
 #define POICA_P_IS_EMPTY_STRUCT_VISIT(_r, _data, variant)                      \
     POICA_OVERLOAD_ON_VARIANT(                                                 \
