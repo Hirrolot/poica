@@ -54,23 +54,7 @@
 
 #endif
 
-#define POICA_P_INTERFACE(...)                                                 \
-    BOOST_PP_OVERLOAD(POICA_P_INTERFACE_, __VA_ARGS__)(__VA_ARGS__)
-
-#define POICA_P_INTERFACE_1(name)                                              \
-    struct POICA_P_VTABLE(name);                                               \
-    typedef struct POICA_P_VTABLE(name) POICA_P_VTABLE(name);                  \
-                                                                               \
-    struct name;                                                               \
-    typedef struct name name;                                                  \
-                                                                               \
-    struct POICA_P_INTERFACE_MUT_NAME(name);                                   \
-    typedef struct POICA_P_INTERFACE_MUT_NAME(name)                            \
-        POICA_P_INTERFACE_MUT_NAME(name);                                      \
-                                                                               \
-    POICA_FORCE_SEMICOLON
-
-#define POICA_P_INTERFACE_2(name, methods)                                     \
+#define POICA_P_INTERFACE(name, methods)                                       \
     typedef struct POICA_P_VTABLE(name) {                                      \
         methods                                                                \
     } POICA_P_VTABLE(name);                                                    \
