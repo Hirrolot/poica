@@ -87,11 +87,18 @@
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#define POICA_P_IMPL(interface_name, implementer_name, methods)                \
+#define POICA_P_IMPL(...)                                                      \
+    BOOST_PP_OVERLOAD(POICA_P_IMPL_, __VA_ARGS__)(__VA_ARGS__)
+
+#define POICA_P_IMPL_2(interface_name, implementer_name)                       \
+    const POICA_P_VTABLE(interface_name)                                       \
+        POICA_P_VTABLE(interface_name, implementer_name);
+
+#define POICA_P_IMPL_3(interface_name, implementer_name, methods)              \
     POICA_P_INTERFACE_IMPL_AUX(                                                \
         static, interface_name, implementer_name, methods)
 
-#define POICA_P_STATIC_IMPL(interface_name, implementer_name, methods)         \
+#define POICA_P_STATIC_IMPL_3(interface_name, implementer_name, methods)       \
     POICA_P_INTERFACE_IMPL_AUX(                                                \
         BOOST_PP_EMPTY(), interface_name, implementer_name, methods)
 
