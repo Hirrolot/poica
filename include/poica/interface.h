@@ -34,21 +34,21 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaInterface POICA_P_INTERFACE
-#define PoicaVTable    POICA_P_VTABLE
-#define poicaImpl      POICA_P_IMPL
-
-#define poicaVCall POICA_P_V_CALL
+#define poicaInterface  POICA_P_INTERFACE
+#define PoicaVTable     POICA_P_VTABLE
+#define poicaImpl       POICA_P_IMPL
+#define poicaStaticImpl POICA_P_STATIC_IMPL
+#define poicaVCall      POICA_P_V_CALL
 
 #define POICA_P_NEW_I_OBJ poicaNewIObj
 
 #else
 
-#define interface POICA_P_INTERFACE
-#define VTable    POICA_P_VTABLE
-#define impl      POICA_P_IMPL
-
-#define vCall POICA_P_V_CALL
+#define interface  POICA_P_INTERFACE
+#define VTable     POICA_P_VTABLE
+#define impl       POICA_P_IMPL
+#define staticImpl POICA_P_STATIC_IMPL
+#define vCall      POICA_P_V_CALL
 
 #define POICA_P_NEW_I_OBJ newIObj
 
@@ -71,16 +71,18 @@
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#define POICA_P_IMPL(...)                                                      \
-    BOOST_PP_OVERLOAD(POICA_P_IMPL_, __VA_ARGS__)(__VA_ARGS__)
+#define POICA_P_IMPL(interface_name, implementer_name, methods)                \
+    POICA_P_INTERFACE_IMPL_AUX(                                                \
+        static, interface_name, implementer_name, methods)
 
-#define POICA_P_IMPL_3(interface_name, implementer_name, methods)              \
-    POICA_P_IMPL_4(BOOST_PP_EMPTY(), interface_name, implementer_name, methods)
+#define POICA_P_STATIC_IMPL(interface_name, implementer_name, methods)         \
+    POICA_P_INTERFACE_IMPL_AUX(                                                \
+        BOOST_PP_EMPTY(), interface_name, implementer_name, methods)
 
-#define POICA_P_IMPL_4(vtable_qualifiers_and_specifiers,                       \
-                       interface_name,                                         \
-                       implementer_name,                                       \
-                       methods)                                                \
+#define POICA_P_INTERFACE_IMPL_AUX(vtable_qualifiers_and_specifiers,           \
+                                   interface_name,                             \
+                                   implementer_name,                           \
+                                   methods)                                    \
     const vtable_qualifiers_and_specifiers POICA_P_VTABLE(interface_name)      \
         POICA_P_VTABLE(interface_name, implementer_name) = {                   \
             POICA_P_EXPAND(POICA_P_EXPAND methods)};                           \
