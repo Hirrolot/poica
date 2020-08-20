@@ -47,7 +47,8 @@
 
 #define POICA_P_STDLIB_TRY(val, ok_type_1, ok_type_2, err_type)                \
     POICA_P_LANG_MATCH(val) {                                                  \
-        POICA_P_LANG_OF(POICA_P_LANG_P(Err, ok_type_1, err_type), err) {       \
+        POICA_P_LANG_OF(                                                       \
+            const, POICA_P_LANG_P(Err, ok_type_1, err_type), err) {            \
             return POICA_P_LANG_P(Err, ok_type_2, err_type)(*err);             \
         }                                                                      \
         POICA_P_LANG_OTHERWISE {}                                              \
