@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
-include_directories(../include ../preprocessor/include ../vmd/include libdill)
-add_subdirectory(libdill)
+include_directories(../include ../preprocessor/include ../vmd/include)
 add_compile_definitions(POICA_ENABLE_ASERTIONS)
 
 add_executable(ast ast.c)
@@ -25,11 +24,6 @@ add_executable(dyn_dispatch dyn_dispatch.c)
 add_executable(int_bool_ast int_bool_ast.c)
 add_executable(hkt hkt.c)
 
-if(UNIX)
-  add_executable(message_passing message_passing.c)
-  target_link_libraries(message_passing libdill.a pthread)
-endif(UNIX)
-
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   add_compile_options(-Wall)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -41,7 +35,6 @@ set_target_properties(
   binary_tree
   binary_tree_malloc
   error_handling
-  message_passing
   obj
   tokens
   compare_variants
