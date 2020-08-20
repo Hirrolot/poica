@@ -15,8 +15,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Init submodules
       run: git submodule update --init --recursive
-    - name: Install libdill
-      run: cd examples/libdill && sudo bash ../../scripts/install_libdill.sh
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
     - name: Run examples
