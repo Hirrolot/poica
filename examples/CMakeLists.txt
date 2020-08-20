@@ -4,6 +4,12 @@ project(examples LANGUAGES C)
 include_directories(../include ../preprocessor/include ../vmd/include)
 add_compile_definitions(POICA_ENABLE_ASERTIONS)
 
+if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+  add_compile_options(-Wall)
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+  add_compile_options(-Wall -Wextra -ftrack-macro-expansion=0)
+endif()
+
 add_executable(ast ast.c)
 add_executable(binary_tree binary_tree.c)
 add_executable(binary_tree_malloc binary_tree_malloc.c)
@@ -23,12 +29,6 @@ add_executable(generic_linked_list generic_linked_list.c)
 add_executable(dyn_dispatch dyn_dispatch.c)
 add_executable(int_bool_ast int_bool_ast.c)
 add_executable(hkt hkt.c)
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-  add_compile_options(-Wall)
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  add_compile_options(-Wall -Wextra)
-endif()
 
 set_target_properties(
   ast
