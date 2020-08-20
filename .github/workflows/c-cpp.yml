@@ -17,5 +17,3 @@ jobs:
       run: git submodule update --init --recursive
     - name: Build examples
       run: cd examples && mkdir build && cd build && cmake .. && cmake --build .
-    - name: Run examples
-      run: bash scripts/run_examples.sh
