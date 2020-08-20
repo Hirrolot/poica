@@ -23,32 +23,39 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
-#define POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
+/* GADTs imitation.
+ *
+ * Given a simple language, consisting of arithmetical and boolean expressions,
+ * and a type-safe evaluator.
+ *
+ * More information at https://en.wikibooks.org/wiki/Haskell/GADT.
+ */
 
-#include <poica/private/defer.h>
+#include <poica.h>
 
-#include <boost/vmd/vmd.hpp>
+#include <stdbool.h>
+#include <stdio.h>
 
-#ifdef POICA_ENABLE_ASSERTIONS
+#define BOOST_VMD_REGISTER_int   (int)
+#define BOOST_VMD_REGISTER__Bool (_Bool)
 
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                       \
-    POICA_P_DEFER(                                                             \
-        BOOST_PP_IF(BOOST_VMD_IS_EMPTY(seq),                                   \
-                    POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_EMPTY,         \
-                    POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_NOT_EMPTY))    \
-    (seq)
+#define BOOST_VMD_DETECT_int_int
+#define BOOST_VMD_DETECT__Bool__Bool
 
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_EMPTY(seq) 1
+#define T int
+#include "int_bool_ast.h"
+#undef T
 
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_NOT_EMPTY(seq)             \
-    BOOST_VMD_ASSERT_IS_SEQ(seq)                                               \
-    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1))
+#define T _Bool
+#include "int_bool_ast.h"
+#undef T
 
-#else
+int main(void) {
+    P(Expr, int) _12 = P(I, int)(12);
+    P(Expr, int) _4 = P(I, int)(4);
+    P(Expr, int) _3 = P(I, int)(3);
+    P(Expr, int) _12_add_4 = P(Add, int)(&_12, &_4);
+    P(Expr, int, _Bool) final = P(Eq, int, _Bool)(&_12_add_4, &_3);
 
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(_seq) BOOST_PP_EMPTY()
-
-#endif
-
-#endif // POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
+    printf("%d\n", (int)P(eval, _Bool)(&final));
+}

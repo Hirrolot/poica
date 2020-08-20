@@ -27,6 +27,7 @@
 #define POICA_PRIVATE_OVERLOAD_ON_KIND_H
 
 #include <poica/assertions/overload_on_kind.h>
+#include <poica/private/call_macro.h>
 
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>
@@ -35,16 +36,25 @@
  * Concatanates `macro` with the first element of `seq` (Boost/PP sequence) and
  * calls `macro` with the rest of comma-separated elements of `seq`.
  *
- * `seq` shall consist of >=2 elements, and all the possible combinations of
+ * `seq` shall consist of >=1 elements, and all the possible combinations of
  * `macro` + the first element of `seq` shall be defined.
  */
 #define POICA_P_OVERLOAD_ON_KIND(macro, seq)                                   \
     POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                           \
                                                                                \
-    POICA_P_OVERLOAD_ON_KIND_AUX(                                              \
+    BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1),                     \
+                POICA_P_OVERLOAD_ON_KIND_SEQ_SIZE_1,                           \
+                POICA_P_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1)              \
+    (macro, seq)
+
+#define POICA_P_OVERLOAD_ON_KIND_SEQ_SIZE_1(macro, seq)                        \
+    BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq))()
+
+#define POICA_P_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1(macro, seq)           \
+    POICA_P_OVERLOAD_ON_KIND_CALL_MACRO(                                       \
         BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),                           \
         BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
 
-#define POICA_P_OVERLOAD_ON_KIND_AUX(macro, ...) macro(__VA_ARGS__)
+#define POICA_P_OVERLOAD_ON_KIND_CALL_MACRO(macro, ...) macro(__VA_ARGS__)
 
 #endif // POICA_PRIVATE_OVERLOAD_ON_KIND_H

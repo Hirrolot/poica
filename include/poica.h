@@ -23,32 +23,17 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
-#define POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
+#ifndef POICA_H
+#define POICA_H
 
-#include <poica/private/defer.h>
+#include <poica/assertions.h>
+#include <poica/builtin.h>
+#include <poica/choice.h>
+#include <poica/gadt.h>
+#include <poica/interface.h>
+#include <poica/obj.h>
+#include <poica/p.h>
+#include <poica/record.h>
+#include <poica/unit.h>
 
-#include <boost/vmd/vmd.hpp>
-
-#ifdef POICA_ENABLE_ASSERTIONS
-
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                       \
-    POICA_P_DEFER(                                                             \
-        BOOST_PP_IF(BOOST_VMD_IS_EMPTY(seq),                                   \
-                    POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_EMPTY,         \
-                    POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_NOT_EMPTY))    \
-    (seq)
-
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_EMPTY(seq) 1
-
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA_NOT_EMPTY(seq)             \
-    BOOST_VMD_ASSERT_IS_SEQ(seq)                                               \
-    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1))
-
-#else
-
-#define POICA_P_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(_seq) BOOST_PP_EMPTY()
-
-#endif
-
-#endif // POICA_ASSERTIONS_OVERLOAD_ON_KIND_H
+#endif // POICA_H
