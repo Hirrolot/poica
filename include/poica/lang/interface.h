@@ -65,13 +65,13 @@
     } POICA_P_LANG_VTABLE(name);                                               \
                                                                                \
     typedef struct name {                                                      \
-        const void *self;                                                      \
-        const POICA_P_LANG_VTABLE(name) * vtable;                              \
+        const void *poica_p_self;                                                      \
+        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                              \
     } name;                                                                    \
                                                                                \
     typedef struct POICA_P_LANG_INTERFACE_MUT_NAME(name) {                     \
-        void *self;                                                            \
-        const POICA_P_LANG_VTABLE(name) * vtable;                              \
+        void *poica_p_self;                                                            \
+        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                              \
     } POICA_P_LANG_INTERFACE_MUT_NAME(name);                                   \
                                                                                \
     POICA_FORCE_SEMICOLON
@@ -247,8 +247,8 @@
 #define POICA_P_LANG_V_CALL(interface_obj, method, ...)                        \
     BOOST_PP_IF(                                                               \
         BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                       \
-        (interface_obj).vtable->method((interface_obj).self),                  \
-        (interface_obj).vtable->method((interface_obj).self, __VA_ARGS__))
+        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self),                  \
+        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self, __VA_ARGS__))
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                  \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier) \
@@ -256,8 +256,8 @@
         POICA_P_LANG_NEW_I_OBJ, interface_name, implementer_name)(             \
         self_qualifier implementer_name * self) {                              \
         interface_name i_obj;                                                  \
-        i_obj.self = self;                                                     \
-        i_obj.vtable = &implementer_vtable_name;                               \
+        i_obj.poica_p_self = self;                                                     \
+        i_obj.poica_p_vtable = &implementer_vtable_name;                               \
         return i_obj;                                                          \
     }
 
