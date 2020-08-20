@@ -23,6 +23,11 @@
  * SOFTWARE.
  */
 
+/*
+ * This macro is used to concisely pass an error upwards a program stack, or, if
+ * the result is successful, do nothing.
+ */
+
 #ifndef POICA_STDLIB_TRY_H
 #define POICA_STDLIB_TRY_H
 

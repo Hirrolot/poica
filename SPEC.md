@@ -13,8 +13,6 @@ variant-tag               = "variantTag(" expr ")" ;
 match                     = "match(" expr ")" "{" { of compound-statement }+ "}" [ otherwise ] ;
 matches                   = "matches(" expr "," identifier ")" ;
 
-try                       = "try(" expr "," ok-type-1 "," ok-type-2 "," err-type ");" ;
-
 of                        = "of(" identifier ")"
                           | "of(" identifier "," identifier ")"
                           | "ofMany(" identifier ", (" { identifier }+  "))" ;
@@ -49,32 +47,6 @@ product-field-types-tuple = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
 field-name                = "POICA_FIELD_NAME(" field ")" ;
 product-field-names-seq   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
 product-field-names-tuple = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
-
-(* Built-in ADTs *)
-
-def-maybe-type            = "DefMaybe(" type ");" ;
-maybe-type                = "Maybe(" type ")" ;
-vconstr-just              = "Just(" type ")" ;
-vconstr-nothing           = "Nothing(" type ")" ;
-is-just                   = "isJust(" type ")" ;
-is-nothing                = "isNothing(" type ")" ;
-
-def-either-type           = "DefEither(" left-type "," right-type ");" ;
-either-type               = "Either(" left-type "," right-type  ")" ;
-vconstr-left              = "Left(" left-type "," right-type ")" ;
-vconstr-right             = "Right(" left-type "," right-type ")" ;
-is-left                   = "isLeft(" left-type "," right-type ")" ;
-is-right                  = "isRight(" left-type "," right-type ")" ;
-
-def-pair-type             = "DefPair(" fst-type "," snd-type ");" ;
-pair-type                 = "Pair(" fst-type "," snd-type  ")" ;
-
-def-res-type              = "DefRes(" ok-type "," err-type ");" ;
-res-type                  = "Res(" ok-type "," err-type  ")" ;
-vconstr-ok                = "Ok(" ok-type "," err-type ")" ;
-vconstr-err               = "Err(" ok-type "," err-type ")" ;
-is-ok                     = "isOk(" ok-type "," err-type ")" ;
-is-err                    = "isErr(" ok-type "," err-type ")" ;
 
 (* Miscellaneous *)
 
@@ -160,21 +132,6 @@ If not all the variants are specified in `match`, a compiler should generate a w
 ### `matches`
 
 Tests whether `<expr>` of a sum type corresponds to `<variant-type>`. Expands to a boolean expression.
-
-### `try`
-
-Expands to:
-
-```c
-match(<expr>) {
-    of(Err(<ok-type-1>, <err-type>), err) {
-        return Err(<ok-type-2>, <err-type>)(*err);
-    }
-    otherwise {}
-}
-```
-
-This macro is used to concisely pass an error upwards a program stack, or, if the result is successful, do nothing.
 
 ### `of`, `ofMany`
 
@@ -299,79 +256,6 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 ```
 (<f1>, ..., <fm>)
 ```
-
-### `Maybe`
-
-`DefMaybe` expands to:
-
-```c
-choice(
-    P(Maybe, <type>),
-    variant(P(Just, <type>), <type>)
-    variant(P(Nothing, <type>))
-);
-
-
-inline static bool P(isJust, <type>)(P(Maybe, <type>) maybe) { ... }
-inline static bool P(isNothing, <type>)(P(Maybe, <type>) maybe) { ... }
-```
-
- - `P(Maybe, <type>)` expands to a name of a monomorphized `Maybe` type.
- - `P(isNothing, <type>)` and `P(Nothing, <type>)` expand to names of value constructors. The first one accepts a value of type `<type>`, the latter constructs an empty `Maybe`.
- - `P(isJust, <type>)` and `P(isNothing, <type>)` expand to names of functions that test whether the provided `Maybe` is `P(Just, <type>)` or `P(Nothing, <type>)`, respectively.
-
-### `Either`
-
-`DefEither` expands to:
-
-```c
-choice(
-    P(Either, <left-type>, <right-type>),
-    variant(P(Left, <left-type>, <right-type>), <left-type>)
-    variant(P(Right, <left-type>, <right-type>), <right-type>)
-);
-
-inline static bool P(isLeft, <left-type>, <right-type>)(P(Either, <left-type>, <right-type>) either) { ... }
-inline static bool P(isRight, <left-type>, <right-type>)(P(Either, <left-type>, <right-type>) either) { ... }
-```
-
- - `P(Either, <left-type>, <right-type>)` expands to a name of a monomorphized `Either` type.
- - `P(Left, <left-type>, <right-type>)` and `P(Right, <left-type>, <right-type>)` expand to names of value constructors. They accept values of `<left-type>` and `<right-type>` and construct the appropriate variants of `Either`, respectively.
- - `P(isLeft, <left-type>, <right-type>)` and `P(isRight, <left-type>, <right-type>)` expand to names of functions that test whether the provided `Either` is `P(Left, <left-type>, <right-type>)` or `P(Right, <left-type>, <right-type>)`, respectively.
-
-### `Pair`
-
-`DefPair` expands to:
-
-```c
-record(
-    P(Pair, <fst-type>, <snd-type>)
-    field(fst, <fst-type>)
-    field(snd, <snd-type>)
-);
-```
-
- - `P(Pair, <fst-type>, <snd-type>)` expands to a name of a monomorphized `Pair` type.
-
-### `Res`
-
-`DefRes` expands to:
-
-```c
-choice(
-    P(Res, <ok-type>, <err-type>),
-    variant(P(Ok, <ok-type>, <err-type>), <ok-type>)
-    variant(P(Err, <ok-type>, <err-type>), <err-type>)
-);
-
-
-inline static bool isOk(<ok-type>, <right-type>)(P(Res, <ok-type>, <err-type>) res) { ... }
-inline static bool isErr(<ok-type>, <right-type>)(P(Res, <ok-type>, <err-type>) res) { ... }
-```
-
- - `P(Res, <ok-type>, <err-type>)` expands to a name of a monomorphized `Res` type.
- - `P(Ok, <ok-type>, <err-type>)` and `P(Err, <ok-type>, <err-type>)` expand to names of value constructors. They accept values of `<ok-type>` and `<err-type>` and construct the appropriate variants of `Res`, respectively.
- - `P(isOk, <ok-type>, <err-type>)` and `P(isErr, <ok-type>, <err-type>)` expand to names of functions that test whether the provided `Res` is `P(Ok, <ok-type>, <err-type>)` or `P(Err, <ok-type>, <err-type>)`, respectively.
 
 ### `obj`
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.
