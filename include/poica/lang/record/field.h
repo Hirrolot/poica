@@ -23,10 +23,15 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_RECORD_FIELD_H
+#define POICA_LANG_RECORD_FIELD_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#ifdef POICA_USE_PREFIX
+#define poicaField POICA_P_LANG_FIELD
+#else
+#define field POICA_P_LANG_FIELD
+#endif
 
-#endif // POICA_H
+#define POICA_P_LANG_FIELD(field_name, field_type) ((field_name)(field_type))
+
+#endif // POICA_LANG_RECORD_FIELD_H

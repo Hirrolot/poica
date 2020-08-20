@@ -23,10 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_RECORD_INTROSPECTION_AUX_H
+#define POICA_LANG_RECORD_INTROSPECTION_AUX_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+#define POICA_P_LANG_RECORD_FIELD_X_SEQ(macro, fields)                         \
+    BOOST_PP_SEQ_FOR_EACH(macro, BOOST_PP_EMPTY(), fields)
+
+#define POICA_P_LANG_RECORD_FIELD_X_TUPLE(macro, macro_last, fields)           \
+    (BOOST_PP_SEQ_FOR_EACH(                                                    \
+        macro, BOOST_PP_EMPTY(), BOOST_PP_SEQ_POP_BACK(fields))                \
+                                                                               \
+         macro_last(BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), \
+                                      fields)))
+
+#endif // POICA_LANG_RECORD_INTROSPECTION_AUX_H

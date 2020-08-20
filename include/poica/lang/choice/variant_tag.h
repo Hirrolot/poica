@@ -23,10 +23,15 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_VARIANT_TAG_H
+#define POICA_LANG_CHOICE_VARIANT_TAG_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#ifdef POICA_USE_PREFIX
+#define poicaVariantTag POICA_P_LANG_VARIANT_TAG
+#else
+#define variantTag POICA_P_LANG_VARIANT_TAG
+#endif
 
-#endif // POICA_H
+#define POICA_P_LANG_VARIANT_TAG(val) ((val).tag)
+
+#endif // POICA_LANG_CHOICE_VARIANT_TAG_H

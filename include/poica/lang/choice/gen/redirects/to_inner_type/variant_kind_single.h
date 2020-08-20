@@ -23,10 +23,14 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
+#define CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+#define POICA_P_LANG_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_SINGLE( \
+    _data, variant_name, variant_type)                                              \
+    typedef variant_type POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(        \
+        variant_name);
+
+#endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_SINGLE_H

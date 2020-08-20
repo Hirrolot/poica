@@ -23,10 +23,11 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_PRIVATE_PREFIX_H
+#define POICA_P_LANGRIVATE_PREFIX_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+#define POICA_P_LANG_PREFIX(something) BOOST_PP_CAT(POICA_P_, something)
+
+#endif // POICA_LANG_PRIVATE_PREFIX_H

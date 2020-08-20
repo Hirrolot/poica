@@ -23,10 +23,23 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_PATTERN_MATCHING_IMMUT_H
+#define POICA_LANG_CHOICE_PATTERN_MATCHING_IMMUT_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/pattern_matching/aux.h>
 
-#endif // POICA_H
+#ifdef POICA_USE_PREFIX
+
+#define poicaOfMany(variant_name, var_names)                                   \
+    POICA_P_LANG_OF_MANY(const, variant_name, var_names)
+#define poicaOf(...) POICA_P_LANG_OF(const, __VA_ARGS__)
+
+#else
+
+#define ofMany(variant_name, var_names)                                        \
+    POICA_P_LANG_OF_MANY(const, variant_name, var_names)
+#define of(...) POICA_P_LANG_OF(const, __VA_ARGS__)
+
+#endif
+
+#endif // POICA_LANG_CHOICE_PATTERN_MATCHING_IMMUT_H

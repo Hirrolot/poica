@@ -23,10 +23,9 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H
+#define POICA_LANG_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/gen/records_for_many/redirects/to_field_type.h>
 
-#endif // POICA_H
+#endif // POICA_LANG_CHOICE_GEN_RECORDS_FOR_MANY_REDIRECTS_H

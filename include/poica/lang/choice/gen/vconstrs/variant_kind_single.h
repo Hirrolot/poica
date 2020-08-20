@@ -1,3 +1,4 @@
+
 /*
  * MIT License
  *
@@ -23,10 +24,20 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
+#define POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/gen/tags.h>
 
-#endif // POICA_H
+#include <boost/preprocessor.hpp>
+
+#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_SINGLE(                   \
+    choice_name, variant_name, variant_type)                                   \
+    inline static choice_name variant_name(variant_type arg) {                 \
+        return (choice_name){                                                  \
+            .tag = POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name),      \
+            .data.variant_name = arg,                                          \
+        };                                                                     \
+    }
+
+#endif // POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_SINGLE_H

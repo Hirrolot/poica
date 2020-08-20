@@ -23,10 +23,16 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_H
+#define POICA_LANG_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/assertions.h>
+#include <poica/lang/choice.h>
+#include <poica/lang/gadt.h>
+#include <poica/lang/interface.h>
+#include <poica/lang/obj.h>
+#include <poica/lang/p.h>
+#include <poica/lang/record.h>
+#include <poica/lang/unit.h>
 
-#endif // POICA_H
+#endif // POICA_LANG_H

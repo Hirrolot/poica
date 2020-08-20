@@ -23,10 +23,22 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_STDLIB_PAIR_H
+#define POICA_STDLIB_PAIR_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/p.h>
 
-#endif // POICA_H
+#include <poica/lang/record.h>
+
+#ifdef POICA_USE_PREFIX
+#define PoicaDefPair POICA_P_STDLIB_PAIR_DEF
+#else
+#define DefPair POICA_P_STDLIB_PAIR_DEF
+#endif
+
+#define POICA_P_STDLIB_PAIR_DEF(fst_type, snd_type)                            \
+    POICA_P_LANG_RECORD(POICA_P_LANG_P(Pair, fst_type, snd_type),              \
+                        POICA_P_LANG_FIELD(fst, fst_type)                      \
+                            POICA_P_LANG_FIELD(snd, snd_type))
+
+#endif // POICA_STDLIB_PAIR_H

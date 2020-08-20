@@ -23,10 +23,14 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+// A work-around for macro blueprinting:
+// https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion.
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#ifndef POICA_LANG_PRIVATE_DEFER_H
+#define POICA_P_LANGRIVATE_DEFER_H
 
-#endif // POICA_H
+#define POICA_P_LANG_EMPTY()
+#define POICA_P_LANG_DEFER(op)   op POICA_P_LANG_EMPTY()
+#define POICA_P_LANG_EXPAND(...) __VA_ARGS__
+
+#endif // POICA_LANG_PRIVATE_DEFER_H

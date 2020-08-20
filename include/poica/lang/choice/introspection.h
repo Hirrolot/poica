@@ -23,10 +23,21 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_INTROSPECTION_H
+#define POICA_LANG_CHOICE_INTROSPECTION_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/introspection/overload_on_variant.h>
 
-#endif // POICA_H
+#include <boost/preprocessor.hpp>
+
+// This macro is variadic because, due to type introspection, it must work
+// correctly if actual sum type data is transferred through a macro:
+// POICA_CHOICE_INTROSPECT(MY_CHOICE);
+#define POICA_CHOICE_INTROSPECT(...)                                           \
+    POICA_P_LANG_CHOICE_INTROSPECT_AUX(__VA_ARGS__)
+#define POICA_P_LANG_CHOICE_INTROSPECT_AUX(name, variants) variants
+
+#define POICA_VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)
+#define POICA_VARIANT_NAME(variant) BOOST_PP_SEQ_ELEM(1, variant)
+
+#endif // POICA_LANG_CHOICE_INTROSPECTION_H

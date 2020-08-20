@@ -23,10 +23,18 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef P_H
+#define P_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+#ifdef POICA_USE_PREFIX
+#define PoicaP POICA_P_LANG_P
+#else
+#define P POICA_P_LANG_P
+#endif
+
+#define POICA_P_LANG_P(...)                                                    \
+    BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
+
+#endif // P_H

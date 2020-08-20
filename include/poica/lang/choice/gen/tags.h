@@ -23,10 +23,23 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_GEN_TAGS_H
+#define POICA_LANG_CHOICE_GEN_TAGS_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/private/prefix.h>
 
-#endif // POICA_H
+#include <poica/lang/choice/introspection.h>
+
+#include <boost/preprocessor.hpp>
+
+#define POICA_P_LANG_CHOICE_GEN_TAGS(variants)                                 \
+    BOOST_PP_SEQ_FOR_EACH(                                                     \
+        POICA_P_LANG_CHOICE_GEN_TAG, BOOST_PP_EMPTY(), variants)
+
+#define POICA_P_LANG_CHOICE_GEN_TAG(_r, _data, variant)                        \
+    POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(POICA_VARIANT_NAME(variant)),
+
+#define POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name)                  \
+    POICA_P_LANG_PREFIX(BOOST_PP_CAT(variant_name, _Tag))
+
+#endif // POICA_LANG_CHOICE_GEN_TAGS_H

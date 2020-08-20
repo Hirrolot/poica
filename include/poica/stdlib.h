@@ -23,10 +23,13 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_STDLIB_H
+#define POICA_STDLIB_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/stdlib/either.h>
+#include <poica/stdlib/maybe.h>
+#include <poica/stdlib/pair.h>
+#include <poica/stdlib/res.h>
+#include <poica/stdlib/try.h>
 
-#endif // POICA_H
+#endif // POICA_STDLIB_H

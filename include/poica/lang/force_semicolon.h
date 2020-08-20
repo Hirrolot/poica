@@ -23,10 +23,11 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_FORCE_SEMICOLON_H
+#define POICA_LANG_FORCE_SEMICOLON_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <assert.h>
 
-#endif // POICA_H
+#define POICA_FORCE_SEMICOLON static_assert(true, "")
+
+#endif // POICA_LANG_FORCE_SEMICOLON_H

@@ -23,10 +23,10 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_GEN_REDIRECTS_H
+#define POICA_LANG_CHOICE_GEN_REDIRECTS_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/gen/redirects/to_inner_type.h>
+#include <poica/lang/choice/gen/redirects/to_outer_choice_type.h>
 
-#endif // POICA_H
+#endif // POICA_LANG_CHOICE_GEN_REDIRECTS_H

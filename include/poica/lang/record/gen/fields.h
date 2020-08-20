@@ -23,10 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_RECORD_GEN_FIELDS_H
+#define POICA_LANG_RECORD_GEN_FIELDS_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/assertions/fields.h>
 
-#endif // POICA_H
+#include <poica/lang/record/introspection.h>
+
+#include <boost/preprocessor.hpp>
+
+#define POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                 \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_RECORD_GEN_FIELDS_VISIT, _data, fields)
+
+#define POICA_P_LANG_RECORD_GEN_FIELDS_VISIT(_r, _data, field)                 \
+    POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field));
+
+#endif // POICA_LANG_RECORD_GEN_FIELDS_H

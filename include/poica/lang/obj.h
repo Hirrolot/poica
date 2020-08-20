@@ -23,10 +23,18 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_OBJ_H
+#define POICA_LANG_OBJ_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#ifdef POICA_USE_PREFIX
+#define poicaObj POICA_P_LANG_OBJ
+#else
+#define obj POICA_P_LANG_OBJ
+#endif
 
-#endif // POICA_H
+#define POICA_P_LANG_OBJ(value, value_type)                                    \
+    (value_type *)(value_type[]) {                                             \
+        value                                                                  \
+    }
+
+#endif // POICA_LANG_OBJ_H

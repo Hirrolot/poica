@@ -23,10 +23,19 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H
+#define POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/lang/choice/gen/tags.h>
 
-#endif // POICA_H
+#include <boost/preprocessor.hpp>
+
+#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_EMPTY(choice_name,        \
+                                                           variant_name)       \
+    inline static choice_name variant_name(void) {                             \
+        return (choice_name){                                                  \
+            .tag = POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name),      \
+        };                                                                     \
+    }
+
+#endif // POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_EMPTY_H

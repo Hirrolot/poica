@@ -23,10 +23,15 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_H
-#define POICA_H
+#ifndef CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
+#define CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
 
-#include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <boost/preprocessor.hpp>
 
-#endif // POICA_H
+// Generate nothing because we already generate a product type for
+// POICA_VARIANT_KIND_MANY with a name
+// POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name).
+#define POICA_P_LANG_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_MANY( \
+    _data, _variant_name, _fields)
+
+#endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_MANY_H
