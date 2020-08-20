@@ -456,7 +456,7 @@ Meow! Counter: 2
 
 </details>
 
-TODO: explain how to call methods without dynamic dispatch.
+In fact, interfaces are available without dynamic dispatch too. Just call `iMethods(MyInterface, MyImplementerType).myMethodName` with appropriate arguments from anywhere.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [Dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch

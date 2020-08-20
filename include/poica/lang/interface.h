@@ -36,7 +36,7 @@
 #ifdef POICA_USE_PREFIX
 
 #define poicaInterface  POICA_P_LANG_INTERFACE
-#define PoicaVTable     POICA_P_LANG_VTABLE
+#define PoicaIMethods   POICA_P_LANG_I_METHODS
 #define poicaImpl       POICA_P_LANG_IMPL
 #define poicaStaticImpl POICA_P_LANG_STATIC_IMPL
 #define poicaVCall      POICA_P_LANG_V_CALL
@@ -46,7 +46,7 @@
 #else
 
 #define interface  POICA_P_LANG_INTERFACE
-#define VTable     POICA_P_LANG_VTABLE
+#define iMethods   POICA_P_LANG_I_METHODS
 #define impl       POICA_P_LANG_IMPL
 #define staticImpl POICA_P_LANG_STATIC_IMPL
 #define vCall      POICA_P_LANG_V_CALL
@@ -65,16 +65,19 @@
     } POICA_P_LANG_VTABLE(name);                                               \
                                                                                \
     typedef struct name {                                                      \
-        const void *poica_p_self;                                                      \
-        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                              \
+        const void *poica_p_self;                                              \
+        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                      \
     } name;                                                                    \
                                                                                \
     typedef struct POICA_P_LANG_INTERFACE_MUT_NAME(name) {                     \
-        void *poica_p_self;                                                            \
-        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                              \
+        void *poica_p_self;                                                    \
+        const POICA_P_LANG_VTABLE(name) * poica_p_vtable;                      \
     } POICA_P_LANG_INTERFACE_MUT_NAME(name);                                   \
                                                                                \
     POICA_FORCE_SEMICOLON
+
+#define POICA_P_LANG_I_METHODS(interface_name, implementer_name)               \
+    POICA_P_LANG_VTABLE(interface_name, implementer_name)
 
 #define POICA_P_LANG_IMPL(...)                                                 \
     BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_VARIADIC_SIZE(__VA_ARGS__), 1),        \
@@ -110,7 +113,11 @@
 
 #define POICA_P_LANG_INTERFACE_IMPL_AUX(                                       \
     vtable_qualifiers_and_specifiers, interface_name, implementer_name, ...)   \
-    POICA_P_LANG_INTERFACE_IMPL_AUX2(vtable_qualifiers_and_specifiers, interface_name, implementer_name,POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS(__VA_ARGS__))
+    POICA_P_LANG_INTERFACE_IMPL_AUX2(                                          \
+        vtable_qualifiers_and_specifiers,                                      \
+        interface_name,                                                        \
+        implementer_name,                                                      \
+        POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS(__VA_ARGS__))
 
 #define POICA_P_LANG_INTERFACE_IMPL_AUX2(vtable_qualifiers_and_specifiers,     \
                                          interface_name,                       \
@@ -142,54 +149,68 @@
                           BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
 
 #define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_VISIT(_r, _data, method)   \
-   ((BOOST_PP_SEQ_ELEM(0, method)) (BOOST_PP_SEQ_ELEM(1, method)) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_PARAMS(method) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_BODY(method))
-
-
-
-
+    ((BOOST_PP_SEQ_ELEM(0, method))(BOOST_PP_SEQ_ELEM(1, method))              \
+         POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_PARAMS(      \
+             method)                                                           \
+             POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_BODY(    \
+                 method))
 
 #define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_PARAMS(       \
     method)                                                                    \
-       (POICA_P_LANG_EXPAND(POICA_P_LANG_EXPAND(   POICA_P_LANG_CONSUME POICA_P_LANG_CONSUME POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST(method))))
+    (POICA_P_LANG_EXPAND(POICA_P_LANG_EXPAND(                                  \
+        POICA_P_LANG_CONSUME POICA_P_LANG_CONSUME                              \
+            POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST(          \
+                method))))
 
 #define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_PARAMS_AUX1(  \
     ...)                                                                       \
     (__VA_ARGS__)
 
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST(data)         \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_AUX(              \
+        POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K, data)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_AUX(k, data)  \
+    k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA \
+          data)
 
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K(...)        \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K_AUX(__VA_ARGS__)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K_AUX(x, y)   \
+    (x) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2(y)
 
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2(data)        \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_AUX(             \
+        POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K, data)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_AUX(k, data) \
+    k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA \
+          data)
 
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K(...)       \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K_AUX(__VA_ARGS__)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K_AUX(x, y)  \
+    (x) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3(y)
 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST(data) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_AUX(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K, data)
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_AUX(k, data) k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA data)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3(data)        \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_AUX(             \
+        POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K, data)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_AUX(k, data) \
+    k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA \
+          data)
 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K(...) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K_AUX(__VA_ARGS__) 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_K_AUX(x, y) (x)POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2(y)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K(...)       \
+    POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K_AUX(__VA_ARGS__)
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K_AUX(x, y)  \
+    (x)
 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2(data) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_AUX(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K, data)
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_AUX(k, data) k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA data)
-
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K(...) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K_AUX(__VA_ARGS__) 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST2_K_AUX(x, y) (x)POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3(y)
-
-
-
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3(data) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_AUX(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K, data)
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_AUX(k, data) k(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA data)
-
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K(...) POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K_AUX(__VA_ARGS__) 
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST3_K_AUX(x, y) (x)
-
-
-#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA(first, ...) first,
-
-
+#define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_WITHOUT_LAST_PICK_WITH_COMMA( \
+    first, ...)                                                                   \
+    first,
 
 #define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_PARENTHESISE_BODY(method)  \
                                                                                \
-    (POICA_P_LANG_EXPAND(POICA_P_LANG_EXPAND(        \
-        POICA_P_LANG_CONSUME POICA_P_LANG_CONSUME POICA_P_LANG_CONSUME method)))
-
+    (POICA_P_LANG_EXPAND(                                                      \
+        POICA_P_LANG_EXPAND(POICA_P_LANG_CONSUME POICA_P_LANG_CONSUME          \
+                                POICA_P_LANG_CONSUME method)))
 
 #define POICA_P_LANG_IMPL_GEN_METHODS(                                         \
     interface_name, implementer_name, methods)                                 \
@@ -247,8 +268,10 @@
 #define POICA_P_LANG_V_CALL(interface_obj, method, ...)                        \
     BOOST_PP_IF(                                                               \
         BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                       \
-        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self),                  \
-        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self, __VA_ARGS__))
+        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self),  \
+        (interface_obj)                                                        \
+            .poica_p_vtable->method((interface_obj).poica_p_self,              \
+                                    __VA_ARGS__))
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                  \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier) \
@@ -256,8 +279,8 @@
         POICA_P_LANG_NEW_I_OBJ, interface_name, implementer_name)(             \
         self_qualifier implementer_name * self) {                              \
         interface_name i_obj;                                                  \
-        i_obj.poica_p_self = self;                                                     \
-        i_obj.poica_p_vtable = &implementer_vtable_name;                               \
+        i_obj.poica_p_self = self;                                             \
+        i_obj.poica_p_vtable = &implementer_vtable_name;                       \
         return i_obj;                                                          \
     }
 
