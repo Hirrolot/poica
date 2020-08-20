@@ -406,20 +406,23 @@ interface(
 record(Dog, field(counter, int));
 record(Cat, field(counter, int));
 
-void dogNoise(void *self) {
-    Dog *dog = (Dog *)self;
-    dog->counter++;
-    printf("Woof! Counter: %d\n", dog->counter);
-}
+impl(
+    (Animal) for (Dog),
+    (void)(noise)(void *self)(
+        Dog *dog = (Dog *)self;
+        dog->counter++;
+        printf("Woof! Counter: %d\n", dog->counter);
+    )
+);
 
-void catNoise(void *self) {
-    Cat *cat = (Cat *)self;
-    cat->counter++;
-    printf("Meow! Counter: %d\n", cat->counter);
-}
-
-impl(Animal, Dog, (dogNoise));
-impl(Animal, Cat, (catNoise));
+impl(
+    (Animal) for (Cat),
+    (void)(noise)(void *self)(
+        Cat *cat = (Cat *)self;
+        cat->counter++;
+        printf("Meow! Counter: %d\n", cat->counter);
+    )
+);
 
 int main(void) {
     Dog dog = {.counter = 0};
@@ -453,39 +456,7 @@ Meow! Counter: 2
 
 </details>
 
-Let's discuss some interesting moments here.
-
-```c
-interface(
-    Animal,
-    void (*noise)(void *self);
-);
-```
-
-The `interface` macro internally generates the `VTable(Animal)` data structure, comprising of pointers to methods, `void (*noise)(void *self);` in our case, and interface objects, discussed below.
-
-```c
-impl(Animal, Dog, (dogNoise));
-impl(Animal, Cat, (catNoise));
-```
-
-The `impl` macro implements `Animal` for `Dog` and `Cat` with the appropriate method implementations. Internally it defines two new global constant variables of type `VTable(Animal)`, filled in with the provided methods. `VTable(Animal, Dog)` and `VTable(Animal, Cat)` expand to identifiers of these variables.
-
-```c
-AnimalMut animal;
-```
-
-Go to `main`. `animal` is an interface object, which holds a VTable (accessed as `.vtable`) and a pointer to the mutable appropriate implementation (accessed as `.self`). `Animal` (without the `Mut` suffix) is the same as `AnimalMut`, but with `.self` pointing to immutable data.
-
-```c
-animal = P(newIObj, AnimalMut, Dog)(&dog);
-```
-
-Here's how we initialise our interface object. `newIObj` is a type-generic function returning a new interface object, in our case -- `AnimalMut` with `Dog`'s methods and `&dog` as `.self`.
-
-Next we call `noise` for `Dog`, and then for `Cat`, getting the different results, as expected.
-
-In fact, interfaces are not only for dynamic dispatch: you can just call `VTable(MyInterface, MyImpl).method` with appropriate arguments, without manipulating an interface object.
+TODO: explain how to call methods without dynamic dispatch.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [Dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch

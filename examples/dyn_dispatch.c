@@ -32,25 +32,28 @@ interface(
     Animal,
     void (*noise)(void *self);
 );
-// clang-format on
 
 record(Dog, field(counter, int));
 record(Cat, field(counter, int));
 
-void dogNoise(void *self) {
-    Dog *dog = (Dog *)self;
-    dog->counter++;
-    printf("Woof! Counter: %d\n", dog->counter);
-}
+impl(
+    (Animal) for (Dog),
+    (void)(noise)(void *self)(
+        Dog *dog = (Dog *)self;
+        dog->counter++;
+        printf("Woof! Counter: %d\n", dog->counter);
+    )
+);
 
-void catNoise(void *self) {
-    Cat *cat = (Cat *)self;
-    cat->counter++;
-    printf("Meow! Counter: %d\n", cat->counter);
-}
-
-impl(Animal, Dog, (dogNoise));
-impl(Animal, Cat, (catNoise));
+impl(
+    (Animal) for (Cat),
+    (void)(noise)(void *self)(
+        Cat *cat = (Cat *)self;
+        cat->counter++;
+        printf("Meow! Counter: %d\n", cat->counter);
+    )
+);
+// clang-format on
 
 /*
  * Output:
