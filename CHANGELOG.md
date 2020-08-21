@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - unreleased
+
+Now poica is rather a general-purpose programming language.
+
+### Added
+ - Interfaces: `interface`, `iMethods`, `impl`, `staticImpl`, `vCall`, `iMethodPtr`.
+ - The second form of `record`: `record(MyRecord);`.
+ - Check macro parameters for consistency (might result in false negatives) via the `POICA_ENABLE_ASSERTIONS` compile-time option.
+
+### Removed
+ - `examples/message_passing.c`, because I don't want to depend on third-party libraries in the examples.
+
+### Fixed
+ - Introspection macros: `POICA_VARIANT_KIND`, `POICA_VARIANT_NAME`, `POICA_OVERLOAD_ON_VARIANT`, `POICA_FIELD_TYPE`, `POICA_FIELD_NAME`.
+
+### Changed
+ - Split the sources into the standard library and the language core.
+
 ## [0.5.0] - 2020-07-18
 
 Now poica is for [type-driven development], not only for ADTs & type instrospection.

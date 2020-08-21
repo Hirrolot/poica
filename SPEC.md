@@ -293,7 +293,7 @@ Two type names are introduced: `<interface-name>` and `<interface-name>Mut`, hol
 
 ### `iMethods`
 
-Expands to something accessible by the dot operator to call interface's methods, e.g.: `iMethods(MyInterface, MyImplementerType).myMethod(...)`.
+Expands to something accessible by the dot operator to call interface's methods, e.g.: `iMethods(MyInterface, MyImplementerType).myMethod(...)`. `myMethod` has exactly the same type as specified in `interface`.
 
 ### `impl`, `staticImpl`
 
