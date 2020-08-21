@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_IS_EMPTY_H
-#define POICA_P_LANGRIVATE_MAP_IS_EMPTY_H
+#define POICA_LANG_PRIVATE_MAP_IS_EMPTY_H
 
 #include <boost/vmd/vmd.hpp>
 

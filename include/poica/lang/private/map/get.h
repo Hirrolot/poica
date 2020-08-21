@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_GET_H
-#define POICA_P_LANGRIVATE_MAP_GET_H
+#define POICA_LANG_PRIVATE_MAP_GET_H
 
 #include <poica/lang/private/map/item.h>
 #include <poica/lang/private/overload_on_kind.h>

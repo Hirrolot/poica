@@ -24,7 +24,7 @@
  */
 
 #ifndef POICA_LANG_PRIVATE_PREFIX_H
-#define POICA_P_LANGRIVATE_PREFIX_H
+#define POICA_LANG_PRIVATE_PREFIX_H
 
 #include <boost/preprocessor.hpp>
 

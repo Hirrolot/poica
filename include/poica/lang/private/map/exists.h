@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_EXISTS_H
-#define POICA_P_LANGRIVATE_MAP_EXISTS_H
+#define POICA_LANG_PRIVATE_MAP_EXISTS_H
 
 #include <poica/lang/private/map/get.h>
 

@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_ITEM_H
-#define POICA_P_LANGRIVATE_MAP_ITEM_H
+#define POICA_LANG_PRIVATE_MAP_ITEM_H
 
 #include <boost/preprocessor.hpp>
 

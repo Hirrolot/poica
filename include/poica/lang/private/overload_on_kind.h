@@ -24,7 +24,7 @@
  */
 
 #ifndef POICA_LANG_PRIVATE_OVERLOAD_ON_KIND_H
-#define POICA_P_LANGRIVATE_OVERLOAD_ON_KIND_H
+#define POICA_LANG_PRIVATE_OVERLOAD_ON_KIND_H
 
 #include <poica/lang/assertions/overload_on_kind.h>
 #include <poica/lang/private/call_macro.h>

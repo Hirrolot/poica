@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_CALL_MACRO_H
-#define POICA_P_LANGRIVATE_CALL_MACRO_H
+#define POICA_LANG_PRIVATE_CALL_MACRO_H
 
 #include <boost/preprocessor.hpp>
 

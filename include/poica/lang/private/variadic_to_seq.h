@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_VARIADIC_TO_SEQ
-#define POICA_P_LANGRIVATE_VARIADIC_TO_SEQ
+#define POICA_LANG_PRIVATE_VARIADIC_TO_SEQ
 
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>

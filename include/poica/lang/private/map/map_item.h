@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_MAP_ITEM_H
-#define POICA_P_LANGRIVATE_MAP_MAP_ITEM_H
+#define POICA_LANG_PRIVATE_MAP_MAP_ITEM_H
 
 #include <poica/lang/private/call_macro.h>
 #include <poica/lang/private/map/is_empty.h>

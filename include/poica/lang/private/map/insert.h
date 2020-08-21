@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_INSERT_H
-#define POICA_P_LANGRIVATE_MAP_INSERT_H
+#define POICA_LANG_PRIVATE_MAP_INSERT_H
 
 #include <poica/lang/private/map/is_empty.h>
 #include <poica/lang/private/map/item.h>

@@ -1,5 +1,5 @@
 #ifndef POICA_LANG_PRIVATE_MAP_APPEND_H
-#define POICA_P_LANGRIVATE_MAP_APPEND_H
+#define POICA_LANG_PRIVATE_MAP_APPEND_H
 
 #include <poica/lang/private/map/item.h>
 
