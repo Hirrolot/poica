@@ -20,7 +20,7 @@
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
  - [OOP](#oop)
-   - [Dynamic dispatch](#dynamic-dispatch)
+   - [Interfaces & dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
@@ -388,7 +388,7 @@ The utility functions can be found in the [specification].
 
 ## OOP
 
-### Dynamic dispatch
+### Interfaces & dynamic dispatch
 
 [Dynamic dispatch] is a feature of [object-oriented programming], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table (VTable)]. The following example illustrates the functionality:
 
