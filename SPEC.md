@@ -24,7 +24,8 @@ otherwise                 = "otherwise" compound-statement ;
 
 (* Product types *)
 
-product-type              = "record(" identifier "," { field }+ ");" ;
+product-type              = "record(" identifier "," { field }+ ");"
+                          | "record(" identifier ");" ;
 field                     = "field(" identifier "," type ")" ;
 
 (* Sum types introspection *)
@@ -165,13 +166,21 @@ Handles the rest of variants of a sum type, if the previous ones have been faile
 
 ### `record`
 
-Expands to:
+The first alternative expands to:
 
 ```c
 typedef struct <product-type> {
     <F1> <f1>;
     ///
     <Fm> <fm>;
+} <product-type>;
+```
+
+The second is used to define an empty structure, which can be used, for instance, only to implement certain interfaces. It expands to:
+
+```c
+typedef struct <product-type> {
+    Unit _;
 } <product-type>;
 ```
 
