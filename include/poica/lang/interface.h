@@ -83,7 +83,9 @@
     BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_VARIADIC_SIZE(__VA_ARGS__), 1),        \
                 POICA_P_LANG_IMPL_1,                                           \
                 POICA_P_LANG_IMPL_2)                                           \
-    (__VA_ARGS__)
+    (__VA_ARGS__)                                                              \
+                                                                               \
+        POICA_FORCE_SEMICOLON
 
 #define POICA_P_LANG_IMPL_1(data)                                              \
     POICA_P_LANG_IMPL_1_AUX(POICA_P_LANG_EXPAND BOOST_VMD_ELEM(0, data),       \
@@ -91,7 +93,18 @@
 
 #define POICA_P_LANG_IMPL_1_AUX(interface_name, implementer_name)              \
     const POICA_P_LANG_VTABLE(interface_name)                                  \
-        POICA_P_LANG_VTABLE(interface_name, implementer_name);
+        POICA_P_LANG_VTABLE(interface_name, implementer_name);                 \
+                                                                               \
+    POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                      \
+        interface_name,                                                        \
+        implementer_name,                                                      \
+        POICA_P_LANG_VTABLE(interface_name, implementer_name),                 \
+        const)                                                                 \
+    POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                      \
+        POICA_P_LANG_INTERFACE_MUT_NAME(interface_name),                       \
+        implementer_name,                                                      \
+        POICA_P_LANG_VTABLE(interface_name, implementer_name),                 \
+        BOOST_PP_EMPTY())
 
 #define POICA_P_LANG_IMPL_2(data, ...)                                         \
     POICA_P_LANG_IMPL_2_AUX(POICA_P_LANG_EXPAND BOOST_VMD_ELEM(0, data),       \
@@ -100,7 +113,7 @@
 
 #define POICA_P_LANG_IMPL_2_AUX(interface_name, implementer_name, ...)         \
     POICA_P_LANG_INTERFACE_IMPL_AUX(                                           \
-        static, interface_name, implementer_name, __VA_ARGS__)
+        BOOST_PP_EMPTY(), interface_name, implementer_name, __VA_ARGS__)
 
 #define POICA_P_LANG_STATIC_IMPL(data, methods)                                \
     POICA_P_LANG_STATIC_IMPL_AUX(POICA_P_LANG_EXPAND BOOST_VMD_ELEM(0, data),  \
@@ -109,7 +122,7 @@
 
 #define POICA_P_LANG_STATIC_IMPL_AUX(interface_name, implementer_name, ...)    \
     POICA_P_LANG_INTERFACE_IMPL_AUX(                                           \
-        BOOST_PP_EMPTY(), interface_name, implementer_name, __VA_ARGS__)
+        static, interface_name, implementer_name, __VA_ARGS__)
 
 #define POICA_P_LANG_INTERFACE_IMPL_AUX(                                       \
     vtable_qualifiers_and_specifiers, interface_name, implementer_name, ...)   \
@@ -130,18 +143,7 @@
             POICA_P_LANG_IMPL_ENUM_METHOD_NAMES(                               \
                 interface_name, implementer_name, methods)};                   \
                                                                                \
-    POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                      \
-        interface_name,                                                        \
-        implementer_name,                                                      \
-        POICA_P_LANG_VTABLE(interface_name, implementer_name),                 \
-        const)                                                                 \
-    POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                      \
-        POICA_P_LANG_INTERFACE_MUT_NAME(interface_name),                       \
-        implementer_name,                                                      \
-        POICA_P_LANG_VTABLE(interface_name, implementer_name),                 \
-        BOOST_PP_EMPTY())                                                      \
-                                                                               \
-    POICA_FORCE_SEMICOLON
+    POICA_P_LANG_IMPL_1_AUX(interface_name, implementer_name)
 
 #define POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS(...)                       \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_INTERFACE_IMPL_PREPARE_METHODS_VISIT,   \
@@ -275,7 +277,7 @@
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                  \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier) \
-    inline static interface_name P(                                            \
+    inline static interface_name POICA_P_LANG_P(                               \
         POICA_P_LANG_NEW_I_OBJ, interface_name, implementer_name)(             \
         self_qualifier implementer_name * self) {                              \
         interface_name i_obj;                                                  \
