@@ -61,7 +61,7 @@ impl                      = "impl(" identifier "," identifier ");"
 impl-method               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
 
 virtual-call              = "vCall(" expr "," identifier { "," expr }*  ")" ;
-
+interface-method-ptr      = "iMethodPtr(" expr "," identifier ")" ;
 
 (* Miscellaneous *)
 
@@ -306,6 +306,10 @@ All forms of `impl` and `staticImpl` generate a generic function `newIObj` of tw
 ### `vCall`
 
 Calls a virtual method on an interface object.
+
+### `iMethodPtr`
+
+`iMethodPtr(<interface-obj>, <method-name>)` expands to a function pointer of the provided method name within an interface object. The resulting pointer must have exactly the same type as specified in `interface`.
 
 ### `obj`
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.

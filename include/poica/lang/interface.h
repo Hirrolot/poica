@@ -40,6 +40,7 @@
 #define poicaImpl       POICA_P_LANG_IMPL
 #define poicaStaticImpl POICA_P_LANG_STATIC_IMPL
 #define poicaVCall      POICA_P_LANG_V_CALL
+#define poicaIMethodPtr POICA_P_LANG_I_METHOD_PTR
 
 #define POICA_P_LANG_NEW_I_OBJ poicaNewIObj
 
@@ -50,6 +51,7 @@
 #define impl       POICA_P_LANG_IMPL
 #define staticImpl POICA_P_LANG_STATIC_IMPL
 #define vCall      POICA_P_LANG_V_CALL
+#define iMethodPtr POICA_P_LANG_I_METHOD_PTR
 
 #define POICA_P_LANG_NEW_I_OBJ newIObj
 
@@ -75,6 +77,9 @@
     } POICA_P_LANG_INTERFACE_MUT_NAME(name);                                   \
                                                                                \
     POICA_FORCE_SEMICOLON
+
+#define POICA_P_LANG_I_METHOD_PTR(interface_obj, method_name)                  \
+    ((interface_obj).poica_p_vtable->method_name)
 
 #define POICA_P_LANG_I_METHODS(interface_name, implementer_name)               \
     POICA_P_LANG_VTABLE(interface_name, implementer_name)
@@ -272,13 +277,14 @@
 
 #define POICA_P_LANG_INTERFACE_MUT_NAME(name) BOOST_PP_CAT(name, Mut)
 
-#define POICA_P_LANG_V_CALL(interface_obj, method, ...)                        \
+#define POICA_P_LANG_V_CALL(interface_obj, method_name, ...)                   \
     BOOST_PP_IF(                                                               \
         BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                       \
-        (interface_obj).poica_p_vtable->method((interface_obj).poica_p_self),  \
         (interface_obj)                                                        \
-            .poica_p_vtable->method((interface_obj).poica_p_self,              \
-                                    __VA_ARGS__))
+            .poica_p_vtable->method_name((interface_obj).poica_p_self),        \
+        (interface_obj)                                                        \
+            .poica_p_vtable->method_name((interface_obj).poica_p_self,         \
+                                         __VA_ARGS__))
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                  \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier) \
