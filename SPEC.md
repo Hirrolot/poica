@@ -48,6 +48,20 @@ field-name                = "POICA_FIELD_NAME(" field ")" ;
 product-field-names-seq   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
 product-field-names-tuple = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
 
+(* Interfaces *)
+
+interface                 = "interface(" identifier "," { fn-ptr }+ ");" ;
+interface-methods         = "iMethods(" identifier "," identifier ")" ;
+
+impl                      = "impl(" identifier "," identifier ");"
+                          | "impl(" identifier "," identifier { "," impl-method }+ ");"
+                          | "staticImpl(" identifier "," identifier { "," impl-method }+ ");" ;
+
+impl-method               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
+
+virtual-call              = "vCall(" expr "," identifier { "," expr }*  ")" ;
+
+
 (* Miscellaneous *)
 
 obj                       = "obj(" value "," value-type ")" ;
@@ -256,6 +270,33 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 ```
 (<f1>, ..., <fm>)
 ```
+
+### `interface`
+
+Defines an interface. The first parameter is a name of an interface, the second one is pointers to functions in the following form:
+
+```
+<return-type> (*<method-name>)(<params>);
+...
+```
+
+Two type names are introduced: `<interface-name>` and `<interface-name>Mut`, holding a virtual table and a pointer to a immutable implementation & mutable implementation, respectively. Variables of these types are called __interface objects__.
+
+### `iMethods`
+
+Expands to something accessible by the dot operator to call interface's methods, e.g.: `iMethods(MyInterface, MyImplementerType).myMethod(...)`.
+
+### `impl`, `staticImpl`
+
+The first alternative of `impl` declares the implementation, the second one defines. The definition makes the implementation visible till the end of a TU, since it's also a declaration. A declaration can be used to make an implementation visible from another TU, within which it has been defined.
+
+`staticImpl` defines an implementation only for the current TU and does not have a declaration form.
+
+All forms of `impl` and `staticImpl` generate a generic function `newIObj` of two types: an interface and its implementer. `newIObj` accepts a pointer of an implementer type.
+
+### `vCall`
+
+Calls a virtual method on an interface object.
 
 ### `obj`
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.
