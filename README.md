@@ -20,7 +20,7 @@
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
  - [OOP](#oop)
-   - [Interfaces & dynamic dispatch](#dynamic-dispatch)
+   - [Interfaces & dynamic dispatch](#interfaces--dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
