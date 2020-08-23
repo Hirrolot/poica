@@ -61,6 +61,8 @@ git submodule update --init --recursive
 
 And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). Building isn't required, because poica is a header-only library.
 
+If you're using GCC, appending `-ftrack-macro-expansion=0` would increase compilation time and reduce memory consumption.
+
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## ADTs (algebraic data types)
@@ -581,14 +583,3 @@ Q: What "poica" means?
 A: "poica" is a [Quenya] word, which means clean, pure. It reflects its API.
 
 [Quenya]: https://www.ambar-eldaron.com/telechargements/quenya-engl-A4.pdf
-
-Q: Any pitfalls?
-
-A:
-
- - [Scary macro errors], describing consequences, not causes. Appending `-ftrack-macro-expansion=0` to a GCC call makes the compiler to report only an erroneous line, not a full sequence of macro calls.
- 
- - [Macro blueprinting]. It occurs typically in advanced metaprogramming and can be solved using the `DEFER` + `EXPAND` combination, presented in the link above.
-
-[Macro blueprinting]: https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms#recursion
-[Scary macro errors]: https://gist.github.com/Hirrolot/fe752e0e0d58c3b0786f6b8a6ee58cb8
