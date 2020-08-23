@@ -5,8 +5,8 @@
 
 <sum-type>                  = "choice(" identifier "," { variant }+ ");" ;
 <variant>                   = "variant(" identifier ")"
-                          | "variant(" identifier "," type ")"
-                          | "variantMany(" identifier "," { field }+ ")" ;
+                            | "variant(" identifier "," type ")"
+                            | "variantMany(" identifier "," { field }+ ")" ;
 
 <variant-tag>               = "variantTag(" expr ")" ;
 
@@ -14,18 +14,18 @@
 <matches>                   = "matches(" expr "," identifier ")" ;
 
 <of>                        = "of(" identifier ")"
-                          | "of(" identifier "," identifier ")"
-                          | "ofMany(" identifier ", (" { identifier }+  "))" ;
+                            | "of(" identifier "," identifier ")"
+                            | "ofMany(" identifier ", (" { identifier }+  "))" ;
 <of-mut>                    = "ofMut(" identifier ")"
-                          | "ofMut(" identifier "," identifier ")"
-                          | "ofManyMut(" identifier ", (" { identifier }+  "))" ;
+                            | "ofMut(" identifier "," identifier ")"
+                            | "ofManyMut(" identifier ", (" { identifier }+  "))" ;
 
 <otherwise>                 = "otherwise" compound-statement ;
 
 (* Product types *)
 
 <product-type>              = "record(" identifier "," { field }+ ");"
-                          | "record(" identifier ");" ;
+                            | "record(" identifier ");" ;
 <field>                     = "field(" identifier "," type ")" ;
 
 (* Sum types introspection *)
@@ -55,8 +55,8 @@
 <interface-methods>         = "iMethods(" identifier "," identifier ")" ;
 
 <impl>                      = "impl(" identifier "," identifier ");"
-                          | "impl(" identifier "," identifier { "," impl-method }+ ");"
-                          | "staticImpl(" identifier "," identifier { "," impl-method }+ ");" ;
+                            | "impl(" identifier "," identifier { "," impl-method }+ ");"
+                            | "staticImpl(" identifier "," identifier { "," impl-method }+ ");" ;
 
 <impl-method>               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
 
