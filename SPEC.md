@@ -3,75 +3,75 @@
 ```ebnf
 (* Sum types *)
 
-sum-type                  = "choice(" identifier "," { variant }+ ");" ;
-variant                   = "variant(" identifier ")"
+<sum-type>                  = "choice(" identifier "," { variant }+ ");" ;
+<variant>                   = "variant(" identifier ")"
                           | "variant(" identifier "," type ")"
                           | "variantMany(" identifier "," { field }+ ")" ;
 
-variant-tag               = "variantTag(" expr ")" ;
+<variant-tag>               = "variantTag(" expr ")" ;
 
-match                     = "match(" expr ")" "{" { of compound-statement }+ "}" [ otherwise ] ;
-matches                   = "matches(" expr "," identifier ")" ;
+<match>                     = "match(" expr ")" "{" { of compound-statement }+ "}" [ otherwise ] ;
+<matches>                   = "matches(" expr "," identifier ")" ;
 
-of                        = "of(" identifier ")"
+<of>                        = "of(" identifier ")"
                           | "of(" identifier "," identifier ")"
                           | "ofMany(" identifier ", (" { identifier }+  "))" ;
-of-mut                    = "ofMut(" identifier ")"
+<of-mut>                    = "ofMut(" identifier ")"
                           | "ofMut(" identifier "," identifier ")"
                           | "ofManyMut(" identifier ", (" { identifier }+  "))" ;
 
-otherwise                 = "otherwise" compound-statement ;
+<otherwise>                 = "otherwise" compound-statement ;
 
 (* Product types *)
 
-product-type              = "record(" identifier "," { field }+ ");"
+<product-type>              = "record(" identifier "," { field }+ ");"
                           | "record(" identifier ");" ;
-field                     = "field(" identifier "," type ")" ;
+<field>                     = "field(" identifier "," type ")" ;
 
 (* Sum types introspection *)
 
-sum-introspect            = "POICA_CHOICE_INTROSPECT(" identifier "," { variant }+ ")" ;
+<sum-introspect>            = "POICA_CHOICE_INTROSPECT(" identifier "," { variant }+ ")" ;
 
-variant-kind              = "POICA_VARIANT_KIND(" variant ")" ;
-variant-name              = "POICA_VARIANT_NAME(" variant ")" ;
+<variant-kind>              = "POICA_VARIANT_KIND(" variant ")" ;
+<variant-name>              = "POICA_VARIANT_NAME(" variant ")" ;
 
-overload-on-variant       = "POICA_OVERLOAD_ON_VARIANT(" identifier "," aux-data "," variant ")" ;
+<overload-on-variant>       = "POICA_OVERLOAD_ON_VARIANT(" identifier "," aux-data "," variant ")" ;
 
 (* Product types introspection *)
 
-product-introspect        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
+<product-introspect>        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
 
-field-type                = "POICA_FIELD_TYPE(" field ")" ;
-product-field-types-seq   = "POICA_RECORD_FIELD_TYPES_SEQ(" { field }+ ")" ;
-product-field-types-tuple = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
+<field-type>                = "POICA_FIELD_TYPE(" field ")" ;
+<product-field-types-seq>   = "POICA_RECORD_FIELD_TYPES_SEQ(" { field }+ ")" ;
+<product-field-types-tuple> = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
 
-field-name                = "POICA_FIELD_NAME(" field ")" ;
-product-field-names-seq   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
-product-field-names-tuple = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
+<field-name>                = "POICA_FIELD_NAME(" field ")" ;
+<product-field-names-seq>   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
+<product-field-names-tuple> = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
 
 (* Interfaces *)
 
-interface                 = "interface(" identifier "," { fn-ptr }+ ");" ;
-interface-methods         = "iMethods(" identifier "," identifier ")" ;
+<interface>                 = "interface(" identifier "," { fn-ptr }+ ");" ;
+<interface-methods>         = "iMethods(" identifier "," identifier ")" ;
 
-impl                      = "impl(" identifier "," identifier ");"
+<impl>                      = "impl(" identifier "," identifier ");"
                           | "impl(" identifier "," identifier { "," impl-method }+ ");"
                           | "staticImpl(" identifier "," identifier { "," impl-method }+ ");" ;
 
-impl-method               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
+<impl-method>               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
 
-virtual-call              = "vCall(" expr "," identifier { "," expr }*  ")" ;
-interface-method-ptr      = "iMethodPtr(" expr "," identifier ")" ;
+<virtual-call>              = "vCall(" expr "," identifier { "," expr }*  ")" ;
+<interface-method-ptr>      = "iMethodPtr(" expr "," identifier ")" ;
 
 (* Miscellaneous *)
 
-obj                       = "obj(" value "," value-type ")" ;
+<obj>                       = "obj(" value "," value-type ")" ;
 
-unit-type                 = "Unit" ;
-unit-value                = "unit" ;
+<unit-type>                 = "Unit" ;
+<unit-value>                = "unit" ;
 
-monomorphise              = "P(" ( identifier | identifier { "," identifier }+ ) ")" ;
-force-semicolon           = "POICA_FORCE_SEMICOLON"
+<monomorphise>              = "P(" ( identifier | identifier { "," identifier }+ ) ")" ;
+<force-semicolon>           = "POICA_FORCE_SEMICOLON"
 ```
 
 ## Semantics
@@ -88,7 +88,7 @@ typedef struct <sum-name> {
 <value-constructors>
 ```
 
-`<value constructors>` are pure functions that construct variants of `<sum-name>`. Their signatures depend on a kind of a variant:
+`<value-constructors>` are pure functions that construct variants of `<sum-name>`. Their signatures depend on a kind of a variant:
 
 ```
 variant(<variant-name>)
