@@ -70,7 +70,7 @@ obj                       = "obj(" value "," value-type ")" ;
 unit-type                 = "Unit" ;
 unit-value                = "unit" ;
 
-monomorphise              = "P(" ( identifier | identifier { "," identifier }+ ) ")"
+monomorphise              = "P(" ( identifier | identifier { "," identifier }+ ) ")" ;
 force-semicolon           = "POICA_FORCE_SEMICOLON"
 ```
 
