@@ -61,7 +61,7 @@ git submodule update --init --recursive
 
 And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). Building isn't required, because poica is a header-only library.
 
-If you're using GCC, appending `-ftrack-macro-expansion=0` would increase compilation time and reduce memory consumption.
+If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilation time and memory consumption.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
