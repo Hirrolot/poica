@@ -17,7 +17,8 @@ The goal of this project is to implement the features of powerful type systems i
  - [Safe, consistent error handling](#safe-consistent-error-handling)
  - [Built-in ADTs](#built-in-adts)
  - [OOP](#oop)
-   - [Interfaces & dynamic dispatch](#interfaces--dynamic-dispatch)
+   - [Interfaces](#interfaces)
+   - [Dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Generic types](#generic-types)
    - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
@@ -330,7 +331,72 @@ The utility functions can be found in the [specification](spec/STD.md).
 
 ## OOP
 
-### Interfaces & dynamic dispatch
+### Interfaces
+
+[[`examples/interfaces.c`](examples/interfaces.c)]
+```c
+#include <poica.h>
+
+#include <math.h>
+#include <stdio.h>
+
+interface(
+    Shape,
+    double (*area)(const void *self);
+);
+
+record(
+    Square,
+    field(width, double)
+    field(height, double)
+);
+
+record(
+    Triangle,
+    field(a, double)
+    field(b, double)
+    field(c, double)
+);
+
+impl(
+    (Shape) for (Square),
+    (double)(area)(const void *self)(
+        const Square *square = (const Square *)self;
+        return square->width * square->height;
+    )
+);
+
+impl(
+    (Shape) for (Triangle),
+    (double)(area)(const void *self)(
+        const Triangle *triangle = (const Triangle *)self;
+        double a = triangle->a, b = triangle->b, c = triangle->c;
+
+        double p = (a + b + c) / 2;
+        return sqrt(p * (p - a) * (p - b) * (p - c));
+    )
+);
+
+int main(void) {
+    const Square square = { .width = 6, .height = 3.4 };
+    const Triangle triangle = { .a = 4, .b = 13, .c = 15};
+
+    printf("%f\n", iMethods(Shape, Square).area(&square));
+    printf("%f\n", iMethods(Shape, Triangle).area(&triangle));
+}
+```
+
+<details>
+    <summary>Output</summary>
+
+```
+20.400000
+24.000000
+```
+
+</details>
+
+### Dynamic dispatch
 
 [[`examples/dyn_dispatch.c`](examples/dyn_dispatch.c)]
 ```c
@@ -395,8 +461,6 @@ Meow! Counter: 2
 ```
 
 </details>
-
-In fact, interfaces are available without dynamic dispatch too. Just call `iMethods(MyInterface, MyImplementerType).myMethodName` with appropriate arguments from anywhere.
 
 [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
 [Dynamic dispatch]: https://en.wikipedia.org/wiki/Dynamic_dispatch
