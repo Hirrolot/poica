@@ -1,9 +1,10 @@
 # Contrubuting
 
-Before contributing, please read our [code style] and examine the [Boost/Preprocessor] API.
+Before contributing, please read our [code style] and examine the [Boost/Preprocessor] and [Boost/VMD] API.
 
 [code style]: https://github.com/Hirrolot/poica/blob/master/CODE_STYLE.md
-[Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
+[Boost/Preprocessor]: http://boost.org/libs/preprocessor
+[Boost/VMD]: http://boost.org/libs/vmd
 
  - Any questions, bug reports, feature requests, and similar stuff goes to the [issues].
 
