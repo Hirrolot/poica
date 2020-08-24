@@ -31,22 +31,6 @@ add_executable(interfaces interfaces.c)
 add_executable(int_bool_ast int_bool_ast.c)
 add_executable(hkt hkt.c)
 
-set_target_properties(
-  ast
-  binary_tree
-  binary_tree_malloc
-  error_handling
-  obj
-  tokens
-  compare_variants
-  record_introspection
-  choice_introspection
-  maybe
-  either
-  pair
-  generic_linked_list
-  dyn_dispatch
-  interfaces
-  int_bool_ast
-  hkt
-  PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
+foreach(TARGET ${BUILDSYSTEM_TARGETS})
+  set_target_properties(TARGET PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
+endforeach()
