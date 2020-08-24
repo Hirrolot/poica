@@ -1,32 +1,19 @@
-## EBNF Grammar
+## Sum types introspection
+
+### EBNF grammar
 
 ```ebnf
-
-(* Sum types introspection *)
-
 <sum-introspect>            = "POICA_CHOICE_INTROSPECT(" identifier "," { variant }+ ")" ;
 
 <variant-kind>              = "POICA_VARIANT_KIND(" variant ")" ;
 <variant-name>              = "POICA_VARIANT_NAME(" variant ")" ;
 
 <overload-on-variant>       = "POICA_OVERLOAD_ON_VARIANT(" identifier "," aux-data "," variant ")" ;
-
-(* Product types introspection *)
-
-<product-introspect>        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
-
-<field-type>                = "POICA_FIELD_TYPE(" field ")" ;
-<product-field-types-seq>   = "POICA_RECORD_FIELD_TYPES_SEQ(" { field }+ ")" ;
-<product-field-types-tuple> = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
-
-<field-name>                = "POICA_FIELD_NAME(" field ")" ;
-<product-field-names-seq>   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
-<product-field-names-tuple> = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
 ```
 
-## Semantics
+### Semantics
 
-### `POICA_CHOICE_INTROSPECT`
+#### `<sum-introspect>`
 
 Expands to:
 
@@ -38,13 +25,13 @@ Expands to:
 
 And `<variant1>`, ..., `<variantN>` will then expand according to the [rules that variants expand](#variant-variantmany).
 
-### `POICA_VARIAND_KIND`, `POICA_VARIANT_NAME`
+#### `<variant-kind>`, `<variant-name>`
 
 `POICA_VARIANT_KIND` expands to either `POICA_VARIANT_KIND_EMPTY`, `POICA_VARIANT_KIND_SINGLE`, or `POICA_VARIANT_KIND_MANY`, depending on a kind of a passed variant (see [the expansion rules of `variant`](#variant)).
 
 `POICA_VARIANT_NAME` expands to the name of a variant.
 
-### `POICA_OVERLOAD_ON_VARIANT`
+#### `<overload-on-variant>`
 
 The order of parameters:
 
@@ -70,7 +57,25 @@ variantMany(<variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 <macro-name>VARIANT_KIND_MANY(aux-data, <variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 ```
 
-### `POICA_RECORD_INTROSPECT`
+## Product types introspection
+
+### EBNF grammar
+
+```ebnf
+<product-introspect>        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
+
+<field-type>                = "POICA_FIELD_TYPE(" field ")" ;
+<product-field-types-seq>   = "POICA_RECORD_FIELD_TYPES_SEQ(" { field }+ ")" ;
+<product-field-types-tuple> = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
+
+<field-name>                = "POICA_FIELD_NAME(" field ")" ;
+<product-field-names-seq>   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
+<product-field-names-tuple> = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
+```
+
+### Semantics
+
+#### `<product-introspect>`
 
 Expands to:
 
@@ -82,11 +87,11 @@ Expands to:
 
 And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fields expand](#field);
 
-### `POICA_FIELD_TYPE`, `POICA_FIELD_NAME`
+#### `<field-type>`, `<field-name>`
 
 `POICA_FIELD_TYPE` expands to the type of a passed field, and `POICA_FIELD_NAME` expands to a name of a passed field.
 
-### `POICA_RECORD_FIELD_TYPES_SEQ`, `POICA_RECORD_FIELD_TYPES_TUPLE`
+#### `<product-field-types-seq>`, `<product-field-types-tuple>`
 
 `POICA_RECORD_FIELD_TYPES_SEQ` expands to:
 
@@ -100,7 +105,7 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 (<F1>, ..., <Fm>)
 ```
 
-### `POICA_RECORD_FIELD_NAMES_SEQ`, `POICA_RECORD_FIELD_NAMES_TUPLE`
+#### `<product-field-names-seq>`, `<product-field-names-tuple>`
 
 `POICA_RECORD_FIELD_NAMES_SEQ` expands to:
 
