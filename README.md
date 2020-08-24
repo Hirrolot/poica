@@ -7,7 +7,6 @@
 The goal of this project is to implement the features of powerful type systems in plain C11 via its macro system, thereby improving static reasoning and achieving a way to structure our code.
 
 ## Table of contents
- - [Features](#features)
  - [Installation](#installation)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
    - [Sum types](#sum-types)
@@ -27,14 +26,6 @@ The goal of this project is to implement the features of powerful type systems i
  - [Options](#options)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
-
-## Features
- - C11-compliant
- - Can work on bare-metal environments
- - Comes with the [specification]
- - No third-party code generators, just `#include <poica.h>` and go!
-
-[specification]: https://github.com/Hirrolot/poica/blob/master/spec/
 
 ## Installation
 
