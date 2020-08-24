@@ -326,7 +326,7 @@ DefX(T1, ..., Tn);
 P(X, T1, ..., Tn) = ...;
 ```
 
-The utility functions can be found in the [specification].
+The utility functions can be found in the [specification](spec/STD.md).
 
 ## OOP
 
