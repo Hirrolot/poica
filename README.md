@@ -7,7 +7,6 @@
 The goal of this project is to implement the features of powerful type systems in plain C11 via its macro system, thereby improving static reasoning and achieving a way to structure our code.
 
 ## Table of contents
- - [Motivation](#motivation)
  - [Features](#features)
  - [Installation](#installation)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
