@@ -1,4 +1,12 @@
-## Sum types introspection
+## Table of contents
+
+ - [Introspection](#introspection)
+   - [Sum types](#sum-types)
+   - [Product types](#product-types)
+
+## Introspection
+
+### Sum types
 
 ```ebnf
 <sum-introspect>            = "POICA_CHOICE_INTROSPECT(" identifier "," { variant }+ ")" ;
@@ -53,7 +61,7 @@ variantMany(<variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 <macro-name>VARIANT_KIND_MANY(aux-data, <variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 ```
 
-## Product types introspection
+### Product types
 
 ```ebnf
 <product-introspect>        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
