@@ -4,7 +4,7 @@
  - [Product types](#product-types)
  - [Interfaces](#interfaces)
  - [Miscellaneous](#miscellaneous)
- - [Cautions](#caution)
+ - [Cautions](#cautions)
 
 ## Sum types
 
