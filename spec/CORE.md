@@ -1,7 +1,3 @@
-This document describes the core language features. The formal grammar is specified via [EBNF], the semantics is given informally.
-
-[EBNF]: https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
-
 ## Sum types
 
 ```ebnf
