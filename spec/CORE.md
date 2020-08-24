@@ -1,3 +1,11 @@
+## Table of contents
+
+ - [Sum types](#sum-types)
+ - [Product types](#product-types)
+ - [Interfaces](#interfaces)
+ - [Miscellaneous](#miscellaneous)
+ - [Cautions](#caution)
+
 ## Sum types
 
 ```ebnf
