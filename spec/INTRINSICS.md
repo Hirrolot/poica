@@ -19,7 +19,7 @@ Expands to:
 <variantN>
 ```
 
-And `<variant1>`, ..., `<variantN>` will then expand according to the [rules that variants expand](#variant-variantmany).
+And `<variant1>`, ..., `<variantN>` will then expand according to the [rules that variants expand](CORE.md#variant).
 
 ### `<variant-kind>`, `<variant-name>`
 
@@ -77,7 +77,7 @@ Expands to:
 <fieldN>
 ```
 
-And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fields expand](../CORE.md#field).
+And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fields expand](CORE.md#field).
 
 ### `<field-type>`, `<field-name>`
 
