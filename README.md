@@ -3,7 +3,7 @@
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
-[![docs](https://img.shields.io/badge/docs-SPEC.md-blue)](SPEC.md)
+[![docs](https://img.shields.io/badge/docs-spec%2FCORE.md-blue)](spec/CORE.md)
 
 ## Table of contents
  - [Motivation](#motivation)
@@ -48,7 +48,7 @@ Powerful type systems are good for this, because they limit ranges of values tha
  - Comes with the [specification]
  - No third-party code generators, just `#include <poica.h>` and go!
 
-[specification]: https://github.com/Hirrolot/poica/blob/master/SPEC.md
+[specification]: https://github.com/Hirrolot/poica/blob/master/spec/CORE.md
 
 ## Installation
 
@@ -321,7 +321,7 @@ int main(void) {
 
 </details>
 
-That is, the metainformation about types is actually a [sequence] in the terms of [Boost/Preprocessor]. So the [`BOOST_PP_SEQ_*` macros] can be used further, as well as [other utility macros](https://github.com/Hirrolot/poica/blob/master/SPEC.md) from poica.
+That is, the metainformation about types is actually a [sequence] in the terms of [Boost/Preprocessor]. So the [`BOOST_PP_SEQ_*` macros] can be used further, as well as [other utility macros](https://github.com/Hirrolot/poica/blob/master/spec/CORE.md) from poica.
 
 [sequence]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/data/sequences.html
 [Boost/Preprocessor]: https://www.boost.org/doc/libs/1_53_0/libs/preprocessor/doc/
