@@ -41,7 +41,7 @@ The order of parameters:
 
  1) `<macro-name>` is a prefix of three user-provided macros.
  2) Any auxiliary data.
- 3) A [variant](#variant), depending on which, `POICA_OVERLOAD_ON_VARIANT` expands to invocations of different user-provided macros
+ 3) A [variant](CORE.md#variant), depending on which, `POICA_OVERLOAD_ON_VARIANT` expands to invocations of different user-provided macros
 
 ```
 variant(<variant-name>)
