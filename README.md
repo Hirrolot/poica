@@ -57,29 +57,6 @@ If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilat
 
 ## ADTs (algebraic data types)
 
-[ADTs] provide a convenient approach to combine, destruct, and introspect data types. There are two main kinds of them: **sum types** and **product types**.
-
-Simply put, a **sum type** is _either_ of `T1`, ..., `Tn`, and a **product type** is _both_ `T1`, ..., `Tn`. Another name of sum types is a [tagged union], and product types correspond to structures in C.
-
-[Pattern matching] is checking each variant of a sum type, and, if a matched variant is an actual one, trigger some action. They are like `if` statements, but for sum types, rather than for boolean expressions.
-
-[algebraic data types]: https://en.wikipedia.org/wiki/Algebraic_data_type
-
-[tagged union]: https://en.wikipedia.org/wiki/Tagged_union
-
-[Pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
-[pattern matching]: https://en.wikipedia.org/wiki/Pattern_matching
-
-They have tremendous amount of applications to real-world programming, including:
-
- - [Safe, consistent error handling](#safe-consistent-error-handling)
- - Compiler construction: [tokens](examples/tokens.c) & [AST evaluation](examples/ast.c)
- - Concurrency: [message passing](examples/message_passing.c)
-
-[ADTs]: https://en.wikipedia.org/wiki/Algebraic_data_type
-
-[_The algebra (and calculus!) of algebraic data types_](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) by [Joel Burget](https://codewords.recurse.com/about#Joel%20Burget) presents some theory behind ADTs.
-
 ### Motivation
 
 Usually in C we use unions to tell a compiler that we're going to interpret a single memory region in different ways. To decide how to interpret a union, we endow it with a tag and get a [tagged union].
@@ -382,8 +359,6 @@ The utility functions can be found in the [specification].
 
 ### Interfaces & dynamic dispatch
 
-[Dynamic dispatch] is a feature of [object-oriented programming], which allows executing methods from possibly different implementations on the same object (their interface) via a [virtual method table (VTable)]. The following example illustrates the functionality:
-
 [[`examples/dyn_dispatch.c`](examples/dyn_dispatch.c)]
 ```c
 #include <poica.h>
@@ -455,10 +430,6 @@ In fact, interfaces are available without dynamic dispatch too. Just call `iMeth
 [virtual method table (VTable)]: https://en.wikipedia.org/wiki/Virtual_method_table
 
 ## Type-generic programming
-
-[Type-generic programming] is a way to abstract over concrete data types: instead of writing the same function or data structure each time for concrete types, you write it _generically_, allowing specific types to be substituted later.
-
-[Type-generic programming]: https://en.wikipedia.org/wiki/Generic_programming
 
 ### Motivation
 
