@@ -85,7 +85,7 @@ This macro can be used to compare two variants, ignoring the inner data (see [`e
 
 ### `<match>`
 
-Tests `<expr>` of a sum type for all variants of `<sum-type>`, one after another, starting from the first. If correspondence is found, executes `<compound-statement>` specified after the corresponding [`of`](#of), and then goes to the first statement after `match`.
+Tests `<expr>` of a sum type for all variants of `<sum-type>`, one after another, starting from the first. If correspondence is found, executes `<compound-statement>` specified after the corresponding [`of`](#of-of-mut), and then goes to the first statement after `match`.
 
 If not all the variants are specified in `match`, a compiler should generate a warning. This is called _exhaustiveness checking_ (or _case analysis_).
 
