@@ -8,7 +8,7 @@ The goal of this project is to implement the features of powerful type systems i
 
 ## Table of contents
  - [Installation](#installation)
- - [ADTs (algebraic data types)](#adts-algebraic-data-types)
+ - [Algebraic data types](#algebraic-data-types)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
@@ -21,9 +21,9 @@ The goal of this project is to implement the features of powerful type systems i
    - [Dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Generic types](#generic-types)
-   - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
-   - [GADTs (generalised ADTs)](#gadts-generalised-adts)
-   - [Type-safe HOAS (higher-order abstract syntax)](#type-safe-hoas-higher-order-abstract-syntax)
+   - [Higher-kinded types](#higher-kinded-types)
+   - [Generalised algebraic data types](#generalised-algebraic-data-types)
+   - [Type-safe higher-order abstract syntax](#type-safe-higher-order-abstract-syntax)
  - [Options](#options)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
@@ -43,7 +43,7 @@ If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilat
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
-## ADTs (algebraic data types)
+## Algebraic data types
 
 Usually in C we use unions to tell a compiler that we're going to interpret a single memory region in different ways. To decide how to interpret a union, we endow it with a tag and get a [tagged union].
 
@@ -542,15 +542,15 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### HKTs (higher-kinded types)
+### Higher-kinded types
 
 TODO
 
-### GADTs (generalised ADTs)
+### Generalised algebraic data types
 
 TODO
 
-### Type-safe HOAS (higher-order abstract syntax)
+### Type-safe higher-order abstract syntax
 
 TODO
 
