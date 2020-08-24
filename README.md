@@ -4,7 +4,7 @@
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
 
-The goal of this project is to implement the features of powerful type systems in plain C11 via its macro system, thereby imposing business-logic invariants directly in sources and achieving a way to structure code.
+The goal of this project is to implement the features of powerful type systems in plain C11 via its macro system, thereby improving static reasoning and achieving a way to structure our code.
 
 ## Table of contents
  - [Motivation](#motivation)
