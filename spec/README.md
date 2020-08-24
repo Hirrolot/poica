@@ -1,8 +1,10 @@
 # Specification
 
-- `CORE.md` describes the core language features.
- - `INTRINSICS.md` describes the intrinsics.
- - `STD.md` describes the standard library API.
+| File | Purpose |
+|----------|----------|
+| `CORE.md` | The core language features. |
+| `INTRINSICS.md` | The intrinsics (a.k.a. built-in) functions. |
+| `STD.md` | The standard library API. |
 
 The formal grammar is specified via [EBNF], the semantics is given informally.
 
