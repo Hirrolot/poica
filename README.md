@@ -10,11 +10,9 @@ The goal of this project is to implement the features of powerful type systems i
  - [Features](#features)
  - [Installation](#installation)
  - [ADTs (algebraic data types)](#adts-algebraic-data-types)
-   - [Motivation](#motivation-2)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
  - [Type introspection](#type-introspection)
-   - [Motivation](#motivation-3)
    - [Sum types](#sum-types-1)
    - [Product types](#product-types-1)
  - [Safe, consistent error handling](#safe-consistent-error-handling)
@@ -22,7 +20,6 @@ The goal of this project is to implement the features of powerful type systems i
  - [OOP](#oop)
    - [Interfaces & dynamic dispatch](#interfaces--dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
-   - [Motivation](#motivation-1)
    - [Generic types](#generic-types)
    - [HKTs (higher-kinded types)](#hkts-higher-kinded-types)
    - [GADTs (generalised ADTs)](#gadts-generalised-adts)
@@ -55,8 +52,6 @@ If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilat
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## ADTs (algebraic data types)
-
-### Motivation
 
 Usually in C we use unions to tell a compiler that we're going to interpret a single memory region in different ways. To decide how to interpret a union, we endow it with a tag and get a [tagged union].
 
@@ -180,7 +175,7 @@ int main(void) {
 
 ### Product types
 
-If we have structures in C, why do we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
+If we have structures in C, why do we need product types? Well, because product types provide [type introspection] (discussed in the next section). A product type is represented like this:
 
 ```c
 record(
@@ -206,18 +201,6 @@ user.balance *= 2;
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 [type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
-
-### Motivation
-
-Sometimes it's desirable not to only declare new data types, but also to introspect their inner structure. Type introspection makes possible such things as these:
-
- - [Type-driven (de)serialization]
- - [Type-driven command-line arguments parsing]
-
-And more (planned!).
-
-[type-driven (de)serialization]: https://github.com/serde-rs/json
-[type-driven command-line arguments parsing]: https://github.com/clap-rs/clap
 
 ### Sum types
 
@@ -429,8 +412,6 @@ In fact, interfaces are available without dynamic dispatch too. Just call `iMeth
 [virtual method table (VTable)]: https://en.wikipedia.org/wiki/Virtual_method_table
 
 ## Type-generic programming
-
-### Motivation
 
 This problem is often addressed via `void *` in C. However, it has two big disadvantages:
 
