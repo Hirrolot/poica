@@ -4,14 +4,7 @@
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 [![version](https://img.shields.io/badge/version-0.4.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.4.0)
 
-Programming (especially in C!) is notoriously error-prone. The bad thing is that a part of the programmer's mistakes is usually detected during testing, and another part goes to production, leaving our users with improperly working devices and making business lose money.
-
-The good news are that many kinds of mistakes can be detected during compilation, thereby:
-
- - Improving safety of our software;
- - Increasing execution speed by eliminating run-time assertions.
-
-Powerful type systems are good for this, because they limit ranges of values that can be assigned to variables. Unfortunately, C has a very weak type system, which is unable to express most of business logic constraints between communicating software components. To resolve the situation, poica imitates various features from modern type systems via the macro system of C. The further explanations and examples will convey the key ideas to you!
+The goal of this project is to implement the features of powerful type systems in plain C11 via its macro system, thereby imposing business-logic invariants directly in sources and achieving a way to structure code.
 
 ## Table of contents
  - [Motivation](#motivation)
