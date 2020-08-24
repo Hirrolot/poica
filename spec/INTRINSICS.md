@@ -31,7 +31,7 @@ And `<variant1>`, ..., `<variantN>` will then expand according to the [rules tha
 
 ### `<variant-kind>`, `<variant-name>`
 
-`POICA_VARIANT_KIND` expands to either `POICA_VARIANT_KIND_EMPTY`, `POICA_VARIANT_KIND_SINGLE`, or `POICA_VARIANT_KIND_MANY`, depending on a kind of a passed variant (see [the expansion rules of `variant`](#variant)).
+`POICA_VARIANT_KIND` expands to either `POICA_VARIANT_KIND_EMPTY`, `POICA_VARIANT_KIND_SINGLE`, or `POICA_VARIANT_KIND_MANY`, depending on a kind of a passed variant.
 
 `POICA_VARIANT_NAME` expands to the name of a variant.
 
