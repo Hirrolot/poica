@@ -1,6 +1,8 @@
-## Sum types
+This document describes the core language features. The formal grammar is specified via [EBNF], the semantics is given informally.
 
-### EBNF grammar
+[EBNF]: https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form
+
+## Sum types
 
 ```ebnf
 <sum-type>                  = "choice(" identifier "," { variant }+ ");" ;
@@ -23,9 +25,7 @@
 <otherwise>                 = "otherwise" compound-statement ;
 ```
 
-### Semantics
-
-#### `<sum-type>`
+### `<sum-type>`
 
 Expands to:
 
@@ -57,7 +57,7 @@ variantMany(<variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 inline static <sum-name> <variant-name>(F1, ..., Fm) { ... }
 ```
 
-#### `<variant>`
+### `<variant>`
 
 Expands to:
 
@@ -79,7 +79,7 @@ variantMany(<variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 ((POICA_VARIANT_KIND_MANY)(<variant-name>)( ((<f1>)(<F1>)) ... ((<fm>)(<Fm>)) ))
 ```
 
-#### `<variant-tag>`
+### `<variant-tag>`
 
 Expands to the value of an anonymous [plain C enumeration], designating a unique (among the variants of the sum type of `<expr>`) tag in `<expr>`.
 
@@ -87,17 +87,17 @@ This macro can be used to compare two variants, ignoring the inner data (see [`e
 
 [plain C enumeration]: https://en.cppreference.com/w/c/language/enum
 
-#### `<match>`
+### `<match>`
 
 Tests `<expr>` of a sum type for all variants of `<sum-type>`, one after another, starting from the first. If correspondence is found, executes `<compound-statement>` specified after the corresponding [`of`](#of), and then goes to the first statement after `match`.
 
 If not all the variants are specified in `match`, a compiler should generate a warning. This is called _exhaustiveness checking_ (or _case analysis_).
 
-#### `<matches>`
+### `<matches>`
 
 Tests whether `<expr>` of a sum type corresponds to `<variant-type>`. Expands to a boolean expression.
 
-#### `<of>`, `<of-mut>`
+### `<of>`, `<of-mut>`
 
 There are again several forms of this macro, each corresponds to a kind of a variant:
 
@@ -109,13 +109,11 @@ There are again several forms of this macro, each corresponds to a kind of a var
 
 There exist mutable versions - `ofMut` and `ofManyMut`. The difference is that the mutable versions provide `T *` instead of `const T *` to `<compound-statement>`s.
 
-#### `<otherwise>`
+### `<otherwise>`
 
 Handles the rest of variants of a sum type, if the previous ones have been failed. [`match`](#match) with `otherwise` is by definition handles all variants, so exhaustiveness checking will succeed.
 
 ## Product types
-
-### EBNF grammar
 
 ```ebnf
 <product-type>              = "record(" identifier "," { field }+ ");"
@@ -123,9 +121,7 @@ Handles the rest of variants of a sum type, if the previous ones have been faile
 <field>                     = "field(" identifier "," type ")" ;
 ```
 
-### Semantics
-
-#### `<product-type>`
+### `<product-type>`
 
 The first alternative expands to:
 
@@ -145,7 +141,7 @@ typedef struct <product-type> {
 } <product-type>;
 ```
 
-#### `<field>`
+### `<field>`
 
 Expands to:
 
@@ -154,8 +150,6 @@ Expands to:
 ```
 
 ## Interfaces
-
-### EBNF grammar
 
 ```ebnf
 <interface>                 = "interface(" identifier "," { fn-ptr }+ ");" ;
@@ -171,9 +165,7 @@ Expands to:
 <interface-method-ptr>      = "iMethodPtr(" expr "," identifier ")" ;
 ```
 
-### Semantics
-
-#### `<interface>`
+### `<interface>`
 
 Defines an interface. The first parameter is a name of an interface, the second one is pointers to functions in the following form:
 
@@ -184,11 +176,11 @@ Defines an interface. The first parameter is a name of an interface, the second 
 
 Two type names are introduced: `<interface-name>` and `<interface-name>Mut`, holding a virtual table and a pointer to a immutable implementation & mutable implementation, respectively. Variables of these types are called __interface objects__.
 
-#### `<interface-methods>`
+### `<interface-methods>`
 
 Expands to something accessible by the dot operator to call interface's methods, e.g.: `iMethods(MyInterface, MyImplementerType).myMethod(...)`. `myMethod` has exactly the same type as specified in `interface`.
 
-#### `<impl>
+### `<impl>`
 
 The first alternative of `impl` declares the implementation, the second one defines. The definition makes the implementation visible till the end of a TU, since it's also a declaration. A declaration can be used to make an implementation visible from another TU, within which it has been defined.
 
@@ -196,17 +188,15 @@ The first alternative of `impl` declares the implementation, the second one defi
 
 All forms of `impl` and `staticImpl` generate a generic function `newIObj` of two types: an interface and its implementer. `newIObj` accepts a pointer of an implementer type.
 
-#### `<virtual-call>`
+### `<virtual-call>`
 
 Calls a virtual method on an interface object.
 
-#### `<interface-method-ptr>`
+### `<interface-method-ptr>`
 
 `iMethodPtr(<interface-obj>, <method-name>)` expands to a function pointer of the provided method name within an interface object. The resulting pointer must have exactly the same type as specified in `interface`.
 
 ## Miscellaneous
-
-### EBNF grammar
 
 ```ebnf
 <obj>                       = "obj(" value "," value-type ")" ;
@@ -218,15 +208,13 @@ Calls a virtual method on an interface object.
 <force-semicolon>           = "POICA_FORCE_SEMICOLON"
 ```
 
-### Semantics
-
-#### `<obj>`
+### `<obj>`
 
 Expands to a pointer to an [unnamed object] (`value-type *`) that is equal to `value`. `obj` is used to imitate recursive data structures, like trees.
 
 [unnamed object]: https://en.cppreference.com/w/c/language/compound_literal
 
-#### `<unit-type>`, `<unit-value>`
+### `<unit-type>`, `<unit-value>`
 
 `Unit` is a [unit type], i.e. a type that allows the only one value, `unit`, which is defined as follows:
 
@@ -236,7 +224,7 @@ static const Unit unit;
 
 [unit type]: https://en.wikipedia.org/wiki/Unit_type
 
-#### `<monomorphise>`
+### `<monomorphise>`
 
 Concatenates all the provided identifiers, thereby producing a name of a monomorphised software entity. Example:
 
@@ -253,7 +241,7 @@ typedef int (*fnPtr)(int, int);
 P(fnPtr, abc) ==> fnPtrabc
 ```
 
-#### `<force-semicolon>`
+### `<force-semicolon>`
 
 `POICA_FORCE_SEMICOLON` forces a user to put a semicolon after itself. One of its use cases is a semicolon after a data type definition:
 
