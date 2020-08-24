@@ -31,6 +31,8 @@ add_executable(interfaces interfaces.c)
 add_executable(int_bool_ast int_bool_ast.c)
 add_executable(hkt hkt.c)
 
+target_link_libraries(interfaces m)
+
 foreach(TARGET ${BUILDSYSTEM_TARGETS})
   set_target_properties(TARGET PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON)
 endforeach()
