@@ -2,7 +2,7 @@
 
 | File | Purpose |
 |----------|----------|
-| `CORE.md` | The core language features. |
+| `LANG.md` | The core language features. |
 | `INTRINSICS.md` | The intrinsics (a.k.a. built-in) functions. |
 | `STD.md` | The standard library API. |
 
