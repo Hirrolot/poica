@@ -25,62 +25,60 @@
 
 #include <poica.h>
 
-// "branch" has kind * -> *, type has kind *.
 // clang-format off
-#define DefTreeG(branch, type)                                                 \
+#define DefTree(f, t)                                                          \
     choice(                                                                    \
-        P(TreeG, branch, type),                                                \
-        variantMany(P(Branch, branch, type),                                   \
-            field(data, type)                                                  \
-            field(branches,                                                    \
-                P(branch, P(TreeG, branch, type))                              \
-            )                                                                  \
+        P(Tree, f, t),                                                         \
+        variantMany(                                                           \
+            P(Branch, f, t),                                                   \
+            field(data, t)                                                     \
+            field(branches, P(f, P(Tree, f, t)))                               \
         )                                                                      \
-        variant(P(Leaf, branch, type), type))
-
-#define DefBinaryTree(type)                                                    \
-    record(                                                                    \
-        P(BinaryTree, type),                                                   \
-        field(left, struct type *)                                             \
-        field(right, struct type *)                                            \
+        variant(P(Leaf, f, t), t)                                              \
     )
 
-#define DefWeirdTree(type)                                                     \
+#define DefBinaryTree(t)                                                       \
     record(                                                                    \
-        P(WeirdTree, type),                                                    \
-        field(text, const char *)                                              \
+        P(BinaryTree, t),                                                      \
+        field(left, struct t *)                                                \
+        field(right, struct t *)                                               \
+    )
+
+#define DefTreeTree(t)                                                         \
+    record(                                                                    \
+        P(TreeTree, t),                                                        \
+        field(data, struct P(Tree, TreeTree, t) *)                             \
     )
 // clang-format on
 
-DefBinaryTree(P(TreeG, BinaryTree, int));
-DefTreeG(BinaryTree, int);
+#define BinaryTree(t) P(Tree, BinaryTree, t)
+#define TreeTree(t)   P(Tree, TreeTree, t)
 
-DefWeirdTree(P(TreeG, WeirdTree, int));
-DefTreeG(WeirdTree, int);
+#define BinaryTreeBranch(t, data, left, right)                                 \
+    P(Branch, BinaryTree, t)                                                   \
+    (data, (P(BinaryTree, P(Tree, BinaryTree, t))){left, right})
 
-void binary_tree(void) {
-    P(TreeG, BinaryTree, int) _456_leaf = P(Leaf, BinaryTree, int)(456);
-    P(TreeG, BinaryTree, int) _789_leaf = P(Leaf, BinaryTree, int)(789);
+#define TreeTreeBranch(t, data, tree)                                          \
+    P(Branch, TreeTree, t)                                                     \
+    (data, (P(TreeTree, P(Tree, TreeTree, t))){tree})
 
-    P(TreeG, BinaryTree, int)
-    binary_tree =
-        P(Branch, BinaryTree, int)(123,
-                                   (P(BinaryTree, P(TreeG, BinaryTree, int))){
-                                       &_456_leaf,
-                                       &_789_leaf,
-                                   });
-}
+DefBinaryTree(P(Tree, BinaryTree, int));
+DefTree(BinaryTree, int);
 
-void weird_tree(void) {
-    P(TreeG, WeirdTree, int)
-    weird_tree_1 =
-        P(Branch, WeirdTree, int)(123,
-                                  (P(WeirdTree, P(TreeG, WeirdTree, int))){
-                                      .text = "Hey",
-                                  });
-}
+DefTreeTree(P(Tree, TreeTree, int));
+DefTree(TreeTree, int);
+
+// TODO: fix this
+// DefTree(TreeTree, TreeTree(TreeTree(int)));
 
 int main(void) {
-    binary_tree();
-    weird_tree();
+    BinaryTree(int) _456 = P(Leaf, BinaryTree, int)(456);
+    BinaryTree(int) _759 = P(Leaf, BinaryTree, int)(759);
+
+    BinaryTree(int) binary_tree = BinaryTreeBranch(int, 123, &_456, &_759);
+
+    //   TreeTree(TreeTree(int)) _145 =
+    //     P(Leaf, TreeTree, P(Tree, TreeTree, int))(759);
+
+    // TreeTree(int) tree_tree = TreeTreeBranch(int, 33, &_145);
 }

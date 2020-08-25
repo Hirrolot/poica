@@ -23,14 +23,21 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_STDLIB_H
-#define POICA_STDLIB_H
+#ifndef POICA_STDLIB_HOMO_PAIR_H
+#define POICA_STDLIB_HOMO_PAIR_H
 
-#include <poica/stdlib/either.h>
-#include <poica/stdlib/homo_pair.h>
-#include <poica/stdlib/maybe.h>
-#include <poica/stdlib/pair.h>
-#include <poica/stdlib/res.h>
-#include <poica/stdlib/try.h>
+#include <poica/lang/p.h>
 
-#endif // POICA_STDLIB_H
+#include <poica/lang/record.h>
+
+#ifdef POICA_USE_PREFIX
+#define PoicaDefHomoPair POICA_P_STDLIB_HOMO_PAIR_DEF
+#else
+#define DefHomoPair POICA_P_STDLIB_HOMO_PAIR_DEF
+#endif
+
+#define POICA_P_STDLIB_HOMO_PAIR_DEF(t)                                        \
+    POICA_P_LANG_RECORD(POICA_P_LANG_P(HomoPair, t),                           \
+                        POICA_P_LANG_FIELD(fst, t) POICA_P_LANG_FIELD(snd, t))
+
+#endif // POICA_STDLIB_HOMO_PAIR_H
