@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef POICA_STDLIB_MAYBE_H
-#define POICA_STDLIB_MAYBE_H
+#ifndef POICA_STD_MAYBE_H
+#define POICA_STD_MAYBE_H
 
 #include <poica/lang/force_semicolon.h>
 #include <poica/lang/p.h>
@@ -34,12 +34,12 @@
 #include <stdbool.h>
 
 #ifdef POICA_USE_PREFIX
-#define PoicaDefMaybe POICA_P_STDLIB_MAYBE_DEF
+#define PoicaDefMaybe POICA_P_STD_MAYBE_DEF
 #else
-#define DefMaybe POICA_P_STDLIB_MAYBE_DEF
+#define DefMaybe POICA_P_STD_MAYBE_DEF
 #endif
 
-#define POICA_P_STDLIB_MAYBE_DEF(type)                                         \
+#define POICA_P_STD_MAYBE_DEF(type)                                            \
     POICA_P_LANG_CHOICE(                                                       \
         POICA_P_LANG_P(Maybe, type),                                           \
         POICA_P_LANG_VARIANT(POICA_P_LANG_P(Just, type), type)                 \
@@ -57,4 +57,4 @@
                                                                                \
     POICA_FORCE_SEMICOLON
 
-#endif // POICA_STDLIB_MAYBE_H
+#endif // POICA_STD_MAYBE_H

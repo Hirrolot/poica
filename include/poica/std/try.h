@@ -28,29 +28,29 @@
  * the result is successful, do nothing.
  */
 
-#ifndef POICA_STDLIB_TRY_H
-#define POICA_STDLIB_TRY_H
+#ifndef POICA_STD_TRY_H
+#define POICA_STD_TRY_H
 
 #include <poica/lang/choice/pattern_matching.h>
-#include <poica/stdlib/res.h>
+#include <poica/std/res.h>
 
 #include <boost/preprocessor.hpp>
 
 #ifdef POICA_USE_PREFIX
 
 #define poicaTry(val, ok_type_1, ok_type_2, err_type)                          \
-    POICA_P_STDLIB_TRY(val, ok_type_1, ok_type_2, err_type)
+    POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)
 
 #else
 
 // clang-format off
 #define try(val, ok_type_1, ok_type_2, err_type)                               \
-    POICA_P_STDLIB_TRY(val, ok_type_1, ok_type_2, err_type)
+    POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)
 // clang-format on
 
 #endif
 
-#define POICA_P_STDLIB_TRY(val, ok_type_1, ok_type_2, err_type)                \
+#define POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)                   \
     POICA_P_LANG_MATCH(val) {                                                  \
         POICA_P_LANG_OF(                                                       \
             const, POICA_P_LANG_P(Err, ok_type_1, err_type), err) {            \
@@ -59,4 +59,4 @@
         POICA_P_LANG_OTHERWISE {}                                              \
     }
 
-#endif // POICA_STDLIB_TRY_H
+#endif // POICA_STD_TRY_H
