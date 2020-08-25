@@ -27,6 +27,6 @@
 #define POICA_H
 
 #include <poica/lang.h>
-#include <poica/stdlib.h>
+#include <poica/std.h>
 
 #endif // POICA_H
