@@ -27,7 +27,6 @@
 #define POICA_LANG_PRIVATE_OVERLOAD_ON_KIND_H
 
 #include <poica/lang/assertions/overload_on_kind.h>
-#include <poica/lang/private/call_macro.h>
 
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>
