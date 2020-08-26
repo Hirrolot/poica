@@ -1,2 +1,2 @@
-add_executable(record_introspection record.c)
-add_executable(choice_introspection choice.c)
+add_executable(record record.c)
+add_executable(choice choice.c)
