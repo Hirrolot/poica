@@ -37,11 +37,18 @@ git submodule add -b master https://github.com/Hirrolot/poica
 git submodule update --init --recursive
 ```
 
-And `#include <poica.h>` inside your source files to export poica's public API (using the `-I` compiler option). Building isn't required, because poica is a header-only library.
+If you use [CMake], you can connect poica as follows:
+
+```cmake
+include_directories(poica/include poica/preprocessor/include poica/vmd/include)
+```
+
+And `#include <poica.h>` inside your source files to export its public API. Building isn't required, because poica is a header-only library.
 
 If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilation time and memory consumption.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
+[CMake]: https://cmake.org/
 
 ## Algebraic data types
 
