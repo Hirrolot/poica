@@ -45,7 +45,7 @@ include_directories(poica/include poica/preprocessor/include poica/vmd/include)
 
 And `#include <poica.h>` inside your source files to export its public API. Building isn't required, because poica is a header-only library.
 
-If you're using GCC, appending `-ftrack-macro-expansion=0` would reduce compilation time and memory consumption.
+If you use GCC, appending `-ftrack-macro-expansion=0` would reduce compilation time and memory consumption.
 
 [Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 [CMake]: https://cmake.org/
