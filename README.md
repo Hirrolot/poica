@@ -100,11 +100,11 @@ OurTaggedUnion res2 = State3(.99);
 some_procedure(/* Impossible to pass state_1! */);
 ```
 
+[tagged union]: https://en.wikipedia.org/wiki/Tagged_union
+
 ### Sum types
 
 For example, a [binary tree] like this:
-
-[binary tree]: https://en.wikipedia.org/wiki/Binary_tree
 
 <div align="center">
   <img src="images/BINARY_TREE.png" width="380px" />
@@ -172,9 +172,11 @@ int main(void) {
 
 </details>
 
+[binary tree]: https://en.wikipedia.org/wiki/Binary_tree
+
 ### Product types
 
-If we have structures in C, why do we need product types? Well, because product types provide [type introspection] (discussed in the next section). A product type is represented like this:
+If we have structures in C, why do we need product types? Well, because product types provide type introspection (discussed in the next section). A product type is represented like this:
 
 ```c
 record(
@@ -199,7 +201,6 @@ user.balance *= 2;
 [Type introspection] is supported in the sense that you can query the type properties of ADTs at compile-time and then handle them somehow in your hand-written macros.
 
 [Type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
-[type introspection]: https://en.wikipedia.org/wiki/Introspection_(computer_science)
 
 ### Sum types
 
