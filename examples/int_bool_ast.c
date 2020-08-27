@@ -31,10 +31,46 @@
  * More information at https://en.wikibooks.org/wiki/Haskell/GADT.
  */
 
+// TODO: finish it.
+/*
 #include <poica.h>
 
-#include <stdbool.h>
 #include <stdio.h>
+
+#define ExprPair(inner_val_ty, reduced_val_ty)                                 \
+    field(left, const struct P(Expr, inner_val_ty, reduced_val_ty) *)          \
+        field(right, const struct P(Expr, inner_val_ty, reduced_val_ty) *)
+
+#define DefExpr(inner_val_ty, reduced_val_ty)                                  \
+    gadt(Expr,                                                                 \
+         variant(I, int) of self(inner_val_ty, int),                           \
+         variant(B, _Bool) of self(inner_val_ty, _Bool),                       \
+         variantMany(Add, ExprPair(inner_val_ty, int))                         \
+             of self(inner_val_ty, int),                                       \
+         variantMany(Mul, ExprPair(inner_val_ty, int))                         \
+             of self(inner_val_ty, int),                                       \
+         variantMany(Eq, ExprPair(inner_val_ty, reduced_val_ty))               \
+             of self(inner_val_ty, _Bool));                                    \
+                                                                               \
+    reduced_val_ty P(eval, inner_val_ty, reduced_val_ty)(                      \
+        const P(Expr, inner_val_ty, reduced_val_ty) * expr) {                  \
+        matchGadt(                                                             \
+            *expr,                                                             \
+            gadtOf(I, number) of self(inner_val_ty, int) do(return *number;),  \
+            gadtOf(B, boolean)                                                 \
+                of self(inner_val_ty, _Bool) do(return *boolean;),             \
+            gadtOfMany(Add, (left, right)) of self(inner_val_ty, int) do(      \
+                return P(eval, inner_val_ty, int)(*left) +                     \
+                           P(eval, inner_val_ty, int)(*right);),               \
+            gadtOfMany(Mul, (left, right)) of self(inner_val_ty, int) do(      \
+                return P(eval, inner_val_ty, int)(*left) *                     \
+                           P(eval, inner_val_ty, int)(*right);),               \
+            gadtOfMany(Eq, (left, right)) of self(inner_val_ty, _Bool) do(     \
+                return P(eval, inner_val_ty, _Bool)(*left) ==                  \
+                           P(eval, inner_val_ty, _Bool)(*right);))             \
+    }                                                                          \
+                                                                               \
+    POICA_FORCE_SEMICOLON
 
 #define BOOST_VMD_REGISTER_int   (int)
 #define BOOST_VMD_REGISTER__Bool (_Bool)
@@ -42,20 +78,19 @@
 #define BOOST_VMD_DETECT_int_int
 #define BOOST_VMD_DETECT__Bool__Bool
 
-#define T int
-#include "int_bool_ast.h"
-#undef T
-
-#define T _Bool
-#include "int_bool_ast.h"
-#undef T
+DefExpr(int, int);
+DefExpr(int, _Bool);
 
 int main(void) {
-    P(Expr, int) _12 = P(I, int)(12);
-    P(Expr, int) _4 = P(I, int)(4);
-    P(Expr, int) _3 = P(I, int)(3);
-    P(Expr, int) _12_add_4 = P(Add, int)(&_12, &_4);
+    // (12 + 4) == 3, which is false, as expected.
+    P(Expr, int, int) _12 = P(I, int, int)(12);
+    P(Expr, int, int) _4 = P(I, int, int)(4);
+    P(Expr, int, int) _3 = P(I, int, int)(3);
+    P(Expr, int, int) _12_add_4 = P(Add, int, int)(&_12, &_4);
     P(Expr, int, _Bool) final = P(Eq, int, _Bool)(&_12_add_4, &_3);
 
-    printf("%d\n", (int)P(eval, _Bool)(&final));
+    printf("%d\n", (int)P(eval, int, _Bool)(&final));
 }
+*/
+
+int main(void) {}
