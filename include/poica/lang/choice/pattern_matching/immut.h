@@ -30,15 +30,13 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaOfMany(variant_name, var_names)                                   \
-    POICA_P_LANG_OF_MANY(const, variant_name, var_names)
-#define poicaOf(...) POICA_P_LANG_OF(const, __VA_ARGS__)
+#define poicaOfMany(variant_name, var_names) POICA_P_LANG_OF_MANY(const, variant_name, var_names)
+#define poicaOf(...)                         POICA_P_LANG_OF(const, __VA_ARGS__)
 
 #else
 
-#define ofMany(variant_name, var_names)                                        \
-    POICA_P_LANG_OF_MANY(const, variant_name, var_names)
-#define of(...) POICA_P_LANG_OF(const, __VA_ARGS__)
+#define ofMany(variant_name, var_names) POICA_P_LANG_OF_MANY(const, variant_name, var_names)
+#define of(...)                         POICA_P_LANG_OF(const, __VA_ARGS__)
 
 #endif
 

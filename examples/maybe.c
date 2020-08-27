@@ -28,16 +28,16 @@
 #include <assert.h>
 #include <stdio.h>
 
-#define defPrintMaybe(type, specifier)                                         \
-    void P(printMaybe, type)(P(Maybe, type) maybe) {                           \
-        match(maybe) {                                                         \
-            of(P(Just, type), val) {                                           \
-                printf("Just(" specifier ")\n", *val);                         \
-            }                                                                  \
-            of(P(Nothing, type)) {                                             \
-                puts("Nothing");                                               \
-            }                                                                  \
-        }                                                                      \
+#define defPrintMaybe(type, specifier)                                                             \
+    void P(printMaybe, type)(P(Maybe, type) maybe) {                                               \
+        match(maybe) {                                                                             \
+            of(P(Just, type), val) {                                                               \
+                printf("Just(" specifier ")\n", *val);                                             \
+            }                                                                                      \
+            of(P(Nothing, type)) {                                                                 \
+                puts("Nothing");                                                                   \
+            }                                                                                      \
+        }                                                                                          \
     }
 
 typedef const char *Msg;

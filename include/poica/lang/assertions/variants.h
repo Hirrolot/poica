@@ -33,10 +33,8 @@
 
 #ifdef POICA_ENABLE_ASSERTIONS
 
-#define POICA_P_LANG_OPT_ASSERT_ARE_VARIANTS(variants)                         \
-    POICA_ASSERT_ARE_VARIANTS(variants)
-#define POICA_P_LANG_OPT_ASSERT_IS_VARIANT(variant)                            \
-    POICA_ASSERT_IS_VARIANT(variant)
+#define POICA_P_LANG_OPT_ASSERT_ARE_VARIANTS(variants) POICA_ASSERT_ARE_VARIANTS(variants)
+#define POICA_P_LANG_OPT_ASSERT_IS_VARIANT(variant)    POICA_ASSERT_IS_VARIANT(variant)
 
 #else
 
@@ -45,25 +43,22 @@
 
 #endif
 
-#define POICA_ASSERT_ARE_VARIANTS(variants)                                    \
-    BOOST_VMD_ASSERT_IS_SEQ(variants)                                          \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_LANG_ASSERT_IS_VARIANTS_VISIT, BOOST_PP_EMPTY(), variants)
+#define POICA_ASSERT_ARE_VARIANTS(variants)                                                        \
+    BOOST_VMD_ASSERT_IS_SEQ(variants)                                                              \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_ASSERT_IS_VARIANTS_VISIT, BOOST_PP_EMPTY(), variants)
 
-#define POICA_P_LANG_ASSERT_IS_VARIANTS_VISIT(_r, _data, variant)              \
-    POICA_ASSERT_IS_VARIANT((variant))
+#define POICA_P_LANG_ASSERT_IS_VARIANTS_VISIT(_r, _data, variant) POICA_ASSERT_IS_VARIANT((variant))
 
 /* TODO: Maybe test each kind of `variant`? BOOST_VMD_EQUAL produces UB if
  * encounters a data type that it cannot parse, so we can't use it to match the
  * first element of `variant`'s sequence, which is its kind.
  */
-#define POICA_ASSERT_IS_VARIANT(variant)                                       \
-    BOOST_VMD_ASSERT_IS_SEQ(POICA_P_LANG_EXPAND variant)                       \
+#define POICA_ASSERT_IS_VARIANT(variant)                                                           \
+    BOOST_VMD_ASSERT_IS_SEQ(POICA_P_LANG_EXPAND variant)                                           \
     POICA_ASSERT_IS_VARIANT_CHECK_MIN_VARIANT_SIZE(variant)
 
 // variant(<variant-name>) produces a variant of length 2.
-#define POICA_LANG_ASSERT_IS_VARIANT_CHECK_MIN_VARIANT_SIZE(variant)           \
-    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(                                   \
-        BOOST_PP_SEQ_SIZE(POICA_P_LANG_EXPAND variant), 2))
+#define POICA_LANG_ASSERT_IS_VARIANT_CHECK_MIN_VARIANT_SIZE(variant)                               \
+    BOOST_VMD_ASSERT(BOOST_PP_GREATER_EQUAL(BOOST_PP_SEQ_SIZE(POICA_P_LANG_EXPAND variant), 2))
 
 #endif // POICA_LANG_ASSERTIONS_VARIANTS_H

@@ -31,24 +31,19 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_LANG_CHOICE_GEN_FIELDS(variants)                               \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_LANG_CHOICE_GEN_FIELDS_VISIT, BOOST_PP_EMPTY(), variants)
+#define POICA_P_LANG_CHOICE_GEN_FIELDS(variants)                                                   \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_CHOICE_GEN_FIELDS_VISIT, BOOST_PP_EMPTY(), variants)
 
-#define POICA_P_LANG_CHOICE_GEN_FIELDS_VISIT(_r, _data, variant)               \
-    POICA_OVERLOAD_ON_VARIANT(                                                 \
-        POICA_P_LANG_CHOICE_GEN_FIELD_, BOOST_PP_EMPTY(), (variant))
+#define POICA_P_LANG_CHOICE_GEN_FIELDS_VISIT(_r, _data, variant)                                   \
+    POICA_OVERLOAD_ON_VARIANT(POICA_P_LANG_CHOICE_GEN_FIELD_, BOOST_PP_EMPTY(), (variant))
 
-#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name)  \
-    BOOST_PP_EMPTY()
+#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_EMPTY(_data, variant_name) BOOST_PP_EMPTY()
 
-#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_SINGLE(                     \
-    _data, variant_name, variant_type)                                         \
+#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_SINGLE(_data, variant_name, variant_type)       \
     variant_type variant_name;
 
-#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_MANY(                       \
-    _data, variant_name, _fields)                                              \
-    POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)           \
+#define POICA_P_LANG_CHOICE_GEN_FIELD_VARIANT_KIND_MANY(_data, variant_name, _fields)              \
+    POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)                               \
     variant_name;
 
 #endif // POICA_LANG_CHOICE_GEN_FIELDS_H

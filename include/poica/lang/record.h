@@ -42,19 +42,18 @@
 #define record POICA_P_LANG_RECORD
 #endif
 
-#define POICA_P_LANG_RECORD(...)                                               \
-    BOOST_PP_OVERLOAD(POICA_P_LANG_RECORD_, __VA_ARGS__)(__VA_ARGS__)
+#define POICA_P_LANG_RECORD(...) BOOST_PP_OVERLOAD(POICA_P_LANG_RECORD_, __VA_ARGS__)(__VA_ARGS__)
 
-#define POICA_P_LANG_RECORD_1(name)                                            \
-    typedef struct name {                                                      \
-        Unit _;                                                                \
+#define POICA_P_LANG_RECORD_1(name)                                                                \
+    typedef struct name {                                                                          \
+        Unit _;                                                                                    \
     } name
 
-#define POICA_P_LANG_RECORD_2(name, fields)                                    \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                 \
-                                                                               \
-    typedef struct name {                                                      \
-        POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                 \
+#define POICA_P_LANG_RECORD_2(name, fields)                                                        \
+    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+                                                                                                   \
+    typedef struct name {                                                                          \
+        POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                                     \
     } name
 
 #endif // POICA_LANG_RECORD_H

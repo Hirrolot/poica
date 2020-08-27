@@ -46,16 +46,15 @@
 
 #endif
 
-#define POICA_P_LANG_MATCH(val)                                                \
-    POICA_P_LANG_CHOICE_SCOPE(const void *poica_p_choice_ptr =                 \
-                                  (const void *)&(val))                        \
+#define POICA_P_LANG_MATCH(val)                                                                    \
+    POICA_P_LANG_CHOICE_SCOPE(const void *poica_p_choice_ptr = (const void *)&(val))               \
     switch ((val).tag)
 
-#define POICA_P_LANG_MATCHES(val, variant_name)                                \
+#define POICA_P_LANG_MATCHES(val, variant_name)                                                    \
     ((val).tag == POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name))
 
-#define POICA_P_LANG_OTHERWISE                                                 \
-    break;                                                                     \
+#define POICA_P_LANG_OTHERWISE                                                                     \
+    break;                                                                                         \
     default:
 
 #endif // POICA_LANG_CHOICE_PATTERN_MATCHING_H

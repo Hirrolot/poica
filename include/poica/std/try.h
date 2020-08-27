@@ -38,7 +38,7 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaTry(val, ok_type_1, ok_type_2, err_type)                          \
+#define poicaTry(val, ok_type_1, ok_type_2, err_type)                                              \
     POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)
 
 #else
@@ -50,13 +50,12 @@
 
 #endif
 
-#define POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)                   \
-    POICA_P_LANG_MATCH(val) {                                                  \
-        POICA_P_LANG_OF(                                                       \
-            const, POICA_P_LANG_P(Err, ok_type_1, err_type), err) {            \
-            return POICA_P_LANG_P(Err, ok_type_2, err_type)(*err);             \
-        }                                                                      \
-        POICA_P_LANG_OTHERWISE {}                                              \
+#define POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)                                       \
+    POICA_P_LANG_MATCH(val) {                                                                      \
+        POICA_P_LANG_OF(const, POICA_P_LANG_P(Err, ok_type_1, err_type), err) {                    \
+            return POICA_P_LANG_P(Err, ok_type_2, err_type)(*err);                                 \
+        }                                                                                          \
+        POICA_P_LANG_OTHERWISE {}                                                                  \
     }
 
 #endif // POICA_STD_TRY_H

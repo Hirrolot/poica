@@ -54,12 +54,12 @@
 #define BinaryTree(t) P(Tree, BinaryTree, t)
 #define TreeTree(t)   P(Tree, TreeTree, t)
 
-#define BinaryTreeBranch(t, data, left, right)                                 \
-    P(Branch, BinaryTree, t)                                                   \
+#define BinaryTreeBranch(t, data, left, right)                                                     \
+    P(Branch, BinaryTree, t)                                                                       \
     (data, (P(BinaryTree, P(Tree, BinaryTree, t))){left, right})
 
-#define TreeTreeBranch(t, data, tree)                                          \
-    P(Branch, TreeTree, t)                                                     \
+#define TreeTreeBranch(t, data, tree)                                                              \
+    P(Branch, TreeTree, t)                                                                         \
     (data, (P(TreeTree, P(Tree, TreeTree, t))){tree})
 
 DefBinaryTree(P(Tree, BinaryTree, int));

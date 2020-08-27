@@ -34,64 +34,56 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_LANG_OF(qualifier, ...)                                        \
-    BOOST_PP_OVERLOAD(POICA_P_LANG_CHOICE_OF_, qualifier, __VA_ARGS__)         \
+#define POICA_P_LANG_OF(qualifier, ...)                                                            \
+    BOOST_PP_OVERLOAD(POICA_P_LANG_CHOICE_OF_, qualifier, __VA_ARGS__)                             \
     (qualifier, __VA_ARGS__)
 
-#define POICA_P_LANG_CHOICE_OF_2(_qualifier, variant_name)                     \
-    break;                                                                     \
+#define POICA_P_LANG_CHOICE_OF_2(_qualifier, variant_name)                                         \
+    break;                                                                                         \
     case POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name):
 
-#define POICA_P_LANG_CHOICE_OF_3(qualifier, variant_name, var_name)            \
-    break;                                                                     \
-    case POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                \
-        POICA_P_LANG_CHOICE_SCOPE(POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(      \
-            qualifier, var_name, variant_name))
+#define POICA_P_LANG_CHOICE_OF_3(qualifier, variant_name, var_name)                                \
+    break;                                                                                         \
+    case POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                                    \
+        POICA_P_LANG_CHOICE_SCOPE(                                                                 \
+            POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(qualifier, var_name, variant_name))
 
-#define POICA_P_LANG_OF_MANY(qualifier, variant_name, var_names)               \
-    break;                                                                     \
-    case POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                \
-                                                                               \
-        POICA_P_LANG_CHOICE_SCOPE(POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(      \
-            qualifier, poica_p_case_var, variant_name))                        \
-                                                                               \
-        POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS(                              \
-            qualifier,                                                         \
-            var_names,                                                         \
-            (poica_p_case_var,                                                 \
-             POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(               \
-                 variant_name)))
+#define POICA_P_LANG_OF_MANY(qualifier, variant_name, var_names)                                   \
+    break;                                                                                         \
+    case POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name):                                    \
+                                                                                                   \
+        POICA_P_LANG_CHOICE_SCOPE(                                                                 \
+            POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(qualifier, poica_p_case_var, variant_name))     \
+                                                                                                   \
+        POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS(                                                  \
+            qualifier,                                                                             \
+            var_names,                                                                             \
+            (poica_p_case_var, POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name)))
 
-#define POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS(qualifier, fields, val)       \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR,            \
-        (qualifier, val),                                                      \
-        BOOST_PP_TUPLE_TO_SEQ(fields))
+#define POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS(qualifier, fields, val)                           \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR,              \
+                          (qualifier, val),                                                        \
+                          BOOST_PP_TUPLE_TO_SEQ(fields))
 
-#define POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR(            \
-    _r, qualifier_and_val, field_name)                                         \
-    POICA_P_LANG_CHOICE_SCOPE(                                                 \
-        POICA_P_LANG_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)               \
-            POICA_P_LANG_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(        \
-                POICA_P_LANG_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val),       \
-                field_name) *field_name =                                      \
-                &POICA_P_LANG_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)       \
-                     ->field_name)
+#define POICA_P_LANG_CHOICE_EXTRACT_MATCHED_VARS_GEN_ASSIGN_IN_FOR(                                \
+    _r, qualifier_and_val, field_name)                                                             \
+    POICA_P_LANG_CHOICE_SCOPE(                                                                     \
+        POICA_P_LANG_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                                   \
+            POICA_P_LANG_CHOICE_RECORD_FOR_MANY_REDIRECT_TO_FIELD_TYPE(                            \
+                POICA_P_LANG_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val), field_name) *field_name = \
+                &POICA_P_LANG_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)->field_name)
 
-#define POICA_P_LANG_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)               \
+#define POICA_P_LANG_CHOICE_EXTRACT_QUALIFIER(qualifier_and_val)                                   \
     BOOST_PP_TUPLE_ELEM(2, 0, qualifier_and_val)
-#define POICA_P_LANG_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)                \
+#define POICA_P_LANG_CHOICE_EXTRACT_VAL_NAME(qualifier_and_val)                                    \
     BOOST_PP_TUPLE_ELEM(2, 0, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val))
-#define POICA_P_LANG_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val)                \
+#define POICA_P_LANG_CHOICE_EXTRACT_VAL_TYPE(qualifier_and_val)                                    \
     BOOST_PP_TUPLE_ELEM(2, 1, BOOST_PP_TUPLE_ELEM(2, 1, qualifier_and_val))
 
-#define POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(                                \
-    qualifier, var_name, variant_name)                                         \
-    qualifier POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(              \
-        variant_name) *var_name =                                              \
-        (&((qualifier                                                          \
-                POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(     \
-                    variant_name) *)poica_p_choice_ptr)                        \
+#define POICA_P_LANG_CHOICE_DEDUCE_MATCHED_VAR(qualifier, var_name, variant_name)                  \
+    qualifier POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name) *var_name =         \
+        (&((qualifier POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(                   \
+               variant_name) *)poica_p_choice_ptr)                                                 \
               ->data.variant_name)
 
 /*
@@ -110,8 +102,8 @@
  *
  * macro(...) { ... }
  */
-#define POICA_P_LANG_CHOICE_SCOPE(vars)                                        \
-    for (vars, *poica_p_break_for = (void *)1; poica_p_break_for != (void *)2; \
+#define POICA_P_LANG_CHOICE_SCOPE(vars)                                                            \
+    for (vars, *poica_p_break_for = (void *)1; poica_p_break_for != (void *)2;                     \
          poica_p_break_for = (void *)2)
 
 #endif // POICA_LANG_CHOICE_PATTERN_MATCHING_AUX_H

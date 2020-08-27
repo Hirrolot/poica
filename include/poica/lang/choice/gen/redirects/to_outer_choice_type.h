@@ -33,21 +33,17 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE(        \
-    choice_name, variants)                                                     \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT,  \
-        choice_name,                                                           \
-        variants)
+#define POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE(choice_name, variants)      \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT,    \
+                          choice_name,                                                             \
+                          variants)
 
-#define POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT(  \
-    _r, choice_name, variant)                                                  \
-    typedef choice_name                                                        \
-        POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(             \
-            POICA_VARIANT_NAME(variant));
+#define POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_OUTER_CHOICE_TYPE_VISIT(                      \
+    _r, choice_name, variant)                                                                      \
+    typedef choice_name POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(                 \
+        POICA_VARIANT_NAME(variant));
 
-#define POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(             \
-    variant_name)                                                              \
+#define POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_OUTER_CHOICE_TYPE(variant_name)                    \
     POICA_P_LANG_PREFIX(BOOST_PP_CAT(variant_name, _RedirectToOuterSumType))
 
 #endif // POICA_LANG_CHOICE_GEN_REDIRECTS_TO_OUTER_CHOICE_TYPE_H

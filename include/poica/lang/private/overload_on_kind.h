@@ -38,21 +38,20 @@
  * `seq` shall consist of >=1 elements, and all the possible combinations of
  * `macro` + the first element of `seq` shall be defined.
  */
-#define POICA_P_LANG_OVERLOAD_ON_KIND(macro, seq)                              \
-    POICA_P_LANG_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                      \
-                                                                               \
-    BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1),                     \
-                POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_1,                      \
-                POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1)         \
+#define POICA_P_LANG_OVERLOAD_ON_KIND(macro, seq)                                                  \
+    POICA_P_LANG_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                                          \
+                                                                                                   \
+    BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1),                                         \
+                POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_1,                                          \
+                POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1)                             \
     (macro, seq)
 
-#define POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_1(macro, seq)                   \
+#define POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_1(macro, seq)                                       \
     BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq))()
 
-#define POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1(macro, seq)      \
-    POICA_P_LANG_OVERLOAD_ON_KIND_CALL_MACRO(                                  \
-        BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),                           \
-        BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
+#define POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_GREATER_THAN_1(macro, seq)                          \
+    POICA_P_LANG_OVERLOAD_ON_KIND_CALL_MACRO(BOOST_PP_CAT(macro, BOOST_PP_SEQ_HEAD(seq)),          \
+                                             BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_POP_FRONT(seq)))
 
 #define POICA_P_LANG_OVERLOAD_ON_KIND_CALL_MACRO(macro, ...) macro(__VA_ARGS__)
 

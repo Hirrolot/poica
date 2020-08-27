@@ -32,31 +32,26 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_FIELD_NAME(field)                                                \
-    POICA_ASSERT_IS_FIELD(field)                                               \
-                                                                               \
+#define POICA_FIELD_NAME(field)                                                                    \
+    POICA_ASSERT_IS_FIELD(field)                                                                   \
+                                                                                                   \
     BOOST_PP_SEQ_ELEM(0, POICA_P_LANG_EXPAND field)
 
-#define POICA_RECORD_FIELD_NAMES_SEQ(fields)                                   \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                 \
-                                                                               \
-    POICA_P_LANG_RECORD_FIELD_X_SEQ(                                           \
-        POICA_P_LANG_RECORD_GEN_FIELD_NAMES_SEQ_VISIT, fields)
+#define POICA_RECORD_FIELD_NAMES_SEQ(fields)                                                       \
+    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+                                                                                                   \
+    POICA_P_LANG_RECORD_FIELD_X_SEQ(POICA_P_LANG_RECORD_GEN_FIELD_NAMES_SEQ_VISIT, fields)
 
-#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_SEQ_VISIT(_r, _data, field)        \
-    (POICA_FIELD_NAME((field)))
+#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_SEQ_VISIT(_r, _data, field) (POICA_FIELD_NAME((field)))
 
-#define POICA_RECORD_FIELD_NAMES_TUPLE(fields)                                 \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                 \
-                                                                               \
-    POICA_P_LANG_RECORD_FIELD_X_TUPLE(                                         \
-        POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT,                       \
-        POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST,                  \
-        fields)
+#define POICA_RECORD_FIELD_NAMES_TUPLE(fields)                                                     \
+    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+                                                                                                   \
+    POICA_P_LANG_RECORD_FIELD_X_TUPLE(POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT,             \
+                                      POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST,        \
+                                      fields)
 
-#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT(_r, _data, field)      \
-    POICA_FIELD_NAME((field)),
-#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST(field)            \
-    POICA_FIELD_NAME((field))
+#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT(_r, _data, field) POICA_FIELD_NAME((field)),
+#define POICA_P_LANG_RECORD_GEN_FIELD_NAMES_TUPLE_VISIT_LAST(field)       POICA_FIELD_NAME((field))
 
 #endif // POICA_LANG_RECORD_INTROSPECTION_FIELD_NAMES_H

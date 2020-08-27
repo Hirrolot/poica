@@ -29,7 +29,7 @@
 #include <boost/preprocessor.hpp>
 
 // Generate nothing because an empty variant has no actual type.
-#define POICA_P_LANG_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_EMPTY( \
-    _data, _variant_name)
+#define POICA_P_LANG_CHOICE_GEN_REDIRECT_VARIANT_TO_INNER_TYPE_VARIANT_KIND_EMPTY(_data,           \
+                                                                                  _variant_name)
 
 #endif // CHOICE_GEN_REDIRECTS_TO_INNER_TYPE_VARIANT_KIND_EMPTY_H

@@ -38,8 +38,7 @@
 
 #include <stdio.h>
 
-#define EXPR_PAIR                                                              \
-    field(left, const struct Expr *) field(right, const struct Expr *)
+#define EXPR_PAIR field(left, const struct Expr *) field(right, const struct Expr *)
 
 // clang-format off
 choice(
@@ -76,8 +75,7 @@ double eval(const Expr *expr) {
 #define OP(op, left, right) op(EXPR(left), EXPR(right))
 
 int main(void) {
-    Expr expr =
-        OP(Add, Const(53), OP(Sub, OP(Div, Const(155), Const(5)), Const(113)));
+    Expr expr = OP(Add, Const(53), OP(Sub, OP(Div, Const(155), Const(5)), Const(113)));
 
     /*
      * Output:

@@ -33,8 +33,7 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual sum type data is transferred through a macro:
 // POICA_CHOICE_INTROSPECT(MY_CHOICE);
-#define POICA_CHOICE_INTROSPECT(...)                                           \
-    POICA_P_LANG_CHOICE_INTROSPECT_AUX(__VA_ARGS__)
+#define POICA_CHOICE_INTROSPECT(...)                       POICA_P_LANG_CHOICE_INTROSPECT_AUX(__VA_ARGS__)
 #define POICA_P_LANG_CHOICE_INTROSPECT_AUX(name, variants) variants
 
 #define POICA_VARIANT_KIND(variant) BOOST_PP_SEQ_ELEM(0, variant)

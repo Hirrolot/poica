@@ -92,8 +92,7 @@ void destroy_tree(Tree *tree) {
 #define LEAF(number)              TREE(Leaf(number))
 
 int main(void) {
-    Tree *tree =
-        NODE(NODE(LEAF(81), 456, NODE(LEAF(90), 7, LEAF(111))), 57, LEAF(123));
+    Tree *tree = NODE(NODE(LEAF(81), 456, NODE(LEAF(90), 7, LEAF(111))), 57, LEAF(123));
 
     /*
      * Output:

@@ -38,16 +38,14 @@
 #define variantMany POICA_P_LANG_VARIANT_KIND_MANY
 #endif
 
-#define POICA_P_LANG_VARIANT(...)                                              \
-    BOOST_PP_OVERLOAD(POICA_P_LANG_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
+#define POICA_P_LANG_VARIANT(...) BOOST_PP_OVERLOAD(POICA_P_LANG_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
 
-#define POICA_P_LANG_VARIANT_KIND_MANY(variant_name, fields)                   \
+#define POICA_P_LANG_VARIANT_KIND_MANY(variant_name, fields)                                       \
     ((POICA_VARIANT_KIND_MANY)(variant_name)(fields))
 
-#define POICA_P_LANG_VARIANT_1(variant_name)                                   \
-    ((POICA_VARIANT_KIND_EMPTY)(variant_name))
+#define POICA_P_LANG_VARIANT_1(variant_name) ((POICA_VARIANT_KIND_EMPTY)(variant_name))
 
-#define POICA_P_LANG_VARIANT_2(variant_name, variant_type)                     \
+#define POICA_P_LANG_VARIANT_2(variant_name, variant_type)                                         \
     ((POICA_VARIANT_KIND_SINGLE)(variant_name)(variant_type))
 
 #endif // POICA_LANG_CHOICE_VARIANT_H

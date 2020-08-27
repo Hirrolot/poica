@@ -30,15 +30,13 @@
 
 #ifdef POICA_USE_PREFIX
 
-#define poicaOfManyMut(variant_name, var_names)                                \
-    POICA_P_LANG_OF_MANY(, variant_name, var_names)
-#define poicaOfMut(...) POICA_P_LANG_OF(, __VA_ARGS__)
+#define poicaOfManyMut(variant_name, var_names) POICA_P_LANG_OF_MANY(, variant_name, var_names)
+#define poicaOfMut(...)                         POICA_P_LANG_OF(, __VA_ARGS__)
 
 #else
 
-#define ofManyMut(variant_name, var_names)                                     \
-    POICA_P_LANG_OF_MANY(, variant_name, var_names)
-#define ofMut(...) POICA_P_LANG_OF(, __VA_ARGS__)
+#define ofManyMut(variant_name, var_names) POICA_P_LANG_OF_MANY(, variant_name, var_names)
+#define ofMut(...)                         POICA_P_LANG_OF(, __VA_ARGS__)
 
 #endif
 

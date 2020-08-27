@@ -30,7 +30,7 @@
 
 #define POICA_P_LANG_CALL_MACRO(macro, ...)
 
-#define POICA_P_LANG_CALL_MACRO_SEQ_ARGS(macro, args)                          \
+#define POICA_P_LANG_CALL_MACRO_SEQ_ARGS(macro, args)                                              \
     POICA_P_LANG_CALL_MACRO_SEQ_ARGS_AUX(macro, BOOST_PP_SEQ_ENUM(args))
 
 #define POICA_P_LANG_CALL_MACRO_SEQ_ARGS_AUX(macro, ...) macro(__VA_ARGS__)

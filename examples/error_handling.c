@@ -43,9 +43,9 @@ record(
 );
 // clang-format on
 
-#define PARSE_ERRS                                                             \
-    X(INVALID_AGE, "a range must be a nonnegative integral number")            \
-    X(NO_FIRST_APOSTROPHE, "no apostrophe before a full name")                 \
+#define PARSE_ERRS                                                                                 \
+    X(INVALID_AGE, "a range must be a nonnegative integral number")                                \
+    X(NO_FIRST_APOSTROPHE, "no apostrophe before a full name")                                     \
     X(NO_SECOND_APOSTROPHE, "no apostrophe after a full name")
 
 #define X(id, msg) id,

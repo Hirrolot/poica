@@ -39,22 +39,19 @@
 #define DefMaybe POICA_P_STD_MAYBE_DEF
 #endif
 
-#define POICA_P_STD_MAYBE_DEF(type)                                            \
-    POICA_P_LANG_CHOICE(                                                       \
-        POICA_P_LANG_P(Maybe, type),                                           \
-        POICA_P_LANG_VARIANT(POICA_P_LANG_P(Just, type), type)                 \
-            POICA_P_LANG_VARIANT(POICA_P_LANG_P(Nothing, type)));              \
-                                                                               \
-    inline static bool POICA_P_LANG_P(isJust, type)(                           \
-        POICA_P_LANG_P(Maybe, type) maybe) {                                   \
-        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Just, type));        \
-    }                                                                          \
-                                                                               \
-    inline static bool POICA_P_LANG_P(isNothing, type)(                        \
-        POICA_P_LANG_P(Maybe, type) maybe) {                                   \
-        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Nothing, type));     \
-    }                                                                          \
-                                                                               \
+#define POICA_P_STD_MAYBE_DEF(type)                                                                \
+    POICA_P_LANG_CHOICE(POICA_P_LANG_P(Maybe, type),                                               \
+                        POICA_P_LANG_VARIANT(POICA_P_LANG_P(Just, type), type)                     \
+                            POICA_P_LANG_VARIANT(POICA_P_LANG_P(Nothing, type)));                  \
+                                                                                                   \
+    inline static bool POICA_P_LANG_P(isJust, type)(POICA_P_LANG_P(Maybe, type) maybe) {           \
+        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Just, type));                            \
+    }                                                                                              \
+                                                                                                   \
+    inline static bool POICA_P_LANG_P(isNothing, type)(POICA_P_LANG_P(Maybe, type) maybe) {        \
+        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Nothing, type));                         \
+    }                                                                                              \
+                                                                                                   \
     POICA_FORCE_SEMICOLON
 
 #endif // POICA_STD_MAYBE_H

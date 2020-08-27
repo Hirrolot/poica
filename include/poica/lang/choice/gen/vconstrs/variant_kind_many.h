@@ -34,22 +34,20 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY(                     \
-    choice_name, variant_name, fields)                                         \
-    inline static choice_name variant_name(                                    \
-        POICA_P_LANG_DEFER(POICA_RECORD_FIELDS_AS_PARAMS)(fields)) {           \
-        return (choice_name){                                                  \
-            .tag = POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name),      \
-            .data.variant_name = {POICA_P_LANG_DEFER(                          \
-                POICA_P_LANG_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT)(fields)},  \
-        };                                                                     \
+#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY(choice_name, variant_name, fields)       \
+    inline static choice_name variant_name(                                                        \
+        POICA_P_LANG_DEFER(POICA_RECORD_FIELDS_AS_PARAMS)(fields)) {                               \
+        return (choice_name){                                                                      \
+            .tag = POICA_P_LANG_CHOICE_VARIANT_NAME_AS_TAG(variant_name),                          \
+            .data.variant_name = {POICA_P_LANG_DEFER(                                              \
+                POICA_P_LANG_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT)(fields)},                      \
+        };                                                                                         \
     }
 
-#define POICA_P_LANG_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT(fields)             \
-    POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS              \
+#define POICA_P_LANG_CHOICE_VCONSTR_VARIANT_KIND_MANY_INIT(fields)                                 \
+    POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS                                  \
     POICA_RECORD_FIELD_NAMES_TUPLE(fields)
 
-#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS(...)     \
-    __VA_ARGS__
+#define POICA_P_LANG_CHOICE_GEN_VCONSTR_VARIANT_KIND_MANY_EXPAND_ARGS(...) __VA_ARGS__
 
 #endif // POICA_LANG_CHOICE_GEN_VCONSTRS_VARIANT_KIND_MANY_H

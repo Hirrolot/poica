@@ -32,10 +32,10 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                 \
+#define POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                                     \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_RECORD_GEN_FIELDS_VISIT, _data, fields)
 
-#define POICA_P_LANG_RECORD_GEN_FIELDS_VISIT(_r, _data, field)                 \
+#define POICA_P_LANG_RECORD_GEN_FIELDS_VISIT(_r, _data, field)                                     \
     POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field));
 
 #endif // POICA_LANG_RECORD_GEN_FIELDS_H

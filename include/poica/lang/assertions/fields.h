@@ -33,9 +33,8 @@
 
 #ifdef POICA_ENABLE_ASSERTIONS
 
-#define POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                             \
-    POICA_ASSERT_ARE_FIELDS(fields)
-#define POICA_P_LANG_OPT_ASSERT_IS_FIELD(field) POICA_ASSERT_IS_FIELD(field)
+#define POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields) POICA_ASSERT_ARE_FIELDS(fields)
+#define POICA_P_LANG_OPT_ASSERT_IS_FIELD(field)    POICA_ASSERT_IS_FIELD(field)
 
 #else
 
@@ -44,17 +43,14 @@
 
 #endif
 
-#define POICA_ASSERT_ARE_FIELDS(fields)                                        \
-    BOOST_VMD_ASSERT_IS_SEQ(fields)                                            \
-    BOOST_PP_SEQ_FOR_EACH(                                                     \
-        POICA_P_LANG_ASSERT_IS_FIELDS_VISIT, BOOST_PP_EMPTY(), fields)
+#define POICA_ASSERT_ARE_FIELDS(fields)                                                            \
+    BOOST_VMD_ASSERT_IS_SEQ(fields)                                                                \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_ASSERT_IS_FIELDS_VISIT, BOOST_PP_EMPTY(), fields)
 
-#define POICA_P_LANG_ASSERT_IS_FIELDS_VISIT(_r, _data, field)                  \
-    POICA_ASSERT_IS_FIELD((field))
+#define POICA_P_LANG_ASSERT_IS_FIELDS_VISIT(_r, _data, field) POICA_ASSERT_IS_FIELD((field))
 
-#define POICA_ASSERT_IS_FIELD(field)                                           \
-    BOOST_VMD_ASSERT_IS_SEQ(POICA_P_LANG_EXPAND field)                         \
-    BOOST_VMD_ASSERT(                                                          \
-        BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(POICA_P_LANG_EXPAND field), 2))
+#define POICA_ASSERT_IS_FIELD(field)                                                               \
+    BOOST_VMD_ASSERT_IS_SEQ(POICA_P_LANG_EXPAND field)                                             \
+    BOOST_VMD_ASSERT(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(POICA_P_LANG_EXPAND field), 2))
 
 #endif // POICA_LANG_ASSERTIONS_FIELDS_H

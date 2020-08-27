@@ -30,20 +30,20 @@
 
 #include <boost/preprocessor.hpp>
 
-#define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                  \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                 \
-                                                                               \
-    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,      \
-                          BOOST_PP_EMPTY(),                                    \
-                          BOOST_PP_SEQ_POP_BACK(fields))                       \
-                                                                               \
-    POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(                       \
+#define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                                      \
+    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+                                                                                                   \
+    BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,                          \
+                          BOOST_PP_EMPTY(),                                                        \
+                          BOOST_PP_SEQ_POP_BACK(fields))                                           \
+                                                                                                   \
+    POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(                                           \
         BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(fields)), fields))
 
-#define POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT(_r, _data, field)       \
+#define POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT(_r, _data, field)                           \
     POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field)),
 
-#define POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(field)             \
+#define POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT_LAST(field)                                 \
     POICA_FIELD_TYPE((field)) POICA_FIELD_NAME((field))
 
 #endif // POICA_LANG_RECORD_INTROSPECTION_FIELDS_AS_PARAMS_H

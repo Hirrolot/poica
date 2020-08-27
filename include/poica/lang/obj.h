@@ -32,9 +32,9 @@
 #define obj POICA_P_LANG_OBJ
 #endif
 
-#define POICA_P_LANG_OBJ(value, value_type)                                    \
-    (value_type *)(value_type[]) {                                             \
-        value                                                                  \
+#define POICA_P_LANG_OBJ(value, value_type)                                                        \
+    (value_type *)(value_type[]) {                                                                 \
+        value                                                                                      \
     }
 
 #endif // POICA_LANG_OBJ_H

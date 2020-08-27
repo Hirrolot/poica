@@ -36,9 +36,8 @@
 #define DefPair POICA_P_STD_PAIR_DEF
 #endif
 
-#define POICA_P_STD_PAIR_DEF(fst_type, snd_type)                               \
-    POICA_P_LANG_RECORD(POICA_P_LANG_P(Pair, fst_type, snd_type),              \
-                        POICA_P_LANG_FIELD(fst, fst_type)                      \
-                            POICA_P_LANG_FIELD(snd, snd_type))
+#define POICA_P_STD_PAIR_DEF(fst_type, snd_type)                                                   \
+    POICA_P_LANG_RECORD(POICA_P_LANG_P(Pair, fst_type, snd_type),                                  \
+                        POICA_P_LANG_FIELD(fst, fst_type) POICA_P_LANG_FIELD(snd, snd_type))
 
 #endif // POICA_STD_PAIR_H
