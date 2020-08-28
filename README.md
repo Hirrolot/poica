@@ -2,7 +2,8 @@
 
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
-[![version](https://img.shields.io/badge/version-0.5.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.5.0)
+[![Version](https://img.shields.io/badge/version-0.5.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.5.0)
+[![Roadmap](https://img.shields.io/badge/roadmap-Projects%2FRoadmap-yellow)](https://github.com/Hirrolot/poica/projects/1)
 
 The goal of this project is to implement the features of modern programming languages in plain C11 via its macro system, thereby improving static reasoning and achieving a better way to organise our code.
 
@@ -21,11 +22,7 @@ The goal of this project is to implement the features of modern programming lang
    - [Dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Generic types](#generic-types)
-   - [Higher-kinded types](#higher-kinded-types)
-   - [Generalised algebraic data types](#generalised-algebraic-data-types)
-   - [Type-safe higher-order abstract syntax](#type-safe-higher-order-abstract-syntax)
  - [Options](#options)
- - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
 ## Installation
@@ -549,35 +546,12 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### Higher-kinded types
-
-TODO
-
-### Generalised algebraic data types
-
-TODO
-
-### Type-safe higher-order abstract syntax
-
-TODO
-
 ## Options
 
 There are several options, implemented via macro definitions (turned off by default):
 
  - `POICA_USE_PREFIX` -- removes all the public unprefixed `camelCase`ed and `PascalCase`ed identifiers (`match`, `DefRes`, ...) from the current translation unit. The prefixed versions (`poicaMatch`, `PoicaDefRes`, ...) are defined unconditionally.
  - `POICA_ENABLE_ASSERTIONS` -- enables some consistency checks on input data to macros. Can increase compilation time!
-
-## Roadmap
-
- - Higher-order abstract syntax
- - Allow specifying attributes on ADTs and their items (probably a breaking change).
- - Add several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1)).
- - Add a library for type-driven JSON (de)serialization (see [serde-json]).
- - Add a library for type-driven command-line argument parsing (see [clap]).
-
-[serde-json]: https://github.com/serde-rs/json
-[clap]: https://github.com/clap-rs/clap
 
 ## FAQ
 
