@@ -31,8 +31,8 @@
 
 ### Aliases
 
-|----------|----------|
 | Only with `POICA_USE_PREFIX` | Unconditionally |
+|----------|----------|
 | `choice` | `poicaChoice` |
 | `variant`, `variantMany` | `poicaVariant`, `poicaVariantMany` |
 | `variantTag` | `poicaVariantTag` |
@@ -139,8 +139,8 @@ Handles the rest of variants of a sum type, if the previous ones have been faile
 
 ## Aliases
 
-|----------|----------|
 | Only with `POICA_USE_PREFIX` | Unconditionally |
+|----------|----------|
 | `record` | `poicaRecord` |
 | `field` | `poicaField` |
 
@@ -190,8 +190,8 @@ Expands to:
 
 ### Aliases
 
-|----------|----------|
 | Only with `POICA_USE_PREFIX` | Unconditionally |
+|----------|----------|
 | `interface` | `poicaInterface` |
 | `iMethods` | `poicaIMethods` |
 | `impl` | `poicaImpl` |
@@ -244,8 +244,8 @@ Calls a virtual method on an interface object.
 
 ### Aliases
 
-|----------|----------|
 | Only with `POICA_USE_PREFIX` | Unconditionally |
+|----------|----------|
 | `obj` | `poicaObj` |
 | `Unit`, `unit` | `PoicaUnit`, `poicaUnit` |
 | `P` | `PoicaP`
