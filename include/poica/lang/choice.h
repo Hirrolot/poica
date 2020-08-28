@@ -53,7 +53,7 @@
 #define poicaChoice(...) POICA_P_LANG_CHOICE_AUX(__VA_ARGS__)
 
 #define POICA_P_LANG_CHOICE_AUX(name, variants)                                                    \
-    POICA_P_LANG_OPT_ASSERT_ARE_VARIANTS(variants)                                                 \
+    POICA_ASSERT_ARE_VARIANTS(variants)                                                            \
                                                                                                    \
     POICA_P_LANG_CHOICE_GEN_RECORDS_FOR_MANY(variants)                                             \
                                                                                                    \

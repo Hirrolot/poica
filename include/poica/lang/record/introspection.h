@@ -37,8 +37,7 @@
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual record data is transferred through a macro:
 // POICA_RECORD_INTROSPECT(MY_RECORD);
-#define POICA_RECORD_INTROSPECT(...) POICA_P_LANG_RECORD_INTROSPECT_AUX(__VA_ARGS__)
-#define POICA_P_LANG_RECORD_INTROSPECT_AUX(name, fields)                                           \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields) fields
+#define POICA_RECORD_INTROSPECT(...)                     POICA_P_LANG_RECORD_INTROSPECT_AUX(__VA_ARGS__)
+#define POICA_P_LANG_RECORD_INTROSPECT_AUX(name, fields) POICA_ASSERT_ARE_FIELDS(fields) fields
 
 #endif // POICA_LANG_RECORD_INTROSPECTION_H

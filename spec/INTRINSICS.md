@@ -3,6 +3,7 @@
  - [Introspection](#introspection)
    - [Sum types](#sum-types)
    - [Product types](#product-types)
+ - [Assertions](#assertions)
 
 ## Introspection
 
@@ -117,4 +118,24 @@ And `<field1>`, ..., `<fieldN>` will then expand according to the [rules that fi
 
 ```
 (<f1>, ..., <fm>)
+```
+
+## Assertions
+
+Assertions are utility macros that check input data for consistency. They expand to nothing on success and err compilation on failure. False negatives are possible.
+
+If `POICA_ENABLE_ASSERTIONS` is undefined in the current TU, these assertions **always** expand to an empty lexeme.
+
+### `POICA_ASSERT_ARE_FIELDS`, `POICA_ASSERT_IS_FIELD`
+
+```ebnf
+<assert-are-fields> = "POICA_ASSERT_ARE_FIELDS(" { field }+ ")"
+<assert-is-field> = "POICA_ASSERT_IS_FIELD(" field ")"
+```
+
+### `POICA_ASSERT_ARE_VARIANTS`, `POICA_ASSERT_IS_VARIANT`
+
+```ebnf
+<assert-are-variants> = "POICA_ASSERT_ARE_VARIANTS(" { variant }+ ")"
+<assert-is-variant> = "POICA_ASSERT_IS_VARIANT(" variant ")"
 ```

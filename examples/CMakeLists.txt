@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
 include_directories(../include ../preprocessor/include ../vmd/include)
-add_compile_definitions(POICA_ENABLE_ASERTIONS)
+add_compile_definitions(POICA_ENABLE_ASSERTIONS)
 
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
   add_compile_options(-Wall)

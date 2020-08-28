@@ -39,7 +39,7 @@
  * `macro` + the first element of `seq` shall be defined.
  */
 #define POICA_P_LANG_OVERLOAD_ON_KIND(macro, seq)                                                  \
-    POICA_P_LANG_OPT_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                                          \
+    POICA_P_LANG_ASSERT_IS_OVERLOAD_ON_KIND_DATA(seq)                                              \
                                                                                                    \
     BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(seq), 1),                                         \
                 POICA_P_LANG_OVERLOAD_ON_KIND_SEQ_SIZE_1,                                          \

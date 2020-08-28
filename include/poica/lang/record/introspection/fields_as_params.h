@@ -31,7 +31,7 @@
 #include <boost/preprocessor.hpp>
 
 #define POICA_RECORD_FIELDS_AS_PARAMS(fields)                                                      \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+    POICA_ASSERT_ARE_FIELDS(fields)                                                                \
                                                                                                    \
     BOOST_PP_SEQ_FOR_EACH(POICA_P_LANG_RECORD_GEN_FIELDS_AS_PARAMS_VISIT,                          \
                           BOOST_PP_EMPTY(),                                                        \

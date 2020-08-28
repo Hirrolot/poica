@@ -36,14 +36,14 @@
     POICA_ASSERT_IS_FIELD(field) BOOST_PP_SEQ_ELEM(1, POICA_P_LANG_EXPAND field)
 
 #define POICA_RECORD_FIELD_TYPES_SEQ(fields)                                                       \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+    POICA_ASSERT_ARE_FIELDS(fields)                                                                \
                                                                                                    \
     POICA_P_LANG_RECORD_FIELD_X_SEQ(POICA_P_LANG_RECORD_GEN_FIELD_TYPE_SEQ, fields)
 
 #define POICA_P_LANG_RECORD_GEN_FIELD_TYPE_SEQ(_r, _data, field) (POICA_FIELD_TYPE((field)))
 
 #define POICA_RECORD_FIELD_TYPES_TUPLE(fields)                                                     \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+    POICA_ASSERT_ARE_FIELDS(fields)                                                                \
                                                                                                    \
     POICA_P_LANG_RECORD_X_TUPLE(POICA_P_LANG_RECORD_GEN_FIELD_TYPE_TUPLE,                          \
                                 POICA_P_LANG_RECORD_GEN_FIELD_TYPE_TUPLE_LAST,                     \

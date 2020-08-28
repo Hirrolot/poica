@@ -48,7 +48,7 @@
     } name
 
 #define POICA_P_LANG_RECORD_2(name, fields)                                                        \
-    POICA_P_LANG_OPT_ASSERT_ARE_FIELDS(fields)                                                     \
+    POICA_ASSERT_ARE_FIELDS(fields)                                                                \
                                                                                                    \
     typedef struct name {                                                                          \
         POICA_P_LANG_RECORD_GEN_FIELDS(fields)                                                     \
