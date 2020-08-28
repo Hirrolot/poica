@@ -26,9 +26,10 @@
 #ifndef POICA_LANG_CHOICE_H
 #define POICA_LANG_CHOICE_H
 
+#include <poica/lang/private/consume.h>
+
 #include <poica/lang/assertions/variants.h>
 #include <poica/lang/force_semicolon.h>
-
 #include <poica/lang/record/field.h>
 
 #include <poica/lang/choice/gen/fields.h>
@@ -59,8 +60,9 @@
                                                                                                    \
     typedef struct name {                                                                          \
         enum { POICA_P_LANG_CHOICE_GEN_TAGS(variants) } tag;                                       \
-        BOOST_PP_IF(POICA_P_LANG_IS_EMPTY_STRUCT(variants), BOOST_PP_EMPTY(),                      \
-                    struct {POICA_P_LANG_CHOICE_GEN_FIELDS(variants)} data;)                       \
+        BOOST_PP_IF(POICA_P_LANG_IS_EMPTY_STRUCT(variants), POICA_P_LANG_CONSUME,                  \
+                    POICA_P_LANG_CHOICE_AUX_GEN_NON_EMPTY_STRUCT)                                  \
+        (variants)                                                                                 \
     } name;                                                                                        \
                                                                                                    \
     POICA_P_LANG_CHOICE_GEN_REDIRECTS_VARIANT_TO_INNER_TYPE(variants)                              \
@@ -68,5 +70,10 @@
     POICA_P_LANG_CHOICE_GEN_VCONSTRS(name, variants)                                               \
                                                                                                    \
     POICA_FORCE_SEMICOLON
+
+#define POICA_P_LANG_CHOICE_AUX_GEN_NON_EMPTY_STRUCT(variants)                                     \
+    struct {                                                                                       \
+        POICA_P_LANG_CHOICE_GEN_FIELDS(variants)                                                   \
+    } data;
 
 #endif // POICA_LANG_CHOICE_H
