@@ -9,24 +9,24 @@
 ## Sum types
 
 ```ebnf
-<sum-type>                  = "choice(" identifier "," { variant }+ ");" ;
-<variant>                   = "variant(" identifier ")"
-                            | "variant(" identifier "," type ")"
-                            | "variantMany(" identifier "," { field }+ ")" ;
+<sum-type>    = "choice(" <identifier> "," { <variant> }+ ");" ;
+<variant>     = "variant(" <identifier> ")"
+              | "variant(" <identifier> "," <type> ")"
+              | "variantMany(" <identifier> "," { <field> }+ ")" ;
 
-<variant-tag>               = "variantTag(" expr ")" ;
+<variant-tag> = "variantTag(" <expr> ")" ;
 
-<match>                     = "match(" expr ")" "{" { of compound-statement }+ "}" [ otherwise ] ;
-<matches>                   = "matches(" expr "," identifier ")" ;
+<match>       = "match(" <expr> ")" "{" { <of> <compound-statement> }+ "}" [ <otherwise> ] ;
+<matches>     = "matches(" <expr> "," <identifier> ")" ;
 
-<of>                        = "of(" identifier ")"
-                            | "of(" identifier "," identifier ")"
-                            | "ofMany(" identifier ", (" { identifier }+  "))" ;
-<of-mut>                    = "ofMut(" identifier ")"
-                            | "ofMut(" identifier "," identifier ")"
-                            | "ofManyMut(" identifier ", (" { identifier }+  "))" ;
+<of>          = "of(" <identifier> ")"
+              | "of(" <identifier> "," <identifier> ")"
+              | "ofMany(" <identifier> ", (" { <identifier> }+  "))" ;
+<of-mut>      = "ofMut(" <identifier> ")"
+              | "ofMut(" <identifier> "," <identifier> ")"
+              | "ofManyMut(" <identifier> ", (" { <identifier> }+  "))" ;
 
-<otherwise>                 = "otherwise" compound-statement ;
+<otherwise>   = "otherwise" <compound-statement> ;
 ```
 
 ### Aliases
@@ -132,9 +132,9 @@ Handles the rest of variants of a sum type, if the previous ones have been faile
 ## Product types
 
 ```ebnf
-<product-type>              = "record(" identifier "," { field }+ ");"
-                            | "record(" identifier ");" ;
-<field>                     = "field(" identifier "," type ")" ;
+<product-type>  = "record(" <identifier> "," { <field> }+ ");"
+                | "record(" <identifier> ");" ;
+<field>         = "field(" <identifier> "," <type> ")" ;
 ```
 
 ## Aliases
@@ -175,17 +175,17 @@ Expands to:
 ## Interfaces
 
 ```ebnf
-<interface>                 = "interface(" identifier "," { fn-ptr }+ ");" ;
-<interface-methods>         = "iMethods(" identifier "," identifier ")" ;
+<interface>            = "interface(" <identifier> "," { <fn-ptr> }+ ");" ;
+<interface-methods>    = "iMethods(" <identifier> "," <identifier> ")" ;
 
-<impl>                      = "impl(" identifier "," identifier ");"
-                            | "impl(" identifier "," identifier { "," impl-method }+ ");"
-                            | "staticImpl(" identifier "," identifier { "," impl-method }+ ");" ;
+<impl>                 = "impl(" <identifier> "," <identifier> ");"
+                       | "impl(" <identifier> "," <identifier> { "," <impl-method> }+ ");"
+                       | "staticImpl(" <identifier> "," <identifier> { "," <impl-method> }+ ");" ;
 
-<impl-method>               = "(" return-type ")" "(" identifier ")" "(" { param }* ")" "(" code ")" ;
+<impl-method>          = "(" <return-type> ")" "(" <identifier> ")" "(" { <param> }* ")" "(" { <statement> }* ")" ;
 
-<virtual-call>              = "vCall(" expr "," identifier { "," expr }*  ")" ;
-<interface-method-ptr>      = "iMethodPtr(" expr "," identifier ")" ;
+<virtual-call>         = "vCall(" <expr> "," <identifier> { "," <expr> }*  ")" ;
+<interface-method-ptr> = "iMethodPtr(" <expr> "," <identifier> ")" ;
 ```
 
 ### Aliases
@@ -233,13 +233,13 @@ Calls a virtual method on an interface object.
 ## Miscellaneous
 
 ```ebnf
-<obj>                       = "obj(" value "," value-type ")" ;
+<obj>             = "obj(" <value> "," <value-type> ")" ;
 
-<unit-type>                 = "Unit" ;
-<unit-value>                = "unit" ;
+<unit-type>       = "Unit" ;
+<unit-value>      = "unit" ;
 
-<monomorphise>              = "P(" ( identifier | identifier { "," identifier }+ ) ")" ;
-<force-semicolon>           = "POICA_FORCE_SEMICOLON"
+<monomorphise>    = "P(" <identifier> { "," <identifier> }* ")" ;
+<force-semicolon> = "POICA_FORCE_SEMICOLON" ;
 ```
 
 ### Aliases

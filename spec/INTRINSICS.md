@@ -10,12 +10,12 @@
 ### Sum types
 
 ```ebnf
-<sum-introspect>            = "POICA_CHOICE_INTROSPECT(" identifier "," { variant }+ ")" ;
+<sum-introspect>      = "POICA_CHOICE_INTROSPECT(" <identifier> "," { <variant> }+ ")" ;
 
-<variant-kind>              = "POICA_VARIANT_KIND(" variant ")" ;
-<variant-name>              = "POICA_VARIANT_NAME(" variant ")" ;
+<variant-kind>        = "POICA_VARIANT_KIND(" <variant> ")" ;
+<variant-name>        = "POICA_VARIANT_NAME(" <variant> ")" ;
 
-<overload-on-variant>       = "POICA_OVERLOAD_ON_VARIANT(" identifier "," aux-data "," variant ")" ;
+<overload-on-variant> = "POICA_OVERLOAD_ON_VARIANT(" <identifier> "," <aux-data> "," <variant> ")" ;
 ```
 
 ### `<sum-introspect>`
@@ -65,15 +65,15 @@ variantMany(<variant-name>, field(<f1>, <F1>) ... field(<fm>, <Fm>))
 ### Product types
 
 ```ebnf
-<product-introspect>        = "POICA_RECORD_INTROSPECT(" identifier "," { field }+ ")" ;
+<product-introspect>        = "POICA_RECORD_INTROSPECT(" <identifier> "," { <field> }+ ")" ;
 
-<field-type>                = "POICA_FIELD_TYPE(" field ")" ;
-<product-field-types-seq>   = "POICA_RECORD_FIELD_TYPES_SEQ(" { field }+ ")" ;
-<product-field-types-tuple> = "POICA_RECORD_FIELD_TYPES_TUPLE(" { field }+ ")" ;
+<field-type>                = "POICA_FIELD_TYPE(" <field> ")" ;
+<product-field-types-seq>   = "POICA_RECORD_FIELD_TYPES_SEQ(" { <field> }+ ")" ;
+<product-field-types-tuple> = "POICA_RECORD_FIELD_TYPES_TUPLE(" { <field> }+ ")" ;
 
-<field-name>                = "POICA_FIELD_NAME(" field ")" ;
-<product-field-names-seq>   = "POICA_RECORD_FIELD_NAMES_SEQ(" { field }+ ")" ;
-<product-field-names-tuple> = "POICA_RECORD_FIELD_NAMES_TUPLE(" { field }+ ")" ;
+<field-name>                = "POICA_FIELD_NAME(" <field> ")" ;
+<product-field-names-seq>   = "POICA_RECORD_FIELD_NAMES_SEQ(" { <field> }+ ")" ;
+<product-field-names-tuple> = "POICA_RECORD_FIELD_NAMES_TUPLE(" { <field> }+ ")" ;
 ```
 
 ### `<product-introspect>`
@@ -129,13 +129,13 @@ If `POICA_ENABLE_ASSERTIONS` is undefined in the current TU, these assertions **
 ### `POICA_ASSERT_ARE_FIELDS`, `POICA_ASSERT_IS_FIELD`
 
 ```ebnf
-<assert-are-fields> = "POICA_ASSERT_ARE_FIELDS(" { field }+ ")"
-<assert-is-field> = "POICA_ASSERT_IS_FIELD(" field ")"
+<assert-are-fields> = "POICA_ASSERT_ARE_FIELDS(" { <field> }+ ")"
+<assert-is-field>   = "POICA_ASSERT_IS_FIELD(" <field> ")"
 ```
 
 ### `POICA_ASSERT_ARE_VARIANTS`, `POICA_ASSERT_IS_VARIANT`
 
 ```ebnf
-<assert-are-variants> = "POICA_ASSERT_ARE_VARIANTS(" { variant }+ ")"
-<assert-is-variant> = "POICA_ASSERT_IS_VARIANT(" variant ")"
+<assert-are-variants> = "POICA_ASSERT_ARE_VARIANTS(" { <variant> }+ ")"
+<assert-is-variant>   = "POICA_ASSERT_IS_VARIANT(" <variant> ")"
 ```
