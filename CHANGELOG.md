@@ -21,6 +21,7 @@ Now poica is rather a general-purpose programming language.
 
 ### Changed
  - Split the sources into the standard library and the language core.
+ - The prefixed `camelCase`ed and `PascalCase`ed public macros are now defined unconditionally.
 
 ## [0.5.0] - 2020-07-18
 
