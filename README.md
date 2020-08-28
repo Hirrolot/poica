@@ -565,7 +565,7 @@ TODO
 
 There are several options, implemented via macro definitions (turned off by default):
 
- - `POICA_USE_PREFIX` -- prefixes all the public `camelCase`ed and `PascalCase`ed identifiers (`match` -> `poicaMatch`, `DefRes` -> `PoicaDefRes`, ...) in the current translation unit.
+ - `POICA_USE_PREFIX` -- removes all the public `camelCase`ed and `PascalCase`ed identifiers (`match`, `DefRes`, ...) from the current translation unit. The prefixed versions (`poicaMatch`, `PoicaDefRes`, ...) are defined unconditionally.
  - `POICA_ENABLE_ASSERTIONS` -- enables some consistency checks on input data to macros. Can increase compilation time!
 
 ## Roadmap
