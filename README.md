@@ -21,9 +21,6 @@ The goal of this project is to implement the features of modern programming lang
    - [Dynamic dispatch](#dynamic-dispatch)
  - [Type-generic programming](#type-generic-programming)
    - [Generic types](#generic-types)
-   - [Higher-kinded types](#higher-kinded-types)
-   - [Generalised algebraic data types](#generalised-algebraic-data-types)
-   - [Type-safe higher-order abstract syntax](#type-safe-higher-order-abstract-syntax)
  - [Options](#options)
  - [Roadmap](#roadmap)
  - [FAQ](#faq)
@@ -549,18 +546,6 @@ int main(void) {
 
 There's nothing much to say, except that `P` (which stands for _polymorphic_) expands to a unique function or type identifier, e.g. performs type substitution.
 
-### Higher-kinded types
-
-TODO
-
-### Generalised algebraic data types
-
-TODO
-
-### Type-safe higher-order abstract syntax
-
-TODO
-
 ## Options
 
 There are several options, implemented via macro definitions (turned off by default):
@@ -570,11 +555,13 @@ There are several options, implemented via macro definitions (turned off by defa
 
 ## Roadmap
 
- - Higher-order abstract syntax
- - Allow specifying attributes on ADTs and their items (probably a breaking change).
- - Add several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1)).
- - Add a library for type-driven JSON (de)serialization (see [serde-json]).
- - Add a library for type-driven command-line argument parsing (see [clap]).
+ - Higher-kinded types ([in progress](examples/hkt.c));
+ - Generalised algebraic data types ([in progress](examples/int_bool_ast.c));
+ - [Type-safe higher-order abstract syntax](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type#Higher-order_abstract_syntax);
+ - Allow specifying attributes on ADTs and their items (probably a breaking change);
+ - Several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1));
+ - A library for type-driven JSON (de)serialization (see [serde-json]);
+ - A library for type-driven command-line argument parsing (see [clap]);
 
 [serde-json]: https://github.com/serde-rs/json
 [clap]: https://github.com/clap-rs/clap
