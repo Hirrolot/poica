@@ -2,7 +2,7 @@
 
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
-[![Version](https://img.shields.io/badge/version-0.5.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.5.0)
+[![Version](https://img.shields.io/badge/version-0.6.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.6.0)
 [![Roadmap](https://img.shields.io/badge/roadmap-Projects%2FRoadmap-yellow)](https://github.com/Hirrolot/poica/projects/1)
 
 The goal of this project is to implement the features of modern programming languages in plain C11 via its macro system, thereby improving static reasoning and achieving a better way to organise our code.
