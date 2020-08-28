@@ -12,6 +12,7 @@ Now poica is rather a general-purpose programming language.
  - Interfaces: `interface`, `iMethods`, `impl`, `staticImpl`, `vCall`, `iMethodPtr`.
  - The second form of `record`: `record(MyRecord);`.
  - Check macro parameters for consistency (might result in false negatives) via the `POICA_ENABLE_ASSERTIONS` compile-time option.
+ - Assertions: `POICA_ASSERT_ARE_FIELDS`, `POICA_ASSERT_IS_FIELD`, `POICA_ASSERT_ARE_VARIANTS`, `POICA_ASSERT_IS_VARIANT`.
 
 ### Removed
  - `examples/message_passing.c`, because I don't want to depend on third-party libraries in the examples.
