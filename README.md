@@ -2,7 +2,8 @@
 
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
-[![version](https://img.shields.io/badge/version-0.5.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.5.0)
+[![Version](https://img.shields.io/badge/version-0.5.0-orange.svg)](https://github.com/Hirrolot/poica/releases/tag/v0.5.0)
+[![Roadmap](https://img.shields.io/badge/roadmap-projects%2F1-yellow)](https://github.com/Hirrolot/poica/projects/1)
 
 The goal of this project is to implement the features of modern programming languages in plain C11 via its macro system, thereby improving static reasoning and achieving a better way to organise our code.
 
@@ -22,7 +23,6 @@ The goal of this project is to implement the features of modern programming lang
  - [Type-generic programming](#type-generic-programming)
    - [Generic types](#generic-types)
  - [Options](#options)
- - [Roadmap](#roadmap)
  - [FAQ](#faq)
 
 ## Installation
@@ -552,19 +552,6 @@ There are several options, implemented via macro definitions (turned off by defa
 
  - `POICA_USE_PREFIX` -- removes all the public unprefixed `camelCase`ed and `PascalCase`ed identifiers (`match`, `DefRes`, ...) from the current translation unit. The prefixed versions (`poicaMatch`, `PoicaDefRes`, ...) are defined unconditionally.
  - `POICA_ENABLE_ASSERTIONS` -- enables some consistency checks on input data to macros. Can increase compilation time!
-
-## Roadmap
-
- - Higher-kinded types ([in progress](examples/hkt.c));
- - Generalised algebraic data types ([in progress](examples/int_bool_ast.c));
- - [Type-safe higher-order abstract syntax](https://en.wikipedia.org/wiki/Generalized_algebraic_data_type#Higher-order_abstract_syntax);
- - Allow specifying attributes on ADTs and their items (probably a breaking change);
- - Several libraries of wrappers for common libraries (see [issue #1](https://github.com/Hirrolot/poica/issues/1));
- - A library for type-driven JSON (de)serialization (see [serde-json]);
- - A library for type-driven command-line argument parsing (see [clap]);
-
-[serde-json]: https://github.com/serde-rs/json
-[clap]: https://github.com/clap-rs/clap
 
 ## FAQ
 
