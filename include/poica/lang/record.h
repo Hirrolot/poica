@@ -36,17 +36,15 @@
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>
 
-#ifdef POICA_USE_PREFIX
-#define poicaRecord POICA_P_LANG_RECORD
-#else
-#define record POICA_P_LANG_RECORD
+#ifndef POICA_USE_PREFIX
+#define record poicaRecord
 #endif
 
-#define POICA_P_LANG_RECORD(...) BOOST_PP_OVERLOAD(POICA_P_LANG_RECORD_, __VA_ARGS__)(__VA_ARGS__)
+#define poicaRecord(...) BOOST_PP_OVERLOAD(POICA_P_LANG_RECORD_, __VA_ARGS__)(__VA_ARGS__)
 
 #define POICA_P_LANG_RECORD_1(name)                                                                \
     typedef struct name {                                                                          \
-        Unit _;                                                                                    \
+        PoicaUnit _;                                                                               \
     } name
 
 #define POICA_P_LANG_RECORD_2(name, fields)                                                        \

@@ -43,16 +43,14 @@
 
 #include <boost/preprocessor.hpp>
 
-#ifdef POICA_USE_PREFIX
-#define poicaChoice POICA_P_LANG_CHOICE
-#else
-#define choice POICA_P_LANG_CHOICE
+#ifndef POICA_USE_PREFIX
+#define choice poicaChoice
 #endif
 
 // This macro is variadic because, due to type introspection, it must work
 // correctly if actual sum type data is transferred through a macro:
 // choice(MY_CHOICE);
-#define POICA_P_LANG_CHOICE(...) POICA_P_LANG_CHOICE_AUX(__VA_ARGS__)
+#define poicaChoice(...) POICA_P_LANG_CHOICE_AUX(__VA_ARGS__)
 
 #define POICA_P_LANG_CHOICE_AUX(name, variants)                                                    \
     POICA_P_LANG_OPT_ASSERT_ARE_VARIANTS(variants)                                                 \

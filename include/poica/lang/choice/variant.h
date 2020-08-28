@@ -30,18 +30,14 @@
 
 #include <boost/preprocessor.hpp>
 
-#ifdef POICA_USE_PREFIX
-#define poicaVariant     POICA_P_LANG_VARIANT
-#define poicaVariantMany POICA_P_LANG_VARIANT_KIND_MANY
-#else
-#define variant     POICA_P_LANG_VARIANT
-#define variantMany POICA_P_LANG_VARIANT_KIND_MANY
+#ifndef POICA_USE_PREFIX
+#define variant     poicaVariant
+#define variantMany poicaVariantMany
 #endif
 
-#define POICA_P_LANG_VARIANT(...) BOOST_PP_OVERLOAD(POICA_P_LANG_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
+#define poicaVariant(...) BOOST_PP_OVERLOAD(POICA_P_LANG_VARIANT_, __VA_ARGS__)(__VA_ARGS__)
 
-#define POICA_P_LANG_VARIANT_KIND_MANY(variant_name, fields)                                       \
-    ((POICA_VARIANT_KIND_MANY)(variant_name)(fields))
+#define poicaVariantMany(variant_name, fields) ((POICA_VARIANT_KIND_MANY)(variant_name)(fields))
 
 #define POICA_P_LANG_VARIANT_1(variant_name) ((POICA_VARIANT_KIND_EMPTY)(variant_name))
 

@@ -26,33 +26,31 @@
 #ifndef POICA_STD_EITHER_H
 #define POICA_STD_EITHER_H
 
+#include <poica/lang/choice.h>
 #include <poica/lang/force_semicolon.h>
 #include <poica/lang/p.h>
 
-#include <poica/lang/choice.h>
-
 #include <stdbool.h>
 
-#ifdef POICA_USE_PREFIX
-#define PoicaDefEither POICA_P_STD_EITHER_DEF
-#else
-#define DefEither POICA_P_STD_EITHER_DEF
+#ifndef POICA_USE_PREFIX
+
+#define DefEither PoicaDefEither
+
 #endif
 
-#define POICA_P_STD_EITHER_DEF(left_type, right_type)                                              \
-    POICA_P_LANG_CHOICE(                                                                           \
-        POICA_P_LANG_P(Either, left_type, right_type),                                             \
-        POICA_P_LANG_VARIANT(POICA_P_LANG_P(Left, left_type, right_type), left_type)               \
-            POICA_P_LANG_VARIANT(POICA_P_LANG_P(Right, left_type, right_type), right_type));       \
+#define PoicaDefEither(left_type, right_type)                                                      \
+    poicaChoice(PoicaP(Either, left_type, right_type),                                             \
+                poicaVariant(PoicaP(Left, left_type, right_type), left_type)                       \
+                    poicaVariant(PoicaP(Right, left_type, right_type), right_type));               \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isLeft, left_type, right_type)(                              \
-        POICA_P_LANG_P(Either, left_type, right_type) either) {                                    \
-        return POICA_P_LANG_MATCHES(either, POICA_P_LANG_P(Left, left_type, right_type));          \
+    inline static bool PoicaP(isLeft, left_type, right_type)(PoicaP(Either, left_type, right_type) \
+                                                                 either) {                         \
+        return poicaMatches(either, PoicaP(Left, left_type, right_type));                          \
     }                                                                                              \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isRight, left_type, right_type)(                             \
-        POICA_P_LANG_P(Either, left_type, right_type) either) {                                    \
-        return POICA_P_LANG_MATCHES(either, POICA_P_LANG_P(Right, left_type, right_type));         \
+    inline static bool PoicaP(isRight, left_type, right_type)(                                     \
+        PoicaP(Either, left_type, right_type) either) {                                            \
+        return poicaMatches(either, PoicaP(Right, left_type, right_type));                         \
     }                                                                                              \
                                                                                                    \
     POICA_FORCE_SEMICOLON

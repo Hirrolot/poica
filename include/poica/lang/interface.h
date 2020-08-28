@@ -33,27 +33,15 @@
 #include <boost/preprocessor.hpp>
 #include <boost/vmd/vmd.hpp>
 
-#ifdef POICA_USE_PREFIX
+#ifndef POICA_USE_PREFIX
 
-#define poicaInterface  POICA_P_LANG_INTERFACE
-#define PoicaIMethods   POICA_P_LANG_I_METHODS
-#define poicaImpl       POICA_P_LANG_IMPL
-#define poicaStaticImpl POICA_P_LANG_STATIC_IMPL
-#define poicaVCall      POICA_P_LANG_V_CALL
-#define poicaIMethodPtr POICA_P_LANG_I_METHOD_PTR
-
-#define POICA_P_LANG_NEW_I_OBJ poicaNewIObj
-
-#else
-
-#define interface  POICA_P_LANG_INTERFACE
-#define iMethods   POICA_P_LANG_I_METHODS
-#define impl       POICA_P_LANG_IMPL
-#define staticImpl POICA_P_LANG_STATIC_IMPL
-#define vCall      POICA_P_LANG_V_CALL
-#define iMethodPtr POICA_P_LANG_I_METHOD_PTR
-
-#define POICA_P_LANG_NEW_I_OBJ newIObj
+#define newIObj    poicaNewIObj
+#define interface  poicaInterface
+#define iMethods   poicaIMethods
+#define impl       poicaImpl
+#define staticImpl poicaStaticImpl
+#define vCall      poicaVCall
+#define iMethodPtr poicaIMethodPtr
 
 #endif
 
@@ -61,7 +49,7 @@
 
 #define BOOST_VMD_DETECT_for_for
 
-#define POICA_P_LANG_INTERFACE(name, methods)                                                      \
+#define poicaInterface(name, methods)                                                              \
     typedef struct POICA_P_LANG_VTABLE(name) {                                                     \
         methods                                                                                    \
     } POICA_P_LANG_VTABLE(name);                                                                   \
@@ -78,13 +66,12 @@
                                                                                                    \
     POICA_FORCE_SEMICOLON
 
-#define POICA_P_LANG_I_METHOD_PTR(interface_obj, method_name)                                      \
-    ((interface_obj).poica_p_vtable->method_name)
+#define poicaIMethodPtr(interface_obj, method_name) ((interface_obj).poica_p_vtable->method_name)
 
-#define POICA_P_LANG_I_METHODS(interface_name, implementer_name)                                   \
+#define poicaIMethods(interface_name, implementer_name)                                            \
     POICA_P_LANG_VTABLE(interface_name, implementer_name)
 
-#define POICA_P_LANG_IMPL(...)                                                                     \
+#define poicaImpl(...)                                                                             \
     BOOST_PP_IF(BOOST_PP_EQUAL(BOOST_PP_VARIADIC_SIZE(__VA_ARGS__), 1),                            \
                 POICA_P_LANG_IMPL_1,                                                               \
                 POICA_P_LANG_IMPL_2)                                                               \
@@ -117,7 +104,7 @@
 #define POICA_P_LANG_IMPL_2_AUX(interface_name, implementer_name, ...)                             \
     POICA_P_LANG_INTERFACE_IMPL_AUX(BOOST_PP_EMPTY(), interface_name, implementer_name, __VA_ARGS__)
 
-#define POICA_P_LANG_STATIC_IMPL(data, methods)                                                    \
+#define poicaStaticImpl(data, methods)                                                             \
     POICA_P_LANG_STATIC_IMPL_AUX(POICA_P_LANG_EXPAND BOOST_VMD_ELEM(0, data),                      \
                                  POICA_P_LANG_EXPAND BOOST_VMD_ELEM(2, data),                      \
                                  methods)                                                          \
@@ -241,7 +228,7 @@
 
 #define POICA_P_LANG_INTERFACE_MUT_NAME(name) BOOST_PP_CAT(name, Mut)
 
-#define POICA_P_LANG_V_CALL(interface_obj, method_name, ...)                                       \
+#define poicaVCall(interface_obj, method_name, ...)                                                \
     BOOST_PP_IF(                                                                                   \
         BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                                           \
         (interface_obj).poica_p_vtable->method_name((interface_obj).poica_p_self),                 \
@@ -249,8 +236,7 @@
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                                      \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier)                     \
-    inline static interface_name POICA_P_LANG_P(                                                   \
-        POICA_P_LANG_NEW_I_OBJ, interface_name, implementer_name)(                                 \
+    inline static interface_name PoicaP(poicaNewIObj, interface_name, implementer_name)(           \
         self_qualifier implementer_name * self) {                                                  \
         interface_name i_obj;                                                                      \
         i_obj.poica_p_self = self;                                                                 \

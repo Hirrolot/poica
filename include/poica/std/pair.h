@@ -27,17 +27,16 @@
 #define POICA_STD_PAIR_H
 
 #include <poica/lang/p.h>
-
 #include <poica/lang/record.h>
 
-#ifdef POICA_USE_PREFIX
-#define PoicaDefPair POICA_P_STD_PAIR_DEF
-#else
-#define DefPair POICA_P_STD_PAIR_DEF
+#ifndef POICA_USE_PREFIX
+
+#define DefPair PoicaDefPair
+
 #endif
 
-#define POICA_P_STD_PAIR_DEF(fst_type, snd_type)                                                   \
-    POICA_P_LANG_RECORD(POICA_P_LANG_P(Pair, fst_type, snd_type),                                  \
-                        POICA_P_LANG_FIELD(fst, fst_type) POICA_P_LANG_FIELD(snd, snd_type))
+#define PoicaDefPair(fst_type, snd_type)                                                           \
+    poicaRecord(PoicaP(Pair, fst_type, snd_type),                                                  \
+                poicaField(fst, fst_type) poicaField(snd, snd_type))
 
 #endif // POICA_STD_PAIR_H

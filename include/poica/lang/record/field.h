@@ -26,12 +26,10 @@
 #ifndef POICA_LANG_RECORD_FIELD_H
 #define POICA_LANG_RECORD_FIELD_H
 
-#ifdef POICA_USE_PREFIX
-#define poicaField POICA_P_LANG_FIELD
-#else
-#define field POICA_P_LANG_FIELD
+#ifndef POICA_USE_PREFIX
+#define field poicaField
 #endif
 
-#define POICA_P_LANG_FIELD(field_name, field_type) ((field_name)(field_type))
+#define poicaField(field_name, field_type) ((field_name)(field_type))
 
 #endif // POICA_LANG_RECORD_FIELD_H

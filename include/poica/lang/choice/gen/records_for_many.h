@@ -55,7 +55,7 @@
 
 #define POICA_P_LANG_CHOICE_GEN_RECORDS_FOR_MANY_VISIT_VARIANT_KIND_MANY(                          \
     _data, variant_name, fields)                                                                   \
-    POICA_P_LANG_DEFER(POICA_P_LANG_RECORD)                                                        \
+    POICA_P_LANG_DEFER(poicaRecord)                                                                \
     (POICA_P_LANG_CHOICE_REDIRECT_VARIANT_TO_INNER_TYPE(variant_name), fields);                    \
                                                                                                    \
     POICA_P_LANG_DEFER(POICA_P_LANG_CHOICE_RECORD_FOR_MANY_GEN_REDIRECTS_TO_FIELD_TYPE)            \

@@ -29,6 +29,18 @@
 <otherwise>                 = "otherwise" compound-statement ;
 ```
 
+### Aliases
+
+|----------|----------|
+| Only with `POICA_USE_PREFIX` | Unconditionally |
+| `choice` | `poicaChoice` |
+| `variant`, `variantMany` | `poicaVariant`, `poicaVariantMany` |
+| `variantTag` | `poicaVariantTag` |
+| `match`, `matches` | `poicaMatch`, `poicaMatches` |
+| `of`, `ofMany` | `poicaOf`, `poicaOfMany` |
+| `ofMut`, `ofManyMut` | `poicaOfMut`, `poicaOfManyMut` |
+| `otherwise` | `poicaOtherwise` |
+
 ### `<sum-type>`
 
 Expands to:
@@ -125,6 +137,13 @@ Handles the rest of variants of a sum type, if the previous ones have been faile
 <field>                     = "field(" identifier "," type ")" ;
 ```
 
+## Aliases
+
+|----------|----------|
+| Only with `POICA_USE_PREFIX` | Unconditionally |
+| `record` | `poicaRecord` |
+| `field` | `poicaField` |
+
 ### `<product-type>`
 
 The first alternative expands to:
@@ -169,6 +188,17 @@ Expands to:
 <interface-method-ptr>      = "iMethodPtr(" expr "," identifier ")" ;
 ```
 
+### Aliases
+
+|----------|----------|
+| Only with `POICA_USE_PREFIX` | Unconditionally |
+| `interface` | `poicaInterface` |
+| `iMethods` | `poicaIMethods` |
+| `impl` | `poicaImpl` |
+| `vCall` | `poicaVCall` |
+| `iMethodPtr` | `poicaIMethodPtr` |
+| `newIObj` | `poicaNewIObj` |
+
 ### `<interface>`
 
 Defines an interface. The first parameter is a name of an interface, the second one is pointers to functions in the following form:
@@ -211,6 +241,14 @@ Calls a virtual method on an interface object.
 <monomorphise>              = "P(" ( identifier | identifier { "," identifier }+ ) ")" ;
 <force-semicolon>           = "POICA_FORCE_SEMICOLON"
 ```
+
+### Aliases
+
+|----------|----------|
+| Only with `POICA_USE_PREFIX` | Unconditionally |
+| `obj` | `poicaObj` |
+| `Unit`, `unit` | `PoicaUnit`, `poicaUnit` |
+| `P` | `PoicaP`
 
 ### `<obj>`
 

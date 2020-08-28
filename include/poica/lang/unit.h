@@ -1,22 +1,17 @@
 #ifndef POICA_LANG_UNIT_H
 #define POICA_LANG_UNIT_H
 
-#ifdef POICA_USE_PREFIX
-
 typedef struct PoicaUnit {
     char poica_p_untouched;
 } PoicaUnit;
 
 static const PoicaUnit poicaUnit;
 
-#else
+#ifndef POICA_USE_PREFIX
 
-typedef struct Unit {
-    char poica_p_untouched;
-} Unit;
+typedef PoicaUnit Unit;
+#define unit poicaUnit
 
-static const Unit unit;
-
-#endif // POICA_LANG_USE_PREFIX
+#endif
 
 #endif // POICA_LANG_UNIT_H

@@ -33,26 +33,23 @@
 
 #include <stdbool.h>
 
-#ifdef POICA_USE_PREFIX
-#define PoicaDefRes POICA_P_LANG_RES_DEF
-#else
-#define DefRes POICA_P_LANG_RES_DEF
+#ifndef POICA_USE_PREFIX
+
+#define DefRes PoicaDefRes
+
 #endif
 
-#define POICA_P_LANG_RES_DEF(ok_type, err_type)                                                    \
-    POICA_P_LANG_CHOICE(                                                                           \
-        POICA_P_LANG_P(Res, ok_type, err_type),                                                    \
-        POICA_P_LANG_VARIANT(POICA_P_LANG_P(Ok, ok_type, err_type), ok_type)                       \
-            POICA_P_LANG_VARIANT(POICA_P_LANG_P(Err, ok_type, err_type), err_type));               \
+#define PoicaDefRes(ok_type, err_type)                                                             \
+    poicaChoice(PoicaP(Res, ok_type, err_type),                                                    \
+                poicaVariant(PoicaP(Ok, ok_type, err_type), ok_type)                               \
+                    poicaVariant(PoicaP(Err, ok_type, err_type), err_type));                       \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isOk, ok_type, err_type)(                                    \
-        POICA_P_LANG_P(Res, ok_type, err_type) res) {                                              \
-        return POICA_P_LANG_MATCHES(res, POICA_P_LANG_P(Ok, ok_type, err_type));                   \
+    inline static bool PoicaP(isOk, ok_type, err_type)(PoicaP(Res, ok_type, err_type) res) {       \
+        return poicaMatches(res, PoicaP(Ok, ok_type, err_type));                                   \
     }                                                                                              \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isErr, ok_type, err_type)(                                   \
-        POICA_P_LANG_P(Res, ok_type, err_type) res) {                                              \
-        return POICA_P_LANG_MATCHES(res, POICA_P_LANG_P(Err, ok_type, err_type));                  \
+    inline static bool PoicaP(isErr, ok_type, err_type)(PoicaP(Res, ok_type, err_type) res) {      \
+        return poicaMatches(res, PoicaP(Err, ok_type, err_type));                                  \
     }                                                                                              \
                                                                                                    \
     POICA_FORCE_SEMICOLON

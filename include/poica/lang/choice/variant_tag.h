@@ -26,12 +26,10 @@
 #ifndef POICA_LANG_CHOICE_VARIANT_TAG_H
 #define POICA_LANG_CHOICE_VARIANT_TAG_H
 
-#ifdef POICA_USE_PREFIX
-#define poicaVariantTag POICA_P_LANG_VARIANT_TAG
-#else
-#define variantTag POICA_P_LANG_VARIANT_TAG
+#ifndef POICA_USE_PREFIX
+#define variantTag poicaVariantTag
 #endif
 
-#define POICA_P_LANG_VARIANT_TAG(val) ((val).tag)
+#define poicaVariantTag(val) ((val).tag)
 
 #endif // POICA_LANG_CHOICE_VARIANT_TAG_H

@@ -28,12 +28,10 @@
 
 #include <boost/preprocessor.hpp>
 
-#ifdef POICA_USE_PREFIX
-#define PoicaP POICA_P_LANG_P
-#else
-#define P POICA_P_LANG_P
+#ifndef POICA_USE_PREFIX
+#define P PoicaP
 #endif
 
-#define POICA_P_LANG_P(...) BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
+#define PoicaP(...) BOOST_PP_SEQ_CAT(BOOST_PP_VARIADIC_TO_SEQ(__VA_ARGS__))
 
 #endif // P_H

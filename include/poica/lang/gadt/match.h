@@ -60,7 +60,7 @@
     (POICA_P_LANG_MAP_ITEM_KEY((arms)), val, arms)
 
 #define POICA_P_LANG_MATCH_GADT_VISIT_AUX(arm_types, val, arms)                                    \
-    POICA_P_LANG_MATCH(val) {                                                                      \
+    poicaMatch(val) {                                                                              \
         POICA_P_LANG_DEFER(BOOST_PP_SEQ_FOR_EACH)                                                  \
         (POICA_P_LANG_MATCH_GADT_VISIT_AUX_GEN_ARM,                                                \
          arm_types,                                                                                \

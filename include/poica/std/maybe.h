@@ -33,23 +33,22 @@
 
 #include <stdbool.h>
 
-#ifdef POICA_USE_PREFIX
-#define PoicaDefMaybe POICA_P_STD_MAYBE_DEF
-#else
-#define DefMaybe POICA_P_STD_MAYBE_DEF
+#ifndef POICA_USE_PREFIX
+
+#define DefMaybe PoicaDefMaybe
+
 #endif
 
-#define POICA_P_STD_MAYBE_DEF(type)                                                                \
-    POICA_P_LANG_CHOICE(POICA_P_LANG_P(Maybe, type),                                               \
-                        POICA_P_LANG_VARIANT(POICA_P_LANG_P(Just, type), type)                     \
-                            POICA_P_LANG_VARIANT(POICA_P_LANG_P(Nothing, type)));                  \
+#define PoicaDefMaybe(type)                                                                        \
+    poicaChoice(PoicaP(Maybe, type),                                                               \
+                poicaVariant(PoicaP(Just, type), type) poicaVariant(PoicaP(Nothing, type)));       \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isJust, type)(POICA_P_LANG_P(Maybe, type) maybe) {           \
-        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Just, type));                            \
+    inline static bool PoicaP(isJust, type)(PoicaP(Maybe, type) maybe) {                           \
+        return poicaMatches(maybe, PoicaP(Just, type));                                            \
     }                                                                                              \
                                                                                                    \
-    inline static bool POICA_P_LANG_P(isNothing, type)(POICA_P_LANG_P(Maybe, type) maybe) {        \
-        return POICA_P_LANG_MATCHES(maybe, POICA_P_LANG_P(Nothing, type));                         \
+    inline static bool PoicaP(isNothing, type)(PoicaP(Maybe, type) maybe) {                        \
+        return poicaMatches(maybe, PoicaP(Nothing, type));                                         \
     }                                                                                              \
                                                                                                    \
     POICA_FORCE_SEMICOLON

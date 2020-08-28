@@ -28,16 +28,14 @@
 
 #include <poica/lang/choice/pattern_matching/aux.h>
 
-#ifdef POICA_USE_PREFIX
+#ifndef POICA_USE_PREFIX
+
+#define ofManyMut poicaOfManyMut
+#define ofMut     poicaOfMut
+
+#endif
 
 #define poicaOfManyMut(variant_name, var_names) POICA_P_LANG_OF_MANY(, variant_name, var_names)
 #define poicaOfMut(...)                         POICA_P_LANG_OF(, __VA_ARGS__)
-
-#else
-
-#define ofManyMut(variant_name, var_names) POICA_P_LANG_OF_MANY(, variant_name, var_names)
-#define ofMut(...)                         POICA_P_LANG_OF(, __VA_ARGS__)
-
-#endif
 
 #endif // POICA_LANG_CHOICE_PATTERN_MATCHING_MUT_H

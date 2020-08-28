@@ -36,26 +36,18 @@
 
 #include <boost/preprocessor.hpp>
 
-#ifdef POICA_USE_PREFIX
+#ifndef POICA_USE_PREFIX
 
-#define poicaTry(val, ok_type_1, ok_type_2, err_type)                                              \
-    POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)
-
-#else
-
-// clang-format off
-#define try(val, ok_type_1, ok_type_2, err_type)                               \
-    POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)
-// clang-format on
+#define try poicaTry
 
 #endif
 
-#define POICA_P_STD_TRY(val, ok_type_1, ok_type_2, err_type)                                       \
-    POICA_P_LANG_MATCH(val) {                                                                      \
-        POICA_P_LANG_OF(const, POICA_P_LANG_P(Err, ok_type_1, err_type), err) {                    \
-            return POICA_P_LANG_P(Err, ok_type_2, err_type)(*err);                                 \
+#define poicaTry(val, ok_type_1, ok_type_2, err_type)                                              \
+    poicaMatch(val) {                                                                              \
+        poicaOf(PoicaP(Err, ok_type_1, err_type), err) {                                           \
+            return PoicaP(Err, ok_type_2, err_type)(*err);                                         \
         }                                                                                          \
-        POICA_P_LANG_OTHERWISE {}                                                                  \
+        poicaOtherwise {}                                                                          \
     }
 
 #endif // POICA_STD_TRY_H
