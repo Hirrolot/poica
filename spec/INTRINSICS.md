@@ -129,13 +129,13 @@ If `POICA_ENABLE_ASSERTIONS` is undefined in the current TU, these assertions **
 ### `POICA_ASSERT_ARE_FIELDS`, `POICA_ASSERT_IS_FIELD`
 
 ```ebnf
-<assert-are-fields> = "POICA_ASSERT_ARE_FIELDS(" { <field> }+ ")"
-<assert-is-field>   = "POICA_ASSERT_IS_FIELD(" <field> ")"
+<assert-are-fields> = "POICA_ASSERT_ARE_FIELDS(" { <field> }+ ")" ;
+<assert-is-field>   = "POICA_ASSERT_IS_FIELD(" <field> ")" ;
 ```
 
 ### `POICA_ASSERT_ARE_VARIANTS`, `POICA_ASSERT_IS_VARIANT`
 
 ```ebnf
-<assert-are-variants> = "POICA_ASSERT_ARE_VARIANTS(" { <variant> }+ ")"
-<assert-is-variant>   = "POICA_ASSERT_IS_VARIANT(" <variant> ")"
+<assert-are-variants> = "POICA_ASSERT_ARE_VARIANTS(" { <variant> }+ ")" ;
+<assert-is-variant>   = "POICA_ASSERT_IS_VARIANT(" <variant> ")" ;
 ```
