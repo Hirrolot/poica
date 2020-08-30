@@ -229,10 +229,15 @@
 #define POICA_P_LANG_INTERFACE_MUT_NAME(name) BOOST_PP_CAT(name, Mut)
 
 #define poicaVCall(interface_obj, method_name, ...)                                                \
-    BOOST_PP_IF(                                                                                   \
-        BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                                           \
-        (interface_obj).poica_p_vtable->method_name((interface_obj).poica_p_self),                 \
-        (interface_obj).poica_p_vtable->method_name((interface_obj).poica_p_self, __VA_ARGS__))
+    BOOST_PP_IF(BOOST_VMD_IS_EMPTY(__VA_ARGS__),                                                   \
+                POICA_P_LANG_INTERFACE_V_CALL_EMPTY,                                               \
+                POICA_P_LANG_INTERFACE_V_CALL_NON_EMPTY)                                           \
+    (interface_obj, method_name, __VA_ARGS__)
+
+#define POICA_P_LANG_INTERFACE_V_CALL_EMPTY(interface_obj, method_name, ...)                       \
+    (interface_obj).poica_p_vtable->method_name((interface_obj).poica_p_self)
+#define POICA_P_LANG_INTERFACE_V_CALL_NON_EMPTY(interface_obj, method_name, ...)                   \
+    (interface_obj).poica_p_vtable->method_name((interface_obj).poica_p_self, __VA_ARGS__)
 
 #define POICA_P_LANG_INTERFACE_DEF_NEW_I_OBJ(                                                      \
     interface_name, implementer_name, implementer_vtable_name, self_qualifier)                     \

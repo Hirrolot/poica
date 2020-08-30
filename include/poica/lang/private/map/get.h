@@ -52,7 +52,12 @@
 
 #define POICA_P_LANG_MAP_GET_VISIT_NOT_FOUND_YET(key, item)                                        \
     BOOST_PP_IF(POICA_P_LANG_MAP_IS_KEY_OF_ITEM(key, item),                                        \
-                (ALREADY_FOUND)(key)(POICA_P_LANG_MAP_ITEM_VALUE(item)),                           \
-                (NOT_FOUND_YET)(key))
+                POICA_P_LANG_MAP_GET_VISIT_NOT_FOUND_YET_KEY_OF_ITEM,                              \
+                POICA_P_LANG_MAP_GET_VISIT_NOT_FOUND_NOT_YET_KEY_OF_ITEM)                          \
+    (key, item)
+
+#define POICA_P_LANG_MAP_GET_VISIT_NOT_FOUND_YET_KEY_OF_ITEM(key, item)                            \
+    (ALREADY_FOUND)(key)(POICA_P_LANG_MAP_ITEM_VALUE(item))
+#define POICA_P_LANG_MAP_GET_VISIT_NOT_FOUND_NOT_YET_KEY_OF_ITEM(key, item) (NOT_FOUND_YET)(key)
 
 #endif // POICA_LANG_PRIVATE_MAP_GET_H

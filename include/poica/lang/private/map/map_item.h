@@ -48,8 +48,11 @@
 
 #define POICA_P_LANG_MAP_MAP_ITEM_VISIT_AUX(mapping, aux_data, key, item)                          \
     BOOST_PP_IF(POICA_P_LANG_MAP_IS_KEY_OF_ITEM(key, item),                                        \
-                POICA_P_LANG_MAP_MAP_ITEM_REPLACE(mapping, aux_data, item),                        \
-                item)
+                POICA_P_LANG_MAP_MAP_ITEM_REPLACE,                                                 \
+                POICA_P_LANG_MAP_MAP_ITEM_VISIT_AUX_NOT_KEY_OF_ITEM)                               \
+    (mapping, aux_data, item)
+
+#define POICA_P_LANG_MAP_MAP_ITEM_VISIT_AUX_NOT_KEY_OF_ITEM(_mapping, _aux_data, item) item
 
 #define POICA_P_LANG_MAP_MAP_ITEM_REPLACE(mapping, aux_data, item)                                 \
     POICA_P_LANG_MAP_ITEM(POICA_P_LANG_MAP_ITEM_KEY(item),                                         \
