@@ -1,4 +1,4 @@
-> This repository is archived due to the increasing complexity of extending C with macros.
+> This repository is abandoned. See https://github.com/Hirrolot/macrolop, the successor.
 
 # poica
 [![CI](https://github.com/Hirrolot/poica/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/poica/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
